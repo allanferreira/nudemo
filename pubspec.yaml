@@ -31,43 +31,43 @@ flutter:
     - family: OpenSans
       fonts:
         # light/regular (weight: 300, style: normal/regular/plain)
-        - asset: fonts/OpenSans-Light.ttf
+        - asset: fonts/OpenSans_Light.ttf
           weight: 300
         # light/italic (weight: 300, style: light)
-        - asset: fonts/OpenSans-LightItalic.ttf
+        - asset: fonts/OpenSans_LightItalic.ttf
           weight: 300
           style: italic
 
         # regular/regular (weight: 400 [default], style: normal/regular/plain [default])
-        - asset: fonts/OpenSans-Regular.ttf
+        - asset: fonts/OpenSans_Regular.ttf
         # regular/italic (weight: 400, style: italic)
-        - asset: fonts/OpenSans-Italic.ttf
+        - asset: fonts/OpenSans_Italic.ttf
           style: italic
 
         # medium/regular (weight: 500, style: normal/regular/plain)
-        - asset: fonts/OpenSans-SemiBold.ttf
+        - asset: fonts/OpenSans_SemiBold.ttf
           weight: 500
         # medium/italic (weight: 500, style: italic)
-        - asset: fonts/OpenSans-SemiBoldItalic.ttf
+        - asset: fonts/OpenSans_SemiBoldItalic.ttf
           weight: 500
           style: italic
 
         # bold/regular (weight: 700, style: normal/regular/plain)
-        - asset: fonts/OpenSans-Bold.ttf
+        - asset: fonts/OpenSans_Bold.ttf
           weight: 700
         # bold/italic (weight: 700, style: italic)
-        - asset: fonts/OpenSans-BoldItalic.ttf
+        - asset: fonts/OpenSans_BoldItalic.ttf
           weight: 700
           style: italic
 
         # bold/regular (weight: 900, style: normal/regular/plain)
-        - asset: fonts/OpenSans-ExtraBold.ttf
+        - asset: fonts/OpenSans_ExtraBold.ttf
           weight: 900
         # bold/italic (weight: 900, style: italic)
-        - asset: fonts/OpenSans-ExtraBoldItalic.ttf
+        - asset: fonts/OpenSans_ExtraBoldItalic.ttf
           weight: 900
           style: italic
 
     - family: Fredericka The Great
       fonts:
-        - asset: fonts/FrederickatheGreat-Regular.ttf
+        - asset: fonts/FrederickatheGreat_Regular.ttf
