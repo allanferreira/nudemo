@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:nudemo/themes/theme.dart';
+import 'package:nudemo/counter.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+      // Provide the model to all widgets within the app. We're using
+      // ChangeNotifierProvider because that's a simple way to rebuild
+      // widgets when a model changes.
+      ChangeNotifierProvider(
+        // Initialize the model in the builder. That way, Provider
+        // can own Counter's lifecycle, making sure to call `dispose`
+        // when not needed anymore.
+        create: (context) => Counter(),
+        child: MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -16,23 +29,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
+class MyHomePage extends StatelessWidget {
   final String title;
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  MyHomePage({Key key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: Center(
         child: Column(
@@ -60,18 +60,26 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: TextStyle(
-                fontFamily: 'Fredericka The Great',
-                fontSize: 80,
+            // Consumer looks for an ancestor Provider widget
+            // and retrieves its model (Counter, in this case).
+            Consumer<Counter>(
+              builder: (context, counter, child) => Text(
+                '${counter.value}',
+                key: Key('counter'),
+                style: TextStyle(
+                  fontFamily: 'Fredericka The Great',
+                  fontSize: 80,
+                ),
               ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        // Provider.of is another way to access the model object held
+        // by an ancestor Provider.
+        onPressed: () =>
+            Provider.of<Counter>(context, listen: false).increment(),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
