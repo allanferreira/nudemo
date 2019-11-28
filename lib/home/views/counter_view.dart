@@ -15,8 +15,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Check color system mode (`Brightness.light` or `Brightness.dark`)
-    Brightness brightness = MediaQuery.of(context).platformBrightness;
+    // Check system color and setup the theme
+    var brightness = MediaQuery.of(context).platformBrightness;
     print('Platform Brightness: $brightness');
 
     return Scaffold(
@@ -57,6 +57,11 @@ class MyHomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         // Provider.of is another way to access the model object held
         // by an ancestor Provider.
+        //
+        // By using `listen: false` below, we are disabling that
+        // behavior. We are only calling a function here, and so we don't care
+        // about the current value. Without `listen: false`, we'd be rebuilding
+        // the whole MyHomePage whenever Counter notifies listeners.
         onPressed: () =>
             Provider.of<BasicCounterPresenter>(context, listen: false)
                 .onfloatingButtonClicked(),
