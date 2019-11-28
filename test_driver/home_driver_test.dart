@@ -8,7 +8,6 @@ void main() {
     // be the same as the Strings we used for the Keys in step 1.
     final counterTextFinder = find.byValueKey('counter');
     final buttonFinder = find.byValueKey('increment');
-    final imageFinder = find.byValueKey('logo');
 
     FlutterDriver driver;
 

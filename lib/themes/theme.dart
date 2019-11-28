@@ -92,7 +92,7 @@ class NuThemes {
         return _darkTheme;
       case NuThemeKeys.CHISTMAS:
         return _defaultTheme; // Sorry! Not implemented yet 🤦‍♂
-      case NuThemeKeys.CHISTMAS:
+      case NuThemeKeys.CHISTMAS_DARK:
         return _darkTheme; // Sorry! Not implemented yet 🤦‍♂
       default:
         return _defaultTheme;
