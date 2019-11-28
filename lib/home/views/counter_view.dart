@@ -16,8 +16,8 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Check system color and setup the theme
-    var brightness = MediaQuery.of(context).platformBrightness;
-    print('Platform Brightness: $brightness');
+    // var brightness = MediaQuery.of(context).platformBrightness;
+    // print('Platform Brightness: $brightness');
 
     return Scaffold(
       appBar: AppBar(
@@ -34,6 +34,7 @@ class MyHomePage extends StatelessWidget {
                 fit: BoxFit.cover,
                 // color: Colors.white,
                 color: Theme.of(context).accentColor,
+                key: Key('logo'),
               ),
             ),
             Text(
@@ -66,6 +67,7 @@ class MyHomePage extends StatelessWidget {
             Provider.of<BasicCounterPresenter>(context, listen: false)
                 .onfloatingButtonClicked(),
         tooltip: 'Increment',
+        key: Key('increment'),
         child: Icon(Icons.add),
       ),
     );

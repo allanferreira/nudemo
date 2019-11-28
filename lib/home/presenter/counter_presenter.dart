@@ -27,13 +27,13 @@ class BasicCounterPresenter with ChangeNotifier implements CounterPresenter {
 
   void _increment() {
     this._counterViewModel.value++;
-    print('Value++: ${getValue()}');
+    // print('Value++: ${getValue()}');
     notifyListeners();
   }
 
   void _decrement() {
     this._counterViewModel.value--;
-    print('Value--: ${getValue()}');
+    // print('Value--: ${getValue()}');
     notifyListeners();
   }
 
