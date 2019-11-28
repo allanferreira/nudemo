@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:nudemo/themes/theme.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -8,9 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: defaultTheme,
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -36,6 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Check color system mode (`Brightness.light` or `Brightness.dark`)
+    var brightness = MediaQuery.of(context).platformBrightness;
+    print('Platform Brightness: $brightness');
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -47,19 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: 60,
               child: Image.asset(
-              'assets/images/logo_white.png',
-              fit: BoxFit.cover,
-              color: Colors.purple,
-            ),
+                'assets/images/logo_white.png',
+                fit: BoxFit.cover,
+                // color: Colors.white,
+                color: Theme.of(context).accentColor,
+              ),
             ),
             Text(
               'You have pushed the button this many times:',
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-                fontWeight: FontWeight.w300,
-                fontStyle: FontStyle.italic,
-                fontSize: 20,
-              ),
             ),
             Text(
               '$_counter',
