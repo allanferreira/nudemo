@@ -3,9 +3,6 @@ workflows:
     name: Main Workflow
     environment:
       flutter: stable
-    cache:
-      cache_paths:
-        - $FCI_BUILD_DIR/build
     triggering:
       events:
         - push
