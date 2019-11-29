@@ -1,6 +1,6 @@
 # Nudemo
 
-[![Codemagic build status](https://api.codemagic.io/apps/5de0594954bf42000aeaed79/5de0594954bf42000aeaed78/status_badge.svg)](https://codemagic.io/apps/5de0594954bf42000aeaed79/5de0594954bf42000aeaed78/latest_build) [![Flutter version](https://img.shields.io/badge/flutter-v1.9.1+hotfix.6-blue?logo=flutter)](https://flutter.dev/docs/get-started/install) [![GitHub license](https://img.shields.io/github/license/chinnonsantos/nudemo)](https://choosealicense.com/licenses/mit/) [![Twitter follow](https://img.shields.io/twitter/follow/chinnonsantos?label=follow&style=flat&logo=twitter)](https://twitter.com/intent/follow?screen_name=chinnonsantos) [![Slack channel](https://img.shields.io/badge/slack-%23geral-blueviolet?logo=slack)](https://join.slack.com/t/chinnonsantos-nudemo/signup) [![Open source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![Codemagic build status](https://api.codemagic.io/apps/5de0594954bf42000aeaed79/5de0594954bf42000aeaed78/status_badge.svg)](https://codemagic.io/apps/5de0594954bf42000aeaed79/5de0594954bf42000aeaed78/latest_build) [![Flutter version](https://img.shields.io/badge/flutter-v1.9.1+hotfix.6-blue?logo=flutter)](https://flutter.dev/docs/get-started/install) [![GitHub license](https://img.shields.io/github/license/chinnonsantos/nudemo)](https://choosealicense.com/licenses/mit/) [![Twitter follow](https://img.shields.io/twitter/follow/chinnonsantos?label=follow&style=flat&logo=twitter)](https://twitter.com/intent/follow?screen_name=chinnonsantos) [![Slack channel](https://img.shields.io/badge/slack-%23nudemo-blueviolet?logo=slack)](https://join.slack.com/t/chinnonsantos-nudemo/signup) [![Open source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 ## Prerequisites
 
@@ -95,8 +95,11 @@ To runs Flutter integration tests on real devices in cloud, use the **Sylph**.
       sylph
 
     > Sylph uses the [`sylph.yaml`][] file in this repository to configure and run device on AWS.
-    >> By default, it has only two Android devices (Samsung Galaxy S9+ and Samsung Galaxy J7).
+    >> Android devices: **Samsung Galaxy S10+**; **Samsung Galaxy Note 10**; **Sony Xperia XZ3**.
     >> Running iOS devices requires an [Apple Developer Certificate] (Team ID), We don't cover this steps!
+
+    ![Screenshot from 2019-11-28 22-09-54](https://user-images.githubusercontent.com/3258293/69837139-21041c80-122c-11ea-8180-de296a3281fb.png)
+
 
 [Sylph]: https://github.com/mmcc007/sylph
 [AWS CLI]: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
@@ -108,6 +111,8 @@ To runs Flutter integration tests on real devices in cloud, use the **Sylph**.
 Execute the same process when previous step **"Drive testing on AWS Device Farm with Sylph"**.
 
 When you can run local drive testing with Sylph on AWS Device Farm, see [this article] to learn how to configure Codemagic console to automate the process.
+
+![Screenshot from 2019-11-28 22-10-44](https://user-images.githubusercontent.com/3258293/69837305-d040f380-122c-11ea-9daf-f94a36cf7639.png)
 
 [this article]: https://blog.codemagic.io/flutter-ci-cd-with-codemagic-sylph-aws-device-farm/
 
