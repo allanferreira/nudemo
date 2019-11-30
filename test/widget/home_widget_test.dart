@@ -25,6 +25,7 @@ void main() {
 
       /// Tap the  `+` icon and trigger a frame.
       await tester.tap(find.byIcon(Icons.add));
+
       /// Rebuild the widget with the new value.
       await tester.pump();
 
