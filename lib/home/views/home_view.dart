@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
             RaisedButton(
               key: Key('credit-card-button'),
               onPressed: () {
-                Routes(context).navigatorPush(context, '/credit-card');
+                Routes(context).navigatorPush(context, '/credit-card/');
               },
               child: Text('Cartão de crédito'),
             ),
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
             RaisedButton(
               key: Key('nuconta-button'),
               onPressed: () {
-                Routes(context).navigatorPush(context, '/nuconta');
+                Routes(context).navigatorPush(context, '/nuconta/');
               },
               child: Text('NuConta'),
             ),
@@ -67,9 +67,19 @@ class HomePage extends StatelessWidget {
             RaisedButton(
               key: Key('rewards-button'),
               onPressed: () {
-                Routes(context).navigatorPush(context, '/rewards');
+                Routes(context).navigatorPush(context, '/rewards/');
               },
               child: Text('Nubank rewards'),
+            ),
+            Divider(
+              height: 10,
+            ),
+            RaisedButton(
+              key: Key('helpme-button'),
+              onPressed: () {
+                Routes(context).navigatorPush(context, '/helpme/');
+              },
+              child: Text('Me ajuda'),
             ),
             Divider(
               height: 10,
