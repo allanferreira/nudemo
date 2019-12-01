@@ -4,10 +4,10 @@
 
 import 'package:flutter/foundation.dart';
 
-import 'package:nudemo/home/viewmodel/counter_viewmodel.dart';
+import 'package:nudemo/construction/viewmodel/construction_viewmodel.dart';
 
 /// Abstract classes
-abstract class CounterPresenter {
+abstract class ConstructionPresenter {
   /// Abstract methods
   void onfloatingButtonClicked();
 }
@@ -16,23 +16,25 @@ abstract class CounterPresenter {
 ///
 /// [ChangeNotifier] is a class in `flutter:foundation`.
 /// [Counter] does _not_ depend on Provider.
-class BasicCounterPresenter with ChangeNotifier implements CounterPresenter {
-  CounterViewModel _counterViewModel;
+class BasicConstructionPresenter
+    with ChangeNotifier
+    implements ConstructionPresenter {
+  ConstructionViewModel _constructionViewModel;
 
-  BasicCounterPresenter() {
-    this._counterViewModel = CounterViewModel(0);
+  BasicConstructionPresenter() {
+    this._constructionViewModel = ConstructionViewModel(0);
   }
 
-  int getValue() => this._counterViewModel.value;
+  int getValue() => this._constructionViewModel.counter;
 
   void _increment() {
-    this._counterViewModel.value++;
+    this._constructionViewModel.counter++;
     // print('Value++: ${getValue()}');
     notifyListeners();
   }
 
   void _decrement() {
-    this._counterViewModel.value--;
+    this._constructionViewModel.counter--;
     // print('Value--: ${getValue()}');
     notifyListeners();
   }

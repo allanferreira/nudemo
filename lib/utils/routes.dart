@@ -1,89 +1,91 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
-import 'package:nudemo/home/presenter/counter_presenter.dart';
-import 'package:nudemo/home/views/counter_view.dart';
+import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/home/views/home_view.dart';
+import 'package:nudemo/construction/presenter/construction_presenter.dart';
+import 'package:nudemo/construction/views/construction_view.dart';
 
 final Map<String, Widget Function(BuildContext)> routes = {
   // - Backbone (Home page)
-  '/': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/': (BuildContext context) => HomePage(
+        HomePresenter(),
         title: 'NU {customer}',
       ),
   // - First access (we don't cover that in this demo!)
   // '/register': (BuildContext context) => RegisterPage(),
   // '/signup': (BuildContext context) => SignUpPage(),
   // - Carousel slider main blocks
-  '/credit-card': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/credit-card': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Cartão de crédito',
       ),
-  '/nuconta': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/nuconta': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'NuConta',
       ),
-  '/rewards': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/rewards': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Nubank rewards',
       ),
   // - All other pages
-  '/helpme': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/helpme': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Me ajuda',
       ),
-  '/account': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/account': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Perfil',
       ),
-  '/nuconta-configs': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/nuconta-configs': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Configurar NuConta',
       ),
-  '/credit-card-configs': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/credit-card-configs': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Configurar cartão',
       ),
-  '/app-configs': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/app-configs': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Configurações do app',
       ),
-  '/transfer': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/transfer': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Transferir',
       ),
-  '/virtual-credit-card': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/virtual-credit-card': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Cartão virtual',
       ),
-  '/pay': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/pay': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Pagar',
       ),
-  '/blocking-credit-card': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/blocking-credit-card': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Bloquear cartão',
       ),
-  '/deposit': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/deposit': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Depositar',
       ),
-  '/charge': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/charge': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Cobrar',
       ),
-  '/mobile-recharge': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/mobile-recharge': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Recarga de celular',
       ),
-  '/refer-friends': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/refer-friends': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Indicar amigos',
       ),
-  '/adjust-limit': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/adjust-limit': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Ajustar limite',
       ),
-  '/organize-shortcuts': (BuildContext context) => MyHomePage(
-        BasicCounterPresenter(),
+  '/organize-shortcuts': (BuildContext context) => ConstructionPage(
+        BasicConstructionPresenter(),
         title: 'Organizar atalhos',
       ),
 };

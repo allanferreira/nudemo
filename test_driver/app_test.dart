@@ -2,10 +2,9 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Counter App', () {
-    // First, define the Finders and use them to locate widgets from the
-    // test suite. Note: the Strings provided to the `byValueKey` method must
-    // be the same as the Strings we used for the Keys in step 1.
+  group('[Driver -> App]', () {
+    // First, define the Finders and use them to locate widgets
+    // from the test suite.
     final counterTextFinder = find.byValueKey('counter');
     final buttonFinder = find.byValueKey('increment');
 

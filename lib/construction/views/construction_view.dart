@@ -5,13 +5,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:nudemo/home/presenter/counter_presenter.dart';
+import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
-class MyHomePage extends StatelessWidget {
-  final CounterPresenter presenter;
+class ConstructionPage extends StatelessWidget {
+  final ConstructionPresenter presenter;
   final String title;
 
-  MyHomePage(this.presenter, {Key key, this.title}) : super(key: key);
+  ConstructionPage(this.presenter, {Key key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +37,59 @@ class MyHomePage extends StatelessWidget {
                 key: Key('logo'),
               ),
             ),
+            Divider(
+              height: 20,
+            ),
+            RichText(
+              key: Key('attencion'),
+              text: TextSpan(
+                text: 'This page has ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: 'NOT',
+                    style: TextStyle(
+                      backgroundColor: Colors.red,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' been implemented ',
+                  ),
+                  TextSpan(
+                    text: 'yet',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.red,
+                      decorationStyle: TextDecorationStyle.wavy,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '!!!',
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              height: 20,
+            ),
             Text(
               'You have pushed the button this many times:',
             ),
+            Divider(
+              height: 20,
+            ),
             // Consumer looks for an ancestor Provider widget
             // and retrieves its model (Counter, in this case).
-            Consumer<BasicCounterPresenter>(
+            Consumer<BasicConstructionPresenter>(
               builder: (context, counter, child) => Text(
                 '${counter.getValue()}',
                 key: Key('counter'),
                 style: TextStyle(
                   fontFamily: 'Fredericka The Great',
-                  fontSize: 80,
+                  fontSize: 100,
                 ),
               ),
             ),
@@ -62,11 +103,11 @@ class MyHomePage extends StatelessWidget {
         // By using `listen: false` below, we are disabling that
         // behavior. We are only calling a function here, and so we don't care
         // about the current value. Without `listen: false`, we'd be rebuilding
-        // the whole MyHomePage whenever Counter notifies listeners.
+        // the whole ConstructionPage whenever Counter notifies listeners.
         onPressed: () =>
-            Provider.of<BasicCounterPresenter>(context, listen: false)
+            Provider.of<BasicConstructionPresenter>(context, listen: false)
                 .onfloatingButtonClicked(),
-        tooltip: 'Increment',
+        tooltip: 'Incrementar',
         key: Key('increment'),
         child: Icon(Icons.add),
       ),

@@ -3,19 +3,13 @@ import 'package:provider/provider.dart';
 
 import 'package:nudemo/themes/theme.dart';
 import 'package:nudemo/utils/routes.dart';
-import 'package:nudemo/home/presenter/counter_presenter.dart';
+import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() => runApp(
       MultiProvider(
         providers: [
-          // Provide the model to all widgets within the app. We're using
-          // ChangeNotifierProvider because that's a simple way to rebuild
-          // widgets when a model changes.
           ChangeNotifierProvider(
-            // Initialize the model in the builder. That way, Provider
-            // can own Counter's lifecycle, making sure to call `dispose`
-            // when not needed anymore.
-            create: (context) => BasicCounterPresenter(),
+            create: (context) => BasicConstructionPresenter(),
           ),
         ],
         child: MyApp(),
@@ -23,12 +17,13 @@ void main() => runApp(
     );
 
 class MyApp extends StatelessWidget {
+  final NuThemes nuThemes = NuThemes();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: NuThemes.getThemeFromKey(NuThemeKeys.DEFAULT),
+      theme: nuThemes.getThemeFromKey(NuThemeKeys.DEFAULT),
       // MaterialApp contains our top-level Navigator
       initialRoute: '/',
       routes: routes,

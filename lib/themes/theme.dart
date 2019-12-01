@@ -18,7 +18,7 @@ enum NuThemeKeys {
 }
 
 class NuThemes {
-  static final ThemeData _defaultTheme = ThemeData(
+  final ThemeData defaultTheme = ThemeData(
     // Define the default brightness and colors.
     brightness: Brightness.dark,
     primaryColor: Colors.purple,
@@ -51,7 +51,7 @@ class NuThemes {
     ),
   );
 
-  static final ThemeData _darkTheme = ThemeData(
+  final ThemeData darkTheme = ThemeData(
     // Define the default brightness and colors.
     brightness: Brightness.dark,
     primaryColor: Colors.purple,
@@ -86,16 +86,16 @@ class NuThemes {
     ),
   );
 
-  static ThemeData getThemeFromKey(NuThemeKeys themeKey) {
+  ThemeData getThemeFromKey(NuThemeKeys themeKey) {
     switch (themeKey) {
       case NuThemeKeys.DARK:
-        return _darkTheme;
+        return darkTheme;
       case NuThemeKeys.CHISTMAS:
-        return _defaultTheme; // Sorry! Not implemented yet 🤦‍♂
+        return defaultTheme; // Sorry! Not implemented yet 🤦‍♂
       case NuThemeKeys.CHISTMAS_DARK:
-        return _darkTheme; // Sorry! Not implemented yet 🤦‍♂
+        return darkTheme; // Sorry! Not implemented yet 🤦‍♂
       default:
-        return _defaultTheme;
+        return defaultTheme;
     }
   }
 }
