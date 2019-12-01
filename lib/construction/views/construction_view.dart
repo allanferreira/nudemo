@@ -86,7 +86,7 @@ class ConstructionPage extends StatelessWidget {
             Consumer<BasicConstructionPresenter>(
               builder: (context, counter, child) => Text(
                 '${counter.getValue()}',
-                key: Key('counter'),
+                key: Key('counter-text'),
                 style: TextStyle(
                   fontFamily: 'Fredericka The Great',
                   fontSize: 100,
@@ -108,7 +108,7 @@ class ConstructionPage extends StatelessWidget {
             Provider.of<BasicConstructionPresenter>(context, listen: false)
                 .onfloatingButtonClicked(),
         tooltip: 'Incrementar',
-        key: Key('increment'),
+        key: Key('increment-button'),
         child: Icon(Icons.add),
       ),
     );

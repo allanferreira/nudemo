@@ -28,64 +28,64 @@ final Map<String, Widget Function(BuildContext)> routes = {
         title: 'Nubank rewards',
       ),
   // - All other pages
-  '/helpme': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Me ajuda',
-      ),
-  '/account': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Perfil',
-      ),
-  '/nuconta-configs': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Configurar NuConta',
-      ),
-  '/credit-card-configs': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Configurar cartão',
-      ),
-  '/app-configs': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Configurações do app',
-      ),
-  '/transfer': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Transferir',
-      ),
-  '/virtual-credit-card': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Cartão virtual',
-      ),
-  '/pay': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Pagar',
-      ),
-  '/blocking-credit-card': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Bloquear cartão',
-      ),
-  '/deposit': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Depositar',
-      ),
-  '/charge': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Cobrar',
-      ),
-  '/mobile-recharge': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Recarga de celular',
-      ),
-  '/refer-friends': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Indicar amigos',
-      ),
-  '/adjust-limit': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Ajustar limite',
-      ),
-  '/organize-shortcuts': (BuildContext context) => ConstructionPage(
-        BasicConstructionPresenter(),
-        title: 'Organizar atalhos',
-      ),
+  // '/helpme': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Me ajuda',
+  //     ),
+  // '/account': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Perfil',
+  //     ),
+  // '/nuconta-configs': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Configurar NuConta',
+  //     ),
+  // '/credit-card-configs': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Configurar cartão',
+  //     ),
+  // '/app-configs': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Configurações do app',
+  //     ),
+  // '/transfer': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Transferir',
+  //     ),
+  // '/virtual-credit-card': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Cartão virtual',
+  //     ),
+  // '/pay': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Pagar',
+  //     ),
+  // '/blocking-credit-card': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Bloquear cartão',
+  //     ),
+  // '/deposit': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Depositar',
+  //     ),
+  // '/charge': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Cobrar',
+  //     ),
+  // '/mobile-recharge': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Recarga de celular',
+  //     ),
+  // '/refer-friends': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Indicar amigos',
+  //     ),
+  // '/adjust-limit': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Ajustar limite',
+  //     ),
+  // '/organize-shortcuts': (BuildContext context) => ConstructionPage(
+  //       BasicConstructionPresenter(),
+  //       title: 'Organizar atalhos',
+  //     ),
 };

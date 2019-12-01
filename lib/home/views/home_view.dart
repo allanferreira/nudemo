@@ -29,19 +29,23 @@ class HomePage extends StatelessWidget {
               width: 60,
               child: Image.asset(
                 'assets/images/logo_white.png',
+                key: Key('logo'),
                 fit: BoxFit.cover,
                 // color: Colors.white,
                 color: Theme.of(context).accentColor,
-                key: Key('logo'),
               ),
             ),
             Text(
               'Backbone',
+              key: Key('home-text'),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key: Key('credit-card-button'),
+        tooltip: 'Cartão de crédito',
+        child: Icon(Icons.link),
         onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -53,9 +57,6 @@ class HomePage extends StatelessWidget {
         ),
         // This format did not pass the tests 🤷‍♂️
         // Navigator.of(context).pushNamed('/credit-card'),
-        tooltip: 'Cartão de crédito',
-        key: Key('credit-card'),
-        child: Icon(Icons.link),
       ),
     );
   }

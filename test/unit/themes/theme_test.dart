@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:test/test.dart';
 
 import 'package:nudemo/themes/theme.dart';
@@ -17,8 +16,7 @@ void main() {
     });
 
     test('check theme by key [NuThemeKeys.DARK]', () {
-      expect(nuThemes.getThemeFromKey(NuThemeKeys.DARK),
-          NuThemes().darkTheme);
+      expect(nuThemes.getThemeFromKey(NuThemeKeys.DARK), NuThemes().darkTheme);
     });
 
     test('check theme by key [NuThemeKeys.CHISTMAS]', () {
