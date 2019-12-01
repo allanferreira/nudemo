@@ -25,24 +25,6 @@ void main() {
 
       /// verify if have text `NU {customer}` (route `/`).
       expect(find.text(title), findsOneWidget);
-
-      /// verify if have any `Container` widget.
-      expect(find.byType(Container), findsWidgets);
-
-      /// verify if have a `Image` widget.
-      expect(find.byType(Image), findsOneWidget);
-
-      /// verify if have text `Backbone`.
-      expect(find.text('Backbone'), findsOneWidget);
-
-      /// verify if have a `Floating Action Button` widget.
-      expect(find.byType(FloatingActionButton), findsOneWidget);
-
-      /// tap the `🔗` icon and trigger a frame.
-      await tester.tap(find.byIcon(Icons.link));
-
-      /// rebuild the widget with the new value.
-      await tester.pump();
     });
 
     testWidgets('Smoke test - ${title} [HomePage]',
@@ -64,9 +46,6 @@ void main() {
         ),
       );
 
-      /// verify if have text `NU {customer}` (route `/`).
-      expect(find.text(title), findsOneWidget);
-
       /// verify if have any `Container` widget.
       expect(find.byType(Container), findsWidgets);
 
@@ -76,11 +55,29 @@ void main() {
       /// verify if have text `Backbone`.
       expect(find.text('Backbone'), findsOneWidget);
 
-      /// verify if have a `Floating Action Button` widget.
-      expect(find.byType(FloatingActionButton), findsOneWidget);
+      /// verify if have a Button widget with `credit-card-button` key.
+      expect(find.byKey(Key('credit-card-button')), findsOneWidget);
 
-      /// tap the `🔗` icon and trigger a frame.
-      await tester.tap(find.byIcon(Icons.link));
+      /// verify if have a Button widget with `nuconta-button` key.
+      expect(find.byKey(Key('nuconta-button')), findsOneWidget);
+
+      /// verify if have a Button widget with `credit-card-button` key.
+      expect(find.byKey(Key('rewards-button')), findsOneWidget);
+
+      /// tap the `credit-card-button` button and trigger a frame.
+      await tester.tap(find.byKey(Key('credit-card-button')));
+
+      /// rebuild the widget with the new value.
+      await tester.pump();
+
+      /// tap the `nuconta-button` button and trigger a frame.
+      await tester.tap(find.byKey(Key('nuconta-button')));
+
+      /// rebuild the widget with the new value.
+      await tester.pump();
+
+      /// tap the `rewards-button` button and trigger a frame.
+      await tester.tap(find.byKey(Key('rewards-button')));
 
       /// rebuild the widget with the new value.
       await tester.pump();

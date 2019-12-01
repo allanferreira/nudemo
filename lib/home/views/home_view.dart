@@ -5,9 +5,8 @@
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 
+import 'package:nudemo/utils/routes.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
-import 'package:nudemo/construction/presenter/construction_presenter.dart';
-import 'package:nudemo/construction/views/construction_view.dart';
 
 class HomePage extends StatelessWidget {
   final HomePresenter presenter;
@@ -19,7 +18,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(
+          title,
+          key: Key('title-text'),
+        ),
       ),
       body: Center(
         child: Column(
@@ -39,24 +41,41 @@ class HomePage extends StatelessWidget {
               'Backbone',
               key: Key('home-text'),
             ),
+            Divider(
+              height: 10,
+            ),
+            RaisedButton(
+              key: Key('credit-card-button'),
+              onPressed: () {
+                Routes(context).navigatorPush(context, '/credit-card');
+              },
+              child: Text('Cartão de crédito'),
+            ),
+            Divider(
+              height: 10,
+            ),
+            RaisedButton(
+              key: Key('nuconta-button'),
+              onPressed: () {
+                Routes(context).navigatorPush(context, '/nuconta');
+              },
+              child: Text('NuConta'),
+            ),
+            Divider(
+              height: 10,
+            ),
+            RaisedButton(
+              key: Key('rewards-button'),
+              onPressed: () {
+                Routes(context).navigatorPush(context, '/rewards');
+              },
+              child: Text('Nubank rewards'),
+            ),
+            Divider(
+              height: 10,
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        key: Key('credit-card-button'),
-        tooltip: 'Cartão de crédito',
-        child: Icon(Icons.link),
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ConstructionPage(
-              BasicConstructionPresenter(),
-              title: 'Cartão de crédito',
-            ),
-          ),
-        ),
-        // This format did not pass the tests 🤷‍♂️
-        // Navigator.of(context).pushNamed('/credit-card'),
       ),
     );
   }

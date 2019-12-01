@@ -13,6 +13,16 @@ class ConstructionPage extends StatelessWidget {
 
   ConstructionPage(this.presenter, {Key key, this.title}) : super(key: key);
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  _showSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      key: Key('snackBar'),
+      content: Text('Filtering not supported yet!'),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     // Check system color and setup the theme
@@ -20,8 +30,34 @@ class ConstructionPage extends StatelessWidget {
     // print('Platform Brightness: $brightness');
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(title),
+        leading: IconButton(
+          key: Key('go-back-button'),
+          icon: Icon(
+            Icons.close,
+            color: Theme.of(context).accentColor,
+          ),
+          tooltip: 'Go back',
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          title,
+          key: Key('title-text'),
+        ),
+        actions: <Widget>[
+          IconButton(
+            key: Key('filter-button'),
+            icon: Icon(
+              Icons.search,
+              color: Theme.of(context).accentColor,
+            ),
+            tooltip: 'Filter',
+            onPressed: () {
+              _showSnackBar(context);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -107,7 +143,7 @@ class ConstructionPage extends StatelessWidget {
         onPressed: () =>
             Provider.of<BasicConstructionPresenter>(context, listen: false)
                 .onfloatingButtonClicked(),
-        tooltip: 'Incrementar',
+        tooltip: 'Increment',
         key: Key('increment-button'),
         child: Icon(Icons.add),
       ),

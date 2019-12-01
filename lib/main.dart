@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: nuThemes.getThemeFromKey(NuThemeKeys.DEFAULT),
       // MaterialApp contains our top-level Navigator
       initialRoute: '/',
-      routes: routes,
+      routes: Routes(context).routes,
     );
   }
 }

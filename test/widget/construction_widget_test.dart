@@ -29,8 +29,11 @@ void main() {
       /// verify if have text `Cartão de crédito` (route `/credit-card/`).
       expect(find.text(title), findsOneWidget);
 
-      /// verify if have any `Container` widget.
-      expect(find.byType(Container), findsWidgets);
+      /// verify if have any `IconButton` widget to go back.
+      expect(find.byKey(Key('go-back-button')), findsWidgets);
+
+      /// verify if have any `IconButton` widget to filtering.
+      expect(find.byKey(Key('filter-button')), findsWidgets);
 
       /// verify if have a `Image` widget.
       expect(find.byType(Image), findsOneWidget);
@@ -58,6 +61,33 @@ void main() {
       /// Verify that our `counter` has incremented.
       expect(find.text('0'), findsNothing);
       expect(find.text('1'), findsOneWidget);
+
+      /// Tap the `➕` icon 3 times and trigger a frame.
+      await tester.tap(find.byIcon(Icons.add));
+      await tester.tap(find.byIcon(Icons.add));
+      await tester.tap(find.byIcon(Icons.add));
+
+      /// Rebuild the widget with the new value.
+      await tester.pump();
+
+      /// Verify that our `counter` has incremented.
+      expect(find.text('0'), findsOneWidget);
+      expect(find.text('1'), findsNothing);
+
+      /// tap the `🔍` search icon and trigger a frame.
+      await tester.tap(find.byKey(Key('filter-button')));
+
+      /// rebuild the widget with the new value.
+      await tester.pump();
+
+      /// Verify that our snackBar text is `Filtering not supported yet!`.
+      expect(find.text('Filtering not supported yet!'), findsOneWidget);
+
+      /// tap the `⬅️` arrow_back icon and trigger a frame.
+      await tester.tap(find.byKey(Key('go-back-button')));
+
+      /// rebuild the widget with the new value.
+      await tester.pump();
     });
   });
 }
