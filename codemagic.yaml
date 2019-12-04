@@ -17,7 +17,7 @@ workflows:
     scripts:
       - flutter emulators --launch emulator
       - |
-        # set up debug key.properties
+        # set up debug keystore
         rm -f ~/.android/debug.keystore
         keytool -genkeypair \
           -alias androiddebugkey \
@@ -32,7 +32,6 @@ workflows:
         # set up local properties
         echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
       - flutter packages pub get
-      - flutter format --set-exit-if-changed lib test test_driver
       - flutter analyze --no-pub
       - flutter drive --target=test_driver/app.dart
       - flutter test --no-pub
