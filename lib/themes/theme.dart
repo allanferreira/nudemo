@@ -21,10 +21,11 @@ class NuThemes {
   final ThemeData defaultTheme = ThemeData(
     // Define the default brightness and colors.
     brightness: Brightness.dark,
-    primaryColor: Colors.purple,
+    primaryColor: Colors.purple[600],
+    primaryColorLight: Colors.purpleAccent,
     accentColor: Colors.white,
-    backgroundColor: Colors.purple,
-    scaffoldBackgroundColor: Colors.purple,
+    backgroundColor: Colors.purple[600],
+    scaffoldBackgroundColor: Colors.purple[600],
 
     // Define the default font family.
     fontFamily: fontFamily,
@@ -41,11 +42,11 @@ class NuThemes {
         fontStyle: FontStyle.italic,
       ),
       body1: TextStyle(
-        fontSize: 18.0,
+        fontSize: 16.0,
         fontWeight: FontWeight.w300,
       ),
       body2: TextStyle(
-        fontSize: 18.0,
+        fontSize: 12.0,
         fontWeight: FontWeight.w300,
       ),
     ),
@@ -54,8 +55,9 @@ class NuThemes {
   final ThemeData darkTheme = ThemeData(
     // Define the default brightness and colors.
     brightness: Brightness.dark,
-    primaryColor: Colors.purple,
-    accentColor: Colors.purple,
+    primaryColor: Colors.purple[600],
+    primaryColorLight: Colors.purple[600],
+    accentColor: Colors.purple[600],
     backgroundColor: Colors.black,
     scaffoldBackgroundColor: Colors.black,
 
@@ -74,14 +76,14 @@ class NuThemes {
         fontStyle: FontStyle.italic,
       ),
       body1: TextStyle(
-        fontSize: 18.0,
+        fontSize: 16.0,
         fontWeight: FontWeight.w300,
-        color: Colors.purple,
+        color: Colors.purple[600],
       ),
       body2: TextStyle(
-        fontSize: 18.0,
+        fontSize: 12.0,
         fontWeight: FontWeight.w300,
-        color: Colors.purple,
+        color: Colors.purple[600],
       ),
     ),
   );

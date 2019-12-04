@@ -28,7 +28,7 @@ class Routes {
     '/': ScaleRoute(
       page: HomePage(
         HomePresenter(),
-        title: 'NU {customer}',
+        title: '{Customer name}',
       ),
     ),
     // - First access (we don't cover that in this demo!)
@@ -60,30 +60,30 @@ class Routes {
         title: 'Me ajuda',
       ),
     ),
-    // '/account/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Perfil',
-    //   ),
-    // ),
-    // '/nuconta-configs/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Configurar NuConta',
-    //   ),
-    // ),
-    // '/credit-card-configs/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Configurar cartão',
-    //   ),
-    // ),
-    // '/app-configs/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Configurações do app',
-    //   ),
-    // ),
+    '/profile/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Perfil',
+      ),
+    ),
+    '/nuconta-configs/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Configurar NuConta',
+      ),
+    ),
+    '/card-configs/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Configurar cartão',
+      ),
+    ),
+    '/app-configs/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Configurações do app',
+      ),
+    ),
     // '/transfer/': SlideTopRoute(
     //   page: ConstructionPage(
     //     BasicConstructionPresenter(),

@@ -30,12 +30,12 @@ void main() {
 
     test('starts at `Home page`', () async {
       /// Use the `driver.getText` method to verify the app starts at `Home`.
-      expect(await driver.getText(titleText), "NU {customer}");
+      expect(await driver.getText(titleText), "Chinnon");
     });
 
-    test('go to `/credit-card`, then increments/reset the counter and go back',
+    test('go to `/credit-card/`, then increments/reset the counter and go back',
         () async {
-      /// Go to route `/credit-card`.
+      /// Go to route `/credit-card/`.
       await driver.tap(creditCardButton);
 
       /// Verify the app got to `Cartão de crédito`.
@@ -65,9 +65,9 @@ void main() {
       await driver.tap(goBackButton);
     });
 
-    test('go to `/nuconta`, then increments/reset the counter and go back',
+    test('go to `/nuconta/`, then increments/reset the counter and go back',
         () async {
-      /// Go to route `/nuconta`.
+      /// Go to route `/nuconta/`.
       await driver.tap(nuContaButton);
 
       /// Verify the app got to `NuConta`.
@@ -97,9 +97,9 @@ void main() {
       await driver.tap(goBackButton);
     });
 
-    test('go to `/rewards`, then increments/reset the counter and go back',
+    test('go to `/rewards/`, then increments/reset the counter and go back',
         () async {
-      /// Go to route `/rewards`.
+      /// Go to route `/rewards/`.
       await driver.tap(rewardsButton);
 
       /// Verify the app got to `Nubank rewards`.

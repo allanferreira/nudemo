@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: nuThemes.getThemeFromKey(NuThemeKeys.DEFAULT),
       home: HomePage(
         HomePresenter(),
-        title: 'NU {customer}',
+        title: 'Chinnon',
       ),
     );
   }
