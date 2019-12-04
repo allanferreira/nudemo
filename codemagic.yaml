@@ -2,7 +2,10 @@ workflows:
   main-workflow:
     name: Main Workflow
     environment:
-      flutter: stable
+      flutter: beta
+    cache:
+      cache_paths:
+        - $FCI_BUILD_DIR/build
     triggering:
       events:
         - push
@@ -15,6 +18,7 @@ workflows:
       - flutter emulators --launch emulator
       - |
         # set up debug key.properties
+        rm -f ~/.android/debug.keystore
         keytool -genkeypair \
           -alias androiddebugkey \
           -keypass android \
@@ -28,9 +32,10 @@ workflows:
         # set up local properties
         echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
       - flutter packages pub get
-      - flutter analyze
+      - flutter format --set-exit-if-changed lib test test_driver
+      - flutter analyze --no-pub
       - flutter drive --target=test_driver/app.dart
-      - flutter test
+      - flutter test --no-pub
       - flutter build apk --debug
     artifacts:
       - build/**/outputs/**/*.apk
