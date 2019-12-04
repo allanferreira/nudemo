@@ -19,18 +19,22 @@ default_job_timeout: 20 # minutes, set at project creation
 
 device_pools:
 
-  - pool_name: Android latest
+  - pool_name: Sony
     pool_type: android
     devices:
-     - name: Samsung Galaxy S10+
-       model: SM-G975U1
+     - name: Sony Xperia XZ3
+       model: H8416
        os: 9.0.0
-     - name: Samsung Galaxy Note 10
-       model: SM-N970U1
-       os: 9.0.0
-    #  - name: Sony Xperia XZ3
-    #    model: H8416
-    #    os: 9.0.0
+
+  # - pool_name: Android latest
+  #   pool_type: android
+  #   devices:
+  #    - name: Samsung Galaxy S10+
+  #      model: SM-G975U1
+  #      os: 9.0.0
+  #    - name: Samsung Galaxy Note 10
+  #      model: SM-N970U1
+  #      os: 9.0.0
 
   # - pool_name: iPhone latest
   #   pool_type: ios
@@ -46,6 +50,7 @@ test_suites:
     tests:
       - test_driver/app_test.dart
     pool_names:
-      - Android latest
+      - Sony
+      # - Android latest
       # - iPhone latest
     job_timeout: 30 # minutes, set per job, over-rides default job timeout above
