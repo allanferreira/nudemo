@@ -28,9 +28,9 @@ device_pools:
      - name: Samsung Galaxy Note 10
        model: SM-N970U1
        os: 9.0.0
-     - name: Sony Xperia XZ3
-       model: H8416
-       os: 9.0.0
+    #  - name: Sony Xperia XZ3
+    #    model: H8416
+    #    os: 9.0.0
 
   # - pool_name: iPhone latest
   #   pool_type: ios
