@@ -3,6 +3,9 @@ workflows:
     name: Main Workflow
     environment:
       flutter: beta
+    cache:
+      cache_paths:
+        - $FCI_BUILD_DIR/build
     triggering:
       events:
         - push
@@ -43,5 +46,5 @@ workflows:
         recipients:
           - chinnonsantos@gmail.com
       slack:
-        channel: '#nudemo'
+        channel: "#nudemo"
         notify_on_build_start: true
