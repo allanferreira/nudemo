@@ -33,9 +33,9 @@ void main() {
       expect(await driver.getText(titleText), "Chinnon");
     });
 
-    test('go to `/credit-card/`, then increments/reset the counter and go back',
+    test('go to `/card/`, then increments/reset the counter and go back',
         () async {
-      /// Go to route `/credit-card/`.
+      /// Go to route `/card/`.
       await driver.tap(creditCardButton);
 
       /// Verify the app got to `Cartão de crédito`.

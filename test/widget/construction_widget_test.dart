@@ -26,7 +26,7 @@ void main() {
         ),
       );
 
-      /// verify if have text `Cartão de crédito` (route `/credit-card/`).
+      /// verify if have text `Cartão de crédito` (route `/card/`).
       expect(find.text(title), findsOneWidget);
 
       /// verify if have any `IconButton` widget to go back.

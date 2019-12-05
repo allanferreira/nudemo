@@ -46,8 +46,8 @@ class NuThemes {
         fontWeight: FontWeight.w300,
       ),
       body2: TextStyle(
-        fontSize: 12.0,
-        fontWeight: FontWeight.w300,
+        fontSize: 13.0,
+        fontWeight: FontWeight.w400,
       ),
     ),
   );
@@ -81,8 +81,8 @@ class NuThemes {
         color: Colors.purple[600],
       ),
       body2: TextStyle(
-        fontSize: 12.0,
-        fontWeight: FontWeight.w300,
+        fontSize: 13.0,
+        fontWeight: FontWeight.w400,
         color: Colors.purple[600],
       ),
     ),

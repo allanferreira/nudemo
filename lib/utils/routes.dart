@@ -8,22 +8,22 @@ import 'package:nudemo/utils/transitions/scale.dart';
 import 'package:nudemo/utils/transitions/slide_top.dart';
 
 class Routes {
-  Routes(this.context);
-
   BuildContext context;
+  Map<String, Widget Function(BuildContext)> namedRoutesMap = {};
+
+  Routes(this.context);
 
   navigatorPush(
     BuildContext context,
     String routeName,
   ) {
-    // Widget page = routes[routeName];
     return Navigator.push(
       context,
-      routes[routeName],
+      routePages[routeName],
     );
   }
 
-  final Map<String, Route> routes = {
+  final Map<String, Route> routePages = {
     // - Backbone (Home page)
     '/': ScaleRoute(
       page: HomePage(
@@ -35,7 +35,7 @@ class Routes {
     // '/register/': RegisterPage(),
     // '/signup/': SignUpPage(),
     // - Carousel slider main blocks
-    '/credit-card/': ScaleRoute(
+    '/card/': ScaleRoute(
       page: ConstructionPage(
         BasicConstructionPresenter(),
         title: 'Cartão de crédito',
@@ -84,65 +84,65 @@ class Routes {
         title: 'Configurações do app',
       ),
     ),
-    // '/transfer/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Transferir',
-    //   ),
-    // ),
-    // '/virtual-credit-card/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Cartão virtual',
-    //   ),
-    // ),
-    // '/pay/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Pagar',
-    //   ),
-    // ),
-    // '/blocking-credit-card/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Bloquear cartão',
-    //   ),
-    // ),
-    // '/deposit/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Depositar',
-    //   ),
-    // ),
-    // '/charge/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Cobrar',
-    //   ),
-    // ),
-    // '/mobile-recharge/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Recarga de celular',
-    //   ),
-    // ),
-    // '/refer-friends/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Indicar amigos',
-    //   ),
-    // ),
-    // '/adjust-limit/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Ajustar limite',
-    //   ),
-    // ),
-    // '/organize-shortcuts/': SlideTopRoute(
-    //   page: ConstructionPage(
-    //     BasicConstructionPresenter(),
-    //     title: 'Organizar atalhos',
-    //   ),
-    // ),
+    '/transfer/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Transferir',
+      ),
+    ),
+    '/virtual-card/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Cartão virtual',
+      ),
+    ),
+    '/pay/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Pagar',
+      ),
+    ),
+    '/blocking-card/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Bloquear cartão',
+      ),
+    ),
+    '/deposit/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Depositar',
+      ),
+    ),
+    '/charge/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Cobrar',
+      ),
+    ),
+    '/mobile-recharge/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Recarga de celular',
+      ),
+    ),
+    '/refer-friends/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Indicar amigos',
+      ),
+    ),
+    '/adjust-limit/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Ajustar limite',
+      ),
+    ),
+    '/organize-shortcuts/': SlideTopRoute(
+      page: ConstructionPage(
+        BasicConstructionPresenter(),
+        title: 'Organizar atalhos',
+      ),
+    ),
   };
 }
