@@ -95,8 +95,8 @@ void main() {
 
       /// `Section I` - Logo container
 
-      /// verify if have a `Image` widget (logo).
-      // expect(find.byType(Image), findsOneWidget);
+      /// verify if have a `Image` widget with `logo` key.
+      expect(find.byKey(Key('logo')), findsOneWidget);
 
       /// verify if have a `Icon` widget with `keyboard_arrow_down` icon.
       expect(find.byIcon(Icons.keyboard_arrow_down), findsOneWidget);

@@ -47,16 +47,22 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FlutterLogo(size: 60),
-                  // Image.asset(
-                  //   'assets/images/logo_white.png',
-                  //   key: Key('logo'),
-                  //   fit: BoxFit.contain,
-                  //   color: Theme.of(context).accentColor,
-                  // ),
+                  Image.asset(
+                    'assets/images/logo_white.png',
+                    key: Key('logo'),
+                    width: 50,
+                    color: Theme.of(context).accentColor,
+                  ),
+                  Container(
+                    width: 6,
+                  ),
                   Text(
                     title,
                     key: Key('title-text'),
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ],
               ),
@@ -92,6 +98,7 @@ class HomePage extends StatelessWidget {
 
     // QR-Code container (Section II)
     final Widget _qrCodeContainer = Container(
+      color: Colors.black38,
       padding: EdgeInsets.only(bottom: 20),
       child: Column(
         children: <Widget>[
@@ -148,7 +155,6 @@ class HomePage extends StatelessWidget {
         height: mainContainerHeight,
         padding: EdgeInsets.only(
           left: 30,
-          top: 20,
           right: 30,
           bottom: 0,
         ),
