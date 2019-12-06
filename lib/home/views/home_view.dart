@@ -193,7 +193,17 @@ class HomePage extends StatelessWidget {
             ),
             dividerList,
             Divider(
-              height: 50,
+              height: 15,
+              color: Colors.transparent,
+            ),
+            RaisedButton(
+              key: Key('/exit/'),
+              padding: EdgeInsets.all(12),
+              onPressed: null,
+              child: Text('Sair da conta'.toUpperCase()),
+            ),
+            Divider(
+              height: bottomMenuHeight,
               color: Colors.transparent,
             ),
           ],
@@ -220,7 +230,7 @@ class HomePage extends StatelessWidget {
         'onTapRoute': '/pay/',
       },
       {
-        'icon': 59543,
+        'icon': 59544,
         'txt': 'Bloquear cartão',
         'onTapRoute': '/blocking-card/',
       },
@@ -260,6 +270,7 @@ class HomePage extends StatelessWidget {
     Widget _buildButtonList(int icon, String txt, String onTapRoute) {
       return GestureDetector(
         child: Container(
+          key: Key(onTapRoute),
           width: 100.0,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
@@ -297,9 +308,10 @@ class HomePage extends StatelessWidget {
           right: 0,
           bottom: 20,
         ),
-        color: Colors.green,
+        color: Colors.green.withOpacity(0.6),
         child: ListView(
           scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
           children: <Widget>[
             Container(width: 20),
             _buildButtonList(
@@ -386,7 +398,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               RaisedButton(
-                key: Key('credit-card-button'),
+                key: Key('/card/'),
                 onPressed: () {
                   Routes(context).navigatorPush(context, '/card/');
                 },
@@ -396,7 +408,7 @@ class HomePage extends StatelessWidget {
                 height: 10,
               ),
               RaisedButton(
-                key: Key('nuconta-button'),
+                key: Key('/nuconta/'),
                 onPressed: () {
                   Routes(context).navigatorPush(context, '/nuconta/');
                 },
@@ -406,7 +418,7 @@ class HomePage extends StatelessWidget {
                 height: 10,
               ),
               RaisedButton(
-                key: Key('rewards-button'),
+                key: Key('/rewards/'),
                 onPressed: () {
                   Routes(context).navigatorPush(context, '/rewards/');
                 },
