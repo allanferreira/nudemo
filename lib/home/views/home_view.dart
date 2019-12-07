@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
               screenWidth: screenWidth,
               topLogoHeight: topLogoHeight,
               title: title,
-              isSlideDown: false,
+              isLowered: false,
             ),
             // Main menu container
             SectionII(

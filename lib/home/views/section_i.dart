@@ -5,14 +5,27 @@ class SectionI extends StatelessWidget {
   final double screenWidth;
   final double topLogoHeight;
   final String title;
-  final bool isSlideDown;
+  final bool isLowered;
 
   SectionI({
     this.screenWidth,
     this.topLogoHeight,
     this.title,
-    this.isSlideDown,
+    this.isLowered,
   });
+
+  void _handlerIconButton() {
+    // _runAnimation(Offset.zero, size);
+
+    // if (_targetAlignment == _endDragAlignment) {
+    //   _targetAlignment = _beginDragAlignment;
+    // } else {
+    //   _targetAlignment = _endDragAlignment;
+    // }
+
+    // isLowered = !isLowered;
+    print('Icon buttom pressed!');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +34,8 @@ class SectionI extends StatelessWidget {
       child: Container(
         width: screenWidth,
         height: topLogoHeight,
-        color: Colors.orangeAccent,
+        // color: Colors.orangeAccent, // debug UI 🙃
+        padding: EdgeInsets.only(top: 18),
         child: GestureDetector(
           child: Column(
             children: <Widget>[
@@ -31,7 +45,7 @@ class SectionI extends StatelessWidget {
                   Image.asset(
                     'assets/images/logo_white.png',
                     key: Key('logo'),
-                    width: 50,
+                    width: 45,
                     color: Theme.of(context).accentColor,
                   ),
                   Container(
@@ -47,12 +61,20 @@ class SectionI extends StatelessWidget {
                   ),
                 ],
               ),
-              Icon(isSlideDown
-                  ? Icons.keyboard_arrow_up
-                  : Icons.keyboard_arrow_down),
+              Container(
+                // color: Colors.black, // debug UI 🙃
+                padding: EdgeInsets.only(left: 70, right: 70, bottom: 13),
+                child: Icon(
+                  isLowered
+                      ? Icons.keyboard_arrow_up
+                      : Icons.keyboard_arrow_down,
+                  key: Key('icon-drag'),
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
             ],
           ),
-          onTap: () => print('Logo tapped!'),
+          onTap: () => _handlerIconButton(),
         ),
       ),
     );
