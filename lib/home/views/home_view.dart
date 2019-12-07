@@ -147,12 +147,12 @@ class HomePage extends StatelessWidget {
     }
 
     /// `Section II` - Main menu container
-    final Widget _mainMenuList = Padding(
-      padding: EdgeInsets.only(
-        top: topLogoHeight,
-      ),
+    final Widget _mainMenuList = Positioned(
+      left: 0,
+      top: topLogoHeight,
+      width: screenWidth,
+      height: mainContainerHeight,
       child: Container(
-        height: mainContainerHeight,
         padding: EdgeInsets.only(
           left: 30,
           right: 30,
@@ -386,10 +386,11 @@ class HomePage extends StatelessWidget {
     );
 
     /// `Section IV` - Slide box container
-    final Widget _slideBoxMiddle = Padding(
-      padding: EdgeInsets.only(
-        top: topLogoHeight,
-      ),
+    final Widget _slideBoxMiddle = Positioned(
+      left: 0,
+      top: topLogoHeight,
+      width: screenWidth,
+      height: boxSlideHeight,
       child: Container(
         padding: EdgeInsets.only(
           left: 20.0,
@@ -397,7 +398,6 @@ class HomePage extends StatelessWidget {
           right: 20.0,
           bottom: 60.0,
         ),
-        height: boxSlideHeight,
         color: Colors.blue.withOpacity(0.3),
         child: Container(
           color: Colors.pinkAccent.withOpacity(0.5),

@@ -15,7 +15,7 @@ class ConstructionPage extends StatelessWidget {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  _showSnackBar(BuildContext context) {
+  void _showSnackBar(BuildContext context) {
     final snackBar = SnackBar(
       key: Key('snackBar'),
       content: Text('Filtering not supported yet!'),
@@ -23,15 +23,7 @@ class ConstructionPage extends StatelessWidget {
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // Check system color and setup the theme
-    // var brightness = MediaQuery.of(context).platformBrightness;
-    // print('Platform Brightness: $brightness');
-
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
+  PreferredSizeWidget _appBar(context) => AppBar(
         leading: IconButton(
           key: Key('go-back-button'),
           icon: Icon(
@@ -58,8 +50,9 @@ class ConstructionPage extends StatelessWidget {
             },
           ),
         ],
-      ),
-      body: Center(
+      );
+
+  Widget _body(context) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -131,8 +124,9 @@ class ConstructionPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
+      );
+
+  Widget _floatingActionButton(context) => FloatingActionButton(
         // Provider.of is another way to access the model object held
         // by an ancestor Provider.
         //
@@ -146,7 +140,32 @@ class ConstructionPage extends StatelessWidget {
         tooltip: 'Increment',
         key: Key('increment-button'),
         child: Icon(Icons.add),
-      ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    // Check system color and setup the theme
+    // var brightness = MediaQuery.of(context).platformBrightness;
+    // print('Platform Brightness: $brightness');
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double topSpace = 100;
+
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          top: topSpace,
+          width: screenWidth,
+          height: screenHeight - topSpace,
+          child: Scaffold(
+            key: _scaffoldKey,
+            appBar: _appBar(context),
+            body: _body(context),
+            floatingActionButton: _floatingActionButton(context),
+          ),
+        ),
+      ],
     );
   }
 }
