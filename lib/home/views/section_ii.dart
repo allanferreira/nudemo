@@ -4,9 +4,13 @@ import 'package:nudemo/utils/routes.dart';
 
 /// `Section II` - Main menu container
 class SectionII extends StatelessWidget {
+  @required
   final double screenWidth;
+  @required
   final double topLogoHeight;
+  @required
   final double mainContainerHeight;
+  @required
   final double bottomMenuHeight;
 
   SectionII({

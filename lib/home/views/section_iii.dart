@@ -4,6 +4,7 @@ import 'package:nudemo/utils/routes.dart';
 
 /// `Section III` - Bottom menu container
 class SectionIII extends StatelessWidget {
+  @required
   final double bottomMenuHeight;
 
   SectionIII({this.bottomMenuHeight});

@@ -21,8 +21,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
-    final double screenWidth = mediaQuery.size.width;
-    final double screenHeight = mediaQuery.size.height;
+    final Size screenSize = mediaQuery.size;
+    final double screenWidth = screenSize.width;
+    final double screenHeight = screenSize.height;
     final EdgeInsets screenNotch = mediaQuery.padding;
     final double totalNotch = screenNotch.top + screenNotch.bottom;
 
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
           children: [
             // Logo container
             SectionI(
-              screenWidth: screenWidth,
+              screenSize: screenSize,
               topLogoHeight: topLogoHeight,
               title: title,
               isLowered: false,
