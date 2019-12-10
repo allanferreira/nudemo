@@ -19,7 +19,7 @@ void main() {
           ],
           child: MaterialApp(
             home: ConstructionPage(
-              BasicConstructionPresenter(),
+              presenter: BasicConstructionPresenter(),
               title: title,
             ),
           ),

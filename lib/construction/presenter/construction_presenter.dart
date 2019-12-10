@@ -22,7 +22,7 @@ class BasicConstructionPresenter
   ConstructionViewModel _constructionViewModel;
 
   BasicConstructionPresenter() {
-    this._constructionViewModel = ConstructionViewModel(0);
+    this._constructionViewModel = ConstructionViewModel();
   }
 
   int getValue() => this._constructionViewModel.counter;

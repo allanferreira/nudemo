@@ -8,10 +8,12 @@ import 'package:provider/provider.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 class ConstructionPage extends StatelessWidget {
+  @required
   final ConstructionPresenter presenter;
+  @required
   final String title;
 
-  ConstructionPage(this.presenter, {Key key, this.title}) : super(key: key);
+  ConstructionPage({Key key, this.presenter, this.title}) : super(key: key);
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 

@@ -21,7 +21,10 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: HomePage(HomePresenter(), title: _title),
+          home: HomePage(
+            presenter: HomePresenter(),
+            title: _title,
+          ),
         ),
       );
 

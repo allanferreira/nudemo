@@ -5,5 +5,5 @@
 class ConstructionViewModel {
   int counter = 0;
 
-  ConstructionViewModel(this.counter);
+  ConstructionViewModel();
 }

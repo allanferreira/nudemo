@@ -7,7 +7,7 @@ void main() {
     ConstructionViewModel constructionViewModel;
 
     setUp(() {
-      constructionViewModel = ConstructionViewModel(0);
+      constructionViewModel = ConstructionViewModel();
     });
 
     test('Construction initial value should be 0', () {

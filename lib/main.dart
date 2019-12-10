@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: nuThemes.getThemeFromKey(NuThemeKeys.DEFAULT),
         home: HomePage(
-          HomePresenter(),
+          presenter: HomePresenter(),
           title: 'Chinnon',
         ),
       ),

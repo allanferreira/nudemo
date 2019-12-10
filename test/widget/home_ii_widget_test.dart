@@ -28,7 +28,7 @@ void main() {
           ],
           child: MaterialApp(
             home: HomePage(
-              HomePresenter(),
+              presenter: HomePresenter(),
               title: _title,
             ),
           ),

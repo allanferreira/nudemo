@@ -11,10 +11,12 @@ import 'package:nudemo/home/views/section_iii.dart';
 import 'package:nudemo/home/views/section_iv.dart';
 
 class HomePage extends StatelessWidget {
+  @required
   final HomePresenter presenter;
+  @required
   final String title;
 
-  HomePage(this.presenter, {Key key, this.title}) : super(key: key);
+  HomePage({Key key, this.presenter, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
