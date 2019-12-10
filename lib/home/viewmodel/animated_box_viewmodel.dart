@@ -11,14 +11,14 @@ class AnimatedBoxViewModel {
   AnimationController controller;
   Animation<Alignment> animation;
 
-  static const Alignment beginDragAlignment = Alignment(0.0, -0.5);
-  static const Alignment endDragAlignment = Alignment(0.0, 1.0);
+  static const Alignment beginDragAlignment = Alignment(0.0, -0.08);
+  static const Alignment endDragAlignment = Alignment(0.0, 2.9);
   Alignment targetAlignment = beginDragAlignment;
   Alignment dragAlignment = beginDragAlignment;
 
-  /// Minimum drag distance for drag animation [20%]
+  /// Minimum drag distance for drag animation [7%]
   static double minDragDistance =
-      (endDragAlignment.y - beginDragAlignment.y) * 0.20;
+      (endDragAlignment.y - beginDragAlignment.y) * 0.07;
 
   /// Initial value to calculate drag direction
   double draggingDirectionY = 0.0;

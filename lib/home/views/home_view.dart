@@ -20,19 +20,23 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
-    final Size screenSize = mediaQuery.size;
-    final double screenWidth = screenSize.width;
-    final double screenHeight = screenSize.height;
-    final EdgeInsets screenNotch = mediaQuery.padding;
-    final double totalNotch = screenNotch.top + screenNotch.bottom;
+    final MediaQueryData _mediaQuery = MediaQuery.of(context);
+    final Size _screenSize = _mediaQuery.size;
+    final double _screenWidth = _screenSize.width;
+    final double _screenHeight = _screenSize.height;
+    final EdgeInsets _screenNotch = _mediaQuery.padding;
+    final double _totalNotch = _screenNotch.top + _screenNotch.bottom;
 
-    final double topLogoHeight = 100.0;
-    final double bottomMenuHeight = 120.0;
-    final double mainContainerHeight =
-        screenHeight - topLogoHeight - totalNotch;
-    final double boxSlideHeight =
-        screenHeight - topLogoHeight - bottomMenuHeight - totalNotch;
+    final double _topLogoHeight = 100.0;
+    final double _bottomMenuHeight = 120.0;
+    final double _mainContainerHeight =
+        _screenHeight - _topLogoHeight - _totalNotch;
+    final double _boxSlideMargin = 120.0;
+    final double _boxSlideHeight = _screenHeight -
+        _topLogoHeight -
+        _bottomMenuHeight -
+        _totalNotch -
+        _boxSlideMargin;
 
     return Scaffold(
       /// The parts of the display that are partially obscured by system UI,
@@ -44,27 +48,27 @@ class HomePage extends StatelessWidget {
           children: [
             // Logo container
             SectionI(
-              screenSize: screenSize,
-              topLogoHeight: topLogoHeight,
+              screenSize: _screenSize,
+              topLogoHeight: _topLogoHeight,
               title: title,
               isLowered: false,
             ),
             // Main menu container
             SectionII(
-              screenWidth: screenWidth,
-              topLogoHeight: topLogoHeight,
-              mainContainerHeight: mainContainerHeight,
-              bottomMenuHeight: bottomMenuHeight,
+              screenWidth: _screenWidth,
+              topLogoHeight: _topLogoHeight,
+              mainContainerHeight: _mainContainerHeight,
+              bottomMenuHeight: _bottomMenuHeight,
             ),
             // Bottom menu container
             SectionIII(
-              bottomMenuHeight: bottomMenuHeight,
+              bottomMenuHeight: _bottomMenuHeight,
             ),
             // Slide box container
             SectionIV(
-              screenWidth: screenWidth,
-              topLogoHeight: topLogoHeight,
-              boxSlideHeight: boxSlideHeight,
+              screenSize: _screenSize,
+              topLogoHeight: _topLogoHeight,
+              boxSlideHeight: _boxSlideHeight,
             ),
           ],
         ),
