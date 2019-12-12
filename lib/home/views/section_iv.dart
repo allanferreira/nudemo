@@ -38,7 +38,7 @@ class SectionIV extends StatelessWidget {
         key: Key('section-iv'),
         child: Container(
           padding: EdgeInsets.only(bottom: 20.0),
-          width: screenSize.width - 40.0,
+          width: (screenSize.width - 40.0),
           height: boxSlideHeight,
           color: Colors.blue.withOpacity(0.3), // debug UI 🙃
           child: Container(

@@ -13,7 +13,7 @@ void main() {
     final SerializableFinder _animatedBoxPointDrag =
         find.byValueKey('point-drag');
     final SerializableFinder _buttonDownUp = find.byValueKey('icon-drag');
-    final SerializableFinder _buttonList = find.byValueKey('button-list');
+    // final SerializableFinder _buttonList = find.byValueKey('button-list');
     final SerializableFinder _titleText = find.byValueKey('title-text');
 
     final SerializableFinder _counterText = find.byValueKey('counter-text');
@@ -53,7 +53,7 @@ void main() {
         find.byValueKey('/organize-shortcuts/');
 
     FlutterDriver _driver;
-    double _sizeScreenWidth;
+    // double _sizeScreenWidth;
     double _sizeScreenHeight;
     double _minDragHeight;
 
@@ -82,21 +82,19 @@ void main() {
       }
     });
 
-    test('starts at `Home page`', () async {
+    test('Starts at `Home page`', () async {
       /// Use the `_driver.getText` method to verify the app starts at `Home`.
       expect(await _driver.getText(_titleText), "Chinnon");
     });
 
-    test('Tap `down` test', () async {
+    test('Tap `down` animated box', () async {
       /// [Gesture 👆] Tap the `IconButton` Widget to drag `Down 🔽`
       await _driver.tap(_buttonDownUp);
-      await _driver.waitFor(_animatedBox);
     });
 
-    test('Tap `up` test', () async {
+    test('Tap `up` animated box', () async {
       /// [Gesture 👆] Tap the `IconButton` Widget to drag `Up 🔼`...
       await _driver.tap(_buttonDownUp);
-      await _driver.waitFor(_animatedBox);
     });
 
     test('go to `/card/`, then inc/dec the counter and go back', () async {
@@ -198,24 +196,20 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag `down` test', () async {
-      /// [Gesture 👉↔️👉] Drag `Down` the `FlutterLogo` Widget LESS (➖)
-      /// than minimum height to start the animation down...
+    test('Drag to`down` animated box', () async {
+      /// [Gesture 👉↔️👉] Drag to `Down` the `FlutterLogo` Widget
+      /// LESS (➖) than minimum height to start the animation down...
       /// In this case, the animation should be played to BACK previous
       /// position!!!
       await _driver.scroll(_animatedBox, 0, _minDragHeight, slowTime);
-      await _driver.waitFor(_animatedBox);
 
       await _driver.scroll(_animatedBox, 0, _minDragHeight, normalTime);
-      await _driver.waitFor(_animatedBox);
 
       await _driver.scroll(_animatedBox, 0, _minDragHeight, fastTime);
-      await _driver.waitFor(_animatedBox);
 
-      /// [Gesture 👉↔️👉] Drag `Down` the `FlutterLogo` Widget MORE (➕)
+      /// [Gesture 👉↔️👉] Drag to`Down` the `FlutterLogo` Widget MORE (➕)
       /// than minimum height to start the animation down...
       await _driver.scroll(_animatedBox, 0, _minDragHeight + 100, normalTime);
-      await _driver.waitFor(_animatedBox);
     });
 
     test('go to `/helpme/`, then inc/dec the counter and go back', () async {
@@ -386,28 +380,24 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag `up` test', () async {
-      /// [Gesture 👉↔️👉] Drag `UP` the `FlutterLogo` Widget LESS (➖)
-      /// than minimum height to start the animation up...
+    test('Drag to`up` animated box', () async {
+      /// [Gesture 👉↔️👉] Drag to `UP` the `FlutterLogo` Widget
+      /// LESS (➖) than minimum height to start the animation up...
       /// In this case, the animation should be played to BACK previous
       /// position!!!
       await _driver.scroll(
           _animatedBoxPointDrag, 0, -(_minDragHeight), slowTime);
-      await _driver.waitFor(_animatedBox);
 
       await _driver.scroll(
           _animatedBoxPointDrag, 0, -(_minDragHeight), normalTime);
-      await _driver.waitFor(_animatedBox);
 
       await _driver.scroll(
           _animatedBoxPointDrag, 0, -(_minDragHeight), fastTime);
-      await _driver.waitFor(_animatedBox);
 
-      /// [Gesture 👉↔️👉] Drag `UP` the `FlutterLogo` Widget MORE (➕)
+      /// [Gesture 👉↔️👉] Drag to`UP` the `FlutterLogo` Widget MORE (➕)
       /// than minimum height to start the animation up...
       await _driver.scroll(
           _animatedBoxPointDrag, 0, -(_minDragHeight + 100), normalTime);
-      await _driver.waitFor(_animatedBox);
     });
 
     test('go to `/transfer/`, then inc/dec the counter and go back', () async {
@@ -477,11 +467,13 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('go to `/pay/`, then inc/dec the counter and go back', () async {
-      await _driver.scroll(
-          _payButton, -(_sizeScreenWidth / 2), 0, normalTime);
-      await _driver.waitFor(_buttonList);
+    test('Drag to `left` the `pay` button of bottom button list', () async {
+      /// [Gesture 👉↔️👉] Drag to `LEFT` the `ListView` Widget
+      /// buttons, until the widget is completely visible.
+      await _driver.scrollIntoView(_payButton);
+    });
 
+    test('go to `/pay/`, then inc/dec the counter and go back', () async {
       /// Go to route `/pay/`.
       await _driver.tap(_payButton);
       await _driver.waitFor(_constructionPage);
@@ -512,7 +504,7 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: "Fail on drag the listView!");
+    });
 
     test('go to `/blocking-card/`, then inc/dec the counter and go back',
         () async {
@@ -546,13 +538,9 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: "Fail on drag the listView!");
+    });
 
     test('go to `/deposit/`, then inc/dec the counter and go back', () async {
-      await _driver.scroll(
-          _depositButton, -(_sizeScreenWidth / 2), 0, normalTime);
-      await _driver.waitFor(_buttonList);
-
       /// Go to route `/deposit/`.
       await _driver.tap(_depositButton);
       await _driver.waitFor(_constructionPage);
@@ -583,7 +571,13 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: "Fail on drag the listView!");
+    });
+
+    test('Drag to `left` the `change` button of bottom button list', () async {
+      /// [Gesture 👉↔️👉] Drag to `LEFT` the `ListView` Widget
+      /// buttons, until the widget is completely visible.
+      await _driver.scrollIntoView(_chargeButton);
+    });
 
     test('go to `/charge/`, then inc/dec the counter and go back', () async {
       /// Go to route `/charge/`.
@@ -616,14 +610,10 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: "Fail on drag the listView!");
+    });
 
     test('go to `/mobile-recharge/`, then inc/dec the counter and go back',
         () async {
-      await _driver.scroll(
-          _mobileRechargeButton, -(_sizeScreenWidth / 2), 0, normalTime);
-      await _driver.waitFor(_buttonList);
-
       /// Go to route `/mobile-recharge/`.
       await _driver.tap(_mobileRechargeButton);
       await _driver.waitFor(_constructionPage);
@@ -654,7 +644,14 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: "Fail on drag the listView!");
+    });
+
+    test('Drag to `refer-friends` the `change` button of bottom button list',
+        () async {
+      /// [Gesture 👉↔️👉] Drag to `LEFT` the `ListView` Widget
+      /// buttons, until the widget is completely visible.
+      await _driver.scrollIntoView(_referFriendsButton);
+    });
 
     test('go to `/refer-friends/`, then inc/dec the counter and go back',
         () async {
@@ -688,14 +685,10 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: "Fail on drag the listView!");
+    });
 
     test('go to `/adjust-limit/`, then inc/dec the counter and go back',
         () async {
-      await _driver.scroll(
-          _adjustLimitButton, -(_sizeScreenWidth / 2), 0, normalTime);
-      await _driver.waitFor(_buttonList);
-
       /// Go to route `/adjust-limit/`.
       await _driver.tap(_adjustLimitButton);
       await _driver.waitFor(_constructionPage);
@@ -726,7 +719,7 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: "Fail on drag the listView!");
+    });
 
     test('go to `/organize-shortcuts/`, then inc/dec the counter and go back',
         () async {
@@ -760,6 +753,6 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: "Fail on drag the listView!");
+    });
   });
 }

@@ -22,8 +22,7 @@ void main() {
     // Finder _adjustLimitButton = find.byKey(Key('/adjust-limit/'));
     // Finder _organizeShortcutsButton = find.byKey(Key('/organize-shortcuts/'));
 
-    testWidgets('Smoke test - ${_title}',
-        (WidgetTester tester) async {
+    testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [

@@ -11,8 +11,7 @@ void main() {
   group('[Widget -> Home page] - Section I', () {
     String _title = 'Chinnon';
 
-    testWidgets('Smoke test - ${_title}',
-        (WidgetTester tester) async {
+    testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [

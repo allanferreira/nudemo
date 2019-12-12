@@ -110,9 +110,9 @@ class SectionIII extends StatelessWidget {
         ),
         color: Colors.green.withOpacity(0.6),
         child: ListView(
+          key: Key('button-list'),
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          key: Key('button-list'),
           children: <Widget>[
             Container(width: 20),
             _buildButtonList(

@@ -40,6 +40,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       key: Key('home-page'),
+
       /// The parts of the display that are partially obscured by system UI,
       /// typically by the hardware display "notches" or the system status bar.
       /// The `SafeArea` widget help us get around this problem.
