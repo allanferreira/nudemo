@@ -33,13 +33,17 @@ class SectionII extends StatelessWidget {
         text: TextSpan(
           text: txtNormal,
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 13.0,
+            color: Theme.of(context).accentColor,
           ),
           children: <TextSpan>[
             TextSpan(
               text: txtBold,
               style: TextStyle(
+                fontSize: 13.0,
                 fontWeight: FontWeight.bold,
+                height: 1.5,
+                color: Theme.of(context).accentColor,
               ),
             ),
           ],
@@ -49,7 +53,7 @@ class SectionII extends StatelessWidget {
 
     // QR-Code container (Section II)
     final Widget _qrCodeContainer = Container(
-      color: Colors.black38,
+      // color: Colors.black38, // debug UI 🙃
       padding: EdgeInsets.only(bottom: 20),
       child: Column(
         children: <Widget>[
@@ -110,41 +114,41 @@ class SectionII extends StatelessWidget {
           right: 30,
           bottom: 0,
         ),
-        color: Colors.indigo,
+        // color: Colors.indigo, // debug UI 🙃
         child: ListView(
           children: <Widget>[
             _qrCodeContainer,
             dividerList,
             _buildItemListMenu(
-              img: FlutterLogo(),
+              img: Icon(Icons.help_outline),
               title: 'Me ajuda',
               subtitle: null,
               route: '/helpme/',
             ),
             dividerList,
             _buildItemListMenu(
-              img: FlutterLogo(),
+              img: Icon(Icons.account_circle),
               title: 'Perfil',
               subtitle: 'Nome de preferência, telefone, e-mail',
               route: '/profile/',
             ),
             dividerList,
             _buildItemListMenu(
-              img: FlutterLogo(),
+              img: Icon(Icons.account_balance),
               title: 'Configurar NuConta',
               subtitle: null,
               route: '/nuconta-configs/',
             ),
             dividerList,
             _buildItemListMenu(
-              img: FlutterLogo(),
+              img: Icon(Icons.credit_card),
               title: 'Configurar cartão',
               subtitle: null,
               route: '/card-configs/',
             ),
             dividerList,
             _buildItemListMenu(
-              img: FlutterLogo(),
+              img: Icon(Icons.fingerprint),
               title: 'Configurações do app',
               subtitle: null,
               route: '/app-configs/',
@@ -157,8 +161,14 @@ class SectionII extends StatelessWidget {
             RaisedButton(
               key: Key('/exit/'),
               padding: EdgeInsets.all(12),
+              child: Text(
+                'Sair da conta'.toUpperCase(),
+                style: TextStyle(
+                  color: Theme.of(context).accentColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               onPressed: null,
-              child: Text('Sair da conta'.toUpperCase()),
             ),
             Divider(
               height: bottomMenuHeight,
