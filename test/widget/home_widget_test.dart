@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 
 import 'package:nudemo/main.dart';
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
+import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() {
-  group('[Widget -> Home page]', () {
+  group('[Widget -> Home page] - All Sections', () {
     String _title = 'Chinnon';
 
     testWidgets('Smoke test - ${_title} [MyApp]', (WidgetTester tester) async {
@@ -17,13 +20,22 @@ void main() {
       expect(find.text(_title), findsOneWidget);
     });
 
-    testWidgets('Smoke test - ${_title} [HomePage] - All Sections',
-        (WidgetTester tester) async {
+    testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: HomePage(
-            presenter: HomePresenter(),
-            title: _title,
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
           ),
         ),
       );

@@ -103,6 +103,7 @@ class SectionII extends StatelessWidget {
       top: topLogoHeight,
       width: screenWidth,
       height: mainContainerHeight,
+      key: Key('section-ii'),
       child: Container(
         padding: EdgeInsets.only(
           left: 30,

@@ -31,48 +31,51 @@ class SectionIV extends StatelessWidget {
       onPanEnd: (details) =>
           Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
               .handlerPanEnd(details, screenSize),
-      child: Consumer<BasicAnimatedBoxPresenter>(
-        builder: (context, animatedBox, child) => Align(
-          /// Get [dragAlignment] from model (by Consumer)
-          alignment: animatedBox.getDragAlignment(),
+      child: Align(
+        /// Get [dragAlignment] from model (by Provider.off)
+        alignment:
+            Provider.of<BasicAnimatedBoxPresenter>(context).getDragAlignment(),
+        key: Key('section-iv'),
+        child: Container(
+          padding: EdgeInsets.only(bottom: 20.0),
+          width: screenSize.width - 40.0,
+          height: boxSlideHeight,
+          color: Colors.blue.withOpacity(0.3), // debug UI 🙃
           child: Container(
-            padding: EdgeInsets.only(bottom: 20.0),
-            width: screenSize.width - 40.0,
-            height: boxSlideHeight,
-            color: Colors.blue.withOpacity(0.3), // debug UI 🙃
-            child: Container(
-              color: Colors.pinkAccent.withOpacity(0.5),
-              child: Column(
-                children: <Widget>[
-                  RaisedButton(
-                    key: Key('/card/'),
-                    onPressed: () {
-                      Routes(context).navigatorPush(context, '/card/');
-                    },
-                    child: Text('Cartão de crédito'),
+            color: Colors.pinkAccent.withOpacity(0.5),
+            child: Column(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    key: Key('point-drag'),
+                    padding: EdgeInsets.all(8),
+                    width: 20,
+                    color: Colors.black, // debug UI 🙃
                   ),
-                  Divider(
-                    height: 10,
-                  ),
-                  RaisedButton(
-                    key: Key('/nuconta/'),
-                    onPressed: () {
-                      Routes(context).navigatorPush(context, '/nuconta/');
-                    },
-                    child: Text('NuConta'),
-                  ),
-                  Divider(
-                    height: 10,
-                  ),
-                  RaisedButton(
-                    key: Key('/rewards/'),
-                    onPressed: () {
-                      Routes(context).navigatorPush(context, '/rewards/');
-                    },
-                    child: Text('Nubank rewards'),
-                  ),
-                ],
-              ),
+                ),
+                RaisedButton(
+                  key: Key('/card/'),
+                  onPressed: () {
+                    Routes(context).navigatorPush(context, '/card/');
+                  },
+                  child: Text('Cartão de crédito'),
+                ),
+                RaisedButton(
+                  key: Key('/nuconta/'),
+                  onPressed: () {
+                    Routes(context).navigatorPush(context, '/nuconta/');
+                  },
+                  child: Text('NuConta'),
+                ),
+                RaisedButton(
+                  key: Key('/rewards/'),
+                  onPressed: () {
+                    Routes(context).navigatorPush(context, '/rewards/');
+                  },
+                  child: Text('Nubank rewards'),
+                ),
+              ],
             ),
           ),
         ),

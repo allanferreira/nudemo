@@ -160,6 +160,7 @@ class ConstructionPage extends StatelessWidget {
           top: topSpace,
           width: screenWidth,
           height: screenHeight - topSpace,
+          key: Key('construction-page'),
           child: Scaffold(
             key: _scaffoldKey,
             appBar: _appBar(context),

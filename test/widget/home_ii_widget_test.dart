@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() {
-  group('[Widget -> Home page]', () {
+  group('[Widget -> Home page] - Section II', () {
     String _title = 'Chinnon';
 
     Finder _helpMeButton = find.byKey(Key('/helpme/'));
@@ -17,13 +18,15 @@ void main() {
     Finder _appConfigsButton = find.byKey(Key('/app-configs/'));
     Finder _exitButton = find.byKey(Key('/exit/'));
 
-    testWidgets('Smoke test - ${_title} [HomePage] - Section II',
-        (WidgetTester tester) async {
+    testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>.value(
-              value: BasicConstructionPresenter(),
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
             ),
           ],
           child: MaterialApp(

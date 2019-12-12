@@ -100,6 +100,7 @@ class SectionIII extends StatelessWidget {
 
     return Align(
       alignment: Alignment.bottomCenter,
+      key: Key('section-iii'),
       child: Container(
         height: bottomMenuHeight,
         padding: EdgeInsets.only(
@@ -111,6 +112,7 @@ class SectionIII extends StatelessWidget {
         child: ListView(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
+          key: Key('button-list'),
           children: <Widget>[
             Container(width: 20),
             _buildButtonList(

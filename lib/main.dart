@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        key: Key('app-root'),
+        title: 'NuDemo',
         theme: nuThemes.getThemeFromKey(NuThemeKeys.DEFAULT),
         home: HomePage(
           presenter: HomePresenter(),

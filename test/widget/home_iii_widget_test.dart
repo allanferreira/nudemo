@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() {
-  group('[Widget -> Home page]', () {
+  group('[Widget -> Home page] - Section III', () {
     String _title = 'Chinnon';
 
     Finder _transferButton = find.byKey(Key('/transfer/'));
@@ -21,13 +22,16 @@ void main() {
     // Finder _adjustLimitButton = find.byKey(Key('/adjust-limit/'));
     // Finder _organizeShortcutsButton = find.byKey(Key('/organize-shortcuts/'));
 
-    testWidgets('Smoke test - ${_title} [HomePage] - Section III',
+    testWidgets('Smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>.value(
-              value: BasicConstructionPresenter(),
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
             ),
           ],
           child: MaterialApp(

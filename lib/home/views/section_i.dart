@@ -30,36 +30,37 @@ class SectionI extends StatelessWidget {
         height: topLogoHeight,
         // color: Colors.orangeAccent, // debug UI 🙃
         padding: EdgeInsets.only(top: 18),
-        child: Consumer<BasicAnimatedBoxPresenter>(
-          builder: (context, animatedBox, child) => GestureDetector(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/logo_white.png',
-                      key: Key('logo'),
-                      width: 45,
-                      color: Theme.of(context).accentColor,
+        key: Key('section-i'),
+        child: GestureDetector(
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/images/logo_white.png',
+                    key: Key('logo-main'),
+                    width: 45,
+                    color: Theme.of(context).accentColor,
+                  ),
+                  Container(
+                    width: 6,
+                  ),
+                  Text(
+                    title,
+                    key: Key('title-text'),
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w700,
                     ),
-                    Container(
-                      width: 6,
-                    ),
-                    Text(
-                      title,
-                      key: Key('title-text'),
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  // color: Colors.black, // debug UI 🙃
-                  padding: EdgeInsets.only(left: 70, right: 70, bottom: 13),
-                  child: Icon(
+                  ),
+                ],
+              ),
+              Container(
+                // color: Colors.black, // debug UI 🙃
+                padding: EdgeInsets.only(left: 70, right: 70, bottom: 13),
+                child: Consumer<BasicAnimatedBoxPresenter>(
+                  builder: (context, animatedBox, child) => Icon(
                     /// Get [isLowered] from model (by Consumer)
                     animatedBox.getIsLowered()
                         ? Icons.keyboard_arrow_up
@@ -68,12 +69,12 @@ class SectionI extends StatelessWidget {
                     color: Theme.of(context).accentColor,
                   ),
                 ),
-              ],
-            ),
-            onTap: () =>
-                Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
-                    .handlerIconButtonPressed(screenSize),
+              ),
+            ],
           ),
+          onTap: () =>
+              Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
+                  .handlerIconButtonPressed(screenSize),
         ),
       ),
     );
