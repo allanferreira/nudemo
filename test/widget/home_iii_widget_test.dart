@@ -24,7 +24,8 @@ void main() {
     final Finder _organizeShortcutsButton =
         find.byKey(Key('/organize-shortcuts/'));
 
-    testWidgets('`Transferir` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Transferir` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -60,7 +61,8 @@ void main() {
       await tester.tap(_transferButton);
     });
 
-    testWidgets('`Cartão virtual` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Cartão virtual` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -98,7 +100,8 @@ void main() {
       await tester.tap(_virtualCardButton);
     });
 
-    testWidgets('`Pagar` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Pagar` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -134,9 +137,10 @@ void main() {
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_payButton, Offset(0.0, -220));
       await tester.pumpAndSettle();
-    });
+    }, timeout: Timeout.factor(2));
 
-    testWidgets('`Bloquear cartão` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Bloquear cartão` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -170,7 +174,8 @@ void main() {
       await tester.tap(_blockingCardButton);
     });
 
-    testWidgets('`Depositar` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Depositar` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -210,9 +215,10 @@ void main() {
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_depositButton, Offset(0.0, -220));
       await tester.pumpAndSettle();
-    });
+    }, timeout: Timeout.factor(2));
 
-    testWidgets('`Cobrar` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Cobrar` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -246,7 +252,8 @@ void main() {
       await tester.tap(_chargeButton);
     });
 
-    testWidgets('`Recarga de celular` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Recarga de celular` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -282,9 +289,10 @@ void main() {
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_mobileRechargeButton, Offset(0.0, -220));
       await tester.pumpAndSettle();
-    });
+    }, timeout: Timeout.factor(2));
 
-    testWidgets('`Indicar amigos` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Indicar amigos` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -318,7 +326,8 @@ void main() {
       await tester.tap(_referFriendsButton);
     });
 
-    testWidgets('`Ajustar limite` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Ajustar limite` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -354,9 +363,10 @@ void main() {
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_adjustLimitButton, Offset(0.0, -220));
       await tester.pumpAndSettle();
-    }, skip: true);
+    }, timeout: Timeout.factor(2), skip: true);
 
-    testWidgets('`Organizar atalhos` button smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Organizar atalhos` button smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [

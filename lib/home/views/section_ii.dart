@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:nudemo/utils/routes.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 /// `Section II` - Main menu container
 class SectionII extends StatelessWidget {
@@ -12,12 +13,15 @@ class SectionII extends StatelessWidget {
   final double mainContainerHeight;
   @required
   final double bottomMenuHeight;
+  @required
+  final String qrCodeData;
 
   SectionII({
     this.screenWidth,
     this.topLogoHeight,
     this.mainContainerHeight,
     this.bottomMenuHeight,
+    this.qrCodeData,
   });
 
   @override
@@ -51,14 +55,50 @@ class SectionII extends StatelessWidget {
       );
     }
 
-    // QR-Code container (Section II)
-    final Widget _qrCodeContainer = Container(
+    // QR-Code rendering container (Section II)
+    final Widget _qrCodeRendering = QrImage(
+      data: qrCodeData,
+      version: QrVersions.auto,
+      size: 105.0,
+      padding: EdgeInsets.all(9.0),
+      foregroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).accentColor,
+      errorCorrectionLevel: QrErrorCorrectLevel.M,
+
+      /// Not good with this image in center 🤷‍♀️
+      // embeddedImage: AssetImage(
+      //   'assets/images/logo_white.png',
+      // ),
+      // embeddedImageStyle: QrEmbeddedImageStyle(
+      //   size: Size(40, 40),
+      //   color: Theme.of(context).backgroundColor,
+      // ),
+      // embeddedImageEmitsError: true,
+      errorStateBuilder: (cxt, err) {
+        // print('QrImage error: $err');
+        return Container(
+          child: Center(
+            child: Text(
+              "Uh oh! Something went wrong with QR Code...",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Theme.of(context).backgroundColor,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    // Top container (Section II)
+    final Widget _topContainer = Container(
       // color: Colors.black38, // debug UI 🙃
       padding: EdgeInsets.only(bottom: 20),
       child: Column(
         children: <Widget>[
-          Center(
-            child: FlutterLogo(size: 120),
+          Container(
+            margin: EdgeInsets.only(bottom: 8.0),
+            child: Center(child: _qrCodeRendering),
           ),
           _buildRichText(
             txtNormal: 'Banco ',
@@ -117,7 +157,7 @@ class SectionII extends StatelessWidget {
         // color: Colors.indigo, // debug UI 🙃
         child: ListView(
           children: <Widget>[
-            _qrCodeContainer,
+            _topContainer,
             dividerList,
             _buildItemListMenu(
               img: Icon(Icons.help_outline),

@@ -66,9 +66,6 @@ void main() {
       /// verify if have any `Divider` widget.
       expect(find.byType(Divider), findsWidgets);
 
-      /// verify if have any `FlutterLogo` widget.
-      expect(find.byType(FlutterLogo), findsWidgets);
-
       /// verify if have any `RaisedButton` widget.
       expect(find.byType(RaisedButton), findsWidgets);
 

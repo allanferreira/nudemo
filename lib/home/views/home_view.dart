@@ -38,6 +38,11 @@ class HomePage extends StatelessWidget {
         _totalNotch -
         _boxSlideMargin;
 
+    /// This can be obtained from the [customer register].
+    /// [git.io] url shorten:
+    /// https://github.com/chinnonsantos/nudemo -> https://git.io/JeHSs
+    final String _qrCodeData = 'https://git.io/JeHSs';
+
     return Scaffold(
       key: Key('home-page'),
 
@@ -61,6 +66,7 @@ class HomePage extends StatelessWidget {
               topLogoHeight: _topLogoHeight,
               mainContainerHeight: _mainContainerHeight,
               bottomMenuHeight: _bottomMenuHeight,
+              qrCodeData: _qrCodeData,
             ),
             // Bottom menu container
             SectionIII(

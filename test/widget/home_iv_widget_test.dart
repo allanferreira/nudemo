@@ -138,7 +138,7 @@ void main() {
       /// [Openned State 🔼]
       expect(_buttonDown, findsNothing);
       expect(_buttonUp, findsOneWidget);
-    });
+    }, timeout: Timeout.factor(2));
 
     testWidgets('Tap route of carousel smoke test - ${_title}',
         (WidgetTester tester) async {

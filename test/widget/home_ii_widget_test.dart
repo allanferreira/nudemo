@@ -6,12 +6,14 @@ import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 void main() {
   group('[Widget -> Home page] - Section II', () {
     String _title = 'Chinnon';
 
     final Finder _mainMenu = find.byKey(Key('section-ii'));
+    final Finder _qrCode = find.byType(QrImage);
     final Finder _helpMeButton = find.byKey(Key('/helpme/'));
     final Finder _profileButton = find.byKey(Key('/profile/'));
     final Finder _nuContaConfigsButton = find.byKey(Key('/nuconta-configs/'));
@@ -104,6 +106,33 @@ void main() {
       /// and trigger all frames.
       await tester.tap(_buttonDown);
       await tester.pumpAndSettle();
+    });
+
+    testWidgets('QrImage smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
+
+      /// verify if have a `QrImage` widget.
+      expect(
+        find.descendant(of: _mainMenu, matching: _qrCode),
+        findsOneWidget,
+      );
     });
 
     testWidgets('`Me ajuda` button smoke test - ${_title}',
@@ -230,7 +259,7 @@ void main() {
       /// tap the `/nuconta-configs/` item menu and trigger a frame.
       await tester.tap(_nuContaConfigsButton);
       await tester.pumpAndSettle();
-    });
+    }, timeout: Timeout.factor(2));
 
     testWidgets('`Configurar cartão` button smoke test - ${_title}',
         (WidgetTester tester) async {
