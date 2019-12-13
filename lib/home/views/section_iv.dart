@@ -40,9 +40,9 @@ class SectionIV extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 20.0),
           width: (screenSize.width - 40.0),
           height: boxSlideHeight,
-          color: Colors.blue.withOpacity(0.3), // debug UI 🙃
+          color: Theme.of(context).accentColor.withOpacity(0.3), // debug UI 🙃
           child: Container(
-            color: Colors.pinkAccent.withOpacity(0.5),
+            color: Theme.of(context).accentColor,
             child: Column(
               children: <Widget>[
                 Align(
@@ -56,6 +56,7 @@ class SectionIV extends StatelessWidget {
                 ),
                 RaisedButton(
                   key: Key('/card/'),
+                  textColor: Theme.of(context).accentColor,
                   onPressed: () {
                     Routes(context).navigatorPush(context, '/card/');
                   },
@@ -63,6 +64,7 @@ class SectionIV extends StatelessWidget {
                 ),
                 RaisedButton(
                   key: Key('/nuconta/'),
+                  textColor: Theme.of(context).accentColor,
                   onPressed: () {
                     Routes(context).navigatorPush(context, '/nuconta/');
                   },
@@ -70,6 +72,7 @@ class SectionIV extends StatelessWidget {
                 ),
                 RaisedButton(
                   key: Key('/rewards/'),
+                  textColor: Theme.of(context).accentColor,
                   onPressed: () {
                     Routes(context).navigatorPush(context, '/rewards/');
                   },

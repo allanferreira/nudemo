@@ -62,16 +62,16 @@ class HomePage extends StatelessWidget {
               mainContainerHeight: _mainContainerHeight,
               bottomMenuHeight: _bottomMenuHeight,
             ),
-            // // Bottom menu container
-            // SectionIII(
-            //   bottomMenuHeight: _bottomMenuHeight,
-            // ),
-            // // Slide box container
-            // SectionIV(
-            //   screenSize: _screenSize,
-            //   topLogoHeight: _topLogoHeight,
-            //   boxSlideHeight: _boxSlideHeight,
-            // ),
+            // Bottom menu container
+            SectionIII(
+              bottomMenuHeight: _bottomMenuHeight,
+            ),
+            // Slide box container
+            SectionIV(
+              screenSize: _screenSize,
+              topLogoHeight: _topLogoHeight,
+              boxSlideHeight: _boxSlideHeight,
+            ),
           ],
         ),
       ),

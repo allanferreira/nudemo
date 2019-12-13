@@ -19,7 +19,12 @@ void main() {
     final Finder _appConfigsButton = find.byKey(Key('/app-configs/'));
     final Finder _exitButton = find.byKey(Key('/exit/'));
 
-    testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
+    final Finder _animatedBox = find.byKey(Key('section-iv'));
+    final Finder _buttonUp = find.byIcon(Icons.keyboard_arrow_up);
+    final Finder _buttonDown = find.byIcon(Icons.keyboard_arrow_down);
+
+    testWidgets('Checking widget smoke test - ${_title}',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -53,13 +58,6 @@ void main() {
         findsWidgets,
       );
 
-      /// [Gesture 👉↔️👉] Drag `Up` the `ListView` Widget
-      await tester.drag(
-        _nuContaConfigsButton,
-        Offset(0.0, 250),
-      );
-      await tester.pumpAndSettle();
-
       /// verify if have 5 `ListTile` widget.
       expect(
         find.descendant(of: _mainMenu, matching: find.byType(ListTile)),
@@ -70,6 +68,63 @@ void main() {
       expect(
         find.descendant(of: _mainMenu, matching: find.byType(Divider)),
         findsWidgets,
+      );
+    });
+
+    testWidgets('Drag down animated box smoke test - ${_title}',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
+
+      /// Verify that there is a `Align` Widget with key `section-iv`.
+      expect(_animatedBox, findsOneWidget);
+
+      /// [Closed State 🔽] Verify that there is a `keyboard_arrow_down`
+      /// icon in `IconButton` Widget, and nothing `keyboard_arrow_up`.
+      expect(_buttonUp, findsNothing);
+      expect(_buttonDown, findsOneWidget);
+
+      /// [Gesture 👆] Tap the `IconButton` Widget to drag `Down 🔽`
+      /// and trigger all frames.
+      await tester.tap(_buttonDown);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('`Me ajuda` button smoke test - ${_title}',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
       );
 
       /// verify if have a `Icon` widget with `help_outline` icon.
@@ -88,11 +143,33 @@ void main() {
 
       /// tap the `/helpme/` item menu and trigger a frame.
       await tester.tap(_helpMeButton);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('`Perfil` button smoke test - ${_title}',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
 
       /// verify if have a `Icon` widget with `account_circle` icon.
       expect(
-        find.descendant(
-            of: _mainMenu, matching: find.byIcon(Icons.account_circle)),
+        find.byIcon(Icons.account_circle),
         findsOneWidget,
       );
 
@@ -105,6 +182,36 @@ void main() {
 
       /// tap the `/profile/` item menu and trigger a frame.
       await tester.tap(_profileButton);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('`Configurar NuConta` button smoke test - ${_title}',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
+
+      /// [Gesture 👉↔️👉] Drag `Up` the `ListView` Widget
+      await tester.drag(
+        _nuContaConfigsButton,
+        Offset(0.0, 100),
+      );
+      await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `account_balance` icon.
       expect(
@@ -122,6 +229,29 @@ void main() {
 
       /// tap the `/nuconta-configs/` item menu and trigger a frame.
       await tester.tap(_nuContaConfigsButton);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('`Configurar cartão` button smoke test - ${_title}',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
 
       /// verify if have a `Icon` widget with `credit_card` icon.
       expect(
@@ -139,6 +269,29 @@ void main() {
 
       /// tap the `/card-configs/` item menu and trigger a frame.
       await tester.tap(_cardConfigsButton);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('`Configurações do app` button smoke test - ${_title}',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
 
       /// verify if have a `Icon` widget with `fingerprint` icon.
       expect(
@@ -156,6 +309,29 @@ void main() {
 
       /// tap the `/app-configs/` item menu and trigger a frame.
       await tester.tap(_appConfigsButton);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('`SAIR DA CONTA` button smoke test - ${_title}',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
 
       /// verify if have text `SAIR DA CONTA`.
       expect(find.text('SAIR DA CONTA'), findsOneWidget);
@@ -165,6 +341,7 @@ void main() {
 
       /// tap the `/exit/` item menu and trigger a frame.
       await tester.tap(_exitButton);
+      await tester.pumpAndSettle();
     });
   });
 }

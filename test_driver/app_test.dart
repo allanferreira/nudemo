@@ -13,7 +13,6 @@ void main() {
     final SerializableFinder _animatedBoxPointDrag =
         find.byValueKey('point-drag');
     final SerializableFinder _buttonDownUp = find.byValueKey('icon-drag');
-    // final SerializableFinder _buttonList = find.byValueKey('button-list');
     final SerializableFinder _titleText = find.byValueKey('title-text');
 
     final SerializableFinder _counterText = find.byValueKey('counter-text');
