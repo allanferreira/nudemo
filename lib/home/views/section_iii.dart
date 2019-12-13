@@ -74,7 +74,7 @@ class SectionIII extends StatelessWidget {
           width: 100.0,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.red[700],
+            color: Theme.of(context).primaryColorDark,
             borderRadius: BorderRadius.all(
               Radius.circular(6.0),
             ),
@@ -83,7 +83,10 @@ class SectionIII extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Icon(IconData(icon, fontFamily: 'MaterialIcons')),
+              Icon(
+                IconData(icon, fontFamily: 'MaterialIcons'),
+                color: Theme.of(context).cardColor,
+              ),
               Text(
                 txt,
                 style: Theme.of(context).textTheme.body2,
@@ -108,7 +111,7 @@ class SectionIII extends StatelessWidget {
           right: 0,
           bottom: 20,
         ),
-        color: Colors.green.withOpacity(0.6),
+        // color: Colors.green.withOpacity(0.6), // debug UI 🙃
         child: ListView(
           key: Key('button-list'),
           scrollDirection: Axis.horizontal,

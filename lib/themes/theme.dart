@@ -23,9 +23,11 @@ class NuThemes {
     brightness: Brightness.dark,
     primaryColor: Colors.purple[600],
     primaryColorLight: Colors.purple[300],
+    primaryColorDark: Colors.purple[300],
     accentColor: Colors.white,
     backgroundColor: Colors.purple[600],
     scaffoldBackgroundColor: Colors.purple[600],
+    cardColor: Colors.white,
 
     iconTheme: IconThemeData(
       color: Colors.white,
@@ -52,6 +54,7 @@ class NuThemes {
       body2: TextStyle(
         fontSize: 13.0,
         fontWeight: FontWeight.w400,
+        color: Colors.white,
       ),
     ),
 
@@ -98,9 +101,11 @@ class NuThemes {
     brightness: Brightness.dark,
     primaryColor: Colors.purple[600],
     primaryColorLight: Colors.purple[800],
+    primaryColorDark: Colors.purple[800],
     accentColor: Colors.purple[600],
     backgroundColor: Colors.black,
     scaffoldBackgroundColor: Colors.black,
+    cardColor: Colors.black,
 
     iconTheme: IconThemeData(
       color: Colors.purple[600],
@@ -160,7 +165,7 @@ class NuThemes {
       body2: TextStyle(
         fontSize: 13.0,
         fontWeight: FontWeight.w400,
-        color: Colors.purple[600],
+        color: Colors.black,
       ),
       caption: TextStyle(
         color: Colors.purple[600],

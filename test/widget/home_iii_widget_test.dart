@@ -11,18 +11,20 @@ void main() {
   group('[Widget -> Home page] - Section III', () {
     String _title = 'Chinnon';
 
-    Finder _transferButton = find.byKey(Key('/transfer/'));
-    Finder _virtualCardButton = find.byKey(Key('/virtual-card/'));
-    Finder _payButton = find.byKey(Key('/pay/'));
-    Finder _blockingCardButton = find.byKey(Key('/blocking-card/'));
-    Finder _depositButton = find.byKey(Key('/deposit/'));
-    Finder _chargeButton = find.byKey(Key('/charge/'));
-    Finder _mobileRechargeButton = find.byKey(Key('/mobile-recharge/'));
-    Finder _referFriendsButton = find.byKey(Key('/refer-friends/'));
-    // Finder _adjustLimitButton = find.byKey(Key('/adjust-limit/'));
-    // Finder _organizeShortcutsButton = find.byKey(Key('/organize-shortcuts/'));
+    final Finder _buttonList = find.byKey(Key('button-list'));
+    final Finder _transferButton = find.byKey(Key('/transfer/'));
+    final Finder _virtualCardButton = find.byKey(Key('/virtual-card/'));
+    final Finder _payButton = find.byKey(Key('/pay/'));
+    final Finder _blockingCardButton = find.byKey(Key('/blocking-card/'));
+    final Finder _depositButton = find.byKey(Key('/deposit/'));
+    final Finder _chargeButton = find.byKey(Key('/charge/'));
+    final Finder _mobileRechargeButton = find.byKey(Key('/mobile-recharge/'));
+    final Finder _referFriendsButton = find.byKey(Key('/refer-friends/'));
+    final Finder _adjustLimitButton = find.byKey(Key('/adjust-limit/'));
+    final Finder _organizeShortcutsButton =
+        find.byKey(Key('/organize-shortcuts/'));
 
-    testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
+    testWidgets('`Transferir` button smoke test - ${_title}', (WidgetTester tester) async {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
@@ -56,9 +58,34 @@ void main() {
 
       /// tap the `/transfer/` item menu and trigger a frame.
       await tester.tap(_transferButton);
+    });
+
+    testWidgets('`Cartão virtual` button smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
 
       /// verify if have a `Icon` widget with `credit_card` icon.
-      expect(find.byIcon(Icons.credit_card), findsOneWidget);
+      expect(
+        find.descendant(
+            of: _buttonList, matching: find.byIcon(Icons.credit_card)),
+        findsOneWidget,
+      );
 
       /// verify if have text `Cartão virtual`.
       expect(find.text('Cartão virtual'), findsOneWidget);
@@ -69,6 +96,27 @@ void main() {
 
       /// tap the `/virtual-card/` item menu and trigger a frame.
       await tester.tap(_virtualCardButton);
+    });
+
+    testWidgets('`Pagar` button smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
 
       /// verify if have a `Icon` widget with `flip` icon.
       expect(find.byIcon(Icons.flip), findsOneWidget);
@@ -83,6 +131,31 @@ void main() {
       /// tap the `/pay/` item menu and trigger a frame.
       await tester.tap(_payButton);
 
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_payButton, Offset(0.0, -220));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('`Bloquear cartão` button smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
+
       /// verify if have a `Icon` widget with `lock_open` icon.
       expect(find.byIcon(Icons.lock_open), findsOneWidget);
 
@@ -95,9 +168,34 @@ void main() {
 
       /// tap the `/blocking-card/` item menu and trigger a frame.
       await tester.tap(_blockingCardButton);
+    });
+
+    testWidgets('`Depositar` button smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
 
       /// verify if have a `Icon` widget with `account_balance` icon.
-      expect(find.byIcon(Icons.account_balance), findsOneWidget);
+      expect(
+        find.descendant(
+            of: _buttonList, matching: find.byIcon(Icons.account_balance)),
+        findsOneWidget,
+      );
 
       /// verify if have text `Depositar`.
       expect(find.text('Depositar'), findsOneWidget);
@@ -108,6 +206,31 @@ void main() {
 
       /// tap the `/deposit/` item menu and trigger a frame.
       await tester.tap(_depositButton);
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_depositButton, Offset(0.0, -220));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('`Cobrar` button smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
 
       /// verify if have a `Icon` widget with `account_balance_wallet` icon.
       expect(find.byIcon(Icons.account_balance_wallet), findsOneWidget);
@@ -121,6 +244,27 @@ void main() {
 
       /// tap the `/charge/` item menu and trigger a frame.
       await tester.tap(_chargeButton);
+    });
+
+    testWidgets('`Recarga de celular` button smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
 
       /// verify if have a `Icon` widget with `phone_iphone` icon.
       expect(find.byIcon(Icons.phone_iphone), findsOneWidget);
@@ -135,6 +279,31 @@ void main() {
       /// tap the `/mobile-recharge/` item menu and trigger a frame.
       await tester.tap(_mobileRechargeButton);
 
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_mobileRechargeButton, Offset(0.0, -220));
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('`Indicar amigos` button smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
+
       /// verify if have a `Icon` widget with `person_add` icon.
       expect(find.byIcon(Icons.person_add), findsOneWidget);
 
@@ -147,32 +316,78 @@ void main() {
 
       /// tap the `/refer-friends/` item menu and trigger a frame.
       await tester.tap(_referFriendsButton);
-
-      // /// verify if have a `Icon` widget with `settings_input_component` icon.
-      // expect(find.byIcon(Icons.settings_input_component), findsOneWidget);
-
-      // /// verify if have text `Ajustar limite`.
-      // expect(find.text('Ajustar limite'), findsOneWidget);
-
-      // /// verify if have an item in the bottom menu list with
-      // /// `/adjust-limit/` key/route (ListView Widget).
-      // expect(_adjustLimitButton, findsOneWidget);
-
-      // /// tap the `/adjust-limit/` item menu and trigger a frame.
-      // await tester.tap(_adjustLimitButton);
-
-      // /// verify if have a `Icon` widget with `format_list_numbered` icon.
-      // expect(find.byIcon(Icons.format_list_numbered), findsOneWidget);
-
-      // /// verify if have text `Organizar atalhos`.
-      // expect(find.text('Organizar atalhos'), findsOneWidget);
-
-      // /// verify if have an item in the bottom menu list with
-      // /// `/organize-shortcuts/` key/route (ListView Widget).
-      // expect(_organizeShortcutsButton, findsOneWidget);
-
-      // /// tap the `/organize-shortcuts/` item menu and trigger a frame.
-      // await tester.tap(_organizeShortcutsButton);
     });
+
+    testWidgets('`Ajustar limite` button smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
+
+      /// verify if have a `Icon` widget with `settings_input_component` icon.
+      expect(find.byIcon(Icons.settings_input_component), findsOneWidget);
+
+      /// verify if have text `Ajustar limite`.
+      expect(find.text('Ajustar limite'), findsOneWidget);
+
+      /// verify if have an item in the bottom menu list with
+      /// `/adjust-limit/` key/route (ListView Widget).
+      expect(_adjustLimitButton, findsOneWidget);
+
+      /// tap the `/adjust-limit/` item menu and trigger a frame.
+      await tester.tap(_adjustLimitButton);
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_adjustLimitButton, Offset(0.0, -220));
+      await tester.pumpAndSettle();
+    }, skip: true);
+
+    testWidgets('`Organizar atalhos` button smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BasicConstructionPresenter>(
+              create: (context) => BasicConstructionPresenter(),
+            ),
+            ListenableProvider<BasicAnimatedBoxPresenter>(
+              create: (context) => BasicAnimatedBoxPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(),
+              title: _title,
+            ),
+          ),
+        ),
+      );
+
+      /// verify if have a `Icon` widget with `format_list_numbered` icon.
+      expect(find.byIcon(Icons.format_list_numbered), findsOneWidget);
+
+      /// verify if have text `Organizar atalhos`.
+      expect(find.text('Organizar atalhos'), findsOneWidget);
+
+      /// verify if have an item in the bottom menu list with
+      /// `/organize-shortcuts/` key/route (ListView Widget).
+      expect(_organizeShortcutsButton, findsOneWidget);
+
+      /// tap the `/organize-shortcuts/` item menu and trigger a frame.
+      await tester.tap(_organizeShortcutsButton);
+    }, skip: true);
   });
 }
