@@ -5,18 +5,18 @@ import 'package:nudemo/home/viewmodel/fade_box_viewmodel.dart';
 
 void main() {
   group('[Unit -> FadeBoxViewModel]', () {
-    FadeBoxViewModel homeViewModel;
+    FadeBoxViewModel fadeBoxViewModel;
 
     setUp(() {
-      homeViewModel = FadeBoxViewModel();
+      fadeBoxViewModel = FadeBoxViewModel();
     });
 
     test('initial `AnimationController` value should be null', () {
-      expect(homeViewModel.controller, null);
+      expect(fadeBoxViewModel.controller, null);
     });
 
     test('initial `curvedAnimation` value should be null', () {
-      expect(homeViewModel.curvedAnimation, null);
+      expect(fadeBoxViewModel.curvedAnimation, null);
     });
 
     test('`initialOpacity` value should be 0.0', () {

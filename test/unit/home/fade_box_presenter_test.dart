@@ -5,16 +5,16 @@ import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 
 void main() {
   group('[Unit -> FadeBoxPresenter]', () {
-    FadeBoxPresenter basicFadeBoxPresenter;
+    FadeBoxPresenter fadeBoxPresenter;
 
     setUp(() {
-      basicFadeBoxPresenter = FadeBoxPresenter();
+      fadeBoxPresenter = FadeBoxPresenter();
     });
 
     test('`getCurvedAnimation()` run time type should be [CurvedAnimation]',
         () {
       expect(
-        basicFadeBoxPresenter.getCurvedAnimation().runtimeType,
+        fadeBoxPresenter.getCurvedAnimation().runtimeType,
         CurvedAnimation,
       );
     });

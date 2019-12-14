@@ -6,6 +6,7 @@ import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
+import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 /// `Section IV` - Slide box container widget test
@@ -34,6 +35,9 @@ void main() {
         ),
         ListenableProvider<FadeBoxPresenter>(
           create: (context) => FadeBoxPresenter(),
+        ),
+        ListenableProvider<FadeButtonsPresenter>(
+          create: (context) => FadeButtonsPresenter(),
         ),
       ],
       child: MaterialApp(
