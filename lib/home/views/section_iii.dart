@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:nudemo/utils/routes.dart';
+import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 
 /// `Section III` - Bottom menu container
 class SectionIII extends StatelessWidget {
@@ -112,73 +114,78 @@ class SectionIII extends StatelessWidget {
           bottom: 20,
         ),
         // color: Colors.green.withOpacity(0.6), // debug UI 🙃
-        child: ListView(
-          key: Key('button-list'),
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          children: <Widget>[
-            Container(width: 20),
-            _buildButtonList(
-              _userButtonList[0]['icon'],
-              _userButtonList[0]['txt'],
-              _userButtonList[0]['onTapRoute'],
+        child: Consumer<FadeButtonsPresenter>(
+          builder: (context, fadeBox, child) => FadeTransition(
+            opacity: fadeBox.getCurvedAnimation(),
+            child: ListView(
+              key: Key('button-list'),
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              children: <Widget>[
+                Container(width: 20),
+                _buildButtonList(
+                  _userButtonList[0]['icon'],
+                  _userButtonList[0]['txt'],
+                  _userButtonList[0]['onTapRoute'],
+                ),
+                Container(width: 10),
+                _buildButtonList(
+                  _userButtonList[1]['icon'],
+                  _userButtonList[1]['txt'],
+                  _userButtonList[1]['onTapRoute'],
+                ),
+                Container(width: 10),
+                _buildButtonList(
+                  _userButtonList[2]['icon'],
+                  _userButtonList[2]['txt'],
+                  _userButtonList[2]['onTapRoute'],
+                ),
+                Container(width: 10),
+                _buildButtonList(
+                  _userButtonList[3]['icon'],
+                  _userButtonList[3]['txt'],
+                  _userButtonList[3]['onTapRoute'],
+                ),
+                Container(width: 10),
+                _buildButtonList(
+                  _userButtonList[4]['icon'],
+                  _userButtonList[4]['txt'],
+                  _userButtonList[4]['onTapRoute'],
+                ),
+                Container(width: 10),
+                _buildButtonList(
+                  _userButtonList[5]['icon'],
+                  _userButtonList[5]['txt'],
+                  _userButtonList[5]['onTapRoute'],
+                ),
+                Container(width: 10),
+                _buildButtonList(
+                  _userButtonList[6]['icon'],
+                  _userButtonList[6]['txt'],
+                  _userButtonList[6]['onTapRoute'],
+                ),
+                Container(width: 10),
+                _buildButtonList(
+                  _userButtonList[7]['icon'],
+                  _userButtonList[7]['txt'],
+                  _userButtonList[7]['onTapRoute'],
+                ),
+                Container(width: 10),
+                _buildButtonList(
+                  _userButtonList[8]['icon'],
+                  _userButtonList[8]['txt'],
+                  _userButtonList[8]['onTapRoute'],
+                ),
+                Container(width: 10),
+                _buildButtonList(
+                  _userButtonList[9]['icon'],
+                  _userButtonList[9]['txt'],
+                  _userButtonList[9]['onTapRoute'],
+                ),
+                Container(width: 20),
+              ],
             ),
-            Container(width: 10),
-            _buildButtonList(
-              _userButtonList[1]['icon'],
-              _userButtonList[1]['txt'],
-              _userButtonList[1]['onTapRoute'],
-            ),
-            Container(width: 10),
-            _buildButtonList(
-              _userButtonList[2]['icon'],
-              _userButtonList[2]['txt'],
-              _userButtonList[2]['onTapRoute'],
-            ),
-            Container(width: 10),
-            _buildButtonList(
-              _userButtonList[3]['icon'],
-              _userButtonList[3]['txt'],
-              _userButtonList[3]['onTapRoute'],
-            ),
-            Container(width: 10),
-            _buildButtonList(
-              _userButtonList[4]['icon'],
-              _userButtonList[4]['txt'],
-              _userButtonList[4]['onTapRoute'],
-            ),
-            Container(width: 10),
-            _buildButtonList(
-              _userButtonList[5]['icon'],
-              _userButtonList[5]['txt'],
-              _userButtonList[5]['onTapRoute'],
-            ),
-            Container(width: 10),
-            _buildButtonList(
-              _userButtonList[6]['icon'],
-              _userButtonList[6]['txt'],
-              _userButtonList[6]['onTapRoute'],
-            ),
-            Container(width: 10),
-            _buildButtonList(
-              _userButtonList[7]['icon'],
-              _userButtonList[7]['txt'],
-              _userButtonList[7]['onTapRoute'],
-            ),
-            Container(width: 10),
-            _buildButtonList(
-              _userButtonList[8]['icon'],
-              _userButtonList[8]['txt'],
-              _userButtonList[8]['onTapRoute'],
-            ),
-            Container(width: 10),
-            _buildButtonList(
-              _userButtonList[9]['icon'],
-              _userButtonList[9]['txt'],
-              _userButtonList[9]['onTapRoute'],
-            ),
-            Container(width: 20),
-          ],
+          ),
         ),
       ),
     );

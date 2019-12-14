@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/presenter/animated_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
+import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/home/viewmodel/animated_box_viewmodel.dart';
 import 'package:nudemo/utils/my_ticker_provider.dart';
 
@@ -84,16 +85,25 @@ class AnimatedBoxPresenter extends MyTickerProvider
 
   /// Handler for [onPanUpdate] of GestureDetector
   void handlerPanUpdate(context, details, size) {
+    /// [Animated Box Controller]
     // Top (-1.0) -> Center (0.0) -> Bottom (1.0)
     double _alignY = details.delta.dy / (size.height / 2);
     this._aBoxViewModel.dragAlignment += Alignment(0.0, _alignY);
     this._aBoxViewModel.draggingDirectionY =
         this._aBoxViewModel.draggingDirectionY + _alignY;
 
-    // Hidden (0.0) -> Shown (1.0)
+    /// [Fade Box Controller]
+    // Hidden initiate (0.0) -> Then shown (1.0)
     double transitionOpacity = (details.globalPosition.dy / size.height) - 0.1;
     Provider.of<FadeBoxPresenter>(context, listen: false)
         .fadeTransitionTo(transitionOpacity);
+
+    /// [Fade Buttons Controller]
+    // Shown initiate (1.0) -> Then Hidden (0.0)
+    double transitionOpacityReverse = 0.85;
+    transitionOpacityReverse -= transitionOpacity;
+    Provider.of<FadeButtonsPresenter>(context, listen: false)
+        .fadeTransitionTo(transitionOpacityReverse);
 
     /// Drag direction: `TOP` <-> `BOTTOM`
     // if (this._aBoxViewModel.draggingDirectionY > 0 &&
@@ -131,12 +141,20 @@ class AnimatedBoxPresenter extends MyTickerProvider
 
     if (this._aBoxViewModel.targetAlignment == _endDragAlignment) {
       this._aBoxViewModel.isLowered = true;
+      // Show the main menu box
       Provider.of<FadeBoxPresenter>(context, listen: false)
           .fadeTransitionForward();
+      // Hide the buttons list bottom
+      Provider.of<FadeButtonsPresenter>(context, listen: false)
+          .fadeTransitionReverse();
     } else {
       this._aBoxViewModel.isLowered = false;
+      // Hide the main menu box
       Provider.of<FadeBoxPresenter>(context, listen: false)
           .fadeTransitionReverse();
+      // Show the buttons list bottom
+      Provider.of<FadeButtonsPresenter>(context, listen: false)
+          .fadeTransitionForward();
     }
 
     this._aBoxViewModel.draggingDirectionY = 0.0;
@@ -151,12 +169,20 @@ class AnimatedBoxPresenter extends MyTickerProvider
     Alignment endRun;
     if (this._aBoxViewModel.isLowered) {
       endRun = _beginDragAlignment;
+      // Hide the main menu box
       Provider.of<FadeBoxPresenter>(context, listen: false)
           .fadeTransitionReverse();
+      // Show the buttons list bottom
+      Provider.of<FadeButtonsPresenter>(context, listen: false)
+          .fadeTransitionForward();
     } else {
       endRun = _endDragAlignment;
+      // Show the main menu box
       Provider.of<FadeBoxPresenter>(context, listen: false)
           .fadeTransitionForward();
+      // Hide the buttons list bottom
+      Provider.of<FadeButtonsPresenter>(context, listen: false)
+          .fadeTransitionReverse();
     }
 
     _runAnimation(
