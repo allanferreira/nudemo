@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
-import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
+import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 
 /// `Section I` - Logo container
 class SectionI extends StatelessWidget {
@@ -60,7 +59,7 @@ class SectionI extends StatelessWidget {
               Container(
                 // color: Colors.black, // debug UI 🙃
                 padding: EdgeInsets.only(left: 70, right: 70, bottom: 13),
-                child: Consumer<BasicAnimatedBoxPresenter>(
+                child: Consumer<AnimatedBoxPresenter>(
                   builder: (context, animatedBox, child) => Icon(
                     /// Get [isLowered] from model (by Consumer)
                     animatedBox.getIsLowered()
@@ -73,9 +72,8 @@ class SectionI extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () =>
-              Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
-                  .handlerIconButtonPressed(context, screenSize),
+          onTap: () => Provider.of<AnimatedBoxPresenter>(context, listen: false)
+              .handlerIconButtonPressed(context, screenSize),
         ),
       ),
     );

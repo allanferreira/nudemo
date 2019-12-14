@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
-import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
-import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
+import 'package:nudemo/home/presenter/animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() {
@@ -30,11 +30,11 @@ void main() {
         ChangeNotifierProvider<BasicConstructionPresenter>(
           create: (context) => BasicConstructionPresenter(),
         ),
-        ListenableProvider<BasicAnimatedBoxPresenter>(
-          create: (context) => BasicAnimatedBoxPresenter(),
+        ListenableProvider<AnimatedBoxPresenter>(
+          create: (context) => AnimatedBoxPresenter(),
         ),
-        ListenableProvider<BasicFadeBoxPresenter>(
-          create: (context) => BasicFadeBoxPresenter(),
+        ListenableProvider<FadeBoxPresenter>(
+          create: (context) => FadeBoxPresenter(),
         ),
       ],
       child: MaterialApp(

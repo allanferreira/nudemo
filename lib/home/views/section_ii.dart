@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:nudemo/utils/routes.dart';
-import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
+import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 
 /// `Section II` - Main menu container
 class SectionII extends StatelessWidget {
@@ -157,7 +157,7 @@ class SectionII extends StatelessWidget {
           bottom: 0,
         ),
         // color: Colors.indigo, // debug UI 🙃
-        child: Consumer<BasicFadeBoxPresenter>(
+        child: Consumer<FadeBoxPresenter>(
           builder: (context, fadeBox, child) => FadeTransition(
             opacity: fadeBox.getCurvedAnimation(),
             child: ListView(

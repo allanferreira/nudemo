@@ -1,14 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:test/test.dart';
 
-import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 
 void main() {
-  group('[Unit -> BasicAnimatedBoxPresenter]', () {
-    BasicAnimatedBoxPresenter basicAnimatedBoxPresenter;
+  group('[Unit -> AnimatedBoxPresenter]', () {
+    AnimatedBoxPresenter basicAnimatedBoxPresenter;
 
     setUp(() {
-      basicAnimatedBoxPresenter = BasicAnimatedBoxPresenter();
+      basicAnimatedBoxPresenter = AnimatedBoxPresenter();
     });
 
     test('`getIsLowered()` initial value should be false', () {

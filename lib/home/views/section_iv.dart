@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:nudemo/utils/routes.dart';
-import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 
 /// `Section IV` - Slide box container
 class SectionIV extends StatelessWidget {
@@ -23,18 +23,18 @@ class SectionIV extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onPanStart: (details) =>
-          Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
+          Provider.of<AnimatedBoxPresenter>(context, listen: false)
               .handlerPanStart(details),
       onPanUpdate: (details) =>
-          Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
+          Provider.of<AnimatedBoxPresenter>(context, listen: false)
               .handlerPanUpdate(context, details, screenSize),
       onPanEnd: (details) =>
-          Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
+          Provider.of<AnimatedBoxPresenter>(context, listen: false)
               .handlerPanEnd(context, details, screenSize),
       child: Align(
         /// Get [dragAlignment] from model (by Provider.off)
         alignment:
-            Provider.of<BasicAnimatedBoxPresenter>(context).getDragAlignment(),
+            Provider.of<AnimatedBoxPresenter>(context).getDragAlignment(),
         key: Key('section-iv'),
         child: Container(
           padding: EdgeInsets.only(bottom: 20.0),

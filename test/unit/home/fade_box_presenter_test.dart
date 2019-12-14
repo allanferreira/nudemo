@@ -1,14 +1,14 @@
 import 'package:flutter/animation.dart';
 import 'package:test/test.dart';
 
-import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
+import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 
 void main() {
-  group('[Unit -> BasicFadeBoxPresenter]', () {
-    BasicFadeBoxPresenter basicFadeBoxPresenter;
+  group('[Unit -> FadeBoxPresenter]', () {
+    FadeBoxPresenter basicFadeBoxPresenter;
 
     setUp(() {
-      basicFadeBoxPresenter = BasicFadeBoxPresenter();
+      basicFadeBoxPresenter = FadeBoxPresenter();
     });
 
     test('`getCurvedAnimation()` run time type should be [CurvedAnimation]',
