@@ -9,12 +9,13 @@ import 'package:nudemo/utils/my_ticker_provider.dart';
 class BasicAnimatedBoxPresenter extends MyTickerProvider
     with ChangeNotifier
     implements AnimatedBoxPresenter {
+  AnimatedBoxViewModel _aBoxViewModel;
+
   static const Alignment _beginDragAlignment =
       AnimatedBoxViewModel.beginDragAlignment;
   static const Alignment _endDragAlignment =
       AnimatedBoxViewModel.endDragAlignment;
   static double _minDragDistance = AnimatedBoxViewModel.minDragDistance;
-  AnimatedBoxViewModel _aBoxViewModel;
 
   BasicAnimatedBoxPresenter() {
     this._aBoxViewModel = AnimatedBoxViewModel();

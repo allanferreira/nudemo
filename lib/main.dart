@@ -5,6 +5,7 @@ import 'package:nudemo/themes/theme.dart';
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() => runApp(MyApp());
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
         ListenableProvider<BasicAnimatedBoxPresenter>(
           create: (context) => BasicAnimatedBoxPresenter(),
+        ),
+        ListenableProvider<BasicFadeBoxPresenter>(
+          create: (context) => BasicFadeBoxPresenter(),
         ),
       ],
       child: MaterialApp(

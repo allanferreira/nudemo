@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:nudemo/utils/routes.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
 
 /// `Section II` - Main menu container
 class SectionII extends StatelessWidget {
@@ -155,66 +157,71 @@ class SectionII extends StatelessWidget {
           bottom: 0,
         ),
         // color: Colors.indigo, // debug UI 🙃
-        child: ListView(
-          children: <Widget>[
-            _topContainer,
-            dividerList,
-            _buildItemListMenu(
-              img: Icon(Icons.help_outline),
-              title: 'Me ajuda',
-              subtitle: null,
-              route: '/helpme/',
-            ),
-            dividerList,
-            _buildItemListMenu(
-              img: Icon(Icons.account_circle),
-              title: 'Perfil',
-              subtitle: 'Nome de preferência, telefone, e-mail',
-              route: '/profile/',
-            ),
-            dividerList,
-            _buildItemListMenu(
-              img: Icon(Icons.account_balance),
-              title: 'Configurar NuConta',
-              subtitle: null,
-              route: '/nuconta-configs/',
-            ),
-            dividerList,
-            _buildItemListMenu(
-              img: Icon(Icons.credit_card),
-              title: 'Configurar cartão',
-              subtitle: null,
-              route: '/card-configs/',
-            ),
-            dividerList,
-            _buildItemListMenu(
-              img: Icon(Icons.fingerprint),
-              title: 'Configurações do app',
-              subtitle: null,
-              route: '/app-configs/',
-            ),
-            dividerList,
-            Divider(
-              height: 15,
-              color: Colors.transparent,
-            ),
-            RaisedButton(
-              key: Key('/exit/'),
-              padding: EdgeInsets.all(12),
-              child: Text(
-                'Sair da conta'.toUpperCase(),
-                style: TextStyle(
-                  color: Theme.of(context).accentColor,
-                  fontWeight: FontWeight.w600,
+        child: Consumer<BasicFadeBoxPresenter>(
+          builder: (context, fadeBox, child) => FadeTransition(
+            opacity: fadeBox.getCurvedAnimation(),
+            child: ListView(
+              children: <Widget>[
+                _topContainer,
+                dividerList,
+                _buildItemListMenu(
+                  img: Icon(Icons.help_outline),
+                  title: 'Me ajuda',
+                  subtitle: null,
+                  route: '/helpme/',
                 ),
-              ),
-              onPressed: null,
+                dividerList,
+                _buildItemListMenu(
+                  img: Icon(Icons.account_circle),
+                  title: 'Perfil',
+                  subtitle: 'Nome de preferência, telefone, e-mail',
+                  route: '/profile/',
+                ),
+                dividerList,
+                _buildItemListMenu(
+                  img: Icon(Icons.account_balance),
+                  title: 'Configurar NuConta',
+                  subtitle: null,
+                  route: '/nuconta-configs/',
+                ),
+                dividerList,
+                _buildItemListMenu(
+                  img: Icon(Icons.credit_card),
+                  title: 'Configurar cartão',
+                  subtitle: null,
+                  route: '/card-configs/',
+                ),
+                dividerList,
+                _buildItemListMenu(
+                  img: Icon(Icons.fingerprint),
+                  title: 'Configurações do app',
+                  subtitle: null,
+                  route: '/app-configs/',
+                ),
+                dividerList,
+                Divider(
+                  height: 15,
+                  color: Colors.transparent,
+                ),
+                RaisedButton(
+                  key: Key('/exit/'),
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    'Sair da conta'.toUpperCase(),
+                    style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  onPressed: null,
+                ),
+                Divider(
+                  height: bottomMenuHeight,
+                  color: Colors.transparent,
+                ),
+              ],
             ),
-            Divider(
-              height: bottomMenuHeight,
-              color: Colors.transparent,
-            ),
-          ],
+          ),
         ),
       ),
     );

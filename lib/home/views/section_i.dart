@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
 
 /// `Section I` - Logo container
 class SectionI extends StatelessWidget {
@@ -72,9 +73,20 @@ class SectionI extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () =>
-              Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
-                  .handlerIconButtonPressed(screenSize),
+          onTap: () {
+            // Fade box
+            if (Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
+                .getIsLowered()) {
+              Provider.of<BasicFadeBoxPresenter>(context, listen: false)
+                  .fadeTransitionReverse();
+            } else {
+              Provider.of<BasicFadeBoxPresenter>(context, listen: false)
+                  .fadeTransitionForward();
+            }
+            // Drag box
+            Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
+                .handlerIconButtonPressed(screenSize);
+          },
         ),
       ),
     );
