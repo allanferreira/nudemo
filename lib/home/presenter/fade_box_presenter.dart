@@ -9,11 +9,7 @@ abstract class FadeBoxPresenter {
   CurvedAnimation getCurvedAnimation();
 
   /// Drives the animation from its current value to target.
-  void fadeTransitionTo({
-    double opacity,
-    Duration duration,
-    Curve curve,
-  });
+  void fadeTransitionTo(double opacity);
 
   /// Starts running this animation forwards
   /// [towards the end].

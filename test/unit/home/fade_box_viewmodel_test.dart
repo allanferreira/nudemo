@@ -19,10 +19,6 @@ void main() {
       expect(homeViewModel.curvedAnimation, null);
     });
 
-    test('initial `transitionOpacity` value should be null', () {
-      expect(homeViewModel.transitionOpacity, null);
-    });
-
     test('`initialOpacity` value should be 0.0', () {
       expect(FadeBoxViewModel.initialOpacity, 0.0);
     });
@@ -38,13 +34,6 @@ void main() {
       expect(
         FadeBoxViewModel.durationReverse,
         const Duration(milliseconds: 400),
-      );
-    });
-
-    test('`durationFast` value should be 100ms', () {
-      expect(
-        FadeBoxViewModel.durationFast,
-        const Duration(milliseconds: 100),
       );
     });
 

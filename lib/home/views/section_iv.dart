@@ -27,10 +27,10 @@ class SectionIV extends StatelessWidget {
               .handlerPanStart(details),
       onPanUpdate: (details) =>
           Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
-              .handlerPanUpdate(details, screenSize),
+              .handlerPanUpdate(context, details, screenSize),
       onPanEnd: (details) =>
           Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
-              .handlerPanEnd(details, screenSize),
+              .handlerPanEnd(context, details, screenSize),
       child: Align(
         /// Get [dragAlignment] from model (by Provider.off)
         alignment:

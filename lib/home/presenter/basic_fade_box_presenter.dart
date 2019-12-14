@@ -23,9 +23,6 @@ class BasicFadeBoxPresenter extends MyTickerProvider
         // print('velocity: ${this._fBoxViewModel.controller.velocity}');
         // print('status: ${this._fBoxViewModel.controller.status}');
 
-        this._fBoxViewModel.transitionOpacity =
-            this._fBoxViewModel.controller.value;
-
         notifyListeners();
       });
 
@@ -40,19 +37,8 @@ class BasicFadeBoxPresenter extends MyTickerProvider
   CurvedAnimation getCurvedAnimation() => this._fBoxViewModel.curvedAnimation;
 
   /// Drives the animation from its current value to target.
-  void fadeTransitionTo({
-    double opacity,
-    Duration duration,
-    Curve curve,
-  }) {
-    this._fBoxViewModel.controller.stop(canceled: true);
-
-    this._fBoxViewModel.controller.animateTo(
-          opacity,
-          duration: FadeBoxViewModel.durationFast,
-          curve: FadeBoxViewModel.curveForward,
-        );
-  }
+  void fadeTransitionTo(double opacity) =>
+      this._fBoxViewModel.controller.value = opacity;
 
   /// Starts running this animation forwards
   /// [towards the end].

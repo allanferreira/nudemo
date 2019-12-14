@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
 import 'package:nudemo/home/viewmodel/animated_box_viewmodel.dart';
+import 'package:nudemo/home/viewmodel/fade_box_viewmodel.dart';
 import 'package:nudemo/utils/my_ticker_provider.dart';
 
 class BasicAnimatedBoxPresenter extends MyTickerProvider
@@ -81,12 +84,18 @@ class BasicAnimatedBoxPresenter extends MyTickerProvider
   void handlerPanStart(details) => _stopAnimation();
 
   /// Handler for [onPanUpdate] of GestureDetector
-  void handlerPanUpdate(details, size) {
-    // Start (-1.0) -> Center (0.0) -> End (1.0)
+  void handlerPanUpdate(context, details, size) {
+    // Top (-1.0) -> Center (0.0) -> Bottom (1.0)
     double _alignY = details.delta.dy / (size.height / 2);
     this._aBoxViewModel.dragAlignment += Alignment(0.0, _alignY);
     this._aBoxViewModel.draggingDirectionY =
         this._aBoxViewModel.draggingDirectionY + _alignY;
+
+    // Hidden (0.0) -> Shown (1.0)
+    double transitionOpacity =
+        (details.globalPosition.dy / size.height) - 0.1;
+    Provider.of<BasicFadeBoxPresenter>(context, listen: false)
+        .fadeTransitionTo(transitionOpacity);
 
     /// Drag direction: `TOP` <-> `BOTTOM`
     // if (this._aBoxViewModel.draggingDirectionY > 0 &&
@@ -107,7 +116,7 @@ class BasicAnimatedBoxPresenter extends MyTickerProvider
   }
 
   /// Handler for [onPanEnd] of GestureDetector
-  void handlerPanEnd(details, size) {
+  void handlerPanEnd(context, details, size) {
     if (this._aBoxViewModel.draggingDirectionY > 0 &&
             this._aBoxViewModel.draggingDirectionY > _minDragDistance ||
         this._aBoxViewModel.draggingDirectionY < 0 &&
@@ -122,23 +131,40 @@ class BasicAnimatedBoxPresenter extends MyTickerProvider
       end: this._aBoxViewModel.targetAlignment,
     );
 
-    this._aBoxViewModel.isLowered =
-        this._aBoxViewModel.targetAlignment == _endDragAlignment ?? true;
+    if (this._aBoxViewModel.targetAlignment == _endDragAlignment) {
+      this._aBoxViewModel.isLowered = true;
+      Provider.of<BasicFadeBoxPresenter>(context, listen: false)
+          .fadeTransitionForward();
+    } else {
+      this._aBoxViewModel.isLowered = false;
+      Provider.of<BasicFadeBoxPresenter>(context, listen: false)
+          .fadeTransitionReverse();
+    }
+
     this._aBoxViewModel.draggingDirectionY = 0.0;
 
     notifyListeners();
   }
 
   /// Handler for [onPressed] of IconButton
-  void handlerIconButtonPressed(Size size) {
+  void handlerIconButtonPressed(BuildContext context, Size size) {
     _stopAnimation();
+
+    Alignment endRun;
+    if (this._aBoxViewModel.isLowered) {
+      endRun = _beginDragAlignment;
+      Provider.of<BasicFadeBoxPresenter>(context, listen: false)
+          .fadeTransitionReverse();
+    } else {
+      endRun = _endDragAlignment;
+      Provider.of<BasicFadeBoxPresenter>(context, listen: false)
+          .fadeTransitionForward();
+    }
 
     _runAnimation(
       size: size,
       begin: this._aBoxViewModel.dragAlignment,
-      end: this._aBoxViewModel.isLowered
-          ? _beginDragAlignment
-          : _endDragAlignment,
+      end: endRun,
     );
 
     _invertDragTarget();

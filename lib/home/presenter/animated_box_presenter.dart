@@ -15,11 +15,22 @@ abstract class AnimatedBoxPresenter {
   void handlerPanStart(DragStartDetails details);
 
   /// Handler for [onPanUpdate] of GestureDetector
-  void handlerPanUpdate(DragUpdateDetails details, Size size);
+  void handlerPanUpdate(
+    BuildContext context,
+    DragUpdateDetails details,
+    Size size,
+  );
 
   /// Handler for [onPanEnd] of GestureDetector
-  void handlerPanEnd(DragEndDetails details, Size size);
+  void handlerPanEnd(
+    BuildContext context,
+    DragEndDetails details,
+    Size size,
+  );
 
   /// Handler for [onPressed] of IconButton
-  void handlerIconButtonPressed(Size size);
+  void handlerIconButtonPressed(
+    BuildContext context,
+    Size size,
+  );
 }

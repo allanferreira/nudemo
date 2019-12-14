@@ -73,20 +73,9 @@ class SectionI extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () {
-            // Fade box
-            if (Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
-                .getIsLowered()) {
-              Provider.of<BasicFadeBoxPresenter>(context, listen: false)
-                  .fadeTransitionReverse();
-            } else {
-              Provider.of<BasicFadeBoxPresenter>(context, listen: false)
-                  .fadeTransitionForward();
-            }
-            // Drag box
-            Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
-                .handlerIconButtonPressed(screenSize);
-          },
+          onTap: () =>
+              Provider.of<BasicAnimatedBoxPresenter>(context, listen: false)
+                  .handlerIconButtonPressed(context, screenSize),
         ),
       ),
     );

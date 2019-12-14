@@ -50,12 +50,12 @@ void main() {
       );
     });
 
-    test('`minDragDistance` value should be [7%] of (end - begin)', () {
+    test('`minDragDistance` value should be [15%] of (end - begin)', () {
       expect(
         AnimatedBoxViewModel.minDragDistance,
         ((AnimatedBoxViewModel.endDragAlignment.y -
                 AnimatedBoxViewModel.beginDragAlignment.y) *
-            0.07),
+            0.15),
       );
     });
 
