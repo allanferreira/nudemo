@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() {
@@ -24,26 +25,29 @@ void main() {
     final Finder _organizeShortcutsButton =
         find.byKey(Key('/organize-shortcuts/'));
 
+    final Widget _pumpWidget = MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BasicConstructionPresenter>(
+          create: (context) => BasicConstructionPresenter(),
+        ),
+        ListenableProvider<BasicAnimatedBoxPresenter>(
+          create: (context) => BasicAnimatedBoxPresenter(),
+        ),
+        ListenableProvider<BasicFadeBoxPresenter>(
+          create: (context) => BasicFadeBoxPresenter(),
+        ),
+      ],
+      child: MaterialApp(
+        home: HomePage(
+          presenter: HomePresenter(),
+          title: _title,
+        ),
+      ),
+    );
+
     testWidgets('`Transferir` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// `Section III` - Bottom menu container
 
@@ -63,24 +67,7 @@ void main() {
 
     testWidgets('`Cartão virtual` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `credit_card` icon.
       expect(
@@ -102,24 +89,7 @@ void main() {
 
     testWidgets('`Pagar` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `flip` icon.
       expect(find.byIcon(Icons.flip), findsOneWidget);
@@ -141,24 +111,7 @@ void main() {
 
     testWidgets('`Bloquear cartão` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `lock_open` icon.
       expect(find.byIcon(Icons.lock_open), findsOneWidget);
@@ -176,24 +129,7 @@ void main() {
 
     testWidgets('`Depositar` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `account_balance` icon.
       expect(
@@ -219,24 +155,7 @@ void main() {
 
     testWidgets('`Cobrar` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `account_balance_wallet` icon.
       expect(find.byIcon(Icons.account_balance_wallet), findsOneWidget);
@@ -254,24 +173,7 @@ void main() {
 
     testWidgets('`Recarga de celular` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `phone_iphone` icon.
       expect(find.byIcon(Icons.phone_iphone), findsOneWidget);
@@ -293,24 +195,7 @@ void main() {
 
     testWidgets('`Indicar amigos` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `person_add` icon.
       expect(find.byIcon(Icons.person_add), findsOneWidget);
@@ -328,24 +213,7 @@ void main() {
 
     testWidgets('`Ajustar limite` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `settings_input_component` icon.
       expect(find.byIcon(Icons.settings_input_component), findsOneWidget);
@@ -367,24 +235,7 @@ void main() {
 
     testWidgets('`Organizar atalhos` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `format_list_numbered` icon.
       expect(find.byIcon(Icons.format_list_numbered), findsOneWidget);

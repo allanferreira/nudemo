@@ -6,11 +6,32 @@ import 'package:nudemo/main.dart';
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() {
   group('[Widget -> Home page] - All Sections', () {
     String _title = 'Chinnon';
+
+    final Widget _pumpWidget = MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BasicConstructionPresenter>(
+          create: (context) => BasicConstructionPresenter(),
+        ),
+        ListenableProvider<BasicAnimatedBoxPresenter>(
+          create: (context) => BasicAnimatedBoxPresenter(),
+        ),
+        ListenableProvider<BasicFadeBoxPresenter>(
+          create: (context) => BasicFadeBoxPresenter(),
+        ),
+      ],
+      child: MaterialApp(
+        home: HomePage(
+          presenter: HomePresenter(),
+          title: _title,
+        ),
+      ),
+    );
 
     testWidgets('Smoke test - ${_title} [MyApp]', (WidgetTester tester) async {
       // Build our app and trigger a frame.
@@ -21,24 +42,7 @@ void main() {
     });
 
     testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// `All Sections`
 

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 /// `Section IV` - Slide box container widget test
@@ -23,27 +24,30 @@ void main() {
 
     final Finder _goBackButton = find.byKey(Key('go-back-button'));
 
+    final Widget _pumpWidget = MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BasicConstructionPresenter>(
+          create: (context) => BasicConstructionPresenter(),
+        ),
+        ListenableProvider<BasicAnimatedBoxPresenter>(
+          create: (context) => BasicAnimatedBoxPresenter(),
+        ),
+        ListenableProvider<BasicFadeBoxPresenter>(
+          create: (context) => BasicFadeBoxPresenter(),
+        ),
+      ],
+      child: MaterialApp(
+        home: HomePage(
+          presenter: HomePresenter(),
+          title: _title,
+        ),
+      ),
+    );
+
     testWidgets('Tap gesture animation smoke test',
         (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// Verify that there is a `Align` Widget with key `section-iv`.
       expect(_animatedBox, findsOneWidget);
@@ -80,24 +84,7 @@ void main() {
 
     testWidgets('Drag gesture animation smoke test',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       final BuildContext childContext = tester.element(_homePage);
       final size = MediaQuery.of(childContext).size;
@@ -142,24 +129,7 @@ void main() {
 
     testWidgets('Tap route of carousel smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a Button widget with `/card/` key.
       expect(_cardButton, findsOneWidget);

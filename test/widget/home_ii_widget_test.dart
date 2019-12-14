@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/basic_animated_box_presenter.dart';
+import 'package:nudemo/home/presenter/basic_fade_box_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -25,26 +26,29 @@ void main() {
     final Finder _buttonUp = find.byIcon(Icons.keyboard_arrow_up);
     final Finder _buttonDown = find.byIcon(Icons.keyboard_arrow_down);
 
+    final Widget _pumpWidget = MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BasicConstructionPresenter>(
+          create: (context) => BasicConstructionPresenter(),
+        ),
+        ListenableProvider<BasicAnimatedBoxPresenter>(
+          create: (context) => BasicAnimatedBoxPresenter(),
+        ),
+        ListenableProvider<BasicFadeBoxPresenter>(
+          create: (context) => BasicFadeBoxPresenter(),
+        ),
+      ],
+      child: MaterialApp(
+        home: HomePage(
+          presenter: HomePresenter(),
+          title: _title,
+        ),
+      ),
+    );
+
     testWidgets('Checking widget smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// `Section II` - Main menu container
 
@@ -75,24 +79,7 @@ void main() {
 
     testWidgets('Drag down animated box smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// Verify that there is a `Align` Widget with key `section-iv`.
       expect(_animatedBox, findsOneWidget);
@@ -109,24 +96,7 @@ void main() {
     });
 
     testWidgets('QrImage smoke test - ${_title}', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `QrImage` widget.
       expect(
@@ -137,24 +107,7 @@ void main() {
 
     testWidgets('`Me ajuda` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `help_outline` icon.
       expect(
@@ -177,24 +130,7 @@ void main() {
 
     testWidgets('`Perfil` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `account_circle` icon.
       expect(
@@ -216,24 +152,7 @@ void main() {
 
     testWidgets('`Configurar NuConta` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// [Gesture 👉↔️👉] Drag `Up` the `ListView` Widget
       await tester.drag(
@@ -263,24 +182,7 @@ void main() {
 
     testWidgets('`Configurar cartão` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `credit_card` icon.
       expect(
@@ -303,24 +205,7 @@ void main() {
 
     testWidgets('`Configurações do app` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have a `Icon` widget with `fingerprint` icon.
       expect(
@@ -343,24 +228,7 @@ void main() {
 
     testWidgets('`SAIR DA CONTA` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>(
-              create: (context) => BasicConstructionPresenter(),
-            ),
-            ListenableProvider<BasicAnimatedBoxPresenter>(
-              create: (context) => BasicAnimatedBoxPresenter(),
-            ),
-          ],
-          child: MaterialApp(
-            home: HomePage(
-              presenter: HomePresenter(),
-              title: _title,
-            ),
-          ),
-        ),
-      );
+      await tester.pumpWidget(_pumpWidget);
 
       /// verify if have text `SAIR DA CONTA`.
       expect(find.text('SAIR DA CONTA'), findsOneWidget);
