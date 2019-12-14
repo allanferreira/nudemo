@@ -84,7 +84,7 @@ void main() {
       /// [Closed State 🔽]
       expect(_buttonUp, findsNothing);
       expect(_buttonDown, findsOneWidget);
-    });
+    }, timeout: Timeout.factor(2));
 
     testWidgets('Drag gesture animation smoke test',
         (WidgetTester tester) async {

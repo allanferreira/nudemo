@@ -33,6 +33,7 @@ void main() {
         find.byValueKey('/card-configs/');
     final SerializableFinder _appConfigsButton =
         find.byValueKey('/app-configs/');
+    final SerializableFinder _exitButton = find.byValueKey('/exit/');
 
     final SerializableFinder _transferButton = find.byValueKey('/transfer/');
     final SerializableFinder _virtualCardButton =
@@ -196,7 +197,7 @@ void main() {
     });
 
     test('Drag to`down` animated box', () async {
-      /// [Gesture 👉↔️👉] Drag to `Down` the `FlutterLogo` Widget
+      /// [Gesture 👆↕️👆] Drag to `Down` the `Container` Widget
       /// LESS (➖) than minimum height to start the animation down...
       /// In this case, the animation should be played to BACK previous
       /// position!!!
@@ -206,7 +207,7 @@ void main() {
 
       await _driver.scroll(_animatedBox, 0, _minDragHeight, fastTime);
 
-      /// [Gesture 👉↔️👉] Drag to`Down` the `FlutterLogo` Widget MORE (➕)
+      /// [Gesture 👆↕️👆] Drag to `Down` the `Container` Widget MORE (➕)
       /// than minimum height to start the animation down...
       await _driver.scroll(_animatedBox, 0, _minDragHeight + 100, normalTime);
     });
@@ -277,6 +278,12 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
+    test('Drag to `up` the `/profile/` item of list', () async {
+      /// [Gesture 👇↕️👇] Drag to `UP` the `ListView` Widget
+      /// list, until the widget is completely visible.
+      await _driver.scrollIntoView(_profileButton);
+    });
+
     test('go to `/nuconta-configs/`, then inc/dec the counter and go back',
         () async {
       /// Go to route `/nuconta-configs/`.
@@ -345,6 +352,12 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
+    test('Drag to `up` the `/card-configs/` item of list', () async {
+      /// [Gesture 👇↕️👇] Drag to `UP` the `ListView` Widget
+      /// list, until the widget is completely visible.
+      await _driver.scrollIntoView(_cardConfigsButton);
+    });
+
     test('go to `/app-configs/`, then inc/dec the counter and go back',
         () async {
       /// Go to route `/app-configs/`.
@@ -379,8 +392,21 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
+    test('go to `/exit/`', () async {
+      /// Go to route `/exit/`.
+      await _driver.tap(_exitButton);
+
+      // This route does nothing !!! 🤷
+    });
+
+    test('Drag to `down` the `/exit/` item of list', () async {
+      /// [Gesture 👆↕️👆] Drag to `DOWN` the `ListView` Widget
+      /// list, until the widget is completely visible.
+      await _driver.scroll(_exitButton, 0, 200, slowTime);
+    });
+
     test('Drag to`up` animated box', () async {
-      /// [Gesture 👉↔️👉] Drag to `UP` the `FlutterLogo` Widget
+      /// [Gesture 👇↕️👇] Drag to `UP` the `Container` Widget
       /// LESS (➖) than minimum height to start the animation up...
       /// In this case, the animation should be played to BACK previous
       /// position!!!
@@ -393,7 +419,7 @@ void main() {
       await _driver.scroll(
           _animatedBoxPointDrag, 0, -(_minDragHeight), fastTime);
 
-      /// [Gesture 👉↔️👉] Drag to`UP` the `FlutterLogo` Widget MORE (➕)
+      /// [Gesture 👇↕️👇] Drag to `UP` the `Container` Widget MORE (➕)
       /// than minimum height to start the animation up...
       await _driver.scroll(
           _animatedBoxPointDrag, 0, -(_minDragHeight + 100), normalTime);
@@ -466,7 +492,7 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to `left` the `pay` button of bottom button list', () async {
+    test('Drag to `left` the `/pay/` button of bottom button list', () async {
       /// [Gesture 👉↔️👉] Drag to `LEFT` the `ListView` Widget
       /// buttons, until the widget is completely visible.
       await _driver.scrollIntoView(_payButton);
@@ -572,7 +598,8 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to `left` the `change` button of bottom button list', () async {
+    test('Drag to `left` the `/charge/` button of bottom button list',
+        () async {
       /// [Gesture 👉↔️👉] Drag to `LEFT` the `ListView` Widget
       /// buttons, until the widget is completely visible.
       await _driver.scrollIntoView(_chargeButton);
@@ -645,7 +672,7 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to `refer-friends` the `change` button of bottom button list',
+    test('Drag to `/refer-friends/` the `change` button of bottom button list',
         () async {
       /// [Gesture 👉↔️👉] Drag to `LEFT` the `ListView` Widget
       /// buttons, until the widget is completely visible.
@@ -752,6 +779,28 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
+    });
+
+    test('Drag to `/refer-friends/` the `change` button of bottom button list',
+        () async {
+      /// [Gesture 👈↔️👈] Drag to `RIGHT` the `ListView` Widget buttons.
+      await _driver.scroll(_referFriendsButton, 260, 0, slowTime);
+    });
+
+    test('Drag to `left` the `/charge/` button of bottom button list',
+        () async {
+      /// [Gesture 👈↔️👈] Drag to `RIGHT` the `ListView` Widget buttons.
+      await _driver.scroll(_chargeButton, 260, 0, slowTime);
+    });
+
+    test('Drag to `left` the `/pay/` button of bottom button list', () async {
+      /// [Gesture 👈↔️👈] Drag to `RIGHT` the `ListView` Widget buttons.
+      await _driver.scroll(_payButton, 260, 0, slowTime);
+    });
+
+    test('Drag to `left` the `/transfer/` button of bottom button list', () async {
+      /// [Gesture 👈↔️👈] Drag to `RIGHT` the `ListView` Widget buttons.
+      await _driver.scroll(_transferButton, 260, 0, slowTime);
     });
   });
 }

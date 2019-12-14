@@ -107,15 +107,19 @@ void main() {
 
       /// tap the `/pay/` item menu and trigger a frame.
       await tester.tap(_payButton);
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_payButton, Offset(0.0, -220));
-      await tester.pumpAndSettle();
-    }, timeout: Timeout.factor(2));
+    });
 
     testWidgets('`Bloquear cartão` button smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `lock_open` icon.
       expect(find.byIcon(Icons.lock_open), findsOneWidget);
@@ -129,11 +133,19 @@ void main() {
 
       /// tap the `/blocking-card/` item menu and trigger a frame.
       await tester.tap(_blockingCardButton);
-    });
+    }, timeout: Timeout.factor(2));
 
     testWidgets('`Depositar` button smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `account_balance` icon.
       expect(
@@ -151,15 +163,23 @@ void main() {
 
       /// tap the `/deposit/` item menu and trigger a frame.
       await tester.tap(_depositButton);
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_depositButton, Offset(0.0, -220));
-      await tester.pumpAndSettle();
     }, timeout: Timeout.factor(2));
 
     testWidgets('`Cobrar` button smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `account_balance_wallet` icon.
       expect(find.byIcon(Icons.account_balance_wallet), findsOneWidget);
@@ -173,11 +193,23 @@ void main() {
 
       /// tap the `/charge/` item menu and trigger a frame.
       await tester.tap(_chargeButton);
-    });
+    }, timeout: Timeout.factor(2));
 
     testWidgets('`Recarga de celular` button smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `phone_iphone` icon.
       expect(find.byIcon(Icons.phone_iphone), findsOneWidget);
@@ -191,15 +223,27 @@ void main() {
 
       /// tap the `/mobile-recharge/` item menu and trigger a frame.
       await tester.tap(_mobileRechargeButton);
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_mobileRechargeButton, Offset(0.0, -220));
-      await tester.pumpAndSettle();
     }, timeout: Timeout.factor(2));
 
     testWidgets('`Indicar amigos` button smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_referFriendsButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `person_add` icon.
       expect(find.byIcon(Icons.person_add), findsOneWidget);
@@ -213,11 +257,27 @@ void main() {
 
       /// tap the `/refer-friends/` item menu and trigger a frame.
       await tester.tap(_referFriendsButton);
-    });
+    }, timeout: Timeout.factor(2));
 
     testWidgets('`Ajustar limite` button smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_referFriendsButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `settings_input_component` icon.
       expect(find.byIcon(Icons.settings_input_component), findsOneWidget);
@@ -231,15 +291,27 @@ void main() {
 
       /// tap the `/adjust-limit/` item menu and trigger a frame.
       await tester.tap(_adjustLimitButton);
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_adjustLimitButton, Offset(0.0, -220));
-      await tester.pumpAndSettle();
-    }, timeout: Timeout.factor(2), skip: true);
+    }, timeout: Timeout.factor(2));
 
     testWidgets('`Organizar atalhos` button smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
+      await tester.drag(_referFriendsButton, Offset(-240.0, 0.0));
+      await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `format_list_numbered` icon.
       expect(find.byIcon(Icons.format_list_numbered), findsOneWidget);
@@ -253,6 +325,6 @@ void main() {
 
       /// tap the `/organize-shortcuts/` item menu and trigger a frame.
       await tester.tap(_organizeShortcutsButton);
-    }, skip: true);
+    }, timeout: Timeout.factor(2));
   });
 }

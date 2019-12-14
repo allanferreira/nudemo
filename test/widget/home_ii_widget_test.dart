@@ -97,7 +97,7 @@ void main() {
       /// and trigger all frames.
       await tester.tap(_buttonDown);
       await tester.pumpAndSettle();
-    });
+    }, timeout: Timeout.factor(2));
 
     testWidgets('QrImage smoke test - ${_title}', (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
