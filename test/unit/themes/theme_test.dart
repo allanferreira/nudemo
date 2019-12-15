@@ -1,32 +1,56 @@
 import 'package:test/test.dart';
 
-import 'package:nudemo/themes/theme.dart';
+import 'package:nudemo/themes/nu_default_theme.dart';
+import 'package:nudemo/themes/nu_dark_theme.dart';
+import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 
 void main() {
   group('[Unit -> Routes]', () {
-    NuThemes nuThemes;
+    HomePresenter homePresenter;
 
     setUp(() {
-      nuThemes = NuThemes();
+      homePresenter = HomePresenter();
+    });
+
+    test('initial theme should be light [nuDefaultTheme]', () {
+      expect(homePresenter.getNuTheme(), nuDefaultTheme);
+    });
+
+    test('set dark theme [nuDarkTheme]', () {
+      expect(homePresenter.getNuTheme(), nuDefaultTheme);
+
+      homePresenter.setNuTheme(darkIsEnable: true);
+
+      expect(homePresenter.getNuTheme(), nuDarkTheme);
     });
 
     test('check theme by key [NuThemeKeys.DEFAULT]', () {
-      expect(nuThemes.getThemeFromKey(NuThemeKeys.DEFAULT),
-          NuThemes().defaultTheme);
+      expect(
+        homePresenter.getNuThemeFromKey(NuThemeKeys.DEFAULT),
+        nuDefaultTheme,
+      );
     });
 
     test('check theme by key [NuThemeKeys.DARK]', () {
-      expect(nuThemes.getThemeFromKey(NuThemeKeys.DARK), NuThemes().darkTheme);
+      expect(
+        homePresenter.getNuThemeFromKey(NuThemeKeys.DARK),
+        nuDarkTheme,
+      );
     });
 
     test('check theme by key [NuThemeKeys.CHISTMAS]', () {
-      expect(nuThemes.getThemeFromKey(NuThemeKeys.CHISTMAS),
-          NuThemes().defaultTheme);
+      expect(
+        homePresenter.getNuThemeFromKey(NuThemeKeys.CHRISTMAS),
+        nuDefaultTheme,
+      );
     });
 
     test('check theme by key [NuThemeKeys.CHISTMAS_DARK]', () {
-      expect(nuThemes.getThemeFromKey(NuThemeKeys.CHISTMAS_DARK),
-          NuThemes().darkTheme);
+      expect(
+        homePresenter.getNuThemeFromKey(NuThemeKeys.CHRISTMAS_DARK),
+        nuDarkTheme,
+      );
     });
   });
 }

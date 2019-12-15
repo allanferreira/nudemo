@@ -6,22 +6,14 @@ import 'package:flutter/foundation.dart';
 
 import 'package:nudemo/construction/viewmodel/construction_viewmodel.dart';
 
-/// Abstract classes
-abstract class ConstructionPresenter {
-  /// Abstract methods
-  void onfloatingButtonClicked();
-}
-
 /// Simplest possible model, with just one field.
 ///
 /// [ChangeNotifier] is a class in `flutter:foundation`.
 /// [Counter] does _not_ depend on Provider.
-class BasicConstructionPresenter
-    with ChangeNotifier
-    implements ConstructionPresenter {
+class ConstructionPresenter with ChangeNotifier {
   ConstructionViewModel _constructionViewModel;
 
-  BasicConstructionPresenter() {
+  ConstructionPresenter() {
     this._constructionViewModel = ConstructionViewModel();
   }
 
@@ -39,7 +31,6 @@ class BasicConstructionPresenter
     notifyListeners();
   }
 
-  @override
   void onfloatingButtonClicked() {
     if (getValue() == 3) {
       _decrement();

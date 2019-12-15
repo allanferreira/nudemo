@@ -87,7 +87,7 @@ class SectionIII extends StatelessWidget {
             children: <Widget>[
               Icon(
                 IconData(icon, fontFamily: 'MaterialIcons'),
-                color: Theme.of(context).cardColor,
+                color: Theme.of(context).textTheme.body2.color,
               ),
               Text(
                 txt,

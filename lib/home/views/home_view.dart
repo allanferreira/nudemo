@@ -3,6 +3,7 @@
 /// user commands (events) to the presenter to act upon that data.
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/views/section_i.dart';
@@ -43,8 +44,13 @@ class HomePage extends StatelessWidget {
     /// https://github.com/chinnonsantos/nudemo -> https://git.io/JeHSs
     final String _qrCodeData = 'https://git.io/JeHSs';
 
+    /// Check system brightness [platformBrightness]
+    Provider.of<HomePresenter>(context, listen: false)
+        .checkSystemBrightness(context: context);
+
     return Scaffold(
       key: Key('home-page'),
+      backgroundColor: Theme.of(context).backgroundColor,
 
       /// The parts of the display that are partially obscured by system UI,
       /// typically by the hardware display "notches" or the system status bar.

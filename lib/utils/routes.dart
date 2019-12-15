@@ -37,110 +37,110 @@ class Routes {
     // - Carousel slider main blocks
     '/card/': ScaleRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Cartão de crédito',
       ),
     ),
     '/nuconta/': ScaleRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'NuConta',
       ),
     ),
     '/rewards/': ScaleRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Nubank rewards',
       ),
     ),
     // - All other pages
     '/helpme/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Me ajuda',
       ),
     ),
     '/profile/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Perfil',
       ),
     ),
     '/nuconta-configs/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Configurar NuConta',
       ),
     ),
     '/card-configs/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Configurar cartão',
       ),
     ),
     '/app-configs/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Configurações do app',
       ),
     ),
     '/transfer/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Transferir',
       ),
     ),
     '/virtual-card/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Cartão virtual',
       ),
     ),
     '/pay/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Pagar',
       ),
     ),
     '/blocking-card/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Bloquear cartão',
       ),
     ),
     '/deposit/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Depositar',
       ),
     ),
     '/charge/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Cobrar',
       ),
     ),
     '/mobile-recharge/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Recarga de celular',
       ),
     ),
     '/refer-friends/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Indicar amigos',
       ),
     ),
     '/adjust-limit/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Ajustar limite',
       ),
     ),
     '/organize-shortcuts/': SlideTopRoute(
       page: ConstructionPage(
-        presenter: BasicConstructionPresenter(),
+        presenter: ConstructionPresenter(),
         title: 'Organizar atalhos',
       ),
     ),

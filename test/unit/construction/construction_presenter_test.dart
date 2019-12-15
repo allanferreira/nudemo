@@ -3,11 +3,11 @@ import 'package:test/test.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() {
-  group('[Unit -> BasicConstructionPresenter]', () {
-    BasicConstructionPresenter constructionPresenter;
+  group('[Unit -> ConstructionPresenter]', () {
+    ConstructionPresenter constructionPresenter;
 
     setUp(() {
-      constructionPresenter = BasicConstructionPresenter();
+      constructionPresenter = ConstructionPresenter();
     });
 
     test('Construction initial value should be 0', () {

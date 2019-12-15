@@ -2,4 +2,13 @@
 /// The `model` is an interface defining the data to be displayed or
 /// otherwise acted upon in the user interface.
 
-class HomeViewModel {}
+enum NuThemeKeys {
+  DEFAULT,
+  DARK,
+  CHRISTMAS,
+  CHRISTMAS_DARK,
+}
+
+class HomeViewModel {
+  bool darkIsEnable = false;
+}

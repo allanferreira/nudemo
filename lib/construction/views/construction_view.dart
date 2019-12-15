@@ -12,6 +12,7 @@ class ConstructionPage extends StatelessWidget {
   final ConstructionPresenter presenter;
   @required
   final String title;
+  final EdgeInsets _paddingIconButton = EdgeInsets.all(16.0);
 
   ConstructionPage({Key key, this.presenter, this.title}) : super(key: key);
 
@@ -25,46 +26,55 @@ class ConstructionPage extends StatelessWidget {
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
-  PreferredSizeWidget _appBar(context) => AppBar(
-        leading: IconButton(
-          key: Key('go-back-button'),
-          icon: Icon(
-            Icons.close,
-            color: Theme.of(context).accentColor,
-          ),
-          tooltip: 'Go back',
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          title,
-          key: Key('title-text'),
-        ),
-        actions: <Widget>[
-          IconButton(
-            key: Key('filter-button'),
-            icon: Icon(
-              Icons.search,
-              color: Theme.of(context).accentColor,
+  Widget _appBar(context) => Container(
+        // height: 56.0,
+        color: Colors.black12,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              key: Key('go-back-button'),
+              icon: Icon(
+                Icons.close,
+                color: Theme.of(context).textTheme.title.color,
+              ),
+              tooltip: 'Go back',
+              padding: _paddingIconButton,
+              onPressed: () => Navigator.pop(context),
             ),
-            tooltip: 'Filter',
-            onPressed: () {
-              _showSnackBar(context);
-            },
-          ),
-        ],
+            Text(
+              title.toUpperCase(),
+              key: Key('title-text'),
+              style: Theme.of(context).textTheme.title,
+              textAlign: TextAlign.center,
+            ),
+            IconButton(
+              key: Key('filter-button'),
+              icon: Icon(
+                Icons.search,
+                color: Theme.of(context).textTheme.title.color,
+              ),
+              tooltip: 'Filter',
+              padding: _paddingIconButton,
+              onPressed: () {
+                _showSnackBar(context);
+              },
+            ),
+          ],
+        ),
       );
 
   Widget _body(context) => Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            _appBar(context),
             Container(
               width: 60,
+              margin: EdgeInsets.only(top: 100.0),
               child: Image.asset(
                 'assets/images/logo_white.png',
                 fit: BoxFit.cover,
-                // color: Colors.white,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).primaryColor,
                 key: Key('logo'),
               ),
             ),
@@ -75,14 +85,16 @@ class ConstructionPage extends StatelessWidget {
               key: Key('attencion'),
               text: TextSpan(
                 text: 'This page has ',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+                style: Theme.of(context).textTheme.body1,
+                // style: TextStyle(
+                //   fontWeight: FontWeight.bold,
+                //   fontSize: 20,
+                // ),
                 children: <TextSpan>[
                   TextSpan(
                     text: 'NOT',
                     style: TextStyle(
+                      color: Colors.white,
                       backgroundColor: Colors.red,
                     ),
                   ),
@@ -114,13 +126,14 @@ class ConstructionPage extends StatelessWidget {
             ),
             // Consumer looks for an ancestor Provider widget
             // and retrieves its model (Counter, in this case).
-            Consumer<BasicConstructionPresenter>(
+            Consumer<ConstructionPresenter>(
               builder: (context, counter, child) => Text(
                 '${counter.getValue()}',
                 key: Key('counter-text'),
                 style: TextStyle(
                   fontFamily: 'Fredericka The Great',
                   fontSize: 100,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),
@@ -137,33 +150,38 @@ class ConstructionPage extends StatelessWidget {
         // about the current value. Without `listen: false`, we'd be rebuilding
         // the whole ConstructionPage whenever Counter notifies listeners.
         onPressed: () =>
-            Provider.of<BasicConstructionPresenter>(context, listen: false)
+            Provider.of<ConstructionPresenter>(context, listen: false)
                 .onfloatingButtonClicked(),
         tooltip: 'Increment',
+        backgroundColor: Theme.of(context).primaryColorDark,
         key: Key('increment-button'),
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: Theme.of(context).textTheme.body2.color,
+        ),
       );
 
   @override
   Widget build(BuildContext context) {
-    // Check system color and setup the theme
-    // var brightness = MediaQuery.of(context).platformBrightness;
-    // print('Platform Brightness: $brightness');
-
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double topSpace = 100;
+    final MediaQueryData _mediaQuery = MediaQuery.of(context);
+    final Size _screenSize = _mediaQuery.size;
+    final double _screenWidth = _screenSize.width;
+    final double _screenHeight = _screenSize.height;
+    final EdgeInsets _screenNotch = _mediaQuery.padding;
+    final double _totalNotches = _screenNotch.top + _screenNotch.bottom;
+    // 10% of top space (more notches)
+    final double _topSpace = (_screenHeight * 0.10) + _totalNotches;
+    final double _positionedHeight = _screenHeight - _topSpace;
 
     return Stack(
       children: <Widget>[
         Positioned(
-          top: topSpace,
-          width: screenWidth,
-          height: screenHeight - topSpace,
+          top: _topSpace,
+          width: _screenWidth,
+          height: _positionedHeight,
           key: Key('construction-page'),
           child: Scaffold(
             key: _scaffoldKey,
-            appBar: _appBar(context),
             body: _body(context),
             floatingActionButton: _floatingActionButton(context),
           ),

@@ -28,8 +28,11 @@ void main() {
 
     final Widget _pumpWidget = MultiProvider(
       providers: [
-        ChangeNotifierProvider<BasicConstructionPresenter>(
-          create: (context) => BasicConstructionPresenter(),
+        ChangeNotifierProvider<HomePresenter>(
+          create: (context) => HomePresenter(),
+        ),
+        ChangeNotifierProvider<ConstructionPresenter>(
+          create: (context) => ConstructionPresenter(),
         ),
         ListenableProvider<AnimatedBoxPresenter>(
           create: (context) => AnimatedBoxPresenter(),

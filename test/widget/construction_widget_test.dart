@@ -13,13 +13,13 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
-            ChangeNotifierProvider<BasicConstructionPresenter>.value(
-              value: BasicConstructionPresenter(),
+            ChangeNotifierProvider<ConstructionPresenter>.value(
+              value: ConstructionPresenter(),
             ),
           ],
           child: MaterialApp(
             home: ConstructionPage(
-              presenter: BasicConstructionPresenter(),
+              presenter: ConstructionPresenter(),
               title: title,
             ),
           ),
@@ -27,7 +27,7 @@ void main() {
       );
 
       /// verify if have text `Cartão de crédito` (route `/card/`).
-      expect(find.text(title), findsOneWidget);
+      expect(find.text(title.toUpperCase()), findsOneWidget);
 
       /// verify if have any `IconButton` widget to go back.
       expect(find.byKey(Key('go-back-button')), findsWidgets);

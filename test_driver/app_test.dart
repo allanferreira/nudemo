@@ -103,7 +103,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Cartão de crédito`.
-      expect(await _driver.getText(_titleText), "Cartão de crédito");
+      expect(
+        await _driver.getText(_titleText),
+        "Cartão de crédito".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -136,7 +139,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `NuConta`.
-      expect(await _driver.getText(_titleText), "NuConta");
+      expect(
+        await _driver.getText(_titleText),
+        "NuConta".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -169,7 +175,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Nubank rewards`.
-      expect(await _driver.getText(_titleText), "Nubank rewards");
+      expect(
+        await _driver.getText(_titleText),
+        "Nubank rewards".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -218,7 +227,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Me ajuda`.
-      expect(await _driver.getText(_titleText), "Me ajuda");
+      expect(
+        await _driver.getText(_titleText),
+        "Me ajuda".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -251,7 +263,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Perfil`.
-      expect(await _driver.getText(_titleText), "Perfil");
+      expect(
+        await _driver.getText(_titleText),
+        "Perfil".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -291,7 +306,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Configurar NuConta`.
-      expect(await _driver.getText(_titleText), "Configurar NuConta");
+      expect(
+        await _driver.getText(_titleText),
+        "Configurar NuConta".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -325,7 +343,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Configurar cartão`.
-      expect(await _driver.getText(_titleText), "Configurar cartão");
+      expect(
+        await _driver.getText(_titleText),
+        "Configurar cartão".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -365,7 +386,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Configurações do app`.
-      expect(await _driver.getText(_titleText), "Configurações do app");
+      expect(
+        await _driver.getText(_titleText),
+        "Configurações do app".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -431,7 +455,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Transferir`.
-      expect(await _driver.getText(_titleText), "Transferir");
+      expect(
+        await _driver.getText(_titleText),
+        "Transferir".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -465,7 +492,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Cartão virtual`.
-      expect(await _driver.getText(_titleText), "Cartão virtual");
+      expect(
+        await _driver.getText(_titleText),
+        "Cartão virtual".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -504,7 +534,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Pagar`.
-      expect(await _driver.getText(_titleText), "Pagar");
+      expect(
+        await _driver.getText(_titleText),
+        "Pagar".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -538,7 +571,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Bloquear cartão`.
-      expect(await _driver.getText(_titleText), "Bloquear cartão");
+      expect(
+        await _driver.getText(_titleText),
+        "Bloquear cartão".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -571,7 +607,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Depositar`.
-      expect(await _driver.getText(_titleText), "Depositar");
+      expect(
+        await _driver.getText(_titleText),
+        "Depositar".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -611,7 +650,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Cobrar`.
-      expect(await _driver.getText(_titleText), "Cobrar");
+      expect(
+        await _driver.getText(_titleText),
+        "Cobrar".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -645,7 +687,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Recarga de celular`.
-      expect(await _driver.getText(_titleText), "Recarga de celular");
+      expect(
+        await _driver.getText(_titleText),
+        "Recarga de celular".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -686,7 +731,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Indicar amigos`.
-      expect(await _driver.getText(_titleText), "Indicar amigos");
+      expect(
+        await _driver.getText(_titleText),
+        "Indicar amigos".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -720,7 +768,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Ajustar limite`.
-      expect(await _driver.getText(_titleText), "Ajustar limite");
+      expect(
+        await _driver.getText(_titleText),
+        "Ajustar limite".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -754,7 +805,10 @@ void main() {
       await _driver.waitFor(_constructionPage);
 
       /// Verify the app got to `Organizar atalhos`.
-      expect(await _driver.getText(_titleText), "Organizar atalhos");
+      expect(
+        await _driver.getText(_titleText),
+        "Organizar atalhos".toUpperCase(),
+      );
 
       /// Use the `_driver.getText` method to verify the counter starts at `0`.
       expect(await _driver.getText(_counterText), "0");
@@ -798,7 +852,8 @@ void main() {
       await _driver.scroll(_payButton, 260, 0, slowTime);
     });
 
-    test('Drag to `left` the `/transfer/` button of bottom button list', () async {
+    test('Drag to `left` the `/transfer/` button of bottom button list',
+        () async {
       /// [Gesture 👈↔️👈] Drag to `RIGHT` the `ListView` Widget buttons.
       await _driver.scroll(_transferButton, 260, 0, slowTime);
     });

@@ -49,10 +49,7 @@ class SectionI extends StatelessWidget {
                   Text(
                     title,
                     key: Key('title-text'),
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.headline,
                   ),
                 ],
               ),
