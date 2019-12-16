@@ -136,7 +136,7 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    });
+    }, skip: 'Buttons removed');
 
     test('go to `/rewards/`, then inc/dec the counter and go back', () async {
       /// Go to route `/rewards/`.
@@ -155,7 +155,7 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    });
+    }, skip: 'Buttons removed');
 
     test('drag to`down` animated box', () async {
       /// [Gesture 👆↕️👆] Drag to `Down` the `Container` Widget
@@ -170,7 +170,7 @@ void main() {
 
       /// [Gesture 👆↕️👆] Drag to `Down` the `Container` Widget MORE (➕)
       /// than minimum height to start the animation down...
-      await _driver.scroll(_animatedBox, 0, _minDragHeight + 100, normalTime);
+      await _driver.scroll(_animatedBox, 0, _minDragHeight + 150, normalTime);
     });
 
     test('go to `/helpme/`, then inc/dec the counter and go back', () async {
@@ -398,7 +398,7 @@ void main() {
       /// [Gesture 👇↕️👇] Drag to `UP` the `Container` Widget MORE (➕)
       /// than minimum height to start the animation up...
       await _driver.scroll(
-          _animatedBoxPointDrag, 0, -(_minDragHeight + 100), normalTime);
+          _animatedBoxPointDrag, 0, -(_minDragHeight + 150), normalTime);
     });
 
     test('go to `/transfer/`, then inc/dec the counter and go back', () async {

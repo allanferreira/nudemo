@@ -50,7 +50,7 @@ void main() {
 
       /// verify if have text `Chinnon` (route `/`).
       expect(find.text(_title), findsOneWidget);
-    }, skip: true);
+    });
 
     testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
@@ -86,6 +86,6 @@ void main() {
 
       /// verify if have any `RichText` widget.
       expect(find.byType(RichText), findsWidgets);
-    }, skip: true);
+    });
   });
 }

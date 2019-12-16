@@ -16,13 +16,14 @@ void main() {
     final String _title = 'Chinnon';
 
     final Finder _homePage = find.byKey(Key('home-page'));
+    final Finder _cardPage = find.byKey(Key('card-page'));
     final Finder _animatedBox = find.byKey(Key('section-iv'));
     final Finder _buttonUp = find.byIcon(Icons.keyboard_arrow_up);
     final Finder _buttonDown = find.byIcon(Icons.keyboard_arrow_down);
 
     final Finder _cardButton = find.byKey(Key('/card/'));
-    final Finder _nuContaButton = find.byKey(Key('/nuconta/'));
-    final Finder _rewardsButton = find.byKey(Key('/rewards/'));
+    // final Finder _nuContaButton = find.byKey(Key('/nuconta/'));
+    // final Finder _rewardsButton = find.byKey(Key('/rewards/'));
 
     final Finder _goBackButton = find.byKey(Key('go-back-button'));
 
@@ -149,40 +150,40 @@ void main() {
       await tester.tap(_cardButton);
       await tester.pumpAndSettle();
 
-      /// verify if have any `IconButton` widget to go back.
-      expect(_goBackButton, findsWidgets);
+      // /// verify if have any `IconButton` widget to go back.
+      // expect(_goBackButton, findsWidgets);
 
-      /// tap the `⬅️` arrow_back icon and trigger a frame.
-      await tester.tap(_goBackButton);
-      await tester.pumpAndSettle();
+      // /// tap the `⬅️` arrow_back icon and trigger a frame.
+      // await tester.tap(_goBackButton);
+      // await tester.pumpAndSettle();
 
-      /// verify if have a Button widget with `/nuconta/` key.
-      expect(_nuContaButton, findsOneWidget);
+      // /// verify if have a Button widget with `/nuconta/` key.
+      // expect(_nuContaButton, findsOneWidget);
 
-      /// tap the `/nuconta/` button and trigger a frame.
-      await tester.tap(_nuContaButton);
-      await tester.pumpAndSettle();
+      // /// tap the `/nuconta/` button and trigger a frame.
+      // await tester.tap(_nuContaButton);
+      // await tester.pumpAndSettle();
 
-      /// verify if have any `IconButton` widget to go back.
-      expect(_goBackButton, findsWidgets);
+      // /// verify if have any `IconButton` widget to go back.
+      // expect(_goBackButton, findsWidgets);
 
-      /// tap the `⬅️` arrow_back icon and trigger a frame.
-      await tester.tap(_goBackButton);
-      await tester.pumpAndSettle();
+      // /// tap the `⬅️` arrow_back icon and trigger a frame.
+      // await tester.tap(_goBackButton);
+      // await tester.pumpAndSettle();
 
-      /// verify if have a Button widget with `/rewards/` key.
-      expect(_rewardsButton, findsOneWidget);
+      // /// verify if have a Button widget with `/rewards/` key.
+      // expect(_rewardsButton, findsOneWidget);
 
-      /// tap the `/rewards/` button and trigger a frame.
-      await tester.tap(_rewardsButton);
-      await tester.pumpAndSettle();
+      // /// tap the `/rewards/` button and trigger a frame.
+      // await tester.tap(_rewardsButton);
+      // await tester.pumpAndSettle();
 
-      /// verify if have any `IconButton` widget to go back.
-      expect(_goBackButton, findsWidgets);
+      // /// verify if have any `IconButton` widget to go back.
+      // expect(_goBackButton, findsWidgets);
 
-      /// tap the `⬅️` arrow_back icon and trigger a frame.
-      await tester.tap(_goBackButton);
-      await tester.pumpAndSettle();
+      // /// tap the `⬅️` arrow_back icon and trigger a frame.
+      // await tester.tap(_goBackButton);
+      // await tester.pumpAndSettle();
     });
   });
 }
