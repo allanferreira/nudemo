@@ -20,7 +20,11 @@ class NucontaPage extends StatelessWidget {
   void _showSnackBar(BuildContext context) {
     final snackBar = SnackBar(
       key: Key('snackBar'),
-      content: Text('Filtering not supported yet!'),
+      content: Text(
+        'Filtering not supported yet!',
+        style: Theme.of(context).textTheme.body2,
+      ),
+      backgroundColor: Theme.of(context).primaryColorDark,
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }

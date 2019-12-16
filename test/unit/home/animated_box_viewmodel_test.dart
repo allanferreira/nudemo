@@ -20,10 +20,10 @@ void main() {
       expect(animatedBoxViewModel.animation, null);
     });
 
-    test('`beginDragAlignment` value should be (0.0, -0.08)', () {
+    test('`beginDragAlignment` value should be (0.0, -0.18)', () {
       expect(
         AnimatedBoxViewModel.beginDragAlignment,
-        Alignment(0.0, -0.08),
+        Alignment(0.0, -0.18),
       );
     });
 

@@ -8,8 +8,6 @@ import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 /// `Section II` - Main menu container
 class SectionII extends StatelessWidget {
   @required
-  final double screenWidth;
-  @required
   final double topLogoHeight;
   @required
   final double mainContainerHeight;
@@ -19,7 +17,6 @@ class SectionII extends StatelessWidget {
   final String qrCodeData;
 
   SectionII({
-    this.screenWidth,
     this.topLogoHeight,
     this.mainContainerHeight,
     this.bottomMenuHeight,
@@ -145,9 +142,9 @@ class SectionII extends StatelessWidget {
     }
 
     return Positioned(
-      left: 0,
       top: topLogoHeight,
-      width: screenWidth,
+      left: 0.0,
+      right: 0.0,
       height: mainContainerHeight,
       key: Key('section-ii'),
       child: Container(

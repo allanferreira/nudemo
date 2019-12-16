@@ -3,6 +3,7 @@
 /// user commands (events) to the presenter to act upon that data.
 
 import 'package:flutter/material.dart';
+import 'package:nudemo/home/views/section_v.dart';
 import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/presenter/home_presenter.dart';
@@ -23,21 +24,25 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final MediaQueryData _mediaQuery = MediaQuery.of(context);
     final Size _screenSize = _mediaQuery.size;
-    final double _screenWidth = _screenSize.width;
+    // final double _screenWidth = _screenSize.width;
     final double _screenHeight = _screenSize.height;
     final EdgeInsets _screenNotch = _mediaQuery.padding;
-    final double _totalNotch = _screenNotch.top + _screenNotch.bottom;
 
     final double _topLogoHeight = 100.0;
     final double _bottomMenuHeight = 120.0;
     final double _mainContainerHeight =
-        _screenHeight - _topLogoHeight - _totalNotch;
-    final double _boxSlideMargin = 120.0;
+        _screenHeight - _topLogoHeight - _screenNotch.top;
+    final double _boxSlideMarginTopBottom = 120.0;
     final double _boxSlideHeight = _screenHeight -
         _topLogoHeight -
         _bottomMenuHeight -
-        _totalNotch -
-        _boxSlideMargin;
+        _screenNotch.top -
+        _boxSlideMarginTopBottom;
+    final double _dottedIndicatorHeight = 20.0;
+    final double _dottedIndicatorPosition = _topLogoHeight +
+        _boxSlideHeight +
+        _dottedIndicatorHeight +
+        (_dottedIndicatorHeight * 1.5);
 
     /// This can be obtained from the [customer register].
     /// [git.io] url shorten:
@@ -68,7 +73,6 @@ class HomePage extends StatelessWidget {
             ),
             // Main menu container
             SectionII(
-              screenWidth: _screenWidth,
               topLogoHeight: _topLogoHeight,
               mainContainerHeight: _mainContainerHeight,
               bottomMenuHeight: _bottomMenuHeight,
@@ -77,6 +81,11 @@ class HomePage extends StatelessWidget {
             // Bottom menu container
             SectionIII(
               bottomMenuHeight: _bottomMenuHeight,
+            ),
+            // Dotted carousel indicator
+            SectionV(
+              dottedIndicatorPosition: _dottedIndicatorPosition,
+              dottedIndicatorHeight: _dottedIndicatorHeight,
             ),
             // Slide box container
             SectionIV(

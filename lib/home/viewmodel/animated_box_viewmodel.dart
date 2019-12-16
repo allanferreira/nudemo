@@ -11,7 +11,7 @@ class AnimatedBoxViewModel {
   AnimationController controller;
   Animation<Alignment> animation;
 
-  static const Alignment beginDragAlignment = Alignment(0.0, -0.08);
+  static const Alignment beginDragAlignment = Alignment(0.0, -0.18);
   static const Alignment endDragAlignment = Alignment(0.0, 2.9);
   Alignment targetAlignment = beginDragAlignment;
   Alignment dragAlignment = beginDragAlignment;

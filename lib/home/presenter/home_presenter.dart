@@ -3,6 +3,7 @@
 /// repositories (the `model`), and formats it for display in the `view`.
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
@@ -70,5 +71,38 @@ class HomePresenter with ChangeNotifier {
       default:
         return nuDefaultTheme;
     }
+  }
+
+  /// Set page index and notify listeners
+  void setCurrentPageCarousel(int index) {
+    print('On the viewport: $index');
+    this._homeViewModel.currentPageCarousel = index;
+
+    notifyListeners();
+  }
+
+  /// Get page index in the center of the viewport.
+  int getCurrentPageCarousel() => this._homeViewModel.currentPageCarousel;
+
+  /// Get dotted indicator color
+  Color getDottedIndicatorColor(BuildContext context, int index) {
+    return this.getCurrentPageCarousel() == index
+        ? Theme.of(context).iconTheme.color
+        : Theme.of(context).iconTheme.color.withOpacity(0.4);
+  }
+
+  /// Called whenever the page in the center of the viewport changes
+  static dynamic onTheViewport(BuildContext context, int index) =>
+      Provider.of<HomePresenter>(context, listen: false)
+          .setCurrentPageCarousel(index);
+
+  /// Custom map function
+  static List<T> mapCustom<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+
+    return result;
   }
 }
