@@ -75,13 +75,16 @@ class HomePresenter with ChangeNotifier {
 
   /// Set page index and notify listeners
   void setCurrentPageCarousel(int index) {
-    print('On the viewport: $index');
     this._homeViewModel.currentPageCarousel = index;
+    // print('On the viewport: $index');
 
     notifyListeners();
   }
 
-  /// Get page index in the center of the viewport.
+  /// Get initial page index in the center of the viewport.
+  int getInitialPageCarousel() => this._homeViewModel.initialPageCarousel;
+
+  /// Get current page index in the center of the viewport.
   int getCurrentPageCarousel() => this._homeViewModel.currentPageCarousel;
 
   /// Get dotted indicator color

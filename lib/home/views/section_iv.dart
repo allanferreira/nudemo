@@ -14,7 +14,6 @@ class SectionIV extends StatelessWidget {
   final double topLogoHeight;
   @required
   final double boxSlideHeight;
-  final int initialPageCarousel = 0;
 
   SectionIV({
     this.screenSize,
@@ -40,7 +39,7 @@ class SectionIV extends StatelessWidget {
 
     return CarouselSlider(
       items: _carouselBoxes,
-      initialPage: initialPageCarousel,
+      initialPage: HomePresenter().getInitialPageCarousel(),
       height: boxSlideHeight,
       viewportFraction: 1.0,
       enableInfiniteScroll: false,

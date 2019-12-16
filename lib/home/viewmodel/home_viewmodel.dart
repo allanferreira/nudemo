@@ -11,5 +11,6 @@ enum NuThemeKeys {
 
 class HomeViewModel {
   bool darkIsEnable = false;
+  int initialPageCarousel = 0;
   int currentPageCarousel = 0;
 }

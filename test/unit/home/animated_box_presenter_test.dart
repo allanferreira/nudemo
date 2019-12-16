@@ -15,10 +15,10 @@ void main() {
       expect(basicAnimatedBoxPresenter.getIsLowered(), false);
     });
 
-    test('`getDragAlignment()` initial value should be (0.0, -0.08)', () {
+    test('`getDragAlignment()` initial value should be (0.0, -0.18)', () {
       expect(
         basicAnimatedBoxPresenter.getDragAlignment(),
-        Alignment(0.0, -0.08),
+        Alignment(0.0, -0.18),
       );
     });
   });

@@ -17,6 +17,20 @@ class SectionV extends StatelessWidget {
     this.dottedIndicatorHeight,
   });
 
+  Widget _containerDotted(Color color, int index) => Container(
+        key: Key('dotted-$index'),
+        width: 4.0,
+        height: 4.0,
+        margin: EdgeInsets.symmetric(
+          vertical: 2.0,
+          horizontal: 2.5,
+        ),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color,
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -34,21 +48,13 @@ class SectionV extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: HomePresenter.mapCustom<Widget>(
                 ItensCarousel.itensList(context),
-                (index, url) => Consumer<HomePresenter>(
-                  builder: (context, homePresenter, child) => Container(
-                    width: 4.0,
-                    height: 4.0,
-                    margin: EdgeInsets.symmetric(
-                      vertical: 2.0,
-                      horizontal: 2.5,
+                (index, widget) => Consumer<HomePresenter>(
+                  builder: (context, homePresenter, child) => _containerDotted(
+                    homePresenter.getDottedIndicatorColor(
+                      context,
+                      index,
                     ),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: homePresenter.getDottedIndicatorColor(
-                        context,
-                        index,
-                      ),
-                    ),
+                    index,
                   ),
                 ),
               ),
