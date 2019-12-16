@@ -9,6 +9,9 @@ void main() {
     final SerializableFinder _homePage = find.byValueKey('home-page');
     final SerializableFinder _constructionPage =
         find.byValueKey('construction-page');
+    final SerializableFinder _cardPage = find.byValueKey('card-page');
+    final SerializableFinder _nucontaPage = find.byValueKey('nuconta-page');
+    final SerializableFinder _rewardsPage = find.byValueKey('rewards-page');
     final SerializableFinder _animatedBox = find.byValueKey('section-iv');
     final SerializableFinder _animatedBoxPointDrag =
         find.byValueKey('point-drag');
@@ -82,17 +85,17 @@ void main() {
       }
     });
 
-    test('Starts at `Home page`', () async {
+    test('starts at `Home page`', () async {
       /// Use the `_driver.getText` method to verify the app starts at `Home`.
       expect(await _driver.getText(_titleText), "Chinnon");
     });
 
-    test('Tap `down` animated box', () async {
+    test('tap `down` animated box', () async {
       /// [Gesture 👆] Tap the `IconButton` Widget to drag `Down 🔽`
       await _driver.tap(_buttonDownUp);
     });
 
-    test('Tap `up` animated box', () async {
+    test('tap `up` animated box', () async {
       /// [Gesture 👆] Tap the `IconButton` Widget to drag `Up 🔼`...
       await _driver.tap(_buttonDownUp);
     });
@@ -100,30 +103,13 @@ void main() {
     test('go to `/card/`, then inc/dec the counter and go back', () async {
       /// Go to route `/card/`.
       await _driver.tap(_cardButton);
-      await _driver.waitFor(_constructionPage);
+      await _driver.waitFor(_cardPage);
 
       /// Verify the app got to `Cartão de crédito`.
       expect(
         await _driver.getText(_titleText),
         "Cartão de crédito".toUpperCase(),
       );
-
-      /// Use the `_driver.getText` method to verify the counter starts at `0`.
-      expect(await _driver.getText(_counterText), "0");
-
-      /// First, tap the `➕` icon button.
-      await _driver.tap(_incrementButton);
-
-      /// Then, verify the `counter` text is incremented by `1`.
-      expect(await _driver.getText(_counterText), "1");
-
-      /// tap the `➕` icon button more 3 times.
-      await _driver.tap(_incrementButton);
-      await _driver.tap(_incrementButton);
-      await _driver.tap(_incrementButton);
-
-      /// Then, verify the `counter` text is decremented to `0`.
-      expect(await _driver.getText(_counterText), "0");
 
       /// tap the `🔍` search icon and trigger a frame.
       await _driver.tap(_filterButton);
@@ -136,30 +122,13 @@ void main() {
     test('go to `/nuconta/`, then inc/dec the counter and go back', () async {
       /// Go to route `/nuconta/`.
       await _driver.tap(_nuContaButton);
-      await _driver.waitFor(_constructionPage);
+      await _driver.waitFor(_nucontaPage);
 
       /// Verify the app got to `NuConta`.
       expect(
         await _driver.getText(_titleText),
         "NuConta".toUpperCase(),
       );
-
-      /// Use the `_driver.getText` method to verify the counter starts at `0`.
-      expect(await _driver.getText(_counterText), "0");
-
-      /// First, tap the `➕` icon button.
-      await _driver.tap(_incrementButton);
-
-      /// Then, verify the `counter` text is incremented by `1`.
-      expect(await _driver.getText(_counterText), "1");
-
-      /// tap the `➕` icon button more 3 times.
-      await _driver.tap(_incrementButton);
-      await _driver.tap(_incrementButton);
-      await _driver.tap(_incrementButton);
-
-      /// Then, verify the `counter` text is decremented to `0`.
-      expect(await _driver.getText(_counterText), "0");
 
       /// tap the `🔍` search icon and trigger a frame.
       await _driver.tap(_filterButton);
@@ -172,30 +141,13 @@ void main() {
     test('go to `/rewards/`, then inc/dec the counter and go back', () async {
       /// Go to route `/rewards/`.
       await _driver.tap(_rewardsButton);
-      await _driver.waitFor(_constructionPage);
+      await _driver.waitFor(_rewardsPage);
 
       /// Verify the app got to `Nubank rewards`.
       expect(
         await _driver.getText(_titleText),
         "Nubank rewards".toUpperCase(),
       );
-
-      /// Use the `_driver.getText` method to verify the counter starts at `0`.
-      expect(await _driver.getText(_counterText), "0");
-
-      /// First, tap the `➕` icon button.
-      await _driver.tap(_incrementButton);
-
-      /// Then, verify the `counter` text is incremented by `1`.
-      expect(await _driver.getText(_counterText), "1");
-
-      /// tap the `➕` icon button more 3 times.
-      await _driver.tap(_incrementButton);
-      await _driver.tap(_incrementButton);
-      await _driver.tap(_incrementButton);
-
-      /// Then, verify the `counter` text is decremented to `0`.
-      expect(await _driver.getText(_counterText), "0");
 
       /// tap the `🔍` search icon and trigger a frame.
       await _driver.tap(_filterButton);
@@ -205,7 +157,7 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to`down` animated box', () async {
+    test('drag to`down` animated box', () async {
       /// [Gesture 👆↕️👆] Drag to `Down` the `Container` Widget
       /// LESS (➖) than minimum height to start the animation down...
       /// In this case, the animation should be played to BACK previous
@@ -293,7 +245,7 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to `up` the `/profile/` item of list', () async {
+    test('drag to `up` the `/profile/` item of list', () async {
       /// [Gesture 👇↕️👇] Drag to `UP` the `ListView` Widget
       /// list, until the widget is completely visible.
       await _driver.scrollIntoView(_profileButton);
@@ -373,7 +325,7 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to `up` the `/card-configs/` item of list', () async {
+    test('drag to `up` the `/card-configs/` item of list', () async {
       /// [Gesture 👇↕️👇] Drag to `UP` the `ListView` Widget
       /// list, until the widget is completely visible.
       await _driver.scrollIntoView(_cardConfigsButton);
@@ -423,13 +375,13 @@ void main() {
       // This route does nothing !!! 🤷
     });
 
-    test('Drag to `down` the `/exit/` item of list', () async {
+    test('drag to `down` the `/exit/` item of list', () async {
       /// [Gesture 👆↕️👆] Drag to `DOWN` the `ListView` Widget
       /// list, until the widget is completely visible.
       await _driver.scroll(_exitButton, 0, 200, slowTime);
     });
 
-    test('Drag to`up` animated box', () async {
+    test('drag to`up` animated box', () async {
       /// [Gesture 👇↕️👇] Drag to `UP` the `Container` Widget
       /// LESS (➖) than minimum height to start the animation up...
       /// In this case, the animation should be played to BACK previous
@@ -522,7 +474,7 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to `left` the `/pay/` button of bottom button list', () async {
+    test('drag to `left` the `/pay/` button of bottom button list', () async {
       /// [Gesture 👉↔️👉] Drag to `LEFT` the `ListView` Widget
       /// buttons, until the widget is completely visible.
       await _driver.scrollIntoView(_payButton);
@@ -637,7 +589,7 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to `left` the `/charge/` button of bottom button list',
+    test('drag to `left` the `/charge/` button of bottom button list',
         () async {
       /// [Gesture 👉↔️👉] Drag to `LEFT` the `ListView` Widget
       /// buttons, until the widget is completely visible.
@@ -717,7 +669,7 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to `/refer-friends/` the `change` button of bottom button list',
+    test('drag to `/refer-friends/` the `change` button of bottom button list',
         () async {
       /// [Gesture 👉↔️👉] Drag to `LEFT` the `ListView` Widget
       /// buttons, until the widget is completely visible.
@@ -835,24 +787,24 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('Drag to `/refer-friends/` the `change` button of bottom button list',
+    test('drag to `/refer-friends/` the `change` button of bottom button list',
         () async {
       /// [Gesture 👈↔️👈] Drag to `RIGHT` the `ListView` Widget buttons.
       await _driver.scroll(_referFriendsButton, 260, 0, slowTime);
     });
 
-    test('Drag to `left` the `/charge/` button of bottom button list',
+    test('drag to `left` the `/charge/` button of bottom button list',
         () async {
       /// [Gesture 👈↔️👈] Drag to `RIGHT` the `ListView` Widget buttons.
       await _driver.scroll(_chargeButton, 260, 0, slowTime);
     });
 
-    test('Drag to `left` the `/pay/` button of bottom button list', () async {
+    test('drag to `left` the `/pay/` button of bottom button list', () async {
       /// [Gesture 👈↔️👈] Drag to `RIGHT` the `ListView` Widget buttons.
       await _driver.scroll(_payButton, 260, 0, slowTime);
     });
 
-    test('Drag to `left` the `/transfer/` button of bottom button list',
+    test('drag to `left` the `/transfer/` button of bottom button list',
         () async {
       /// [Gesture 👈↔️👈] Drag to `RIGHT` the `ListView` Widget buttons.
       await _driver.scroll(_transferButton, 260, 0, slowTime);

@@ -37,7 +37,7 @@ class SectionIII extends StatelessWidget {
         'onTapRoute': '/blocking-card/',
       },
       {
-        'icon': 59471,
+        'icon': 58686,
         'txt': 'Depositar',
         'onTapRoute': '/deposit/',
       },

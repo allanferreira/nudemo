@@ -4,6 +4,12 @@ import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/construction/views/construction_view.dart';
+import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/card/views/card_view.dart';
+import 'package:nudemo/nuconta/presenter/nuconta_presenter.dart';
+import 'package:nudemo/nuconta/views/nuconta_view.dart';
+import 'package:nudemo/rewards/presenter/rewards_presenter.dart';
+import 'package:nudemo/rewards/views/rewards_view.dart';
 import 'package:nudemo/utils/transitions/scale.dart';
 import 'package:nudemo/utils/transitions/slide_top.dart';
 
@@ -36,20 +42,20 @@ class Routes {
     // '/signup/': SignUpPage(),
     // - Carousel slider main blocks
     '/card/': ScaleRoute(
-      page: ConstructionPage(
-        presenter: ConstructionPresenter(),
+      page: CardPage(
+        presenter: CardPresenter(),
         title: 'Cartão de crédito',
       ),
     ),
     '/nuconta/': ScaleRoute(
-      page: ConstructionPage(
-        presenter: ConstructionPresenter(),
+      page: NucontaPage(
+        presenter: NucontaPresenter(),
         title: 'NuConta',
       ),
     ),
     '/rewards/': ScaleRoute(
-      page: ConstructionPage(
-        presenter: ConstructionPresenter(),
+      page: RewardsPage(
+        presenter: RewardsPresenter(),
         title: 'Nubank rewards',
       ),
     ),

@@ -179,7 +179,7 @@ class SectionII extends StatelessWidget {
                 ),
                 dividerList,
                 _buildItemListMenu(
-                  img: Icon(Icons.account_balance),
+                  img: Icon(Icons.local_atm),
                   title: 'Configurar NuConta',
                   subtitle: null,
                   route: '/nuconta-configs/',

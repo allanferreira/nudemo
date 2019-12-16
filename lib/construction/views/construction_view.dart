@@ -168,9 +168,8 @@ class ConstructionPage extends StatelessWidget {
     final double _screenWidth = _screenSize.width;
     final double _screenHeight = _screenSize.height;
     final EdgeInsets _screenNotch = _mediaQuery.padding;
-    final double _totalNotches = _screenNotch.top + _screenNotch.bottom;
-    // 10% of top space (more notches)
-    final double _topSpace = (_screenHeight * 0.10) + _totalNotches;
+    // 10% of top space (more top notch)
+    final double _topSpace = (_screenHeight * 0.10) + _screenNotch.top;
     final double _positionedHeight = _screenHeight - _topSpace;
 
     return Stack(

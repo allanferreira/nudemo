@@ -7,6 +7,7 @@ import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
+import 'package:nudemo/card/presenter/card_presenter.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<ConstructionPresenter>(
           create: (context) => ConstructionPresenter(),
+        ),
+        ChangeNotifierProvider<CardPresenter>(
+          create: (context) => CardPresenter(),
         ),
         ListenableProvider<AnimatedBoxPresenter>(
           create: (context) => AnimatedBoxPresenter(),

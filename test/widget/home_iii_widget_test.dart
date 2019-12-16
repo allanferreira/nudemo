@@ -8,6 +8,7 @@ import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
+import 'package:nudemo/card/presenter/card_presenter.dart';
 
 void main() {
   group('[Widget -> Home page] - Section III', () {
@@ -33,6 +34,9 @@ void main() {
         ),
         ChangeNotifierProvider<ConstructionPresenter>(
           create: (context) => ConstructionPresenter(),
+        ),
+        ChangeNotifierProvider<CardPresenter>(
+          create: (context) => CardPresenter(),
         ),
         ListenableProvider<AnimatedBoxPresenter>(
           create: (context) => AnimatedBoxPresenter(),
@@ -150,10 +154,10 @@ void main() {
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
-      /// verify if have a `Icon` widget with `account_balance` icon.
+      /// verify if have a `Icon` widget with `local_atm` icon.
       expect(
         find.descendant(
-            of: _buttonList, matching: find.byIcon(Icons.account_balance)),
+            of: _buttonList, matching: find.byIcon(Icons.local_atm)),
         findsOneWidget,
       );
 

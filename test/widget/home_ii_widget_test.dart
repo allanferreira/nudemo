@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
@@ -8,7 +9,7 @@ import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:nudemo/card/presenter/card_presenter.dart';
 
 void main() {
   group('[Widget -> Home page] - Section II', () {
@@ -34,6 +35,9 @@ void main() {
         ),
         ChangeNotifierProvider<ConstructionPresenter>(
           create: (context) => ConstructionPresenter(),
+        ),
+        ChangeNotifierProvider<CardPresenter>(
+          create: (context) => CardPresenter(),
         ),
         ListenableProvider<AnimatedBoxPresenter>(
           create: (context) => AnimatedBoxPresenter(),
@@ -168,10 +172,9 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      /// verify if have a `Icon` widget with `account_balance` icon.
+      /// verify if have a `Icon` widget with `local_atm` icon.
       expect(
-        find.descendant(
-            of: _mainMenu, matching: find.byIcon(Icons.account_balance)),
+        find.descendant(of: _mainMenu, matching: find.byIcon(Icons.local_atm)),
         findsOneWidget,
       );
 
