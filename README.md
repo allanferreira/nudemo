@@ -17,10 +17,12 @@ You will need [Flutter][] framework v1.11.0 or above installed ([Channel beta][]
 - [test][] 1.6.3
 - [provider][] 3.2.0
 - [pedantic][] 1.8.0+1 (dev)
+- [qr_flutter][] 3.1.0
 
 [test]: https://pub.dev/packages/test
 [provider]: https://pub.dev/packages/provider
 [pedantic]: https://pub.dev/packages/pedantic
+[qr_flutter]: https://pub.dev/packages/qr_flutter
 
 ## Running tests
 
