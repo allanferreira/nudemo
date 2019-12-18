@@ -9,9 +9,11 @@ import 'package:nudemo/themes/nu_dark_theme.dart';
 void main() {
   group('[Unit -> HomePresenter]', () {
     HomePresenter homePresenter;
+    HomeViewModel homeViewModel;
 
     setUp(() {
       homePresenter = HomePresenter();
+      homeViewModel = HomeViewModel();
     });
 
     test('`getNuTheme()` run time type should be [ThemeData]', () {
@@ -187,6 +189,140 @@ void main() {
       expect(
         HomePresenter.mapCustom([1, 2, 3], (key, value) => (value * 2)),
         [2, 4, 6],
+      );
+    });
+
+    test('initial `getFutureValue()` value should be [balancesFutureValue]',
+        () {
+      expect(
+        homePresenter.getFutureValue(),
+        homeViewModel.balancesFutureValue,
+      );
+    });
+
+    test('initial `getOpenValue()` value should be [balancesOpenValue]', () {
+      expect(
+        homePresenter.getOpenValue(),
+        homeViewModel.balancesOpenValue,
+      );
+    });
+
+    test(
+        'initial `getAvailableValue()` value should be [balancesAvailableValue]',
+        () {
+      expect(
+        homePresenter.getAvailableValue(),
+        homeViewModel.balancesAvailableValue,
+      );
+    });
+
+    test('initial `getDueValue()` value should be [balancesDueValue]', () {
+      expect(
+        homePresenter.getDueValue(),
+        homeViewModel.balancesDueValue,
+      );
+    });
+
+    test('initial `getFuturePercent()` value should be [balancesFuturePercent]',
+        () {
+      expect(
+        homePresenter.getFuturePercent(),
+        homeViewModel.balancesFuturePercent,
+      );
+    });
+
+    test('initial `getOpenPercent()` value should be [balancesOpenPercent]',
+        () {
+      expect(
+        homePresenter.getOpenPercent(),
+        homeViewModel.balancesOpenPercent,
+      );
+    });
+
+    test(
+        'initial `getAvailablePercent()` value should be [balancesAvailablePercent]',
+        () {
+      expect(
+        homePresenter.getAvailablePercent(),
+        homeViewModel.balancesAvailablePercent,
+      );
+    });
+
+    test('initial `getDuePercent()` value should be [balancesDuePercent]', () {
+      expect(
+        homePresenter.getDuePercent(),
+        homeViewModel.balancesDuePercent,
+      );
+    });
+
+    test('initial `getFutureFlex()` value should be [balancesFutureFlex]', () {
+      expect(
+        homePresenter.getFutureFlex(),
+        homeViewModel.balancesFutureFlex,
+      );
+    });
+
+    test('initial `getOpenFlex()` value should be [balancesOpenFlex]', () {
+      expect(
+        homePresenter.getOpenFlex(),
+        homeViewModel.balancesOpenFlex,
+      );
+    });
+
+    test('initial `getAvailableFlex()` value should be [balancesAvailableFlex]',
+        () {
+      expect(
+        homePresenter.getAvailableFlex(),
+        homeViewModel.balancesAvailableFlex,
+      );
+    });
+
+    test('initial `getDueFlex()` value should be [balancesDueFlex]', () {
+      expect(
+        homePresenter.getDueFlex(),
+        homeViewModel.balancesDueFlex,
+      );
+    });
+
+    test('`calculatePercentBalances()` value return', () {
+      homePresenter.calculatePercentBalances();
+
+      expect(homePresenter.getFutureValue(), 1529.98);
+      expect(homePresenter.getFutureCurrency(), r'R$' + '\u00a0' + '1.529,98');
+      expect(homePresenter.getFuturePercent(), 10.199866666666667);
+      expect(homePresenter.getFutureFlex(), 10);
+
+      expect(homePresenter.getOpenValue(), 5578.79);
+      expect(homePresenter.getOpenCurrency(), r'R$' + '\u00a0' + '5.578,79');
+      expect(homePresenter.getOpenPercent(), 37.19193333333333);
+      expect(homePresenter.getOpenFlex(), 37);
+
+      expect(homePresenter.getAvailableValue(), 7891.23);
+      expect(
+        homePresenter.getAvailableCurrency(),
+        r'R$' + '\u00a0' + '7.891,23',
+      );
+      expect(homePresenter.getAvailablePercent(), 52.6082);
+      expect(homePresenter.getAvailableFlex(), 53);
+
+      expect(homePresenter.getDueValue(), 0);
+      expect(homePresenter.getDueCurrency(), 0.0);
+      expect(homePresenter.getDuePercent(), 0);
+      expect(homePresenter.getDueFlex(), 0);
+    });
+
+    test('`getFormattedCurrency()` value return', () {
+      expect(
+        homePresenter.getFormattedCurrency(r'R$' + '\u00a0' + '5.453,19'),
+        [r'R$', '5.453', '19'],
+      );
+    });
+
+    test('initial `getLastCardRegister()` value should be [lastCardRegister]',
+        () {
+      expect(
+        homePresenter.getLastCardRegister(),
+        homeViewModel.lastCardRegister,
       );
     });
   });

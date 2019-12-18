@@ -30,28 +30,24 @@ final ThemeData nuDarkTheme = ThemeData(
   // text styling for headlines, titles, bodies of text, and more.
   textTheme: TextTheme(
     display4: TextStyle(
-      color: Colors.purple[800],
-      fontSize: null,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
+      color: Color.fromRGBO(255, 207, 90, 0.8),
+      fontSize: 30.0,
+      fontWeight: FontWeight.w300,
     ),
     display3: TextStyle(
-      color: Colors.purple[800],
-      fontSize: null,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
+      color: Color.fromRGBO(0, 188, 201, 0.8),
+      fontSize: 30.0,
+      fontWeight: FontWeight.w300,
     ),
     display2: TextStyle(
-      color: Colors.purple[800],
-      fontSize: null,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
+      color: Color.fromRGBO(165, 204, 37, 0.8),
+      fontSize: 30.0,
+      fontWeight: FontWeight.w300,
     ),
     display1: TextStyle(
-      color: Colors.purple[800],
-      fontSize: null,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
+      color: Colors.red[900],
+      fontSize: 30.0,
+      fontWeight: FontWeight.w300,
     ),
     headline: TextStyle(
       fontSize: 20.0,
@@ -65,8 +61,8 @@ final ThemeData nuDarkTheme = ThemeData(
     ),
     subhead: TextStyle(
       color: Colors.purple[800],
-      fontSize: null,
-      fontWeight: FontWeight.w400,
+      fontSize: 13,
+      fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
     ),
     body1: TextStyle(
@@ -80,10 +76,9 @@ final ThemeData nuDarkTheme = ThemeData(
       color: Colors.white54,
     ),
     caption: TextStyle(
-      color: Colors.purple[800],
-      fontSize: null,
+      color: Colors.white54,
+      fontSize: 12.0,
       fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
     ),
     button: TextStyle(
       color: Colors.purple[800],
@@ -93,15 +88,14 @@ final ThemeData nuDarkTheme = ThemeData(
     ),
     subtitle: TextStyle(
       color: Colors.purple[800],
-      fontSize: null,
+      fontSize: 12.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     overline: TextStyle(
       color: Colors.purple[800],
-      fontSize: null,
+      fontSize: 14.0,
       fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
     ),
   ),
   primaryTextTheme: TextTheme(

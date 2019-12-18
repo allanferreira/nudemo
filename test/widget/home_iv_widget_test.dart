@@ -145,6 +145,66 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
 
+      /// verify if have 3 `Icon` widgets.
+      expect(
+        find.descendant(of: _animatedBox, matching: find.byType(Icon)),
+        findsNWidgets(3),
+      );
+
+      /// verify if have a `Icon` widgets with [Icons.credit_card].
+      expect(
+        find.descendant(
+          of: _animatedBox,
+          matching: find.byIcon(Icons.credit_card),
+        ),
+        findsOneWidget,
+      );
+
+      /// verify if have a `Text` widgets with [Cartão de crédito].
+      expect(
+        find.descendant(
+          of: _animatedBox,
+          matching: find.text('Cartão de crédito'),
+        ),
+        findsOneWidget,
+      );
+
+      /// verify if have a `Text` widgets with [Fatura atual].
+      expect(
+        find.descendant(
+          of: _animatedBox,
+          matching: find.text('Fatura atual'.toUpperCase()),
+        ),
+        findsOneWidget,
+      );
+
+      /// verify if have a `RichText` widgets.
+      expect(
+        find.descendant(
+          of: _animatedBox,
+          matching: find.byType(RichText),
+        ),
+        findsWidgets,
+      );
+
+      /// verify if have a `Icon` widgets with [Icons.access_time].
+      expect(
+        find.descendant(
+          of: _animatedBox,
+          matching: find.byIcon(Icons.access_time),
+        ),
+        findsOneWidget,
+      );
+
+      /// verify if have a `Icon` widgets with [Icons.access_time].
+      expect(
+        find.descendant(
+          of: _animatedBox,
+          matching: find.byIcon(Icons.keyboard_arrow_right),
+        ),
+        findsOneWidget,
+      );
+
       /// verify if have a [Button] widget with `/card/` key.
       expect(_cardButton, findsOneWidget);
 

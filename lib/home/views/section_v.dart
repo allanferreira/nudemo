@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
-import 'package:nudemo/home/views/itens_carousel.dart';
 
 /// `Section V` - Dotted carousel indicator
 class SectionV extends StatelessWidget {
@@ -47,7 +46,7 @@ class SectionV extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: HomePresenter.mapCustom<Widget>(
-                ItensCarousel.itensList(context),
+                [1, 2, 3],
                 (index, widget) => Consumer<HomePresenter>(
                   builder: (context, homePresenter, child) => _containerDotted(
                     homePresenter.getDottedIndicatorColor(

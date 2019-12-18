@@ -122,8 +122,14 @@ class SectionII extends StatelessWidget {
         return ListTile(
           key: Key(route),
           leading: img,
-          title: Text(title),
-          subtitle: Text(subtitle),
+          title: Text(
+            title,
+            style: Theme.of(context).textTheme.subhead,
+          ),
+          subtitle: Text(
+            subtitle,
+            style: Theme.of(context).textTheme.subtitle,
+          ),
           trailing: Icon(Icons.keyboard_arrow_right),
           dense: true,
           contentPadding: EdgeInsets.all(0),
@@ -133,7 +139,10 @@ class SectionII extends StatelessWidget {
       return ListTile(
         key: Key(route),
         leading: img,
-        title: Text(title),
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.subhead,
+        ),
         trailing: Icon(Icons.keyboard_arrow_right),
         dense: true,
         contentPadding: EdgeInsets.all(0),

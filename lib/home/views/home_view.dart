@@ -53,6 +53,9 @@ class HomePage extends StatelessWidget {
     Provider.of<HomePresenter>(context, listen: false)
         .checkSystemBrightness(context: context);
 
+    /// Calculate percentage balances
+    presenter.calculatePercentBalances();
+
     return Scaffold(
       key: Key('home-page'),
       backgroundColor: Theme.of(context).backgroundColor,
@@ -92,6 +95,7 @@ class HomePage extends StatelessWidget {
               screenSize: _screenSize,
               topLogoHeight: _topLogoHeight,
               boxSlideHeight: _boxSlideHeight,
+              presenter: presenter,
             ),
           ],
         ),

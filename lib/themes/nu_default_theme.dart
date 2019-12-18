@@ -29,6 +29,26 @@ final ThemeData nuDefaultTheme = ThemeData(
   // Define the default TextTheme. Use this to specify the default
   // text styling for headlines, titles, bodies of text, and more.
   textTheme: TextTheme(
+    display4: TextStyle(
+      color: Color.fromRGBO(255, 207, 90, 1.0),
+      fontSize: 30.0,
+      fontWeight: FontWeight.w300,
+    ),
+    display3: TextStyle(
+      color: Color.fromRGBO(0, 188, 201, 1.0),
+      fontSize: 30.0,
+      fontWeight: FontWeight.w300,
+    ),
+    display2: TextStyle(
+      color: Color.fromRGBO(165, 204, 37, 1.0),
+      fontSize: 30.0,
+      fontWeight: FontWeight.w300,
+    ),
+    display1: TextStyle(
+      color: Colors.red,
+      fontSize: 30.0,
+      fontWeight: FontWeight.w300,
+    ),
     headline: TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.w700,
@@ -39,6 +59,12 @@ final ThemeData nuDefaultTheme = ThemeData(
       fontWeight: FontWeight.w500,
       color: Colors.black87,
     ),
+    subhead: TextStyle(
+      color: Colors.white,
+      fontSize: 13,
+      fontWeight: FontWeight.w500,
+      fontStyle: FontStyle.normal,
+    ),
     body1: TextStyle(
       fontSize: 16.0,
       fontWeight: FontWeight.w300,
@@ -48,6 +74,22 @@ final ThemeData nuDefaultTheme = ThemeData(
       fontSize: 13.0,
       fontWeight: FontWeight.w400,
       color: Colors.white,
+    ),
+    caption: TextStyle(
+      color: Colors.black54,
+      fontSize: 14.0,
+      fontWeight: FontWeight.w500,
+    ),
+    subtitle: TextStyle(
+      color: Colors.white,
+      fontSize: 12.0,
+      fontWeight: FontWeight.w300,
+      fontStyle: FontStyle.normal,
+    ),
+    overline: TextStyle(
+      color: Colors.black87,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
     ),
   ),
 

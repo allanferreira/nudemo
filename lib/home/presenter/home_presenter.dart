@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
@@ -15,6 +16,7 @@ import 'package:nudemo/themes/nu_dark_theme.dart';
 /// [Counter] does _not_ depend on Provider.
 class HomePresenter with ChangeNotifier {
   HomeViewModel _homeViewModel;
+  final formatCurrency = NumberFormat.simpleCurrency(locale: 'pt_BR');
 
   HomePresenter() {
     this._homeViewModel = HomeViewModel();
@@ -107,4 +109,105 @@ class HomePresenter with ChangeNotifier {
     }
     return result;
   }
+
+  /// Get the value of Balances Future Value
+  double getFutureValue() => _homeViewModel.balancesFutureValue;
+
+  /// Get the value of Balances Open Value
+  double getOpenValue() => _homeViewModel.balancesOpenValue;
+
+  /// Get the value of Balances Available Value
+  double getAvailableValue() => _homeViewModel.balancesAvailableValue;
+
+  /// Get the value of Balances Due Value
+  double getDueValue() => _homeViewModel.balancesDueValue;
+
+  /// Get the value of Balances Future Currency (R$)
+  String getFutureCurrency() =>
+      formatCurrency.format(_homeViewModel.balancesFutureValue);
+
+  /// Get the value of Balances Open Currency (R$)
+  String getOpenCurrency() =>
+      formatCurrency.format(_homeViewModel.balancesOpenValue);
+
+  /// Get the value of Balances Available Currency (R$)
+  String getAvailableCurrency() =>
+      formatCurrency.format(_homeViewModel.balancesAvailableValue);
+
+  /// Get the value of Balances Due Currency
+  double getDueCurrency() => _homeViewModel.balancesDueValue;
+
+  /// Get the value of Balances Future Percent
+  double getFuturePercent() => _homeViewModel.balancesFuturePercent;
+
+  /// Get the value of Balances Open Percent
+  double getOpenPercent() => _homeViewModel.balancesOpenPercent;
+
+  /// Get the value of Balances Available Percent
+  double getAvailablePercent() => _homeViewModel.balancesAvailablePercent;
+
+  /// Get the value of Balances Due Percent
+  double getDuePercent() => _homeViewModel.balancesDuePercent;
+
+  /// Get the value of Balances Future Flex
+  int getFutureFlex() => _homeViewModel.balancesFutureFlex;
+
+  /// Get the value of Balances Open Flex
+  int getOpenFlex() => _homeViewModel.balancesOpenFlex;
+
+  /// Get the value of Balances Available Flex
+  int getAvailableFlex() => _homeViewModel.balancesAvailableFlex;
+
+  /// Get the value of Balances Due Flex
+  int getDueFlex() => _homeViewModel.balancesDueFlex;
+
+  /// Calculate `percentage` and `flex` values of balances
+  void calculatePercentBalances() {
+    _homeViewModel.balancesFuturePercent =
+        (_homeViewModel.balancesFutureValue / _homeViewModel.limitValue) * 100;
+    _homeViewModel.balancesFutureFlex =
+        _homeViewModel.balancesFuturePercent.round();
+
+    _homeViewModel.balancesOpenPercent =
+        (_homeViewModel.balancesOpenValue / _homeViewModel.limitValue) * 100;
+    _homeViewModel.balancesOpenFlex =
+        _homeViewModel.balancesOpenPercent.round();
+
+    _homeViewModel.balancesAvailablePercent =
+        (_homeViewModel.balancesAvailableValue / _homeViewModel.limitValue) *
+            100;
+    _homeViewModel.balancesAvailableFlex =
+        _homeViewModel.balancesAvailablePercent.round();
+
+    _homeViewModel.balancesDuePercent =
+        (_homeViewModel.balancesDueValue / _homeViewModel.limitValue) * 100;
+    _homeViewModel.balancesDueFlex = _homeViewModel.balancesDuePercent.round();
+
+    _homeViewModel.limitPercent = _homeViewModel.balancesFuturePercent +
+        _homeViewModel.balancesOpenPercent +
+        _homeViewModel.balancesAvailablePercent +
+        _homeViewModel.balancesDuePercent;
+  }
+
+  /// Format currency for summary info box style
+  List<String> getFormattedCurrency(String currency) {
+    List<String> temp1 = [];
+    List<String> temp2 = [];
+    List<String> formatted = [];
+
+    temp1 = currency.split('\u00a0');
+    if (temp1.length == 2) {
+      formatted.add(temp1[0]); // [R$]
+      temp2 = temp1[1].split(",");
+
+      if (temp2.length == 2) {
+        formatted.addAll(temp1[1].split(",")); // [0.000],[00]
+      }
+    }
+
+    return formatted;
+  }
+
+  /// Get last card register
+  Map<String, dynamic> getLastCardRegister() => _homeViewModel.lastCardRegister;
 }
