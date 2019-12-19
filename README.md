@@ -18,11 +18,15 @@ You will need [Flutter][] framework v1.11.0 or above installed ([Channel beta][]
 - [provider][] 3.2.0
 - [pedantic][] 1.8.0+1 (dev)
 - [qr_flutter][] 3.1.0
+- [intl][] any*️
+
+> **\*** The latest version of project `intl` causes conflicts with the `intl` dependency version of the `sylph` library (The responsible library for run integration test with DeviceFarm on AWS). When we use `any`, Flutter solves for us which version is best 😎
 
 [test]: https://pub.dev/packages/test
 [provider]: https://pub.dev/packages/provider
 [pedantic]: https://pub.dev/packages/pedantic
 [qr_flutter]: https://pub.dev/packages/qr_flutter
+[intl]: https://pub.dev/packages/intl
 
 ## Running tests
 
