@@ -9,25 +9,32 @@
 tmp_dir: /tmp/sylph
 artifacts_dir: /tmp/sylph_artifacts
 # local timeout per device farm run
-sylph_timeout: 1800 # seconds approx
+sylph_timeout: 1500 # seconds approx
 # run on ios and android pools concurrently (for faster results)
 concurrent_runs: true
 
 # device farm config
 project_name: nudemo
-default_job_timeout: 45 # minutes, set at project creation
+default_job_timeout: 25 # minutes, set at project creation
 
 device_pools:
 
-  - pool_name: Androids
+  - pool_name: Android
     pool_type: android
     devices:
      - name: Samsung Galaxy J7 (2018)
        model: SM-J737U
        os: 8.0.0
-     - name: Sony Xperia XZ3
-       model: H8416
-       os: 9.0.0
+
+  # - pool_name: Androids
+  #   pool_type: android
+  #   devices:
+  #    - name: Samsung Galaxy J7 (2018)
+  #      model: SM-J737U
+  #      os: 8.0.0
+  #    - name: Sony Xperia XZ3
+  #      model: H8416
+  #      os: 9.0.0
 
   # - pool_name: Sony
   #   pool_type: android
@@ -60,8 +67,9 @@ test_suites:
     tests:
       - test_driver/app_test.dart
     pool_names:
-      - Androids
+      - Android
+      # - Androids
       # - Sony
       # - Android latest
       # - iPhone latest
-    job_timeout: 45 # minutes, set per job, over-rides default job timeout above
+    job_timeout: 25 # minutes, set per job, over-rides default job timeout above
