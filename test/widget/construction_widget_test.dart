@@ -7,7 +7,7 @@ import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() {
   group('[Widget -> Construction page]', () {
-    String title = 'Cartão de crédito';
+    String title = 'Construction page';
     testWidgets('Smoke test - ${title}', (WidgetTester tester) async {
       // Build our app and trigger a frame.
       await tester.pumpWidget(
@@ -26,7 +26,7 @@ void main() {
         ),
       );
 
-      /// verify if have text `Cartão de crédito` (route `/card/`).
+      /// verify if have text `Construction page`
       expect(find.text(title.toUpperCase()), findsOneWidget);
 
       /// verify if have any `IconButton` widget to go back.
