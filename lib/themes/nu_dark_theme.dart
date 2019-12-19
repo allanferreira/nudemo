@@ -30,22 +30,22 @@ final ThemeData nuDarkTheme = ThemeData(
   // text styling for headlines, titles, bodies of text, and more.
   textTheme: TextTheme(
     display4: TextStyle(
-      color: Color.fromRGBO(255, 207, 90, 0.8),
+      color: Color.fromRGBO(255, 207, 90, 0.8), // #FFCF5A
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display3: TextStyle(
-      color: Color.fromRGBO(0, 188, 201, 0.8),
+      color: Color.fromRGBO(0, 188, 201, 0.8), // #00BCC9
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display2: TextStyle(
-      color: Color.fromRGBO(165, 204, 37, 0.8),
+      color: Color.fromRGBO(238, 119, 108, 0.8), // #EE776C
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display1: TextStyle(
-      color: Colors.red[900],
+      color: Color.fromRGBO(165, 204, 37, 0.8), // #A5CC25
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),

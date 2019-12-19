@@ -30,22 +30,22 @@ final ThemeData nuDefaultTheme = ThemeData(
   // text styling for headlines, titles, bodies of text, and more.
   textTheme: TextTheme(
     display4: TextStyle(
-      color: Color.fromRGBO(255, 207, 90, 1.0),
+      color: Color.fromRGBO(255, 207, 90, 1.0), // #FFCF5A
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display3: TextStyle(
-      color: Color.fromRGBO(0, 188, 201, 1.0),
+      color: Color.fromRGBO(0, 188, 201, 1.0), // #00BCC9
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display2: TextStyle(
-      color: Color.fromRGBO(165, 204, 37, 1.0),
+      color: Color.fromRGBO(238, 119, 108, 1.0), // #EE776C
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display1: TextStyle(
-      color: Colors.red,
+      color: Color.fromRGBO(165, 204, 37, 1.0), // #A5CC25
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),

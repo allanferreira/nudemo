@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 
 import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/utils/utils.dart';
 
 class CardPage extends StatelessWidget {
   @required
@@ -13,9 +15,11 @@ class CardPage extends StatelessWidget {
   @required
   final String title;
 
-  CardPage({Key key, this.presenter, this.title}) : super(key: key);
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final HomePresenter homePresenter = HomePresenter();
+  final Utils utils = Utils();
+
+  CardPage({Key key, this.presenter, this.title}) : super(key: key);
 
   void _showSnackBar(BuildContext context) {
     final snackBar = SnackBar(
@@ -94,23 +98,43 @@ class CardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MediaQueryData _mediaQuery = MediaQuery.of(context);
-    final Size _screenSize = _mediaQuery.size;
-    final double _screenWidth = _screenSize.width;
-    final double _screenHeight = _screenSize.height;
+    // final Size _screenSize = _mediaQuery.size;
+    // final double _screenWidth = _screenSize.width;
+    // final double _screenHeight = _screenSize.height;
     final EdgeInsets _screenNotch = _mediaQuery.padding;
     final double _topSpace = _screenNotch.top;
-    final double _positionedHeight = _screenHeight - _topSpace;
+    final double _widthVerticalChartBar = 12.0;
+
+    /// Calculate percentage balances
+    homePresenter.calculatePercentBalances();
 
     return Stack(
       children: <Widget>[
+        // Main list
         Positioned(
           top: _topSpace,
-          width: _screenWidth,
-          height: _positionedHeight,
+          bottom: 0,
+          left: 0,
+          right: _widthVerticalChartBar,
           key: Key('card-page'),
           child: Scaffold(
             key: _scaffoldKey,
             body: _body(context),
+          ),
+        ),
+        // Vertical chart bar
+        Positioned(
+          top: _topSpace,
+          width: _widthVerticalChartBar,
+          right: 0,
+          bottom: 0,
+          child: utils.verticalChartBar(
+            context: context,
+            width: 8.0,
+            flexFuture: homePresenter.getFutureFlex(),
+            flexOpen: homePresenter.getOpenFlex(),
+            flexDue: homePresenter.getDueFlex(),
+            flexAvailable: homePresenter.getAvailableFlex(),
           ),
         ),
       ],
