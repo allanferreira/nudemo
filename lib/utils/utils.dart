@@ -129,4 +129,26 @@ class Utils {
       ),
     );
   }
+
+  /// Creates a custom [SnackBar].
+  void showSnackBar({
+    @required GlobalKey<ScaffoldState> scaffoldKey,
+    @required BuildContext context,
+    String text = '🤔',
+  }) {
+    final snackBar = SnackBar(
+      key: Key('snackBar'),
+      backgroundColor: Theme.of(context).primaryColorDark.withOpacity(0.85),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        side: BorderSide.none,
+        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+      ),
+      content: Padding(
+        padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
+        child: Text(text, style: Theme.of(context).textTheme.body2),
+      ),
+    );
+    scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 }

@@ -15,7 +15,6 @@ void main() {
     final Finder _sliverAppBar = find.byType(SliverAppBar);
     final Finder _sliverList = find.byType(SliverList);
     final Finder _verticalChartBar = find.byKey(Key('vertical-chart-bar'));
-    final Finder _listItems = find.byKey(Key('list-items'));
 
     final Widget _pumpWidget = MultiProvider(
       providers: [

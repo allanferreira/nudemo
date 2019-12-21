@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:nudemo/rewards/presenter/rewards_presenter.dart';
+import 'package:nudemo/utils/utils.dart';
 
 class RewardsPage extends StatelessWidget {
   @required
@@ -13,21 +14,10 @@ class RewardsPage extends StatelessWidget {
   final String title;
   final EdgeInsets _paddingIconButton = EdgeInsets.all(16.0);
 
-  RewardsPage({Key key, this.presenter, this.title}) : super(key: key);
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final Utils utils = Utils();
 
-  void _showSnackBar(BuildContext context) {
-    final snackBar = SnackBar(
-      key: Key('snackBar'),
-      content: Text(
-        'Filtering not supported yet!',
-        style: Theme.of(context).textTheme.body2,
-      ),
-      backgroundColor: Theme.of(context).primaryColorDark,
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
-  }
+  RewardsPage({Key key, this.presenter, this.title}) : super(key: key);
 
   Widget _appBar(BuildContext context) => Container(
         // height: 56.0,
@@ -69,9 +59,11 @@ class RewardsPage extends StatelessWidget {
               ),
               tooltip: 'Filter',
               padding: _paddingIconButton,
-              onPressed: () {
-                _showSnackBar(context);
-              },
+              onPressed: () => utils.showSnackBar(
+                scaffoldKey: _scaffoldKey,
+                context: context,
+                text: 'Filtering not supported yet!',
+              ),
             ),
           ],
         ),

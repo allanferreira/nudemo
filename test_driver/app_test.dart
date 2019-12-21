@@ -131,7 +131,7 @@ void main() {
         /// [Gesture 👇↕️👇] Drag to `UP` the all items of `SliverList`
         ///  Widget list, until the widget is completely visible.
         await _driver.scroll(
-          find.byValueKey('card-page'), 0, -_sizeScreenHeight, normalTime);
+            find.byValueKey('card-page'), 0, -_sizeScreenHeight, normalTime);
         // await _driver.scrollIntoView(find.byValueKey('item-$i'));
       }
 

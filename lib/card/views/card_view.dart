@@ -25,24 +25,6 @@ class CardPage extends StatelessWidget {
     homePresenter.calculatePercentBalances();
   }
 
-  void _showSnackBar(BuildContext context) {
-    final snackBar = SnackBar(
-      key: Key('snackBar'),
-      content: Text(
-        'Filtering not supported yet!',
-        style: Theme.of(context).textTheme.body2,
-      ),
-      backgroundColor: Theme.of(context).primaryColorDark,
-      // shape: RoundedRectangleBorder(
-      //   side: BorderSide(
-      //     color: Theme.of(context).textTheme.caption.color,
-      //   ),
-      //   borderRadius: BorderRadius.all(Radius.circular(4.0)),
-      // ),
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
-  }
-
   /// SliderBox dotted indicator container
   Widget _dottedContainerSliderBox({
     @required List<int> listItens,
@@ -96,25 +78,17 @@ class CardPage extends StatelessWidget {
       );
 
   /// Builder Delegate of [SliverList]
-  Widget listViewItemBuilder(context, index) => Container(
-        key: Key('item-$index'),
+  Widget listViewItemBuilder(context, index) => MaterialButton(
+        onPressed: () => print('item-$index pressed!'),
         padding: EdgeInsets.all(20.0),
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-          border: index == 0
-              ? Border(
-                  top: BorderSide(
-                    width: 1.0,
-                    color: Theme.of(context)
-                        .textTheme
-                        .body1
-                        .color
-                        .withOpacity(0.25),
-                  ),
-                )
-              : null,
+        shape: RoundedRectangleBorder(
+          side: BorderSide.none,
         ),
-        child: Text('${presenter.getGeneratedItems()[index]}'),
+        child: Container(
+          key: Key('item-$index'),
+          alignment: Alignment.centerLeft,
+          child: Text('${presenter.getGeneratedItems()[index]}'),
+        ),
       );
 
   /// [CustomScrollView] with collapsing toolbar from [Sliver] and
@@ -143,6 +117,15 @@ class CardPage extends StatelessWidget {
                 floating: false,
                 pinned: true,
                 snap: false,
+                shape: Border(
+                  bottom: BorderSide(
+                    color: Theme.of(context)
+                        .textTheme
+                        .body1
+                        .color
+                        .withOpacity(0.25),
+                  ),
+                ),
                 leading: MaterialButton(
                   onPressed: () => Navigator.pop(context),
                   padding: EdgeInsets.only(left: 6.0),
@@ -249,9 +232,11 @@ class CardPage extends StatelessWidget {
                       color: Theme.of(context).textTheme.title.color,
                     ),
                     tooltip: 'Filter',
-                    onPressed: () {
-                      _showSnackBar(context);
-                    },
+                    onPressed: () => utils.showSnackBar(
+                      scaffoldKey: _scaffoldKey,
+                      context: context,
+                      text: 'Filtering not supported yet!',
+                    ),
                   ),
                 ],
               ),
@@ -323,6 +308,7 @@ class CardPage extends StatelessWidget {
           child: utils.verticalChartBar(
             context: context,
             width: 8.0,
+            borderRadius: 0,
             flexFuture: homePresenter.getFutureFlex(),
             flexOpen: homePresenter.getOpenFlex(),
             flexDue: homePresenter.getDueFlex(),
