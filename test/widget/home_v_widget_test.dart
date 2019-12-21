@@ -10,9 +10,10 @@ import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
 
+/// `Section V` - Slide box container widget test
 void main() {
-  group('[Widget -> Home page] - Section I', () {
-    String _title = 'Chinnon';
+  group('[Widget -> Home page] - Section V', () {
+    final String _title = 'Dotted carousel indicator';
 
     final Widget _pumpWidget = MultiProvider(
       providers: [
@@ -44,18 +45,19 @@ void main() {
     );
 
     testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
       await tester.pumpWidget(_pumpWidget);
 
-      /// `Section I` - Logo container
+      /// Verify that there is a `Positioned` Widget with key `section-v`.
+      expect(find.byKey(Key('section-v')), findsOneWidget);
 
-      /// verify if have a `Image` widget with `logo` key.
-      expect(find.byKey(Key('logo-main')), findsOneWidget);
+      /// verify if have a SliderBox dotted indicator.
+      expect(find.byKey(Key('slider-dotted')), findsOneWidget);
 
-      /// verify if have a `Icon` widget with `icon-drag` key.
-      expect(find.byKey(Key('icon-drag')), findsOneWidget);
-
-      /// verify if have a `Icon` widget with `keyboard_arrow_down` icon.
-      expect(find.byIcon(Icons.keyboard_arrow_down), findsOneWidget);
+      /// verify if have any dotted item.
+      [1, 2, 3].map((index) {
+        expect(find.byKey(Key('dotted-$index')), findsOneWidget);
+      });
     });
   });
 }

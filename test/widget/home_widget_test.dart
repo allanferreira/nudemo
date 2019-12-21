@@ -18,22 +18,22 @@ void main() {
     final Widget _pumpWidget = MultiProvider(
       providers: [
         ChangeNotifierProvider<HomePresenter>(
-          create: (context) => HomePresenter(),
+          create: (BuildContext context) => HomePresenter(),
         ),
         ChangeNotifierProvider<ConstructionPresenter>(
-          create: (context) => ConstructionPresenter(),
+          create: (BuildContext context) => ConstructionPresenter(),
         ),
         ChangeNotifierProvider<CardPresenter>(
-          create: (context) => CardPresenter(),
+          create: (BuildContext context) => CardPresenter(),
         ),
         ListenableProvider<AnimatedBoxPresenter>(
-          create: (context) => AnimatedBoxPresenter(),
+          create: (BuildContext context) => AnimatedBoxPresenter(),
         ),
         ListenableProvider<FadeBoxPresenter>(
-          create: (context) => FadeBoxPresenter(),
+          create: (BuildContext context) => FadeBoxPresenter(),
         ),
         ListenableProvider<FadeButtonsPresenter>(
-          create: (context) => FadeButtonsPresenter(),
+          create: (BuildContext context) => FadeButtonsPresenter(),
         ),
       ],
       child: MaterialApp(

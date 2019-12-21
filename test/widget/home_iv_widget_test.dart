@@ -16,38 +16,40 @@ void main() {
     final String _title = 'Chinnon';
 
     final Finder _homePage = find.byKey(Key('home-page'));
-    // final Finder _cardPage = find.byKey(Key('card-page'));
+    final Finder _cardPage = find.byKey(Key('card-page'));
     // final Finder _nucontaPage = find.byKey(Key('nuconta-page'));
     // final Finder _rewardsPage = find.byKey(Key('rewards-page'));
-    final Finder _animatedBox = find.byKey(Key('section-iv'));
+    final Finder _sectionIV = find.byKey(Key('section-iv'));
+    final Finder _pointDrag = find.byKey(Key('point-drag'));
     final Finder _buttonUp = find.byIcon(Icons.keyboard_arrow_up);
     final Finder _buttonDown = find.byIcon(Icons.keyboard_arrow_down);
+    final Finder _verticalChartBar = find.byKey(Key('vertical-chart-bar'));
 
     final Finder _cardButton = find.byKey(Key('/card/'));
     final Finder _nuContaButton = find.byKey(Key('/nuconta/'));
     final Finder _rewardsButton = find.byKey(Key('/rewards/'));
 
-    // final Finder _goBackButton = find.byKey(Key('go-back-button'));
+    final Finder _goBackButton = find.byKey(Key('go-back-button'));
 
     final Widget _pumpWidget = MultiProvider(
       providers: [
         ChangeNotifierProvider<HomePresenter>(
-          create: (context) => HomePresenter(),
+          create: (BuildContext context) => HomePresenter(),
         ),
         ChangeNotifierProvider<ConstructionPresenter>(
-          create: (context) => ConstructionPresenter(),
+          create: (BuildContext context) => ConstructionPresenter(),
         ),
         ChangeNotifierProvider<CardPresenter>(
-          create: (context) => CardPresenter(),
+          create: (BuildContext context) => CardPresenter(),
         ),
         ListenableProvider<AnimatedBoxPresenter>(
-          create: (context) => AnimatedBoxPresenter(),
+          create: (BuildContext context) => AnimatedBoxPresenter(),
         ),
         ListenableProvider<FadeBoxPresenter>(
-          create: (context) => FadeBoxPresenter(),
+          create: (BuildContext context) => FadeBoxPresenter(),
         ),
         ListenableProvider<FadeButtonsPresenter>(
-          create: (context) => FadeButtonsPresenter(),
+          create: (BuildContext context) => FadeButtonsPresenter(),
         ),
       ],
       child: MaterialApp(
@@ -64,7 +66,7 @@ void main() {
       await tester.pumpWidget(_pumpWidget);
 
       /// Verify that there is a `Align` Widget with key `section-iv`.
-      expect(_animatedBox, findsOneWidget);
+      expect(_sectionIV, findsOneWidget);
 
       /// [Closed State 🔽] Verify that there is a `keyboard_arrow_down`
       /// icon in `IconButton` Widget, and nothing `keyboard_arrow_up`.
@@ -77,7 +79,7 @@ void main() {
       await tester.pumpAndSettle();
 
       /// Verify that there is a `Container` Widget.
-      expect(_animatedBox, findsOneWidget);
+      expect(_sectionIV, findsOneWidget);
 
       /// [Openned State 🔼] Verify that there is a `keyboard_arrow_up`
       /// icon in `IconButton` Widget, and nothing `keyboard_arrow_down`.
@@ -89,7 +91,7 @@ void main() {
       await tester.pumpAndSettle();
 
       /// Verify that there is a `Container` Widget.
-      expect(_animatedBox, findsOneWidget);
+      expect(_sectionIV, findsOneWidget);
 
       /// [Closed State 🔽]
       expect(_buttonUp, findsNothing);
@@ -108,7 +110,7 @@ void main() {
       // print('minDragHeight: $minDragHeight');
 
       /// Verify that there is a `Container` Widget.
-      expect(_animatedBox, findsOneWidget);
+      expect(_pointDrag, findsOneWidget);
 
       /// [Closed State 🔽] Verify that there is a `keyboard_arrow_down`
       /// icon in `IconButton` Widget, and nothing `keyboard_arrow_up`.
@@ -117,11 +119,11 @@ void main() {
 
       /// [Gesture 👉↔️👉] Drag `Down` the `Container` Widget MORE (➕)
       /// than minimum height to start the animation down...
-      await tester.drag(_animatedBox, Offset(0.0, minDragHeight + 10));
+      await tester.drag(_pointDrag, Offset(0.0, minDragHeight + 10));
       await tester.pumpAndSettle();
 
       /// Verify that there is a `Container` Widget.
-      expect(_animatedBox, findsOneWidget);
+      expect(_pointDrag, findsOneWidget);
 
       /// [Openned State 🔼] Verify that there is a `keyboard_arrow_up`
       /// icon in `IconButton` Widget, and nothing `keyboard_arrow_down`.
@@ -130,11 +132,11 @@ void main() {
 
       /// [Gesture 👉↔️👉] Drag `UP` the `Container` Widget MORE (➕)
       /// than minimum height to start the animation up...
-      await tester.drag(_animatedBox, Offset(0.0, -(minDragHeight + 10)));
+      await tester.drag(_pointDrag, Offset(0.0, -(minDragHeight + 10)));
       await tester.pumpAndSettle();
 
       /// Verify that there is a `Container` Widget.
-      expect(_animatedBox, findsOneWidget);
+      expect(_pointDrag, findsOneWidget);
 
       /// [Openned State 🔼]
       expect(_buttonDown, findsNothing);
@@ -147,14 +149,14 @@ void main() {
 
       /// verify if have 3 `Icon` widgets.
       expect(
-        find.descendant(of: _animatedBox, matching: find.byType(Icon)),
+        find.descendant(of: _sectionIV, matching: find.byType(Icon)),
         findsNWidgets(3),
       );
 
       /// verify if have a `Icon` widgets with [Icons.credit_card].
       expect(
         find.descendant(
-          of: _animatedBox,
+          of: _sectionIV,
           matching: find.byIcon(Icons.credit_card),
         ),
         findsOneWidget,
@@ -163,7 +165,7 @@ void main() {
       /// verify if have a `Text` widgets with [Cartão de crédito].
       expect(
         find.descendant(
-          of: _animatedBox,
+          of: _sectionIV,
           matching: find.text('Cartão de crédito'),
         ),
         findsOneWidget,
@@ -172,7 +174,7 @@ void main() {
       /// verify if have a `Text` widgets with [Fatura atual].
       expect(
         find.descendant(
-          of: _animatedBox,
+          of: _sectionIV,
           matching: find.text('Fatura atual'.toUpperCase()),
         ),
         findsOneWidget,
@@ -181,7 +183,7 @@ void main() {
       /// verify if have a `RichText` widgets.
       expect(
         find.descendant(
-          of: _animatedBox,
+          of: _sectionIV,
           matching: find.byType(RichText),
         ),
         findsWidgets,
@@ -190,7 +192,7 @@ void main() {
       /// verify if have a `Icon` widgets with [Icons.access_time].
       expect(
         find.descendant(
-          of: _animatedBox,
+          of: _sectionIV,
           matching: find.byIcon(Icons.access_time),
         ),
         findsOneWidget,
@@ -199,8 +201,53 @@ void main() {
       /// verify if have a `Icon` widgets with [Icons.access_time].
       expect(
         find.descendant(
-          of: _animatedBox,
+          of: _sectionIV,
           matching: find.byIcon(Icons.keyboard_arrow_right),
+        ),
+        findsOneWidget,
+      );
+
+      /// verify if have a vertical chart bar widget.
+      expect(
+        find.descendant(
+          of: _sectionIV,
+          matching: _verticalChartBar,
+        ),
+        findsOneWidget,
+      );
+
+      /// verify if have a [future] balances bar.
+      expect(
+        find.descendant(
+          of: _verticalChartBar,
+          matching: find.byKey(Key('future-bar')),
+        ),
+        findsOneWidget,
+      );
+
+      /// verify if have a [open] balances bar.
+      expect(
+        find.descendant(
+          of: _verticalChartBar,
+          matching: find.byKey(Key('open-bar')),
+        ),
+        findsOneWidget,
+      );
+
+      /// verify if have a [due] balances bar.
+      expect(
+        find.descendant(
+          of: _verticalChartBar,
+          matching: find.byKey(Key('due-bar')),
+        ),
+        findsOneWidget,
+      );
+
+      /// verify if have a [available] balances bar.
+      expect(
+        find.descendant(
+          of: _verticalChartBar,
+          matching: find.byKey(Key('available-bar')),
         ),
         findsOneWidget,
       );
@@ -212,26 +259,15 @@ void main() {
       await tester.tap(_cardButton);
       await tester.pumpAndSettle();
 
-      /// [The tests below don't work ANY MORE], because the target of
-      /// this widget has the same source widget context, but it isn't
-      /// directly in the parent tree widget.
-      ///
-      /// -- We separate the list of carousel widgets, after that,
-      /// the tests don't work any more, but I need to separate these
-      /// widgets for a better code. --
-      ///
-      /// Don't care about it, we still have the integration test
-      /// (drive test) for test this!
+      /// verify if have a [Positioned] widget with `card-page` key.
+      expect(_cardPage, findsOneWidget);
 
-      // /// verify if have a [Positioned] widget with `card-page` key.
-      // expect(_cardPage, findsOneWidget);
+      /// verify if have any [IconButton] widget to go back.
+      expect(_goBackButton, findsWidgets);
 
-      // /// verify if have any [IconButton] widget to go back.
-      // expect(_goBackButton, findsWidgets);
-
-      // /// tap the `⬅️` arrow_back icon and trigger a frame.
-      // await tester.tap(_goBackButton);
-      // await tester.pumpAndSettle();
+      /// tap the `⬅️` arrow_back icon and trigger a frame.
+      await tester.tap(_goBackButton);
+      await tester.pumpAndSettle();
     });
 
     testWidgets('Tap `/nuconta/` route of carousel smoke test - ${_title}',

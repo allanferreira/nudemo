@@ -10,6 +10,8 @@ void main() {
   group('[Unit -> HomePresenter]', () {
     HomePresenter homePresenter;
     HomeViewModel homeViewModel;
+    Color activeColor = Colors.red;
+    Color unactiveColor = Colors.white;
 
     setUp(() {
       homePresenter = HomePresenter();
@@ -172,23 +174,140 @@ void main() {
       expect(homePresenter.getCurrentPageCarousel(), 0);
     });
 
+    test(
+        'initial `getDottedIndicatorColor()` value should be equal `activeColor`',
+        () {
+      int index = 0;
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        activeColor,
+      );
+    });
+
+    test(
+        'initial `getDottedIndicatorColor()` value should be equal `unactiveColor` with index = 1',
+        () {
+      int index = 1;
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        unactiveColor,
+      );
+    });
+
+    test(
+        '`getDottedIndicatorColor()` value should be equal `activeColor` with index = 1 and setCurrentPageCarousel() with index = 1',
+        () {
+      int index = 1;
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        unactiveColor,
+      );
+
+      homePresenter.setCurrentPageCarousel(1);
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        activeColor,
+      );
+    });
+
+    test(
+        '`getDottedIndicatorColor()` value should be equal `unactiveColor` with index = 1 and setCurrentPageCarousel() with index = 2',
+        () {
+      int index = 1;
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        unactiveColor,
+      );
+
+      homePresenter.setCurrentPageCarousel(1);
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        activeColor,
+      );
+
+      homePresenter.setCurrentPageCarousel(2);
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        unactiveColor,
+      );
+    });
+
+    test(
+        '`getDottedIndicatorColor()` value should be equal `unactiveColor` with index = 1 and setCurrentPageCarousel() with index = 2 some times',
+        () {
+      int index = 1;
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        unactiveColor,
+      );
+
+      homePresenter.setCurrentPageCarousel(1);
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        activeColor,
+      );
+
+      homePresenter.setCurrentPageCarousel(1);
+
+      expect(
+        homePresenter.getDottedIndicatorColor(
+          index: index,
+          activeColor: activeColor,
+          unactiveColor: unactiveColor,
+        ),
+        activeColor,
+      );
+    });
+
     test('`getNuThemeFromKey()` run time type should be [ThemeData]', () {
       expect(
         homePresenter.getNuThemeFromKey(NuThemeKeys.DEFAULT).runtimeType,
         ThemeData,
-      );
-    });
-
-    test('`mapCustom()` with argument [] should be []', () {
-      expect(HomePresenter.mapCustom([], () {}), []);
-    });
-
-    test(
-        '`mapCustom()` with argument [1, 2, 3] and `(i, _) => (i * 2)` should be [2, 4, 6]',
-        () {
-      expect(
-        HomePresenter.mapCustom([1, 2, 3], (key, value) => (value * 2)),
-        [2, 4, 6],
       );
     });
 

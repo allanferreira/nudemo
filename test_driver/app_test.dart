@@ -25,6 +25,7 @@ void main() {
     final SerializableFinder _filterButton = find.byValueKey('filter-button');
 
     final SerializableFinder _cardButton = find.byValueKey('/card/');
+    final SerializableFinder _unlockButton = find.byValueKey('/unlock/');
     final SerializableFinder _nuContaButton = find.byValueKey('/nuconta/');
     final SerializableFinder _rewardsButton = find.byValueKey('/rewards/');
 
@@ -63,6 +64,7 @@ void main() {
     final Duration fastTime = Duration(milliseconds: 50);
     final Duration normalTime = Duration(milliseconds: 150);
     final Duration slowTime = Duration(milliseconds: 300);
+    final Duration verySlowTime = Duration(milliseconds: 800);
 
     // Connect to the Flutter driver before running any tests.
     setUpAll(() async {
@@ -100,16 +102,42 @@ void main() {
       await _driver.tap(_buttonDownUp);
     });
 
-    test('go to `/card/`, then inc/dec the counter and go back', () async {
+    test('go to `/card/`, scroll list and go back', () async {
       /// Go to route `/card/`.
       await _driver.tap(_cardButton);
       await _driver.waitFor(_cardPage);
 
-      /// Verify the app got to `Cartão de crédito`.
+      /// verify if have a `Text` widget with
+      /// `Cartão virtual bloqueado` text.
       expect(
-        await _driver.getText(_titleText),
-        "Cartão de crédito".toUpperCase(),
+        await _driver.getText(find.byValueKey('slider-1')),
+        'Cartão virtual bloqueado',
       );
+
+      /// verify if have a `FlatButton` widget with `/unlock/` key.
+      expect(
+        await _driver.getText(_unlockButton),
+        'Desbloquear'.toUpperCase(),
+      );
+
+      /// Go to route `/unlock/`.
+      await _driver.tap(_unlockButton);
+
+      /// [Gesture 👇↕️👇] Drag to `UP` the items of `SliverList` Widget
+      await _driver.scroll(
+          find.byValueKey('item-7'), 0, -_sizeScreenHeight, verySlowTime);
+
+      for (int i = 17; i < 250; i += 10) {
+        /// [Gesture 👇↕️👇] Drag to `UP` the all items of `SliverList`
+        ///  Widget list, until the widget is completely visible.
+        await _driver.scroll(
+          find.byValueKey('card-page'), 0, -_sizeScreenHeight, normalTime);
+        // await _driver.scrollIntoView(find.byValueKey('item-$i'));
+      }
+
+      /// [Gesture 👆↕️👆] Drag to `Down` the items of `SliverList` Widget
+      await _driver.scroll(
+          find.byValueKey('item-240'), 0, _sizeScreenHeight, verySlowTime);
 
       /// tap the `🔍` search icon and trigger a frame.
       await _driver.tap(_filterButton);

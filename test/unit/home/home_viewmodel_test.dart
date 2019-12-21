@@ -5,9 +5,14 @@ import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 void main() {
   group('[Unit -> HomeViewModel]', () {
     HomeViewModel homeViewModel;
+    Map<String, dynamic> lastCardRegister;
 
     setUp(() {
       homeViewModel = HomeViewModel();
+      lastCardRegister = {
+        'icon': 57746,
+        'text': 'Aguardando a sua primeira compra com o cartão',
+      };
     });
 
     test('initial `darkIsEnable` value should be false', () {
@@ -130,13 +135,16 @@ void main() {
       expect(homeViewModel.balancesDueFlex, 0);
     });
 
-    test(
-        'initial `lastCardRegister` value should be {"icon": ..., "text": "...",}',
+    test('the `lastCardRegister` tyle should be `Map<String, dynamic>`', () {
+      expect(
+        homeViewModel.lastCardRegister.runtimeType,
+        lastCardRegister.runtimeType,
+      );
+    });
+
+    test('initial `lastCardRegister` value should be equal `lastCardRegister`',
         () {
-      expect(homeViewModel.lastCardRegister, {
-        'icon': 57746,
-        'text': 'Aguardando a sua primeira compra com o cartão',
-      });
+      expect(homeViewModel.lastCardRegister, lastCardRegister);
     });
 
     test('the `lastCardRegister["icon"]` run time type should be [int]', () {
