@@ -30,22 +30,22 @@ final ThemeData nuDefaultTheme = ThemeData(
   // text styling for headlines, titles, bodies of text, and more.
   textTheme: TextTheme(
     display4: TextStyle(
-      color: Color.fromRGBO(255, 207, 90, 1.0), // #FFCF5A
+      color: Color.fromRGBO(255, 207, 90, 1.0), // #FFCF5A (orange)
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display3: TextStyle(
-      color: Color.fromRGBO(0, 188, 201, 1.0), // #00BCC9
+      color: Color.fromRGBO(0, 188, 201, 1.0), // #00BCC9 (blue)
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display2: TextStyle(
-      color: Color.fromRGBO(238, 119, 108, 1.0), // #EE776C
+      color: Color.fromRGBO(238, 119, 108, 1.0), // #EE776C (red)
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display1: TextStyle(
-      color: Color.fromRGBO(165, 204, 37, 1.0), // #A5CC25
+      color: Color.fromRGBO(165, 204, 37, 1.0), // #A5CC25 (green)
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
@@ -104,7 +104,7 @@ final ThemeData nuDefaultTheme = ThemeData(
         width: 1.0,
         style: BorderStyle.solid,
       ),
-      borderRadius: BorderRadius.all(Radius.circular(2.0)),
+      borderRadius: BorderRadius.all(Radius.circular(2.5)),
     ),
     alignedDropdown: false,
     buttonColor: Colors.purple[600],

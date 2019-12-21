@@ -30,7 +30,7 @@ class ConstructionPage extends StatelessWidget {
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
-  Widget _appBar(context) => Container(
+  Widget _appBar(BuildContext context) => Container(
         // height: 56.0,
         color: Colors.black12,
         child: Row(
@@ -68,7 +68,7 @@ class ConstructionPage extends StatelessWidget {
         ),
       );
 
-  Widget _body(context) => Center(
+  Widget _body(BuildContext context) => Center(
         child: Column(
           children: <Widget>[
             _appBar(context),
@@ -145,7 +145,7 @@ class ConstructionPage extends StatelessWidget {
         ),
       );
 
-  Widget _floatingActionButton(context) => FloatingActionButton(
+  Widget _floatingActionButton(BuildContext context) => FloatingActionButton(
         // Provider.of is another way to access the model object held
         // by an ancestor Provider.
         //

@@ -24,14 +24,20 @@ class SectionI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
+      key: Key('section-i'),
       alignment: Alignment.topCenter,
       child: Container(
         width: screenSize.width,
         height: topLogoHeight,
         // color: Colors.orangeAccent, // debug UI 🙃
-        padding: EdgeInsets.only(top: 18),
-        key: Key('section-i'),
-        child: GestureDetector(
+        child: MaterialButton(
+          onPressed: () =>
+              Provider.of<AnimatedBoxPresenter>(context, listen: false)
+                  .handlerIconButtonPressed(context, screenSize),
+          padding: EdgeInsets.only(top: 18),
+          shape: RoundedRectangleBorder(
+            side: BorderSide.none,
+          ),
           child: Column(
             children: <Widget>[
               Row(
@@ -69,8 +75,6 @@ class SectionI extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () => Provider.of<AnimatedBoxPresenter>(context, listen: false)
-              .handlerIconButtonPressed(context, screenSize),
         ),
       ),
     );

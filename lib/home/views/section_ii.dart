@@ -73,20 +73,20 @@ class SectionII extends StatelessWidget {
       //   color: Theme.of(context).backgroundColor,
       // ),
       // embeddedImageEmitsError: true,
-      errorStateBuilder: (cxt, err) {
-        // print('QrImage error: $err');
-        return Container(
-          child: Center(
-            child: Text(
-              "Uh oh! Something went wrong with QR Code...",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).backgroundColor,
-              ),
-            ),
-          ),
-        );
-      },
+      // errorStateBuilder: (cxt, err) {
+      //   // print('QrImage error: $err');
+      //   return Container(
+      //     child: Center(
+      //       child: Text(
+      //         "Uh oh! Something went wrong with QR Code...",
+      //         textAlign: TextAlign.center,
+      //         style: TextStyle(
+      //           color: Theme.of(context).backgroundColor,
+      //         ),
+      //       ),
+      //     ),
+      //   );
+      // },
     );
 
     // Top container (Section II)

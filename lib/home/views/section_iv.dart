@@ -16,6 +16,7 @@ class SectionIV extends StatelessWidget {
   final double boxSlideHeight;
   @required
   final HomePresenter presenter;
+
   final Utils utils = Utils();
 
   SectionIV({
@@ -131,10 +132,16 @@ class SectionIV extends StatelessWidget {
   }
 
   /// Build widget item for carousel slider
-  Widget _itemCarousel(BuildContext context) => GestureDetector(
-        onTap: () => Routes(context).navigatorPush(context, '/card/'),
-        onDoubleTap: () => Routes(context).navigatorPush(context, '/card/'),
-        onLongPress: () => Routes(context).navigatorPush(context, '/card/'),
+  Widget _itemCarousel(BuildContext context) => MaterialButton(
+        onPressed: () =>
+            Provider.of<AnimatedBoxPresenter>(context, listen: false)
+                    .getIsLowered()
+                ? null
+                : Routes(context).navigatorPush(context, '/card/'),
+        padding: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(
+          side: BorderSide.none,
+        ),
         child: Container(
           key: Key('/card/'),
           // color: Colors.blue, // debug UI 🙃

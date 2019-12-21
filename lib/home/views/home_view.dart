@@ -18,7 +18,10 @@ class HomePage extends StatelessWidget {
   @required
   final String title;
 
-  HomePage({Key key, this.presenter, this.title}) : super(key: key);
+  HomePage({Key key, this.presenter, this.title}) : super(key: key) {
+    /// Calculate percentage balances
+    presenter.calculatePercentBalances();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +41,8 @@ class HomePage extends StatelessWidget {
         _bottomMenuHeight -
         _screenNotch.top -
         _boxSlideMarginTopBottom;
-    final double _dottedIndicatorHeight = 20.0;
-    final double _dottedIndicatorPosition = _topLogoHeight +
-        _boxSlideHeight +
-        _dottedIndicatorHeight +
-        (_dottedIndicatorHeight * 1.5);
+    final double _dottedIndicatorPosition =
+        _topLogoHeight + _boxSlideHeight + (_boxSlideHeight * 0.17);
 
     /// This can be obtained from the [customer register].
     /// [git.io] url shorten:
@@ -52,9 +52,6 @@ class HomePage extends StatelessWidget {
     /// Check system brightness [platformBrightness]
     Provider.of<HomePresenter>(context, listen: false)
         .checkSystemBrightness(context: context);
-
-    /// Calculate percentage balances
-    presenter.calculatePercentBalances();
 
     return Scaffold(
       key: Key('home-page'),
@@ -88,7 +85,6 @@ class HomePage extends StatelessWidget {
             // Dotted carousel indicator
             SectionV(
               dottedIndicatorPosition: _dottedIndicatorPosition,
-              dottedIndicatorHeight: _dottedIndicatorHeight,
             ),
             // Slide box container
             SectionIV(
@@ -100,6 +96,18 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      // Navigator test of dotted indicator
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => Provider.of<HomePresenter>(context, listen: false)
+      //       .setCurrentPageCarousel(1),
+      //   tooltip: 'Carousel navigator',
+      //   backgroundColor: Theme.of(context).primaryColorDark,
+      //   key: Key('carousel-navigator'),
+      //   child: Icon(
+      //     Icons.view_carousel,
+      //     color: Theme.of(context).textTheme.body2.color,
+      //   ),
+      // ),
     );
   }
 }

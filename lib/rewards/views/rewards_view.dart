@@ -29,13 +29,18 @@ class RewardsPage extends StatelessWidget {
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
-  Widget _appBar(context) => Container(
+  Widget _appBar(BuildContext context) => Container(
         // height: 56.0,
         color: Colors.black12,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            GestureDetector(
+            MaterialButton(
+              onPressed: () => Navigator.pop(context),
+              padding: EdgeInsets.only(left: 6.0),
+              shape: RoundedRectangleBorder(
+                side: BorderSide.none,
+              ),
               child: Row(
                 key: Key('go-back-button'),
                 children: <Widget>[
@@ -49,7 +54,6 @@ class RewardsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              onTap: () => Navigator.pop(context),
             ),
             Text(
               title.toUpperCase(),
@@ -73,7 +77,7 @@ class RewardsPage extends StatelessWidget {
         ),
       );
 
-  Widget _body(context) => Center(
+  Widget _body(BuildContext context) => Center(
         child: Column(
           children: <Widget>[
             _appBar(context),

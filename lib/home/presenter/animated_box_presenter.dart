@@ -126,10 +126,15 @@ class AnimatedBoxPresenter extends MyTickerProvider
   /// Handler for [onPanEnd] of GestureDetector
   void handlerPanEnd(context, details, size) {
     if (this._aBoxViewModel.draggingDirectionY > 0 &&
-            this._aBoxViewModel.draggingDirectionY > _minDragDistance ||
-        this._aBoxViewModel.draggingDirectionY < 0 &&
-            this._aBoxViewModel.draggingDirectionY < -(_minDragDistance)) {
+        this._aBoxViewModel.draggingDirectionY > _minDragDistance) {
       _invertDragTarget();
+      // print('Go to BOTTOM!');
+    } else if (this._aBoxViewModel.draggingDirectionY < 0 &&
+        this._aBoxViewModel.draggingDirectionY < -(_minDragDistance)) {
+      _invertDragTarget();
+      // print('Go to TOP!');
+    } else {
+      // print('Go back!');
     }
 
     _runAnimation(

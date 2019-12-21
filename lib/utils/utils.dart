@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Utils {
+  /// Custom map function
+  static List<T> mapCustom<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+    return result;
+  }
+
   /// Build the vertical chart bar widget
   Widget verticalChartBar({
     BuildContext context,
@@ -14,23 +23,29 @@ class Utils {
     TextTheme _textTheme = Theme.of(context).textTheme;
 
     return Container(
+      key: Key('vertical-chart-bar'),
       width: width,
-      decoration: BoxDecoration(
-        // color: Colors.grey, // debug UI 🙃
-        borderRadius: BorderRadius.circular(borderRadius),
-      ),
+      // color: Colors.grey, // debug UI 🙃
       child: Column(
         children: <Widget>[
           /// Balances future [orange]
           Expanded(
+            key: Key('future-bar'),
             flex: flexFuture,
             child: Container(
-              color: _textTheme.display4.color,
+              decoration: BoxDecoration(
+                color: _textTheme.display4.color,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(borderRadius),
+                  topRight: Radius.circular(borderRadius),
+                ),
+              ),
             ),
           ),
 
           /// Balances open [blue]
           Expanded(
+            key: Key('open-bar'),
             flex: flexOpen,
             child: Container(
               color: _textTheme.display3.color,
@@ -41,6 +56,7 @@ class Utils {
           /// Is there❔ Is it green too❔
           /// Balances due [red]
           Expanded(
+            key: Key('due-bar'),
             flex: flexDue,
             child: Container(
               color: _textTheme.display2.color,
@@ -49,9 +65,16 @@ class Utils {
 
           /// Balances available [green]
           Expanded(
+            key: Key('available-bar'),
             flex: flexAvailable,
             child: Container(
-              color: _textTheme.display1.color,
+              decoration: BoxDecoration(
+                color: _textTheme.display1.color,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(borderRadius),
+                  bottomRight: Radius.circular(borderRadius),
+                ),
+              ),
             ),
           ),
         ],

@@ -70,7 +70,15 @@ class SectionIII extends StatelessWidget {
 
     // Builder buttons for ListView (Section III)
     Widget _buildButtonList(int icon, String txt, String onTapRoute) {
-      return GestureDetector(
+      return MaterialButton(
+        onPressed: () => Routes(context).navigatorPush(
+          context,
+          onTapRoute,
+        ),
+        padding: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(
+          side: BorderSide.none,
+        ),
         child: Container(
           key: Key(onTapRoute),
           width: 100.0,
@@ -95,10 +103,6 @@ class SectionIII extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        onTap: () => Routes(context).navigatorPush(
-          context,
-          onTapRoute,
         ),
       );
     }
