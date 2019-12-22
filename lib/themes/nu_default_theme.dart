@@ -11,13 +11,16 @@ import 'package:flutter/material.dart';
 final ThemeData nuDefaultTheme = ThemeData(
   // Define the default brightness and colors.
   brightness: Brightness.dark,
-  primaryColor: Colors.purple[600],
-  primaryColorLight: Colors.purple[300],
-  primaryColorDark: Colors.purple[300],
+  primaryColor: Color.fromRGBO(129, 37, 157, 1.0), // #81259D (purple)
+  primaryColorLight:
+      Color.fromRGBO(159, 67, 187, 1.0), // #9F43BB (purple light)
+  primaryColorDark:
+      Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark) <-not used!
   accentColor: Colors.white,
-  backgroundColor: Colors.purple[600],
+  backgroundColor: Color.fromRGBO(129, 37, 157, 1.0), // #81259D (purple)
   scaffoldBackgroundColor: Colors.white,
   cardColor: Colors.white,
+  splashColor: Color.fromRGBO(250, 250, 250, 1.0), // #FAFAFA (grey light)
 
   iconTheme: IconThemeData(
     color: Colors.white,
@@ -100,15 +103,15 @@ final ThemeData nuDefaultTheme = ThemeData(
     padding: EdgeInsets.only(top: 0, bottom: 0, left: 16, right: 16),
     shape: RoundedRectangleBorder(
       side: BorderSide(
-        color: Colors.purple[300],
+        color: Color.fromRGBO(159, 67, 187, 1.0), // #9F43BB (purple light)
         width: 1.0,
         style: BorderStyle.solid,
       ),
       borderRadius: BorderRadius.all(Radius.circular(2.5)),
     ),
     alignedDropdown: false,
-    buttonColor: Colors.purple[600],
-    disabledColor: Colors.purple[600],
+    buttonColor: Color.fromRGBO(129, 37, 157, 1.0), // #81259D (purple)
+    disabledColor: Color.fromRGBO(129, 37, 157, 1.0), // #81259D (purple)
     highlightColor: Colors.white,
     splashColor: Colors.white30,
     focusColor: Colors.white30,

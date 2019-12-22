@@ -47,7 +47,7 @@ class SectionI extends StatelessWidget {
                     'assets/images/logo_white.png',
                     key: Key('logo-main'),
                     width: 45,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).textTheme.subhead.color,
                   ),
                   Container(
                     width: 6,
@@ -55,7 +55,12 @@ class SectionI extends StatelessWidget {
                   Text(
                     title,
                     key: Key('title-text'),
-                    style: Theme.of(context).textTheme.headline,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.subhead.color,
+                      fontSize: Theme.of(context).textTheme.headline.fontSize,
+                      fontWeight:
+                          Theme.of(context).textTheme.headline.fontWeight,
+                    ),
                   ),
                 ],
               ),
@@ -69,7 +74,7 @@ class SectionI extends StatelessWidget {
                         ? Icons.keyboard_arrow_up
                         : Icons.keyboard_arrow_down,
                     key: Key('icon-drag'),
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).textTheme.subhead.color,
                   ),
                 ),
               ),

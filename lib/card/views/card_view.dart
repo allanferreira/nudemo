@@ -1,6 +1,7 @@
 /// MVP Design Pattern
 /// The view is a passive interface that displays data (the `model`) and routes
 /// user commands (events) to the presenter to act upon that data.
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -77,19 +78,213 @@ class CardPage extends StatelessWidget {
         ),
       );
 
+  final List<IconData> iconData = <IconData>[
+    Icons.build,
+    Icons.directions_bus,
+    Icons.shopping_cart,
+    Icons.restaurant,
+    Icons.bookmark_border,
+    Icons.usb,
+    Icons.healing,
+  ];
+  final Random r = Random();
+
   /// Builder Delegate of [SliverList]
-  Widget listViewItemBuilder(context, index) => MaterialButton(
-        onPressed: () => print('item-$index pressed!'),
-        padding: EdgeInsets.all(20.0),
-        shape: RoundedRectangleBorder(
-          side: BorderSide.none,
-        ),
-        child: Container(
-          key: Key('item-$index'),
-          alignment: Alignment.centerLeft,
-          child: Text('${presenter.getGeneratedItems()[index]}'),
+  Widget listViewItemBuilder(context, index) {
+    String _type = (index % 2) == 1 ? 'income' : 'expense';
+    _type = (index % 5) == 0 ? 'system' : _type;
+    String _title = 'Título $_type';
+    String _itemText = presenter.getGeneratedItems()[index];
+    double _money = 2367.89;
+    List<String> _allTags = '#Tag1🎅,#Tag2🎄'.split(',');
+    String _dateRegister = DateTime(2019, 12, 22).toString();
+
+    TextTheme _theme = Theme.of(context).textTheme;
+    double _weekTextWidth = 60.0;
+    double _marginTop = 24.0;
+
+    /// Default properties is [expense]
+    Color _color = _theme.body1.color;
+    Color _bgColor = Theme.of(context).splashColor;
+    IconData _iconData = iconData[r.nextInt(iconData.length)];
+    double _iconSize = 25.0;
+    double _iconWidth = 28.0;
+    double _iconHeight = 29.0;
+    double _iconMargin = 33.0;
+    double _fontSize = 16.0;
+
+    // First item timeline
+    double _topTimeline = index == 0 ? 47.0 : 0;
+    double _heightTimeline = 48.0;
+    Widget _timeline;
+
+    Widget _tags = Container();
+    if (_allTags.isNotEmpty) {
+      _tags = Padding(
+        padding: EdgeInsets.only(top: 5.0),
+        child: Text(
+          _allTags.join(' '),
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+          style: TextStyle(
+            color: _color,
+            fontSize: 13.0,
+            fontWeight: FontWeight.w300,
+          ),
         ),
       );
+    }
+
+    /// [income] and [system] properties
+    if (_type != 'expense') {
+      /// between [income] and [system] change the color
+      _color =
+          _type == 'income' ? _theme.display1.color : _theme.display2.color;
+
+      /// Other properties are the same for [income] and [system].
+      _bgColor = null;
+      _iconData = Icons.fiber_manual_record;
+      _iconSize = 18.0;
+      _iconHeight = 18.0;
+      _iconMargin = _marginTop;
+      _fontSize = 13.0;
+      _tags = Container();
+
+      // First item timeline
+      _topTimeline = index == 0 ? 33.0 : _topTimeline;
+
+      // Last item timeline
+      _heightTimeline =
+          index == (presenter.getItemsLength() - 1) ? 33.0 : _heightTimeline;
+    }
+
+    // Last item timeline widget
+    if (index == (presenter.getItemsLength() - 1)) {
+      _timeline = Positioned(
+        top: _topTimeline,
+        height: _heightTimeline,
+        width: 1.0,
+        left: (_iconWidth - 1.0) / 2,
+        child: Container(
+          color: Theme.of(context).textTheme.body1.color.withOpacity(0.21),
+        ),
+      );
+    } else {
+      _timeline = Positioned(
+        top: _topTimeline,
+        bottom: 0,
+        width: 1.0,
+        left: (_iconWidth - 1.0) / 2,
+        child: Container(
+          color: Theme.of(context).textTheme.body1.color.withOpacity(0.21),
+        ),
+      );
+    }
+
+    Widget _value = Container();
+    if (_money.isFinite) {
+      _value = Padding(
+        padding: EdgeInsets.only(top: 3.0),
+        child: Text(
+          utils.getValueCurrency(_money),
+          style: TextStyle(
+            color: _color,
+            fontSize: _fontSize,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      );
+    }
+
+    return MaterialButton(
+      key: Key('item-$index'),
+      onPressed: () => print('item-$index pressed!'),
+      padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 0),
+      shape: RoundedRectangleBorder(
+        side: BorderSide.none,
+      ),
+      child: Stack(
+        children: <Widget>[
+          // Line of timeline
+          _timeline,
+          // Icon of item
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              width: _iconWidth,
+              height: _iconHeight,
+              color: _bgColor,
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(top: _iconMargin),
+              child: Icon(
+                _iconData,
+                color: _color,
+                size: _iconSize,
+              ),
+            ),
+          ),
+          // Data of item
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              // color: Colors.lime, // debug UI 🙃
+              alignment: Alignment.topRight,
+              margin: EdgeInsets.only(top: _marginTop),
+              constraints: BoxConstraints(maxWidth: _weekTextWidth),
+              child: Text(
+                utils.getCalculatedFormattedDate(_dateRegister),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Theme.of(context).textTheme.caption.color,
+                ),
+              ),
+            ),
+          ),
+          // Text of item
+          Container(
+            // color: Colors.teal, // debug UI 🙃
+            alignment: Alignment.topLeft,
+            margin: EdgeInsets.only(
+              left: 45.0,
+              top: _marginTop,
+              right: _weekTextWidth,
+              bottom: 26.0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  _title,
+                  style: TextStyle(
+                    color: _color,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 3.0),
+                  child: Text(
+                    '$_itemText',
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: TextStyle(
+                      color: _color,
+                      fontSize: _fontSize,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+                _value,
+                _tags,
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   /// [CustomScrollView] with collapsing toolbar from [Sliver] and
   /// swipe to refresh from [RefreshIndicator]
@@ -123,7 +318,7 @@ class CardPage extends StatelessWidget {
                         .textTheme
                         .body1
                         .color
-                        .withOpacity(0.25),
+                        .withOpacity(0.10),
                   ),
                 ),
                 leading: MaterialButton(
@@ -278,6 +473,7 @@ class CardPage extends StatelessWidget {
           right: _widthVerticalChartBar,
           child: Scaffold(
             key: _scaffoldKey,
+            backgroundColor: Theme.of(context).splashColor,
             body: _customScrollView(
               context: context,
               sliverAppBarHeight: _sliverAppBarHeight,
@@ -290,7 +486,7 @@ class CardPage extends StatelessWidget {
             //       Provider.of<CardPresenter>(context, listen: false)
             //           .setCurrentPageCarousel(1),
             //   tooltip: 'Carousel navigator',
-            //   backgroundColor: Theme.of(context).primaryColorDark,
+            //   backgroundColor: Theme.of(context).primaryColorLight,
             //   key: Key('carousel-navigator'),
             //   child: Icon(
             //     Icons.view_carousel,

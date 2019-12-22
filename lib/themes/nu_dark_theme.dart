@@ -11,16 +11,18 @@ import 'package:flutter/material.dart';
 final ThemeData nuDarkTheme = ThemeData(
   // Define the default brightness and colors.
   brightness: Brightness.dark,
-  primaryColor: Colors.purple[800],
-  primaryColorLight: Colors.purple,
-  primaryColorDark: Colors.purple[800],
-  accentColor: Colors.purple[800],
+  primaryColor: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
+  primaryColorLight: Color.fromRGBO(61, 0, 103, 1.0), // #3E0067 (purple darker)
+  primaryColorDark: Color.fromRGBO(129, 37, 157, 1.0), // #81259D (purple)
+  accentColor: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
   backgroundColor: Colors.black,
-  scaffoldBackgroundColor: Colors.grey[900],
+  scaffoldBackgroundColor:
+      Color.fromRGBO(40, 40, 40, 1.0), // #282828 (grey dark)
   cardColor: Colors.black,
+  splashColor: Color.fromRGBO(20, 20, 20, 1.0), // #FAFAFA (grey dark)
 
   iconTheme: IconThemeData(
-    color: Colors.purple[800],
+    color: Color.fromRGBO(129, 37, 157, 1.0), // #81259D (purple)
   ),
 
   // Define the default font family.
@@ -30,29 +32,29 @@ final ThemeData nuDarkTheme = ThemeData(
   // text styling for headlines, titles, bodies of text, and more.
   textTheme: TextTheme(
     display4: TextStyle(
-      color: Color.fromRGBO(255, 207, 90, 0.8), // #FFCF5A (orange)
+      color: Color.fromRGBO(195, 143, 30, 1.0), // #C38f1E (orange dark)
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display3: TextStyle(
-      color: Color.fromRGBO(0, 188, 201, 0.8), // #00BCC9 (blue)
+      color: Color.fromRGBO(0, 128, 141, 1.0), // #00808D (blue dark)
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display2: TextStyle(
-      color: Color.fromRGBO(238, 119, 108, 0.8), // #EE776C (red)
+      color: Color.fromRGBO(178, 59, 48, 1.0), // #B23B30 (red dark)
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     display1: TextStyle(
-      color: Color.fromRGBO(165, 204, 37, 0.8), // #A5CC25 (green)
+      color: Color.fromRGBO(105, 144, 0, 1.0), // #699000 (green dark)
       fontSize: 30.0,
       fontWeight: FontWeight.w300,
     ),
     headline: TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.w700,
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
     ),
     title: TextStyle(
       fontSize: 15.0,
@@ -60,7 +62,7 @@ final ThemeData nuDarkTheme = ThemeData(
       color: Colors.white60,
     ),
     subhead: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(129, 37, 157, 1.0), // #81259D (purple)
       fontSize: 13,
       fontWeight: FontWeight.w500,
       fontStyle: FontStyle.normal,
@@ -81,98 +83,97 @@ final ThemeData nuDarkTheme = ThemeData(
       fontWeight: FontWeight.w400,
     ),
     button: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     subtitle: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: 12.0,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     overline: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: 14.0,
       fontWeight: FontWeight.w400,
     ),
   ),
   primaryTextTheme: TextTheme(
     display4: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     display3: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     display2: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     display1: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     headline: TextStyle(
-      color: Colors.purple[800],
-      fontSize: null,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
+      fontSize: 20.0,
+      fontWeight: FontWeight.w700,
     ),
     title: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     subhead: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     body2: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     body1: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     caption: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     button: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     subtitle: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
     overline: TextStyle(
-      color: Colors.purple[800],
+      color: Color.fromRGBO(91, 23, 133, 1.0), // #81259D (purple dark)
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
@@ -186,7 +187,7 @@ final ThemeData nuDarkTheme = ThemeData(
     padding: EdgeInsets.only(top: 0, bottom: 0, left: 16, right: 16),
     shape: RoundedRectangleBorder(
       side: BorderSide(
-        color: Colors.purple[800],
+        color: Color.fromRGBO(129, 37, 157, 1.0), // #81259D (purple)
         width: 1.0,
         style: BorderStyle.solid,
       ),

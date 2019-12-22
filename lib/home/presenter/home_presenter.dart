@@ -4,11 +4,11 @@
 
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
 import 'package:nudemo/themes/nu_dark_theme.dart';
+import 'package:nudemo/utils/utils.dart';
 
 /// Simplest possible model, with just one field.
 ///
@@ -16,7 +16,7 @@ import 'package:nudemo/themes/nu_dark_theme.dart';
 /// [Counter] does _not_ depend on Provider.
 class HomePresenter with ChangeNotifier {
   HomeViewModel _homeViewModel;
-  final formatCurrency = NumberFormat.simpleCurrency(locale: 'pt_BR');
+  Utils _utils = Utils();
 
   HomePresenter() {
     this._homeViewModel = HomeViewModel();
@@ -116,15 +116,15 @@ class HomePresenter with ChangeNotifier {
 
   /// Get the value of Balances Future Currency (R$)
   String getFutureCurrency() =>
-      formatCurrency.format(_homeViewModel.balancesFutureValue);
+      _utils.getValueCurrency(_homeViewModel.balancesFutureValue);
 
   /// Get the value of Balances Open Currency (R$)
   String getOpenCurrency() =>
-      formatCurrency.format(_homeViewModel.balancesOpenValue);
+      _utils.getValueCurrency(_homeViewModel.balancesOpenValue);
 
   /// Get the value of Balances Available Currency (R$)
   String getAvailableCurrency() =>
-      formatCurrency.format(_homeViewModel.balancesAvailableValue);
+      _utils.getValueCurrency(_homeViewModel.balancesAvailableValue);
 
   /// Get the value of Balances Due Currency
   double getDueCurrency() => _homeViewModel.balancesDueValue;

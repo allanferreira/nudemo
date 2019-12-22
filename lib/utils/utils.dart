@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class Utils {
+  final formatCurrency = NumberFormat.simpleCurrency();
+
+  Utils() {
+    Intl.defaultLocale = 'pt_BR';
+    initializeDateFormatting('pt_BR', null);
+  }
+
   /// Custom map function
   static List<T> mapCustom<T>(List list, Function handler) {
     List<T> result = [];
@@ -138,7 +147,7 @@ class Utils {
   }) {
     final snackBar = SnackBar(
       key: Key('snackBar'),
-      backgroundColor: Theme.of(context).primaryColorDark.withOpacity(0.85),
+      backgroundColor: Theme.of(context).primaryColorLight.withOpacity(0.85),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(
         side: BorderSide.none,
@@ -151,4 +160,103 @@ class Utils {
     );
     scaffoldKey.currentState.showSnackBar(snackBar);
   }
+
+  /// Get value Currency formatted (R$)
+  String getValueCurrency(double value) => formatCurrency.format(value);
+
+  /// Get the Day of Date formatted
+  String getDayOfDate(DateTime dateTime) => DateFormat.d().format(dateTime);
+
+  /// Get the Week Day of Date formatted (Abbreviated)
+  String getWeekDayOfDate(DateTime dateTime) => DateFormat.E().format(dateTime);
+
+  /// Get the Week Day of Date formatted with full name
+  String getFullWeekDayOfDate(DateTime dateTime) =>
+      DateFormat.EEEE().format(dateTime);
+
+  /// Get the Month of Date formatted (Abbreviated)
+  String getMonthOfDate(DateTime dateTime) => DateFormat.LLL().format(dateTime);
+
+  /// Get the Month of Date formatted with full name
+  String getFullMonthOfDate(DateTime dateTime) =>
+      DateFormat.LLLL().format(dateTime);
+
+  /// Get the Day and Month of Date formatted
+  /// [day] [abbr month]
+  String getDayMonthOfDate(DateTime dateTime) =>
+      DateFormat('dd MMM').format(dateTime);
+
+  /// Get the Year of Date formatted with 2 digits (Abbreviated)
+  String getYearOfDate(DateTime dateTime) => DateFormat('yy').format(dateTime);
+
+  /// Get the Year of Date formatted with 4 digits
+  String getFullYearOfDate(DateTime dateTime) =>
+      DateFormat.y().format(dateTime);
+
+  /// Get the full Date formatted
+  /// [day] [abbr month] [abbr year]
+  String getDayMonthYearOfDate(DateTime dateTime) =>
+      DateFormat('d MMM yy').format(dateTime);
+
+  /// Get the full Date formatted with hour and minutes
+  /// [day] [abbr month] [abbr year], [hour 24]:[min]
+  String getDayMonthYearHourMinOfDate(DateTime dateTime) =>
+      DateFormat('dd MMM yy, HH:mm').format(dateTime);
+
+  /// Get the Hour and minutes of Date formatted
+  /// [hour 24]:[min]
+  String getHourMinOfDate(DateTime dateTime) =>
+      DateFormat.Hm().format(dateTime);
+
+  /// Calculating and formatting date
+  String getCalculatedFormattedDate(dynamic dateTime) {
+    DateTime now = DateTime.now();
+    if (dateTime.runtimeType != DateTime) {
+      dateTime = DateTime.parse(dateTime);
+    }
+
+    // Today, show the time
+    if (this.getDayOfDate(now) == this.getDayOfDate(dateTime)) {
+      return this.getHourMinOfDate(dateTime);
+    }
+
+    // Yesterday, show 'Ontem'
+    String yesterday = this.getDayOfDate(DateTime(
+      now.year,
+      now.month,
+      now.day - 1,
+      now.hour,
+      now.minute,
+      now.second,
+    ));
+    if (int.parse(yesterday) == int.parse(this.getDayOfDate(dateTime))) {
+      return this.capitalize('ontem');
+    }
+
+    // Last 7 days, show the day of week
+    String last7days = this.getDayOfDate(DateTime(
+      now.year,
+      now.month,
+      now.day - 7,
+      now.hour,
+      now.minute,
+      now.second,
+    ));
+    if (int.parse(last7days) < int.parse(this.getDayOfDate(dateTime))) {
+      String dayWeek =
+          this.getFullWeekDayOfDate(dateTime).replaceAll('-feira', '');
+      return this.capitalize(dayWeek);
+    }
+
+    // Current year, show the day and month abbreviated
+    if (this.getFullYearOfDate(now) == this.getFullYearOfDate(dateTime)) {
+      return this.getDayMonthOfDate(dateTime).toUpperCase();
+    }
+
+    // Default, show day, month abbreviated and year abbreviated
+    return this.getDayMonthYearOfDate(dateTime).toUpperCase();
+  }
+
+  /// Capitalize the first letter of a string
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 }

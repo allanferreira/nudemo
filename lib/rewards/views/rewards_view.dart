@@ -79,7 +79,7 @@ class RewardsPage extends StatelessWidget {
               child: Image.asset(
                 'assets/images/logo_white.png',
                 fit: BoxFit.cover,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorDark,
                 key: Key('logo'),
               ),
             ),

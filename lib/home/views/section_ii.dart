@@ -37,7 +37,7 @@ class SectionII extends StatelessWidget {
           text: txtNormal,
           style: TextStyle(
             fontSize: 13.0,
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).textTheme.subhead.color,
           ),
           children: <TextSpan>[
             TextSpan(
@@ -46,7 +46,7 @@ class SectionII extends StatelessWidget {
                 fontSize: 13.0,
                 fontWeight: FontWeight.bold,
                 height: 1.5,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).textTheme.subhead.color,
               ),
             ),
           ],
@@ -61,7 +61,7 @@ class SectionII extends StatelessWidget {
       size: 105.0,
       padding: EdgeInsets.all(9.0),
       foregroundColor: Theme.of(context).backgroundColor,
-      backgroundColor: Theme.of(context).accentColor,
+      backgroundColor: Theme.of(context).textTheme.subhead.color,
       errorCorrectionLevel: QrErrorCorrectLevel.M,
 
       /// Not good with this image in center 🤷‍♀️
@@ -124,11 +124,21 @@ class SectionII extends StatelessWidget {
           leading: img,
           title: Text(
             title,
-            style: Theme.of(context).textTheme.subhead,
+            style: TextStyle(
+              color: Theme.of(context).textTheme.subhead.color,
+              fontSize: Theme.of(context).textTheme.subhead.fontSize,
+              fontWeight: Theme.of(context).textTheme.subhead.fontWeight,
+              fontStyle: Theme.of(context).textTheme.subhead.fontStyle,
+            ),
           ),
           subtitle: Text(
             subtitle,
-            style: Theme.of(context).textTheme.subtitle,
+            style: TextStyle(
+              color: Theme.of(context).textTheme.subhead.color,
+              fontSize: Theme.of(context).textTheme.subtitle.fontSize,
+              fontWeight: Theme.of(context).textTheme.subtitle.fontWeight,
+              fontStyle: Theme.of(context).textTheme.subtitle.fontStyle,
+            ),
           ),
           trailing: Icon(Icons.keyboard_arrow_right),
           dense: true,
@@ -141,7 +151,12 @@ class SectionII extends StatelessWidget {
         leading: img,
         title: Text(
           title,
-          style: Theme.of(context).textTheme.subhead,
+          style: TextStyle(
+            color: Theme.of(context).textTheme.subhead.color,
+            fontSize: Theme.of(context).textTheme.subhead.fontSize,
+            fontWeight: Theme.of(context).textTheme.subhead.fontWeight,
+            fontStyle: Theme.of(context).textTheme.subhead.fontStyle,
+          ),
         ),
         trailing: Icon(Icons.keyboard_arrow_right),
         dense: true,
@@ -215,7 +230,7 @@ class SectionII extends StatelessWidget {
                   child: Text(
                     'Sair da conta'.toUpperCase(),
                     style: TextStyle(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).textTheme.subhead.color,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

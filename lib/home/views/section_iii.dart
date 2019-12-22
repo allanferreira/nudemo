@@ -84,7 +84,7 @@ class SectionIII extends StatelessWidget {
           width: 100.0,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColorDark,
+            color: Theme.of(context).primaryColorLight,
             borderRadius: BorderRadius.all(
               Radius.circular(6.0),
             ),

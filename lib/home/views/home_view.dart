@@ -101,7 +101,7 @@ class HomePage extends StatelessWidget {
       //   onPressed: () => Provider.of<HomePresenter>(context, listen: false)
       //       .setCurrentPageCarousel(1),
       //   tooltip: 'Carousel navigator',
-      //   backgroundColor: Theme.of(context).primaryColorDark,
+      //   backgroundColor: Theme.of(context).primaryColorLight,
       //   key: Key('carousel-navigator'),
       //   child: Icon(
       //     Icons.view_carousel,

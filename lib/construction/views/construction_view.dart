@@ -70,7 +70,7 @@ class ConstructionPage extends StatelessWidget {
               child: Image.asset(
                 'assets/images/logo_white.png',
                 fit: BoxFit.cover,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorDark,
                 key: Key('logo'),
               ),
             ),
@@ -129,7 +129,7 @@ class ConstructionPage extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'Fredericka The Great',
                   fontSize: 100,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColorDark,
                 ),
               ),
             ),

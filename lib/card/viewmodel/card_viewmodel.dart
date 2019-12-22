@@ -19,7 +19,7 @@ class CardViewModel {
   //   },
   //   {
   //     'type': 'expense',
-  //     'icon': 60233, // Icons.room_service
+  //     'icon': 60233, // Icons.build
   //     'title': 'Serviços',
   //     'text': 'Pag*Marcus',
   //     'value': r'R$ 20,00',
@@ -82,7 +82,7 @@ class CardViewModel {
   //   },
   //   {
   //     'type': 'expense',
-  //     'icon': 59101, // Icons.bubble_chart
+  //     'icon': 59101, // Icons.bookmark_border
   //     'title': 'Outros',
   //     'text': 'Parcelamento de Fatura (22/Novembro)',
   //     'value': r'R$ 516,39',
@@ -110,5 +110,5 @@ class CardViewModel {
   // ];
 
   final List<String> generateItems =
-      List<String>.generate(250, (index) => "Item $index");
+      List<String>.generate(10, (index) => "Item $index");
 }
