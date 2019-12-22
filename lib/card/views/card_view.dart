@@ -78,35 +78,29 @@ class CardPage extends StatelessWidget {
         ),
       );
 
-  final List<IconData> iconData = <IconData>[
-    Icons.build,
-    Icons.directions_bus,
-    Icons.shopping_cart,
-    Icons.restaurant,
-    Icons.bookmark_border,
-    Icons.usb,
-    Icons.healing,
-  ];
-  final Random r = Random();
-
   /// Builder Delegate of [SliverList]
   Widget listViewItemBuilder(context, index) {
-    String _type = (index % 2) == 1 ? 'income' : 'expense';
-    _type = (index % 5) == 0 ? 'system' : _type;
-    String _title = 'Título $_type';
-    String _itemText = presenter.getGeneratedItems()[index];
-    double _money = 2367.89;
-    List<String> _allTags = '#Tag1🎅,#Tag2🎄'.split(',');
-    String _dateRegister = DateTime(2019, 12, 22).toString();
+    Map<String, dynamic> _itemData = presenter.getCardHistoryItems()[index];
+
+    String _type = _itemData['type'];
+    String _title = _itemData['title'];
+    String _itemText = _itemData['text'];
+    double _money = _itemData['money'];
+    String _divisionText = _itemData['division'];
+    List<String> _allTags =
+        _itemData['tags'] != null ? _itemData['tags'].split(',') : [];
+    String _dateRegister = _itemData['date'];
 
     TextTheme _theme = Theme.of(context).textTheme;
     double _weekTextWidth = 60.0;
     double _marginTop = 24.0;
 
     /// Default properties is [expense]
-    Color _color = _theme.body1.color;
+    Color _color = _theme.body1.color.withOpacity(0.7);
     Color _bgColor = Theme.of(context).splashColor;
-    IconData _iconData = iconData[r.nextInt(iconData.length)];
+    IconData _iconData = _itemData['icon'] != null
+        ? IconData(_itemData['icon'], fontFamily: 'MaterialIcons')
+        : Icons.credit_card;
     double _iconSize = 25.0;
     double _iconWidth = 28.0;
     double _iconHeight = 29.0;
@@ -182,8 +176,41 @@ class CardPage extends StatelessWidget {
       );
     }
 
+    Widget _text = Container();
+    if (_itemText != null) {
+      _text = Padding(
+        padding: EdgeInsets.only(top: 3.0),
+        child: Text(
+          _itemText,
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+          style: TextStyle(
+            color: _color,
+            fontSize: _fontSize,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      );
+    }
+
+    Widget _division = Container();
+    if (_divisionText != null) {
+      _division = Padding(
+        padding: EdgeInsets.only(top: 2.0),
+        child: Text(
+          _divisionText,
+          style: TextStyle(
+            color: _color,
+            fontSize: 14.0,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      );
+    }
+
     Widget _value = Container();
-    if (_money.isFinite) {
+    if (_money != null && _money.isFinite) {
       _value = Padding(
         padding: EdgeInsets.only(top: 3.0),
         child: Text(
@@ -262,20 +289,8 @@ class CardPage extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 3.0),
-                  child: Text(
-                    '$_itemText',
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: TextStyle(
-                      color: _color,
-                      fontSize: _fontSize,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ),
+                _text,
+                _division,
                 _value,
                 _tags,
               ],

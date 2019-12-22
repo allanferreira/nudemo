@@ -19,7 +19,7 @@ final ThemeData nuDarkTheme = ThemeData(
   scaffoldBackgroundColor:
       Color.fromRGBO(40, 40, 40, 1.0), // #282828 (grey dark)
   cardColor: Colors.black,
-  splashColor: Color.fromRGBO(20, 20, 20, 1.0), // #FAFAFA (grey dark)
+  splashColor: Color.fromRGBO(20, 20, 20, 1.0), // #141414 (grey darker)
 
   iconTheme: IconThemeData(
     color: Color.fromRGBO(129, 37, 157, 1.0), // #81259D (purple)
