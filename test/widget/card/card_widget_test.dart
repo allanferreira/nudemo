@@ -7,7 +7,7 @@ import 'package:nudemo/card/presenter/card_presenter.dart';
 
 void main() {
   group('[Widget -> Card page]', () {
-    String title = 'Cartão de crédito scrollview';
+    final String title = 'Cartão de crédito scrollview';
 
     final Finder _cardPage = find.byKey(Key('card-page'));
     final Finder _goBackButton = find.byKey(Key('go-back-button'));

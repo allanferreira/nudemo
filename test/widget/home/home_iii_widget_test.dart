@@ -12,7 +12,7 @@ import 'package:nudemo/card/presenter/card_presenter.dart';
 
 void main() {
   group('[Widget -> Home page] - Section III', () {
-    String _title = 'Chinnon';
+    final String _title = 'Chinnon';
 
     final Finder _buttonList = find.byKey(Key('button-list'));
     final Finder _transferButton = find.byKey(Key('/transfer/'));

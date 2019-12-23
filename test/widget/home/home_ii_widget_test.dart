@@ -13,7 +13,7 @@ import 'package:nudemo/card/presenter/card_presenter.dart';
 
 void main() {
   group('[Widget -> Home page] - Section II', () {
-    String _title = 'Chinnon';
+    final String _title = 'Chinnon';
 
     final Finder _mainMenu = find.byKey(Key('section-ii'));
     final Finder _qrCode = find.byType(QrImage);

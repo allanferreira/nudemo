@@ -7,7 +7,7 @@ import 'package:nudemo/construction/presenter/construction_presenter.dart';
 
 void main() {
   group('[Widget -> Construction page]', () {
-    String title = 'Construction page';
+    final String title = 'Construction page';
     testWidgets('Smoke test - ${title}', (WidgetTester tester) async {
       // Build our app and trigger a frame.
       await tester.pumpWidget(

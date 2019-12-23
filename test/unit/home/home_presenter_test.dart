@@ -10,8 +10,8 @@ void main() {
   group('[Unit -> HomePresenter]', () {
     HomePresenter homePresenter;
     HomeViewModel homeViewModel;
-    Color activeColor = Colors.red;
-    Color unactiveColor = Colors.white;
+    final Color activeColor = Colors.black45;
+    final Color unactiveColor = Colors.white;
 
     setUp(() {
       homePresenter = HomePresenter();

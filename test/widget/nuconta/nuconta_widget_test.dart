@@ -6,7 +6,7 @@ import 'package:nudemo/nuconta/presenter/nuconta_presenter.dart';
 
 void main() {
   group('[Widget -> Nuconta page]', () {
-    String title = 'NuConta';
+    final String title = 'NuConta';
     testWidgets('Smoke test - ${title}', (WidgetTester tester) async {
       // Build our app and trigger a frame.
       await tester.pumpWidget(

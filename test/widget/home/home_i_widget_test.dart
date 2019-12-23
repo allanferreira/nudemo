@@ -12,7 +12,7 @@ import 'package:nudemo/card/presenter/card_presenter.dart';
 
 void main() {
   group('[Widget -> Home page] - Section I', () {
-    String _title = 'Chinnon';
+    final String _title = 'Chinnon';
 
     final Widget _pumpWidget = MultiProvider(
       providers: [

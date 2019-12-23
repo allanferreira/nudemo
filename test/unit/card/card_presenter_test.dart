@@ -11,14 +11,14 @@ void main() {
     CardViewModel cardViewModel;
     List<Map<String, dynamic>> cardHistoryItems;
     Future<Null> futureNull;
-    double widthHeight = 5.0;
-    Color activeColor = Colors.red;
-    Color unactiveColor = Colors.white;
-    Map<String, dynamic> activeDotted = {
+    final double widthHeight = 5.0;
+    final Color activeColor = Colors.black45;
+    final Color unactiveColor = Colors.white;
+    final Map<String, dynamic> activeDotted = {
       'color': activeColor,
       'widthHeight': widthHeight + (widthHeight * 0.35),
     };
-    Map<String, dynamic> unactiveDotted = {
+    final Map<String, dynamic> unactiveDotted = {
       'color': unactiveColor,
       'widthHeight': widthHeight,
     };

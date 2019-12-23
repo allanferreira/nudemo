@@ -6,7 +6,7 @@ import 'package:nudemo/rewards/presenter/rewards_presenter.dart';
 
 void main() {
   group('[Widget -> Rewards page]', () {
-    String title = 'Rewards';
+    final String title = 'Rewards';
     testWidgets('Smoke test - ${title}', (WidgetTester tester) async {
       // Build our app and trigger a frame.
       await tester.pumpWidget(
