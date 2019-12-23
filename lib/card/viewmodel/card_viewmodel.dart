@@ -123,7 +123,4 @@ class CardViewModel {
       'tags': '#Remédios💊',
     },
   ];
-
-  // final List<String> generateItems =
-  //     List<String>.generate(10, (index) => "Item $index");
 }

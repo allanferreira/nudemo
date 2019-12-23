@@ -29,15 +29,15 @@ class SectionIV extends StatelessWidget {
   /// Build the information summary widget
   Widget _summaryInfoBox(BuildContext context) {
     List<String> _formattedCurrency = presenter.getFormattedCurrency(
-      presenter.getOpenCurrency(),
+      currencyBRL: presenter.getOpenCurrency(),
     );
 
     return Expanded(
       child: Column(
         children: <Widget>[
           Container(
-            /// Necessary for automated widget test, because the
-            /// drag point target the center of widget, therefore,
+            /// Necessary for automated [integration test], because
+            /// the drag point target the center of widget, therefore,
             /// when the box is lowered the center of animated
             /// box widget is lost.
             /// This `drag point` is always displayed. 😉

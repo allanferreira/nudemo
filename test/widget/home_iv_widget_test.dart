@@ -68,6 +68,9 @@ void main() {
       /// Verify that there is a `Align` Widget with key `section-iv`.
       expect(_sectionIV, findsOneWidget);
 
+      /// Verify that there is a `Container` Widget with key `point-drag`.
+      expect(_pointDrag, findsOneWidget);
+
       /// [Closed State 🔽] Verify that there is a `keyboard_arrow_down`
       /// icon in `IconButton` Widget, and nothing `keyboard_arrow_up`.
       expect(_buttonUp, findsNothing);
@@ -78,8 +81,8 @@ void main() {
       await tester.tap(_buttonDown);
       await tester.pumpAndSettle();
 
-      /// Verify that there is a `Container` Widget.
-      expect(_sectionIV, findsOneWidget);
+      /// Verify that there is a `Container` Widget with key `point-drag`.
+      expect(_pointDrag, findsOneWidget);
 
       /// [Openned State 🔼] Verify that there is a `keyboard_arrow_up`
       /// icon in `IconButton` Widget, and nothing `keyboard_arrow_down`.
@@ -90,8 +93,11 @@ void main() {
       await tester.tap(_buttonUp);
       await tester.pumpAndSettle();
 
-      /// Verify that there is a `Container` Widget.
+      /// Verify that there is a `Align` Widget with key `section-iv`.
       expect(_sectionIV, findsOneWidget);
+
+      /// Verify that there is a `Container` Widget with key `point-drag`.
+      expect(_pointDrag, findsOneWidget);
 
       /// [Closed State 🔽]
       expect(_buttonUp, findsNothing);
@@ -109,7 +115,10 @@ void main() {
       // print('size: $size');
       // print('minDragHeight: $minDragHeight');
 
-      /// Verify that there is a `Container` Widget.
+      /// Verify that there is a `Align` Widget with key `section-iv`.
+      expect(_sectionIV, findsOneWidget);
+
+      /// Verify that there is a `Container` Widget with key `point-drag`.
       expect(_pointDrag, findsOneWidget);
 
       /// [Closed State 🔽] Verify that there is a `keyboard_arrow_down`
@@ -117,12 +126,12 @@ void main() {
       expect(_buttonUp, findsNothing);
       expect(_buttonDown, findsOneWidget);
 
-      /// [Gesture 👉↔️👉] Drag `Down` the `Container` Widget MORE (➕)
+      /// [Gesture 👉↔️👉] Drag `Down` the `Align` Widget MORE (➕)
       /// than minimum height to start the animation down...
       await tester.drag(_pointDrag, Offset(0.0, minDragHeight + 10));
       await tester.pumpAndSettle();
 
-      /// Verify that there is a `Container` Widget.
+      /// Verify that there is a `Container` Widget with key `point-drag`.
       expect(_pointDrag, findsOneWidget);
 
       /// [Openned State 🔼] Verify that there is a `keyboard_arrow_up`
@@ -130,12 +139,15 @@ void main() {
       expect(_buttonDown, findsNothing);
       expect(_buttonUp, findsOneWidget);
 
-      /// [Gesture 👉↔️👉] Drag `UP` the `Container` Widget MORE (➕)
+      /// [Gesture 👉↔️👉] Drag `UP` the `Align` Widget MORE (➕)
       /// than minimum height to start the animation up...
       await tester.drag(_pointDrag, Offset(0.0, -(minDragHeight + 10)));
       await tester.pumpAndSettle();
 
-      /// Verify that there is a `Container` Widget.
+      /// Verify that there is a `Align` Widget with key `section-iv`.
+      expect(_sectionIV, findsOneWidget);
+
+      /// Verify that there is a `Container` Widget with key `point-drag`.
       expect(_pointDrag, findsOneWidget);
 
       /// [Openned State 🔼]

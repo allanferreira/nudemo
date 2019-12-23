@@ -5,11 +5,22 @@ import 'package:nudemo/card/viewmodel/card_viewmodel.dart';
 void main() {
   group('[Unit -> CardViewModel]', () {
     CardViewModel cardViewModel;
-    List<String> generateItems;
+    List<Map<String, dynamic>> cardHistoryItems;
 
     setUp(() {
       cardViewModel = CardViewModel();
-      generateItems = List<String>.generate(250, (index) => "Item $index");
+      cardHistoryItems = [
+        {
+          'type': 'income',
+          'icon': null,
+          'title': 'Pagamento recebido',
+          'text': null,
+          'money': 3195.96,
+          'division': null,
+          'date': DateTime.now().toString(),
+          'tags': null,
+        },
+      ];
     });
 
     test('initial `initialPageCarousel` value should be 0', () {
@@ -20,19 +31,20 @@ void main() {
       expect(cardViewModel.currentPageCarousel, 0);
     });
 
-    test('the `generateItems` type should be `List<String>`', () {
+    test('the `cardHistoryItems` type should be `List<Map<String, dynamic>>`',
+        () {
       expect(
-        cardViewModel.generateItems.runtimeType,
-        generateItems.runtimeType,
+        cardViewModel.cardHistoryItems.runtimeType,
+        cardHistoryItems.runtimeType,
       );
     });
 
-    test('the `generateItems` value should be equal `generateItems`', () {
-      expect(cardViewModel.generateItems, generateItems);
+    test('the `cardHistoryItems` value should not be empty', () {
+      expect(cardViewModel.cardHistoryItems.isNotEmpty, true);
     });
 
-    test('the `generateItems` value should be a list with 250 items', () {
-      expect(cardViewModel.generateItems.length, 250);
+    test('the `cardHistoryItems` value should be a list with 11 items', () {
+      expect(cardViewModel.cardHistoryItems.length, 11);
     });
   });
 }

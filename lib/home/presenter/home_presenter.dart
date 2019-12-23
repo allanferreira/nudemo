@@ -116,15 +116,15 @@ class HomePresenter with ChangeNotifier {
 
   /// Get the value of Balances Future Currency (R$)
   String getFutureCurrency() =>
-      _utils.getValueCurrency(_homeViewModel.balancesFutureValue);
+      _utils.getCurrencyValue(_homeViewModel.balancesFutureValue);
 
   /// Get the value of Balances Open Currency (R$)
   String getOpenCurrency() =>
-      _utils.getValueCurrency(_homeViewModel.balancesOpenValue);
+      _utils.getCurrencyValue(_homeViewModel.balancesOpenValue);
 
   /// Get the value of Balances Available Currency (R$)
   String getAvailableCurrency() =>
-      _utils.getValueCurrency(_homeViewModel.balancesAvailableValue);
+      _utils.getCurrencyValue(_homeViewModel.balancesAvailableValue);
 
   /// Get the value of Balances Due Currency
   double getDueCurrency() => _homeViewModel.balancesDueValue;
@@ -182,12 +182,13 @@ class HomePresenter with ChangeNotifier {
   }
 
   /// Format currency for summary info box style
-  List<String> getFormattedCurrency(String currency) {
+  /// Parameter currency should to be BRL format (x.xxx,xx)
+  List<String> getFormattedCurrency({String currencyBRL}) {
     List<String> temp1 = [];
     List<String> temp2 = [];
     List<String> formatted = [];
 
-    temp1 = currency.split('\u00a0');
+    temp1 = currencyBRL.split('\u00a0');
     if (temp1.length == 2) {
       formatted.add(temp1[0]); // [R$]
       temp2 = temp1[1].split(",");
@@ -197,7 +198,7 @@ class HomePresenter with ChangeNotifier {
       }
     }
 
-    return formatted;
+    return formatted.isNotEmpty ? formatted : [r'R$', '?', '??'];
   }
 
   /// Get last card register

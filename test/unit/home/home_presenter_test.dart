@@ -430,10 +430,21 @@ void main() {
       expect(homePresenter.getDueFlex(), 0);
     });
 
-    test('`getFormattedCurrency()` value return', () {
+    test('`getFormattedCurrency()` value return with BRL currency', () {
       expect(
-        homePresenter.getFormattedCurrency(r'R$' + '\u00a0' + '5.453,19'),
+        homePresenter.getFormattedCurrency(
+          currencyBRL: r'R$' + '\u00a0' + '5.453,19',
+        ),
         [r'R$', '5.453', '19'],
+      );
+    });
+
+    test('`getFormattedCurrency()` value return with USD currency', () {
+      expect(
+        homePresenter.getFormattedCurrency(
+          currencyBRL: r'$' + '5,578.79',
+        ),
+        [r'R$', '?', '??'],
       );
     });
 

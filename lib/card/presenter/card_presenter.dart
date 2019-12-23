@@ -19,11 +19,8 @@ class CardPresenter with ChangeNotifier {
     this._cardViewModel = CardViewModel();
   }
 
-  // List<String> getGeneratedItems() => _cardViewModel.generateItems;
-
-  // int getItemsLength() => _cardViewModel.generateItems.length;
-
-  List<Map<String, dynamic>> getCardHistoryItems() => _cardViewModel.cardHistoryItems;
+  List<Map<String, dynamic>> getCardHistoryItems() =>
+      _cardViewModel.cardHistoryItems;
 
   int getItemsLength() => _cardViewModel.cardHistoryItems.length;
 

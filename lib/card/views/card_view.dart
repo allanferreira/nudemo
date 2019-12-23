@@ -1,7 +1,6 @@
 /// MVP Design Pattern
 /// The view is a passive interface that displays data (the `model`) and routes
 /// user commands (events) to the presenter to act upon that data.
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -214,7 +213,7 @@ class CardPage extends StatelessWidget {
       _value = Padding(
         padding: EdgeInsets.only(top: 3.0),
         child: Text(
-          utils.getValueCurrency(_money),
+          utils.getCurrencyValue(_money),
           style: TextStyle(
             color: _color,
             fontSize: _fontSize,

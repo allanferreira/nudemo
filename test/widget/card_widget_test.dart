@@ -248,12 +248,12 @@ void main() {
 
       /// [Gesture 👇↕️👇] Drag `Up` the `CustomScrollView` Widget
       await tester.drag(
-        find.byKey(Key('item-7')),
-        Offset(0.0, -500),
+        find.byKey(Key('item-1')),
+        Offset(0.0, -300),
       );
       await tester.pumpAndSettle();
 
-      expect(find.byKey(Key('item-14')), findsOneWidget);
+      expect(find.byKey(Key('item-6')), findsOneWidget);
     });
   });
 }

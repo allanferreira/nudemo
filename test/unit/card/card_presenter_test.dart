@@ -9,7 +9,7 @@ void main() {
   group('[Unit -> CardPresenter]', () {
     CardPresenter cardPresenter;
     CardViewModel cardViewModel;
-    List<String> generateItems;
+    List<Map<String, dynamic>> cardHistoryItems;
     Future<Null> futureNull;
     double widthHeight = 5.0;
     Color activeColor = Colors.red;
@@ -26,21 +26,23 @@ void main() {
     setUp(() {
       cardPresenter = CardPresenter();
       cardViewModel = CardViewModel();
-      generateItems = cardViewModel.generateItems;
+      cardHistoryItems = cardViewModel.cardHistoryItems;
     });
 
-    test('the `getGeneratedItems()` value should be equal `generateItems`', () {
+    test('the `getCardHistoryItems()` value should be equal `cardHistoryItems`',
+        () {
       expect(
-        cardPresenter.getGeneratedItems(),
-        generateItems,
+        cardPresenter.getCardHistoryItems(),
+        cardHistoryItems,
       );
     });
 
-    test('the `getItemsLength()` value should be equal `generateItems.length`',
+    test(
+        'the `getItemsLength()` value should be equal `cardHistoryItems.length`',
         () {
       expect(
         cardPresenter.getItemsLength(),
-        generateItems.length,
+        cardHistoryItems.length,
       );
     });
 
