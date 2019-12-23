@@ -40,7 +40,7 @@ class CardPage extends StatelessWidget {
               builder: (context, cardPresenter, child) {
                 Color dottedColor = Theme.of(context).textTheme.caption.color;
                 Map<String, dynamic> style =
-                    cardPresenter.getDottedIndicatorColor(
+                    cardPresenter.getDottedIndicatorColorWidth(
                         index: index,
                         widthHeight: 5.0,
                         activeColor: dottedColor,

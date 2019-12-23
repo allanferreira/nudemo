@@ -130,12 +130,12 @@ void main() {
     });
 
     test(
-        'initial `getDottedIndicatorColor()` value should be equal `activeDotted`',
+        'initial `getDottedIndicatorColorWidth()` value should be equal `activeDotted`',
         () {
       int index = 0;
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,
@@ -146,12 +146,12 @@ void main() {
     });
 
     test(
-        'initial `getDottedIndicatorColor()` value should be equal `unactiveDotted` with index = 1',
+        'initial `getDottedIndicatorColorWidth()` value should be equal `unactiveDotted` with index = 1',
         () {
       int index = 1;
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,
@@ -162,12 +162,12 @@ void main() {
     });
 
     test(
-        '`getDottedIndicatorColor()` value should be equal `activeDotted` with index = 1 and setCurrentPageCarousel() with index = 1',
+        '`getDottedIndicatorColorWidth()` value should be equal `activeDotted` with index = 1 and setCurrentPageCarousel() with index = 1',
         () {
       int index = 1;
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,
@@ -179,7 +179,7 @@ void main() {
       cardPresenter.setCurrentPageCarousel(1);
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,
@@ -190,12 +190,12 @@ void main() {
     });
 
     test(
-        '`getDottedIndicatorColor()` value should be equal `unactiveDotted` with index = 1 and setCurrentPageCarousel() with index = 2',
+        '`getDottedIndicatorColorWidth()` value should be equal `unactiveDotted` with index = 1 and setCurrentPageCarousel() with index = 2',
         () {
       int index = 1;
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,
@@ -207,7 +207,7 @@ void main() {
       cardPresenter.setCurrentPageCarousel(1);
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,
@@ -219,7 +219,7 @@ void main() {
       cardPresenter.setCurrentPageCarousel(2);
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,
@@ -230,12 +230,12 @@ void main() {
     });
 
     test(
-        '`getDottedIndicatorColor()` value should be equal `activeDotted` with index = 1 and setCurrentPageCarousel() with index = 1 some times',
+        '`getDottedIndicatorColorWidth()` value should be equal `activeDotted` with index = 1 and setCurrentPageCarousel() with index = 1 some times',
         () {
       int index = 1;
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,
@@ -247,7 +247,7 @@ void main() {
       cardPresenter.setCurrentPageCarousel(1);
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,
@@ -259,7 +259,7 @@ void main() {
       cardPresenter.setCurrentPageCarousel(1);
 
       expect(
-        cardPresenter.getDottedIndicatorColor(
+        cardPresenter.getDottedIndicatorColorWidth(
           index: index,
           widthHeight: widthHeight,
           activeColor: activeColor,

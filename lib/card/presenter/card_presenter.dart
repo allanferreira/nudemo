@@ -60,7 +60,7 @@ class CardPresenter with ChangeNotifier {
   int getCurrentPageCarousel() => this._cardViewModel.currentPageCarousel;
 
   /// Get dotted indicator color and width/height
-  Map<String, dynamic> getDottedIndicatorColor({
+  Map<String, dynamic> getDottedIndicatorColorWidth({
     int index,
     double widthHeight,
     Color activeColor,
