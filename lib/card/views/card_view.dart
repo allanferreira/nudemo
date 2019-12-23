@@ -337,6 +337,7 @@ class CardPage extends StatelessWidget {
                         .withOpacity(0.10),
                   ),
                 ),
+                // Go back button
                 leading: MaterialButton(
                   onPressed: () => Navigator.pop(context),
                   padding: EdgeInsets.only(left: 6.0),
@@ -361,17 +362,19 @@ class CardPage extends StatelessWidget {
                 /// On [flexibleSpace] is a good place to implement
                 /// carousel slider 👉↔️👉
                 flexibleSpace: FlexibleSpaceBar(
+                  key: Key('collapsing-toolbar'),
+                  // Collapsing icon
                   title: Icon(
                     Icons.lock,
                     size: 16,
                     color: Theme.of(context).textTheme.display2.color,
                   ),
-                  // Text('FilledStacks'),
                   centerTitle: true,
                   titlePadding: EdgeInsets.only(
                     top: titlePaddingTop,
                     bottom: titlePaddingBottom,
                   ),
+                  // Collapsing main box
                   background: Stack(
                     children: <Widget>[
                       Positioned(

@@ -59,7 +59,9 @@ void main() {
     FlutterDriver _driver;
     // double _sizeScreenWidth;
     double _sizeScreenHeight;
+    double _halfScreenHeight;
     double _minDragHeight;
+    double _sliverAppBarHeight;
 
     final Duration fastTime = Duration(milliseconds: 50);
     final Duration normalTime = Duration(milliseconds: 150);
@@ -77,7 +79,9 @@ void main() {
       dynamic _sizeScreen = (await _driver.getBottomRight(_myApp));
       // _sizeScreenWidth = _sizeScreen.dx;
       _sizeScreenHeight = _sizeScreen.dy;
+      _halfScreenHeight = _sizeScreenHeight / 2;
       _minDragHeight = (_sizeScreenHeight / 2) * 0.20;
+      _sliverAppBarHeight = _sizeScreenHeight * 0.285;
     });
 
     // Close the connection to the driver after the tests have completed.
@@ -123,21 +127,47 @@ void main() {
       /// Go to route `/unlock/`.
       await _driver.tap(_unlockButton);
 
-      /// [Gesture 👇↕️👇] Drag to `UP` the items of `SliverList` Widget
-      await _driver.scroll(
-          find.byValueKey('item-7'), 0, -_sizeScreenHeight, verySlowTime);
+      /// Go to route `/item-0/`, item details.
+      await _driver.tap(find.byValueKey('item-0'));
 
-      for (int i = 17; i < 250; i += 10) {
-        /// [Gesture 👇↕️👇] Drag to `UP` the all items of `SliverList`
-        ///  Widget list, until the widget is completely visible.
-        await _driver.scroll(
-            find.byValueKey('card-page'), 0, -_sizeScreenHeight, normalTime);
-        // await _driver.scrollIntoView(find.byValueKey('item-$i'));
-      }
+      /// [Gesture 👆↕️👆] Drag to `Down` the items of `FlexibleSpaceBar`
+      /// Widget, to activating RefreshIndicator
+      await _driver.scroll(find.byValueKey('collapsing-toolbar'), 0,
+          _halfScreenHeight, verySlowTime);
 
-      /// [Gesture 👆↕️👆] Drag to `Down` the items of `SliverList` Widget
+      // /// [Gesture 👇↕️👇] Drag to `UP` the all items of `SliverList`
+      // ///  Widget, until the widget is completely visible.
+      // await _driver.scrollIntoView(find.byType('SliverList'));
+
+      /// [Gesture 👇↕️👇] Drag to `UP` the items of `SliverList` Widget,
+      /// to recall SliverAppBar
       await _driver.scroll(
-          find.byValueKey('item-240'), 0, _sizeScreenHeight, verySlowTime);
+          find.byValueKey('item-0'), 0, -_sliverAppBarHeight, slowTime);
+
+      /// [Gesture 👇↕️👇] Drag to `UP` the items of `SliverList` Widget,
+      /// 5º list item to the top of screen
+      await _driver.scroll(
+          find.byValueKey('item-4'), 0, -_sizeScreenHeight, verySlowTime);
+
+      /// [Gesture 👇↕️👇] Drag to `UP` the items of `SliverList` Widget,
+      /// 5º list item to the top of screen
+      await _driver.scroll(
+          find.byValueKey('item-8'), 0, -_sizeScreenHeight, verySlowTime);
+
+      /// [Gesture 👆↕️👆] Drag to `Down` the items of `SliverList` Widget,
+      /// 9º list item to the bottom of screen
+      await _driver.scroll(
+          find.byValueKey('item-8'), 0, _sizeScreenHeight, verySlowTime);
+
+      /// [Gesture 👆↕️👆] Drag to `Down` the items of `SliverList` Widget,
+      /// 5º list item to the bottom of screen
+      await _driver.scroll(
+          find.byValueKey('item-4'), 0, _sizeScreenHeight, verySlowTime);
+
+      /// [Gesture 👆↕️👆] Drag to `Down` the items of `SliverList` Widget,
+      /// to activating RefreshIndicator
+      await _driver.scroll(
+          find.byValueKey('item-0'), 0, _halfScreenHeight, verySlowTime);
 
       /// tap the `🔍` search icon and trigger a frame.
       await _driver.tap(_filterButton);
@@ -164,7 +194,7 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: 'Buttons removed');
+    }, skip: 'Slider item not implemented yet!');
 
     test('go to `/rewards/`, then inc/dec the counter and go back', () async {
       /// Go to route `/rewards/`.

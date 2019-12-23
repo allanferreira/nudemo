@@ -120,7 +120,14 @@ void main() {
       /// [Gesture 👆↕️👆] Drag `Down` the `CustomScrollView` Widget
       await tester.drag(
         find.byKey(Key('item-0')),
-        Offset(0.0, 1000),
+        Offset(0.0, 300),
+      );
+      await tester.pumpAndSettle();
+
+      /// [Gesture 👆↕️👆] Drag `Down` the `FlexibleSpaceBar` Widget
+      await tester.drag(
+        find.byKey(Key('collapsing-toolbar')),
+        Offset(0.0, 300),
       );
       await tester.pumpAndSettle();
     });
@@ -252,7 +259,7 @@ void main() {
       await tester.tap(_listItem1);
       await tester.pump();
 
-      /// [Gesture 👇↕️👇] Drag `Up` the `MaterialButton` Widget,
+      /// [Gesture 👇↕️👇] Drag to `UP` the items of `SliverList` Widget,
       /// to recall SliverAppBar
       await tester.drag(_listItem1, Offset(0.0, -sliverAppBarHeight));
       await tester.pumpAndSettle();
@@ -260,7 +267,7 @@ void main() {
       /// verify if have the 5º list item [MaterialButton].
       expect(find.byKey(Key('item-4')), findsOneWidget);
 
-      /// [Gesture 👇↕️👇] Drag `Up` the `MaterialButton` Widget,
+      /// [Gesture 👇↕️👇] Drag to `UP` the items of `SliverList` Widget,
       /// 5º list item to the top of screen
       await tester.drag(find.byKey(Key('item-4')), Offset(0.0, -screenHeight));
       await tester.pumpAndSettle();
