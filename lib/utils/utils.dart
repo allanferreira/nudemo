@@ -3,10 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class Utils {
-  final formatCurrency = NumberFormat.simpleCurrency();
+  final formatCurrency = NumberFormat.simpleCurrency(locale: 'pt_BR');
 
   Utils() {
-    Intl.defaultLocale = 'pt_BR';
     initializeDateFormatting('pt_BR', null);
   }
 
@@ -162,7 +161,7 @@ class Utils {
   }
 
   /// Get value Currency formatted (R$)
-  String getValueCurrency(double value) => formatCurrency.format(value);
+  String getCurrencyValue(double value) => formatCurrency.format(value);
 
   /// Get the Day of Date formatted
   String getDayOfDate(DateTime dateTime) => DateFormat.d().format(dateTime);
@@ -193,6 +192,11 @@ class Utils {
   String getFullYearOfDate(DateTime dateTime) =>
       DateFormat.y().format(dateTime);
 
+  /// Get the Month and Year of Date formatted
+  /// [abbr month] [full year]
+  String getMonthYearOfDate(DateTime dateTime) =>
+      DateFormat.yMMM().format(dateTime);
+
   /// Get the full Date formatted
   /// [day] [abbr month] [abbr year]
   String getDayMonthYearOfDate(DateTime dateTime) =>
@@ -215,42 +219,48 @@ class Utils {
       dateTime = DateTime.parse(dateTime);
     }
 
-    // Today, show the time
-    if (this.getDayOfDate(now) == this.getDayOfDate(dateTime)) {
-      return this.getHourMinOfDate(dateTime);
-    }
-
-    // Yesterday, show 'Ontem'
-    String yesterday = this.getDayOfDate(DateTime(
-      now.year,
-      now.month,
-      now.day - 1,
-      now.hour,
-      now.minute,
-      now.second,
-    ));
-    if (int.parse(yesterday) == int.parse(this.getDayOfDate(dateTime))) {
-      return this.capitalize('ontem');
-    }
-
-    // Last 7 days, show the day of week
-    String last7days = this.getDayOfDate(DateTime(
-      now.year,
-      now.month,
-      now.day - 7,
-      now.hour,
-      now.minute,
-      now.second,
-    ));
-    if (int.parse(last7days) < int.parse(this.getDayOfDate(dateTime))) {
-      String dayWeek =
-          this.getFullWeekDayOfDate(dateTime).replaceAll('-feira', '');
-      return this.capitalize(dayWeek);
-    }
-
-    // Current year, show the day and month abbreviated
+    // Current year
     if (this.getFullYearOfDate(now) == this.getFullYearOfDate(dateTime)) {
-      return this.getDayMonthOfDate(dateTime).toUpperCase();
+      // Current month
+      if (this.getFullMonthOfDate(now) == this.getFullMonthOfDate(dateTime)) {
+        // Today, show the time
+        if (this.getDayOfDate(now) == this.getDayOfDate(dateTime)) {
+          return this.getHourMinOfDate(dateTime);
+        }
+
+        // Yesterday, show 'Ontem'
+        String yesterday = this.getDayOfDate(DateTime(
+          now.year,
+          now.month,
+          now.day - 1,
+          now.hour,
+          now.minute,
+          now.second,
+        ));
+        if (int.parse(yesterday) == int.parse(this.getDayOfDate(dateTime))) {
+          return this.capitalize('ontem');
+        }
+
+        // Last week (yesterday + last 6 days), show the day of week
+        String last7days = this.getDayOfDate(DateTime(
+          now.year,
+          now.month,
+          now.day - 7,
+          now.hour,
+          now.minute,
+          now.second,
+        ));
+        if (int.parse(last7days) < int.parse(this.getDayOfDate(dateTime))) {
+          String dayWeek =
+              this.getFullWeekDayOfDate(dateTime).replaceAll('-feira', '');
+          return this.capitalize(dayWeek);
+        }
+      }
+
+      // Current year, show the day and month abbreviated
+      if (this.getFullYearOfDate(now) == this.getFullYearOfDate(dateTime)) {
+        return this.getDayMonthOfDate(dateTime).toUpperCase();
+      }
     }
 
     // Default, show day, month abbreviated and year abbreviated

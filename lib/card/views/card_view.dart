@@ -225,7 +225,9 @@ class CardPage extends StatelessWidget {
 
     return MaterialButton(
       key: Key('item-$index'),
-      onPressed: () => print('item-$index pressed!'),
+      onPressed: () {
+        // print('item-$index pressed!');
+      },
       padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 0),
       shape: RoundedRectangleBorder(
         side: BorderSide.none,

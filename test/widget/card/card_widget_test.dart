@@ -15,6 +15,7 @@ void main() {
     final Finder _sliverAppBar = find.byType(SliverAppBar);
     final Finder _sliverList = find.byType(SliverList);
     final Finder _verticalChartBar = find.byKey(Key('vertical-chart-bar'));
+    final Finder _listItem1 = find.byKey(Key('item-0'));
 
     final Widget _pumpWidget = MultiProvider(
       providers: [
@@ -57,6 +58,9 @@ void main() {
 
       /// verify if have a `SliverList` widget.
       expect(find.byType(SliverList), findsOneWidget);
+
+      /// verify if have any `MaterialButton` widget.
+      expect(find.byType(MaterialButton), findsWidgets);
     });
 
     testWidgets('Vertical chart bar smoke test', (WidgetTester tester) async {
@@ -224,6 +228,12 @@ void main() {
       // Build our app and trigger a frame.
       await tester.pumpWidget(_pumpWidget);
 
+      final BuildContext childContext = tester.element(_cardPage);
+      final size = MediaQuery.of(childContext).size;
+      final double screenHeight = size.height;
+      final double sliverAppBarHeight = screenHeight * 0.285;
+      // final double sliverListDragHeight = screenHeight - sliverAppBarHeight;
+
       /// verify if have any list item [Key].
       [1, 2, 3, 4, 5, 6].map((index) {
         expect(
@@ -235,25 +245,28 @@ void main() {
         );
       });
 
-      /// verify if have any list item [Text].
-      [1, 2, 3, 4, 5, 6].map((index) {
-        expect(
-          find.descendant(
-            of: _sliverList,
-            matching: find.text('Item $index'),
-          ),
-          findsOneWidget,
-        );
-      });
+      /// verify if have the first list item [MaterialButton].
+      expect(_listItem1, findsOneWidget);
 
-      /// [Gesture 👇↕️👇] Drag `Up` the `CustomScrollView` Widget
-      await tester.drag(
-        find.byKey(Key('item-1')),
-        Offset(0.0, -300),
-      );
+      /// tap the `🔍` search icon and trigger a frame.
+      await tester.tap(_listItem1);
+      await tester.pump();
+
+      /// [Gesture 👇↕️👇] Drag `Up` the `MaterialButton` Widget,
+      /// to recall SliverAppBar
+      await tester.drag(_listItem1, Offset(0.0, -sliverAppBarHeight));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(Key('item-6')), findsOneWidget);
+      /// verify if have the 5º list item [MaterialButton].
+      expect(find.byKey(Key('item-4')), findsOneWidget);
+
+      /// [Gesture 👇↕️👇] Drag `Up` the `MaterialButton` Widget,
+      /// 5º list item to the top of screen
+      await tester.drag(find.byKey(Key('item-4')), Offset(0.0, -screenHeight));
+      await tester.pumpAndSettle();
+
+      /// verify if have the 11º list item [MaterialButton].
+      expect(find.byKey(Key('item-10')), findsOneWidget);
     });
   });
 }
