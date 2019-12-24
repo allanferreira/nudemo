@@ -1,14 +1,35 @@
 # Nudemo
 
-[![Codemagic build status](https://api.codemagic.io/apps/5de0594954bf42000aeaed79/5de0594954bf42000aeaed78/status_badge.svg)](https://codemagic.io/apps/5de0594954bf42000aeaed79/5de0594954bf42000aeaed78/latest_build) [![Travis build status](https://img.shields.io/travis/chinnonsantos/nudemo/master?logo=travis)](https://travis-ci.org/chinnonsantos/nudemo) [![Codecov coverage](https://codecov.io/gh/chinnonsantos/nudemo/branch/master/graph/badge.svg)](https://codecov.io/gh/chinnonsantos/nudemo) [![Flutter version](https://img.shields.io/badge/flutter-v1.9.1+hotfix.6-blue?logo=flutter)](https://flutter.dev/docs/get-started/install) [![GitHub license](https://img.shields.io/github/license/chinnonsantos/nudemo)](https://choosealicense.com/licenses/mit/) [![Twitter follow](https://img.shields.io/twitter/follow/chinnonsantos?label=follow&style=flat&logo=twitter)](https://twitter.com/intent/follow?screen_name=chinnonsantos) [![Slack channel](https://img.shields.io/badge/slack-%23nudemo-blueviolet?logo=slack)](https://join.slack.com/t/chinnonsantos-nudemo/signup) [![Open source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![Codemagic build status](https://api.codemagic.io/apps/5de0594954bf42000aeaed79/5de83eda3b536a2191661e14/status_badge.svg)](https://codemagic.io/apps/5de0594954bf42000aeaed79/5de83eda3b536a2191661e14/latest_build) [![Travis build status](https://img.shields.io/travis/chinnonsantos/nudemo/master?logo=travis)](https://travis-ci.org/chinnonsantos/nudemo) [![Codecov coverage](https://codecov.io/gh/chinnonsantos/nudemo/branch/master/graph/badge.svg)](https://codecov.io/gh/chinnonsantos/nudemo) [![Flutter version](https://img.shields.io/badge/flutter-v1.9.1+hotfix.6-blue?logo=flutter)](https://flutter.dev/docs/get-started/install) [![GitHub license](https://img.shields.io/github/license/chinnonsantos/nudemo)](https://choosealicense.com/licenses/mit/) [![Twitter follow](https://img.shields.io/twitter/follow/chinnonsantos?label=follow&style=flat&logo=twitter)](https://twitter.com/intent/follow?screen_name=chinnonsantos) [![Slack channel](https://img.shields.io/badge/slack-%23nudemo-blueviolet?logo=slack)](https://join.slack.com/t/chinnonsantos-nudemo/signup) [![Open source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
+This project deals with an mobile app demo based in **Nubank's app**, created with **[Dart language][]** and **[Flutter framework][]**.
+
+Designed from beginning with largest possible test coverage (Greater than 95% ✔️ on _[Codecov][]_), units, widgets (smoke) and automated E2E (integration) in the bests CI/CD, like _[Codemagic][]_, _[Travis CI][]_ and [AWS DeviceFarm], with minimal possible use of third-party libraries and fully with Stateless widgets (without state management, **imultable**!), thanks to the _[Provider][]_ library which is mixture between dependency injection (DI) and state management.
+
+The design, well... I tried building this with most close to possible of original design, using just the _[Material Design Icons][]_ and some _[custom font][]_ free on the web. Believe me, the desing of original app is very very complex, have many smal details that make this app is singular. **Isn't easy to replay...** feel free to contribute with new pages and more details.
+
+> _Important: After the release of **[APK v1.0.0][]**, this mobile app will be integrated with 3 more Clojure microservices (**[Customer service][]**, **[Account service][]** and **[Purchase service][]**) for a complete test system, you will need to know the **[Clojure language][]** and **[AWS instances]** for run the app of new releases after this point!_
+
+[Codecov]: https://codecov.io/gh/chinnonsantos/nudemo
+[Codemagic]: https://codemagic.io/apps/5de0594954bf42000aeaed79/5de83eda3b536a2191661e14/latest_build
+[Travis CI]: https://travis-ci.org/chinnonsantos/nudemo
+[AWS DeviceFarm]: https://aws.amazon.com/pt/device-farm/
+[Customer service]: https://github.com/chinnonsantos/customer-service
+[Account service]: https://github.com/chinnonsantos/account-service
+[Purchase service]: https://github.com/chinnonsantos/purchase-service
+[Clojure language]: https://clojure.org/
+[AWS instances]: https://aws.amazon.com/pt/ecs/
+[Material Design Icons]: https://api.flutter.dev/flutter/material/Icons-class.html
+[custom font]: https://fonts.google.com/specimen/Open+Sans
+[APK v1.0.0]: https://github.com/chinnonsantos/nudemo/releases/tag/v1.0.0
 
 ## Prerequisites
 
-You will need [Flutter][] framework v1.11.0 or above installed ([Channel beta][], on Linux, locale en_US.UTF-8).
+You will need [Flutter framework][] v1.11.0 or above installed ([Channel beta][], on Linux, locale en_US.UTF-8).
 
 > The Dart SDK **is not required** because Flutter has _[Dart language][]_ support as an integrated tool in the framework.
 
-[Flutter]: https://flutter.dev/
+[Flutter framework]: https://flutter.dev/
 [Channel beta]: https://github.com/flutter/flutter/wiki/Flutter-build-release-channels#beta
 [Dart language]: https://dart.dev/
 
@@ -22,11 +43,22 @@ You will need [Flutter][] framework v1.11.0 or above installed ([Channel beta][]
 
 > **\*** The latest version of project `intl` causes conflicts with the `intl` dependency version of the `sylph` library (The responsible library for run integration test with DeviceFarm on AWS). When we use `any`, Flutter solves for us which version is best 😎
 
+**Microservices:**
+
+Required only for new releases after nudemo version 1.0.0.
+
+- [customer-service][] 1.0.1
+- [account-service][] 1.0.0
+- [purchase-service][] 1.0.1
+
 [test]: https://pub.dev/packages/test
 [provider]: https://pub.dev/packages/provider
 [pedantic]: https://pub.dev/packages/pedantic
 [qr_flutter]: https://pub.dev/packages/qr_flutter
 [intl]: https://pub.dev/packages/intl
+[customer-service]: https://github.com/chinnonsantos/customer-service/releases
+[account-service]: https://github.com/chinnonsantos/account-service/releases
+[purchase-service]: https://github.com/chinnonsantos/purchase-service/releases
 
 ## Running tests
 
