@@ -136,6 +136,93 @@ void main() {
 
       expect(config.userPhone, '11999999999');
     });
+
+    test('initial value of `accountUuid` should be null', () {
+      expect(config.accountUuid, null);
+    });
+
+    test('the changed value of `accountUuid` should be "a1b2c3d4e5"', () {
+      expect(config.accountUuid, null);
+
+      config.accountUuid = "a1b2c3d4e5";
+
+      expect(config.accountUuid, "a1b2c3d4e5");
+    });
+
+    test('initial value of `bankBranch` should be "0001"', () {
+      expect(config.bankBranch, '0001');
+    });
+
+    test('the changed value of `bankBranch` should be "0002"', () {
+      expect(config.bankBranch, '0001');
+
+      config.bankBranch = "0002";
+
+      expect(config.bankBranch, '0002');
+    });
+
+    test('the changed value of `bankBranch` should be "0002" for twice',
+        () {
+      expect(config.bankBranch, '0001');
+
+      config.bankBranch = "0002";
+
+      expect(config.bankBranch, '0002');
+
+      config.bankBranch = "0002";
+
+      expect(config.bankBranch, '0002');
+    });
+
+    test('initial value of `bankAccount` should be "1234567-8"', () {
+      expect(config.bankAccount, '1234567-8');
+    });
+
+    test('the changed value of `bankAccount` should be "8765432-1"', () {
+      expect(config.bankAccount, '1234567-8');
+
+      config.bankAccount = "8765432-1";
+
+      expect(config.bankAccount, '8765432-1');
+    });
+
+    test('the changed value of `bankAccount` should be "8765432-1" for twice',
+        () {
+      expect(config.bankAccount, '1234567-8');
+
+      config.bankAccount = "8765432-1";
+
+      expect(config.bankAccount, '8765432-1');
+
+      config.bankAccount = "8765432-1";
+
+      expect(config.bankAccount, '8765432-1');
+    });
+
+    test('initial value of `accountLimit` should be 15000', () {
+      expect(config.accountLimit, 15000);
+    });
+
+    test('the changed value of `accountLimit` should be 18000', () {
+      expect(config.accountLimit, 15000);
+
+      config.accountLimit = 18000;
+
+      expect(config.accountLimit, 18000);
+    });
+
+    test('the changed value of `accountLimit` should be 18000 for twice',
+        () {
+      expect(config.accountLimit, 15000);
+
+      config.accountLimit = 18000;
+
+      expect(config.accountLimit, 18000);
+
+      config.accountLimit = 18000;
+
+      expect(config.accountLimit, 18000);
+    });
   });
 
   group('[Unit -> Config - Customer EndPoint]', () {

@@ -6,6 +6,7 @@ import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
 import 'package:nudemo/themes/nu_dark_theme.dart';
+import 'package:nudemo/utils/config.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,12 +14,14 @@ void main() {
   group('[Unit -> HomePresenter]', () {
     HomePresenter homePresenter;
     HomeViewModel homeViewModel;
+    Config config;
     final Color activeColor = Colors.black45;
     final Color unactiveColor = Colors.white;
 
     setUp(() {
       homePresenter = HomePresenter();
       homeViewModel = HomeViewModel();
+      config = Config();
     });
 
     test('`getNuTheme()` run time type should be [ThemeData]', () {
@@ -484,55 +487,89 @@ void main() {
     });
 
     test('check initial data of `sharedPreferences`', () async {
+      config.userUuid = "a1b2c3";
+      config.accountUuid = "a1b2c3d4e5";
+
       SharedPreferences.setMockInitialValues({
-        "userUuid": "a1b2c3",
-        "userName": "Chinnon Santos",
-        "userNickname": "Chinnon",
-        "userEmail": "chinnonsantos@gmail.com",
-        "userPhone": "11987654321",
+        "userUuid": config.userUuid,
+        "userName": config.userName,
+        "userNickname": config.userNickname,
+        "userEmail": config.userEmail,
+        "userPhone": config.userPhone,
+        "accountUuid": config.accountUuid,
+        "bankBranch": config.bankBranch,
+        "bankAccount": config.bankAccount,
+        "accountLimit": config.accountLimit,
       });
       SharedPreferences pref = await SharedPreferences.getInstance();
 
-      expect(pref.getString('userUuid'), "a1b2c3");
-      expect(pref.getString('userName'), "Chinnon Santos");
-      expect(pref.getString('userNickname'), "Chinnon");
-      expect(pref.getString('userEmail'), "chinnonsantos@gmail.com");
-      expect(pref.getString('userPhone'), "11987654321");
+      expect(pref.getString('userUuid'), config.userUuid);
+      expect(pref.getString('userName'), config.userName);
+      expect(pref.getString('userNickname'), config.userNickname);
+      expect(pref.getString('userEmail'), config.userEmail);
+      expect(pref.getString('userPhone'), config.userPhone);
+      expect(pref.getString('accountUuid'), config.accountUuid);
+      expect(pref.getString('bankBranch'), config.bankBranch);
+      expect(pref.getString('bankAccount'), config.bankAccount);
+      expect(pref.getDouble('accountLimit'), config.accountLimit);
     });
 
     test('check data of `sharedPreferences` after changed', () async {
+      config.userUuid = "a1b2c3";
+      config.accountUuid = "a1b2c3d4e5";
+
       SharedPreferences.setMockInitialValues({
-        "userUuid": "a1b2c3",
-        "userName": "Chinnon Santos",
-        "userNickname": "Chinnon",
-        "userEmail": "chinnonsantos@gmail.com",
-        "userPhone": "11987654321",
+        "userUuid": config.userUuid,
+        "userName": config.userName,
+        "userNickname": config.userNickname,
+        "userEmail": config.userEmail,
+        "userPhone": config.userPhone,
+        "accountUuid": config.accountUuid,
+        "bankBranch": config.bankBranch,
+        "bankAccount": config.bankAccount,
+        "accountLimit": config.accountLimit,
       });
       SharedPreferences pref = await SharedPreferences.getInstance();
 
-      expect(pref.getString('userUuid'), "a1b2c3");
-      expect(pref.getString('userName'), "Chinnon Santos");
-      expect(pref.getString('userNickname'), "Chinnon");
-      expect(pref.getString('userEmail'), "chinnonsantos@gmail.com");
-      expect(pref.getString('userPhone'), "11987654321");
+      expect(pref.getString('userUuid'), config.userUuid);
+      expect(pref.getString('userName'), config.userName);
+      expect(pref.getString('userNickname'), config.userNickname);
+      expect(pref.getString('userEmail'), config.userEmail);
+      expect(pref.getString('userPhone'), config.userPhone);
+      expect(pref.getString('accountUuid'), config.accountUuid);
+      expect(pref.getString('bankBranch'), config.bankBranch);
+      expect(pref.getString('bankAccount'), config.bankAccount);
+      expect(pref.getDouble('accountLimit'), config.accountLimit);
 
       String userUuid = "a1b2c3d4e5";
       String userName = "Chinnon S.";
       String userNickname = "Shin";
       String userEmail = "contato@chinnonsantos.com.br";
       String userPhone = "11999999999";
+      String accountUuid = "e5d4c3b2a1";
+      String bankBranch = "0002";
+      String bankAccount = "8765432-1";
+      double accountLimit = 18000;
 
       await pref.setString('userUuid', userUuid);
       await pref.setString('userName', userName);
       await pref.setString('userNickname', userNickname);
       await pref.setString('userEmail', userEmail);
       await pref.setString('userPhone', userPhone);
+      await pref.setString('accountUuid', accountUuid);
+      await pref.setString('bankBranch', bankBranch);
+      await pref.setString('bankAccount', bankAccount);
+      await pref.setDouble('accountLimit', accountLimit);
 
       expect(pref.getString('userUuid'), userUuid);
       expect(pref.getString('userName'), userName);
       expect(pref.getString('userNickname'), userNickname);
       expect(pref.getString('userEmail'), userEmail);
       expect(pref.getString('userPhone'), userPhone);
+      expect(pref.getString('accountUuid'), accountUuid);
+      expect(pref.getString('bankBranch'), bankBranch);
+      expect(pref.getString('bankAccount'), bankAccount);
+      expect(pref.getDouble('accountLimit'), accountLimit);
     });
   });
 }
