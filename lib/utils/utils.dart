@@ -219,48 +219,26 @@ class Utils {
       dateTime = DateTime.parse(dateTime);
     }
 
-    // Current year
-    if (this.getFullYearOfDate(now) == this.getFullYearOfDate(dateTime)) {
-      // Current month
-      if (this.getFullMonthOfDate(now) == this.getFullMonthOfDate(dateTime)) {
-        // Today, show the time
-        if (this.getDayOfDate(now) == this.getDayOfDate(dateTime)) {
-          return this.getHourMinOfDate(dateTime);
-        }
+    // Today (last 24 hours), show the time
+    if (now.difference(dateTime).inHours < 24) {
+      return this.getHourMinOfDate(dateTime);
+    }
 
-        // Yesterday, show 'Ontem'
-        String yesterday = this.getDayOfDate(DateTime(
-          now.year,
-          now.month,
-          now.day - 1,
-          now.hour,
-          now.minute,
-          now.second,
-        ));
-        if (int.parse(yesterday) == int.parse(this.getDayOfDate(dateTime))) {
-          return this.capitalize('ontem');
-        }
+    // Yesterday, show 'Ontem'
+    if (now.difference(dateTime).inDays == 1) {
+      return this.capitalize('ontem');
+    }
 
-        // Last week (yesterday + last 6 days), show the day of week
-        String last7days = this.getDayOfDate(DateTime(
-          now.year,
-          now.month,
-          now.day - 7,
-          now.hour,
-          now.minute,
-          now.second,
-        ));
-        if (int.parse(last7days) < int.parse(this.getDayOfDate(dateTime))) {
-          String dayWeek =
-              this.getFullWeekDayOfDate(dateTime).replaceAll('-feira', '');
-          return this.capitalize(dayWeek);
-        }
-      }
+    // Last week (last 7 days), show the day of week
+    if (now.difference(dateTime).inDays < 7) {
+      String dayWeek =
+          this.getFullWeekDayOfDate(dateTime).replaceAll('-feira', '');
+      return this.capitalize(dayWeek);
+    }
 
-      // Current year, show the day and month abbreviated
-      if (this.getFullYearOfDate(now) == this.getFullYearOfDate(dateTime)) {
-        return this.getDayMonthOfDate(dateTime).toUpperCase();
-      }
+    // Last year (last 365 days), show the day and month abbreviated
+    if (now.difference(dateTime).inDays < 365) {
+      return this.getDayMonthOfDate(dateTime).toUpperCase();
     }
 
     // Default, show day, month abbreviated and year abbreviated
