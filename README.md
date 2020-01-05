@@ -8,7 +8,7 @@ Designed from beginning with largest possible test coverage (Greater than 95% �
 
 The design, well... I tried building this with most close to possible of original design, using just the _[Material Design Icons][]_ and some _[custom font][]_ free on the web. Believe me, the desing of original app is very very complex, have many smal details that make this app is singular. **Isn't easy to replay...** feel free to contribute with new pages and more details.
 
-> _Important: After the release of **[APK v1.0.0][]**, this mobile app will be integrated with 3 more Clojure microservices (**[Customer service][]**, **[Account service][]** and **[Purchase service][]**) for a complete test system, you will need to know the **[Clojure language][]** and **[AWS instances]** for run the app of new releases after this point!_
+> _Important: After the release of **[APK v1.0.0][]**, this mobile app will be integrated with 3 more Clojure microservices (**[Customer service][]**, **[Account service][]** and **[Purchase service][]**) for a complete test system, you will need to know the **[Clojure language][]** and **[Amazon ECS instances][]** for run the app of new releases after this point!_
 
 [Codecov]: https://codecov.io/gh/chinnonsantos/nudemo
 [Codemagic]: https://codemagic.io/apps/5de0594954bf42000aeaed79/5de83eda3b536a2191661e14/latest_build
@@ -18,7 +18,7 @@ The design, well... I tried building this with most close to possible of origina
 [Account service]: https://github.com/chinnonsantos/account-service
 [Purchase service]: https://github.com/chinnonsantos/purchase-service
 [Clojure language]: https://clojure.org/
-[AWS instances]: https://aws.amazon.com/pt/ecs/
+[Amazon ECS instances]: https://aws.amazon.com/pt/ecs/
 [Material Design Icons]: https://api.flutter.dev/flutter/material/Icons-class.html
 [custom font]: https://fonts.google.com/specimen/Open+Sans
 [APK v1.0.0]: https://github.com/chinnonsantos/nudemo/releases/tag/v1.0.0
@@ -40,6 +40,7 @@ You will need [Flutter framework][] v1.11.0 or above installed ([Channel beta][]
 - [pedantic][] 1.8.0+1 (dev)
 - [qr_flutter][] 3.1.0
 - [intl][] any*️
+- [shared_preferences][] 0.5.6
 
 > **\*** The latest version of project `intl` causes conflicts with the `intl` dependency version of the `sylph` library (The responsible library for run integration test with DeviceFarm on AWS). When we use `any`, Flutter solves for us which version is best 😎
 
@@ -56,6 +57,7 @@ Required only for new releases after nudemo version 1.0.0.
 [pedantic]: https://pub.dev/packages/pedantic
 [qr_flutter]: https://pub.dev/packages/qr_flutter
 [intl]: https://pub.dev/packages/intl
+[shared_preferences]: https://pub.dev/packages/shared_preferences
 [customer-service]: https://github.com/chinnonsantos/customer-service/releases
 [account-service]: https://github.com/chinnonsantos/account-service/releases
 [purchase-service]: https://github.com/chinnonsantos/purchase-service/releases

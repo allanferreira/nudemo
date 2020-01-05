@@ -7,6 +7,8 @@ import 'package:nudemo/themes/nu_default_theme.dart';
 import 'package:nudemo/themes/nu_dark_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   group('[Unit -> HomePresenter]', () {
     HomePresenter homePresenter;
     HomeViewModel homeViewModel;
@@ -453,6 +455,29 @@ void main() {
       expect(
         homePresenter.getLastCardRegister(),
         homeViewModel.lastCardRegister,
+      );
+    });
+
+    test('initial `sharedPreferences` value should be null', () {
+      expect(
+        HomePresenter.sharedPreferences,
+        null,
+      );
+    });
+
+    test(
+        '`sharedPreferences` value should be null after run `initialUserData()`',
+        () {
+      expect(
+        HomePresenter.sharedPreferences,
+        null,
+      );
+
+      HomePresenter.initialUserData();
+
+      expect(
+        HomePresenter.sharedPreferences,
+        null,
       );
     });
   });

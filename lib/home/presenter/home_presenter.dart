@@ -3,7 +3,7 @@
 /// repositories (the `model`), and formats it for display in the `view`.
 
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
@@ -17,6 +17,7 @@ import 'package:nudemo/utils/utils.dart';
 class HomePresenter with ChangeNotifier {
   HomeViewModel _homeViewModel;
   Utils _utils = Utils();
+  static SharedPreferences sharedPreferences;
 
   HomePresenter() {
     this._homeViewModel = HomeViewModel();
@@ -203,4 +204,18 @@ class HomePresenter with ChangeNotifier {
 
   /// Get last card register
   Map<String, dynamic> getLastCardRegister() => _homeViewModel.lastCardRegister;
+
+  /// Get user data from [Shared preferences], otherever request from API.
+  /// - For this demo app, don't there is 'login system' or 'registration system'.
+  /// - Case the customer isn't exist, the app send the default data for
+  /// `customerRegisterEndPoint` (the endpoint responsible for register new
+  /// customers), and then the App use this register like the customer!
+  /// - The same happens with account setup (using `accountRegisterEndPoint`)!
+  static Future initialUserData() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    // _config.userUuid = (prefs.getString('userUuid') ?? _config.userUuid);
+    // _config.userName = (prefs.getString('userName') ?? _config.userName);
+
+    print('userUuid: ${sharedPreferences.getString('userUuid')}');
+  }
 }
