@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test/test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
@@ -473,12 +474,65 @@ void main() {
         null,
       );
 
+      SharedPreferences.setMockInitialValues({});
       HomePresenter.initialUserData();
 
       expect(
         HomePresenter.sharedPreferences,
         null,
       );
+    });
+
+    test('check initial data of `sharedPreferences`', () async {
+      SharedPreferences.setMockInitialValues({
+        "userUuid": "a1b2c3",
+        "userName": "Chinnon Santos",
+        "userNickname": "Chinnon",
+        "userEmail": "chinnonsantos@gmail.com",
+        "userPhone": "11987654321",
+      });
+      SharedPreferences pref = await SharedPreferences.getInstance();
+
+      expect(pref.getString('userUuid'), "a1b2c3");
+      expect(pref.getString('userName'), "Chinnon Santos");
+      expect(pref.getString('userNickname'), "Chinnon");
+      expect(pref.getString('userEmail'), "chinnonsantos@gmail.com");
+      expect(pref.getString('userPhone'), "11987654321");
+    });
+
+    test('check data of `sharedPreferences` after changed', () async {
+      SharedPreferences.setMockInitialValues({
+        "userUuid": "a1b2c3",
+        "userName": "Chinnon Santos",
+        "userNickname": "Chinnon",
+        "userEmail": "chinnonsantos@gmail.com",
+        "userPhone": "11987654321",
+      });
+      SharedPreferences pref = await SharedPreferences.getInstance();
+
+      expect(pref.getString('userUuid'), "a1b2c3");
+      expect(pref.getString('userName'), "Chinnon Santos");
+      expect(pref.getString('userNickname'), "Chinnon");
+      expect(pref.getString('userEmail'), "chinnonsantos@gmail.com");
+      expect(pref.getString('userPhone'), "11987654321");
+
+      String userUuid = "a1b2c3d4e5";
+      String userName = "Chinnon S.";
+      String userNickname = "Shin";
+      String userEmail = "contato@chinnonsantos.com.br";
+      String userPhone = "11999999999";
+
+      await pref.setString('userUuid', userUuid);
+      await pref.setString('userName', userName);
+      await pref.setString('userNickname', userNickname);
+      await pref.setString('userEmail', userEmail);
+      await pref.setString('userPhone', userPhone);
+
+      expect(pref.getString('userUuid'), userUuid);
+      expect(pref.getString('userName'), userName);
+      expect(pref.getString('userNickname'), userNickname);
+      expect(pref.getString('userEmail'), userEmail);
+      expect(pref.getString('userPhone'), userPhone);
     });
   });
 }
