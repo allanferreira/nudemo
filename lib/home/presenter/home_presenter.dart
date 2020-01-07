@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
@@ -214,13 +215,13 @@ class HomePresenter with ChangeNotifier {
   /// `customerRegisterEndPoint` (the endpoint responsible for register new
   /// customers), and then the App use this register like the customer!
   /// - The same happens with account setup (using `accountRegisterEndPoint`)!
-  static Future initialUserData() async {
+  static Future initialUserData({@required http.Client httpClient}) async {
     Http _http = Http();
 
     // Registering a new customer and a new account,
     // if they are not already registered.
-    if (await _http.checkHealthCustomerApi() &&
-        await _http.checkHealthAccountApi()) {
+    if (await _http.checkHealthCustomerApi(httpClient: httpClient) &&
+        await _http.checkHealthAccountApi(httpClient: httpClient)) {
       print('APIs Ok!');
 
       Customer newCustomer = Customer(
@@ -229,7 +230,10 @@ class HomePresenter with ChangeNotifier {
         phone: Config().userPhone,
       );
 
-      Customer registeredCustomer = await _http.createCustomerApi(customerData: newCustomer);
+      Customer registeredCustomer = await _http.createCustomerApi(
+        httpClient: httpClient,
+        customerData: newCustomer,
+      );
       print('Create customer API: ${registeredCustomer.customerId}');
     }
 

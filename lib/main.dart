@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
@@ -11,7 +12,7 @@ import 'package:nudemo/card/presenter/card_presenter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await HomePresenter.initialUserData();
+  await HomePresenter.initialUserData(httpClient: http.Client());
   runApp(MyApp());
 }
 
