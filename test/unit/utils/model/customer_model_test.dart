@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 import 'package:nudemo/utils/model/customer_model.dart';
 
 void main() {
-  group('[Unit -> Model -> Customer Model - General]', () {
+  group('[Unit -> Model -> Customer Model] General', () {
     Customer customer;
     final Customer customerData = Customer(
       customerId: 'a1b2c3',

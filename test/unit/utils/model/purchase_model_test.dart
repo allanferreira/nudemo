@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 import 'package:nudemo/utils/model/purchase_model.dart';
 
 void main() {
-  group('[Unit -> Model -> Purchase Model - General]', () {
+  group('[Unit -> Model -> Purchase Model] General', () {
     Purchase purchase;
     final Origin originData = Origin(
       code: 2,

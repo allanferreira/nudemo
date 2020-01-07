@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 import 'package:nudemo/utils/model/account_model.dart';
 
 void main() {
-  group('[Unit -> Model -> Account Model - General]', () {
+  group('[Unit -> Model -> Account Model] General', () {
     Account account;
     final Account accountData = Account(
       accountId: 'c3b2a1',

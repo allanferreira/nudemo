@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 import 'package:nudemo/utils/config.dart';
 
 void main() {
-  group('[Unit -> Config - General]', () {
+  group('[Unit -> Config] General', () {
     Config config;
 
     setUp(() {
@@ -26,7 +26,8 @@ void main() {
       expect(config.userUuid, "a1b2c3d4e5");
     });
 
-    test('the changed value of `userUuid` should be "a1b2c3d4e5" for twice', () {
+    test('the changed value of `userUuid` should be "a1b2c3d4e5" for twice',
+        () {
       expect(config.userUuid, null);
 
       config.userUuid = "a1b2c3d4e5";
@@ -161,8 +162,7 @@ void main() {
       expect(config.bankBranch, '0002');
     });
 
-    test('the changed value of `bankBranch` should be "0002" for twice',
-        () {
+    test('the changed value of `bankBranch` should be "0002" for twice', () {
       expect(config.bankBranch, '0001');
 
       config.bankBranch = "0002";
@@ -211,8 +211,7 @@ void main() {
       expect(config.accountLimit, 18000);
     });
 
-    test('the changed value of `accountLimit` should be 18000 for twice',
-        () {
+    test('the changed value of `accountLimit` should be 18000 for twice', () {
       expect(config.accountLimit, 15000);
 
       config.accountLimit = 18000;
@@ -225,7 +224,7 @@ void main() {
     });
   });
 
-  group('[Unit -> Config - Customer EndPoint]', () {
+  group('[Unit -> Config] Customer EndPoint', () {
     final int _customerPort = 9000;
     final String _customerIpDns = "http://192.168.0.104";
     final String _customerEndPoint = _customerIpDns + ":$_customerPort/";
@@ -255,7 +254,7 @@ void main() {
     });
   });
 
-  group('[Unit -> Config - Account EndPoint]', () {
+  group('[Unit -> Config] Account EndPoint', () {
     final int _accountPort = 9001;
     final String _accountIpDns = "http://192.168.0.104";
     final String _accountEndPoint = _accountIpDns + ":$_accountPort/";
@@ -299,7 +298,7 @@ void main() {
     });
   });
 
-  group('[Unit -> Config - Purchase EndPoint]', () {
+  group('[Unit -> Config] Purchase EndPoint', () {
     final int _purchasePort = 9002;
     final String _purchaseIpDns = "http://192.168.0.104";
     final String _purchaseEndPoint = _purchaseIpDns + ":$_purchasePort/";
@@ -325,6 +324,16 @@ void main() {
         () {
       expect(Config.purchaseListEndPoint(accountId: "a1b2c3"),
           _purchaseEndPoint + "purchase/from-account/a1b2c3/");
+    });
+
+    test(
+        '`purchaseListEndPoint(accountId: "a1b2c3", tags: ["footwear", "furniture"])` should be ..."purchase/from-account/a1b2c3/"',
+        () {
+      expect(
+          Config.purchaseListEndPoint(
+              accountId: "a1b2c3", tags: ['footwear', 'furniture']),
+          _purchaseEndPoint +
+              "purchase/from-account/a1b2c3/?tag=footwear&tag=furniture");
     });
 
     test('`purchaseInfoEndPoint()` should be ..."purchase/:purchase-id/"', () {
