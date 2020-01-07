@@ -469,22 +469,21 @@ void main() {
       );
     });
 
-    test(
-        '`sharedPrefs` value should be null after run `initialUserData()`',
-        () {
-      expect(
-        HomePresenter.sharedPrefs,
-        null,
-      );
+    // test('`sharedPrefs` value should be null after run `initialUserData()`',
+    //     () {
+    //   expect(
+    //     HomePresenter.sharedPrefs,
+    //     null,
+    //   );
 
-      SharedPreferences.setMockInitialValues({});
-      HomePresenter.initialUserData();
+    //   SharedPreferences.setMockInitialValues({});
+    //   HomePresenter.initialUserData();
 
-      expect(
-        HomePresenter.sharedPrefs,
-        null,
-      );
-    });
+    //   expect(
+    //     HomePresenter.sharedPrefs,
+    //     null,
+    //   );
+    // });
 
     test('check initial data of `sharedPrefs`', () async {
       config.userUuid = "a1b2c3";
