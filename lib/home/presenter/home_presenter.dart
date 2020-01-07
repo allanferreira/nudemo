@@ -8,7 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
 import 'package:nudemo/themes/nu_dark_theme.dart';
+import 'package:nudemo/utils/model/customer_model.dart';
 import 'package:nudemo/utils/utils.dart';
+import 'package:nudemo/utils/config.dart';
+import 'package:nudemo/utils/http.dart';
 
 /// Simplest possible model, with just one field.
 ///
@@ -17,7 +20,7 @@ import 'package:nudemo/utils/utils.dart';
 class HomePresenter with ChangeNotifier {
   HomeViewModel _homeViewModel;
   Utils _utils = Utils();
-  static SharedPreferences sharedPreferences;
+  static SharedPreferences sharedPrefs;
 
   HomePresenter() {
     this._homeViewModel = HomeViewModel();
@@ -212,10 +215,41 @@ class HomePresenter with ChangeNotifier {
   /// customers), and then the App use this register like the customer!
   /// - The same happens with account setup (using `accountRegisterEndPoint`)!
   static Future initialUserData() async {
-    sharedPreferences = await SharedPreferences.getInstance();
-    // _config.userUuid = (prefs.getString('userUuid') ?? _config.userUuid);
-    // _config.userName = (prefs.getString('userName') ?? _config.userName);
+    Http _http = Http();
 
-    print('userUuid: ${sharedPreferences.getString('userUuid')}');
+    // Registering a new customer and a new account,
+    // if they are not already registered.
+    if (await _http.checkHealthCustomerApi() &&
+        await _http.checkHealthAccountApi()) {
+      print('APIs Ok!');
+
+      Customer newCustomer = Customer(
+        name: Config().userName,
+        eMail: Config().userEmail,
+        phone: Config().userPhone,
+      );
+
+      Customer registeredCustomer = await _http.createCustomerApi(customerData: newCustomer);
+      print('Create customer API: ${registeredCustomer.customerId}');
+    }
+
+    sharedPrefs = await SharedPreferences.getInstance();
+
+    if (sharedPrefs.getString('userUuid') == null) {
+      print('userUuid: request data from API');
+
+      await sharedPrefs.setString('userUuid', 'a1b2c3');
+      await sharedPrefs.setString('accountUuid', 'a1b2c3d4e5');
+    } else {
+      Config _config = Config();
+
+      _config.userUuid =
+          (sharedPrefs.getString('userUuid') ?? _config.userUuid);
+      _config.accountUuid =
+          (sharedPrefs.getString('accountUuid') ?? _config.accountUuid);
+
+      print('userUuid: ${_config.userUuid}');
+      print('userUuid: ${_config.accountUuid}');
+    }
   }
 }

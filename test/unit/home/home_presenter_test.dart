@@ -462,18 +462,18 @@ void main() {
       );
     });
 
-    test('initial `sharedPreferences` value should be null', () {
+    test('initial `sharedPrefs` value should be null', () {
       expect(
-        HomePresenter.sharedPreferences,
+        HomePresenter.sharedPrefs,
         null,
       );
     });
 
     test(
-        '`sharedPreferences` value should be null after run `initialUserData()`',
+        '`sharedPrefs` value should be null after run `initialUserData()`',
         () {
       expect(
-        HomePresenter.sharedPreferences,
+        HomePresenter.sharedPrefs,
         null,
       );
 
@@ -481,12 +481,12 @@ void main() {
       HomePresenter.initialUserData();
 
       expect(
-        HomePresenter.sharedPreferences,
+        HomePresenter.sharedPrefs,
         null,
       );
     });
 
-    test('check initial data of `sharedPreferences`', () async {
+    test('check initial data of `sharedPrefs`', () async {
       config.userUuid = "a1b2c3";
       config.accountUuid = "a1b2c3d4e5";
 
@@ -514,7 +514,7 @@ void main() {
       expect(pref.getDouble('accountLimit'), config.accountLimit);
     });
 
-    test('check data of `sharedPreferences` after changed', () async {
+    test('check data of `sharedPrefs` after changed', () async {
       config.userUuid = "a1b2c3";
       config.accountUuid = "a1b2c3d4e5";
 

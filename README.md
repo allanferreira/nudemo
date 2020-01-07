@@ -41,6 +41,7 @@ You will need [Flutter framework][] v1.11.0 or above installed ([Channel beta][]
 - [qr_flutter][] 3.1.0
 - [intl][] any*️
 - [shared_preferences][] 0.5.6
+- [http][] ^0.12.0+3
 
 > **\*** The latest version of project `intl` causes conflicts with the `intl` dependency version of the `sylph` library (The responsible library for run integration test with DeviceFarm on AWS). When we use `any`, Flutter solves for us which version is best 😎
 
@@ -58,6 +59,7 @@ Required only for new releases after nudemo version 1.0.0.
 [qr_flutter]: https://pub.dev/packages/qr_flutter
 [intl]: https://pub.dev/packages/intl
 [shared_preferences]: https://pub.dev/packages/shared_preferences
+[http]: https://pub.dev/packages/http
 [customer-service]: https://github.com/chinnonsantos/customer-service/releases
 [account-service]: https://github.com/chinnonsantos/account-service/releases
 [purchase-service]: https://github.com/chinnonsantos/purchase-service/releases
