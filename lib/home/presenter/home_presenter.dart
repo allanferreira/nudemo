@@ -7,6 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
+import 'package:nudemo/home/views/home_view.dart';
+import 'package:nudemo/signup/views/signup_view.dart';
+import 'package:nudemo/signup/presenter/signup_presenter.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
 import 'package:nudemo/themes/nu_dark_theme.dart';
 import 'package:nudemo/utils/model/customer_model.dart';
@@ -210,19 +213,19 @@ class HomePresenter with ChangeNotifier {
   /// Get last card register
   Map<String, dynamic> getLastCardRegister() => _homeViewModel.lastCardRegister;
 
-  /// Get user data from [Shared preferences], otherever request from API.
+  /// Get Customer and Account data from [Shared preferences], otherever
+  /// register a new on API.
   /// - For this demo app, don't there is 'login system' or 'registration system'.
   /// - Case the customer isn't exist, the app send the default data for
-  /// `customerRegisterEndPoint` (the endpoint responsible for register new
+  /// `createCustomerApi()` (the endpoint responsible for register new
   /// customers), and then the App use this register like the customer!
-  /// - The same happens with account setup (using `accountRegisterEndPoint`)!
+  /// - The same happens with account setup (using `createAccountApi()`)!
   Future<bool> initialUserData([
     httpClientMock,
     utilsHttpMock,
     newCustomerMock,
     newAccountMock,
   ]) async {
-    print('initialUserData: start');
     http.Client httpClient = httpClientMock ?? http.Client();
     Http utilsHttp = utilsHttpMock ?? Http();
     Config config = Config();
@@ -238,8 +241,6 @@ class HomePresenter with ChangeNotifier {
 
       if (await utilsHttp.checkHealthCustomerApi(httpClient: httpClient) &&
           await utilsHttp.checkHealthAccountApi(httpClient: httpClient)) {
-        print('APIs Ok!');
-
         Customer newCustomer = Customer(
           name: Config().userName,
           eMail: Config().userEmail,
@@ -252,7 +253,7 @@ class HomePresenter with ChangeNotifier {
         );
 
         if (regCustomer != null && regCustomer.customerId != null) {
-          print('Create customer API: ${regCustomer.customerId}');
+          print('Create customer ID: ${regCustomer.customerId}');
 
           Account newAccount = Account(
             customerId: regCustomer.customerId,
@@ -267,34 +268,39 @@ class HomePresenter with ChangeNotifier {
           );
 
           if (regAccount != null && regAccount.accountId != null) {
-            print('Create account API: ${regAccount.accountId}');
+            print('Create account ID: ${regAccount.accountId}');
 
-            // Persist on device memory the Customer ID and Account ID
+            // Persist on device memory the Customer and Account data
             return (await sharedPrefs.setString(
-                  'userUuid',
-                  regCustomer.customerId,
-                ) &&
+                    'userUuid', regCustomer.customerId) &&
+                await sharedPrefs.setString('userName', regCustomer.name) &&
+                await sharedPrefs.setString('userEmail', regCustomer.eMail) &&
+                await sharedPrefs.setString('userPhone', regCustomer.phone) &&
                 await sharedPrefs.setString(
-                  'accountUuid',
-                  regAccount.accountId,
-                ));
-          } else {
-            print('Account register Off!');
+                    'accountUuid', regAccount.accountId) &&
+                await sharedPrefs.setString(
+                    'bankBranch', regAccount.bankBranch) &&
+                await sharedPrefs.setString(
+                    'bankAccount', regAccount.bankAccount) &&
+                await sharedPrefs.setDouble('accountLimit', regAccount.limit));
           }
-        } else {
-          print('Customer register Off!');
         }
-      } else {
-        print('APIs Off!');
       }
       return false;
     }
 
-    //... Or, recover from device memory the Customer ID and Account ID
+    //... Or, recover from device memory the Customer and Account data
     print('initialUserData: Recover existing Customer ID and Account ID');
-    print('userUuid: ${config.userUuid}');
-    print('userUuid: ${config.accountUuid}');
+    print('Customer ID: ${config.userUuid}');
+    print('Account ID: ${config.accountUuid}');
 
     return (config.userUuid != null && config.accountUuid != null);
+  }
+
+  Widget firstPage(loggedInUser) {
+    if (loggedInUser) {
+      return HomePage(presenter: HomePresenter(), title: '{userName}');
+    }
+    return SignupPage(presenter: SignupPresenter(), title: 'Signup');
   }
 }

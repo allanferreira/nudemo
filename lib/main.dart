@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
@@ -11,11 +10,17 @@ import 'package:nudemo/card/presenter/card_presenter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await HomePresenter().initialUserData();
-  runApp(MyApp());
+
+  /// Get Customer and Account saved or register a new on API.
+  final bool loggedInUser = await HomePresenter().initialUserData();
+  runApp(MyApp(loggedInUser: loggedInUser));
 }
 
 class MyApp extends StatelessWidget {
+  final bool loggedInUser;
+
+  MyApp({this.loggedInUser = false});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -45,10 +50,7 @@ class MyApp extends StatelessWidget {
           key: Key('app-root'),
           title: 'NuDemo',
           theme: homePresenter.getNuTheme(),
-          home: HomePage(
-            presenter: HomePresenter(),
-            title: 'Chinnon',
-          ),
+          home: homePresenter.firstPage(loggedInUser),
         ),
       ),
     );

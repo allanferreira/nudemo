@@ -10,6 +10,8 @@ import 'package:nudemo/nuconta/presenter/nuconta_presenter.dart';
 import 'package:nudemo/nuconta/views/nuconta_view.dart';
 import 'package:nudemo/rewards/presenter/rewards_presenter.dart';
 import 'package:nudemo/rewards/views/rewards_view.dart';
+import 'package:nudemo/signup/presenter/signup_presenter.dart';
+import 'package:nudemo/signup/views/signup_view.dart';
 import 'package:nudemo/utils/transitions/scale.dart';
 import 'package:nudemo/utils/transitions/slide_top.dart';
 
@@ -34,12 +36,17 @@ class Routes {
     '/': ScaleRoute(
       page: HomePage(
         presenter: HomePresenter(),
-        title: '{Customer name}',
+        title: '{userName}',
       ),
     ),
     // - First access (we don't cover that in this demo!)
     // '/register/': RegisterPage(),
-    // '/signup/': SignUpPage(),
+    '/signup/': SlideTopRoute(
+      page: SignupPage(
+        presenter: SignupPresenter(),
+        title: 'Signup',
+      ),
+    ),
     // - Carousel slider main blocks
     '/card/': ScaleRoute(
       page: CardPage(
