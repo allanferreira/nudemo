@@ -164,7 +164,13 @@ class HomePresenter with ChangeNotifier {
   int getDueFlex() => _homeViewModel.balancesDueFlex;
 
   /// Calculate `percentage` and `flex` values of balances
-  void calculatePercentBalances() {
+  void calculatePercentBalances({
+    double limitValue = 0.0,
+    double balancesFutureValue = 0.0,
+    double balancesOpenValue = 0.0,
+    double balancesAvailableValue = 0.0,
+    double balancesDueValue = 0.0,
+  }) {
     _homeViewModel.balancesFuturePercent =
         (_homeViewModel.balancesFutureValue / _homeViewModel.limitValue) * 100;
     _homeViewModel.balancesFutureFlex =

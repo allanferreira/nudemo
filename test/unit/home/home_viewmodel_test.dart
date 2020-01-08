@@ -43,8 +43,8 @@ void main() {
       expect(homeViewModel.limitValue.isNegative, false);
     });
 
-    test('initial `limitValue` value should be 15000.00', () {
-      expect(homeViewModel.limitValue, 15000.00);
+    test('initial `limitValue` value should be 15000.5', () {
+      expect(homeViewModel.limitValue, 15000.5);
     });
 
     test('the `limitPercent` run time type should be [double]', () {

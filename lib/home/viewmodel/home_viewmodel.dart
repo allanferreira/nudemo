@@ -18,8 +18,8 @@ class HomeViewModel {
   int currentPageCarousel = 0;
 
   // Balances control
-  double limitValue = 15000.00;
-  double limitPercent = 100.00;
+  double limitValue = 15000.5;
+  double limitPercent = 100.0;
   double balancesFutureValue = 1529.98;
   double balancesFuturePercent;
   int balancesFutureFlex;

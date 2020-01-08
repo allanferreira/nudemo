@@ -24,14 +24,48 @@ class MockHttp extends Mock implements Http {}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  final Duration timeRequest = const Duration(milliseconds: 5);
   HomePresenter homePresenter;
   HomeViewModel homeViewModel;
+  MockClient client;
+  MockHttp mockHttp;
   Config config;
 
   setUp(() {
     homePresenter = HomePresenter();
     homeViewModel = HomeViewModel();
+    client = MockClient();
+    mockHttp = MockHttp();
     config = Config();
+
+    /// Mock Config class
+    config.userUuid = "a1b2c3";
+    config.accountUuid = "a1b2c3d4e5";
+
+    /// Mock SharedPreferences
+    SharedPreferences.setMockInitialValues({
+      "userUuid": config.userUuid,
+      "userName": config.userName,
+      "userNickname": config.userNickname,
+      "userEmail": config.userEmail,
+      "userPhone": config.userPhone,
+      "accountUuid": config.accountUuid,
+      "bankBranch": config.bankBranch,
+      "bankAccount": config.bankAccount,
+      "accountLimit": config.accountLimit,
+    });
+
+    /// Mock Global Variables
+    globals.isLoggedIn = true;
+    globals.userUuid = config.userUuid;
+    globals.userName = config.userName;
+    globals.userNickname = config.userNickname;
+    globals.userEmail = config.userEmail;
+    globals.userPhone = config.userPhone;
+    globals.accountUuid = config.accountUuid;
+    globals.bankBranch = config.bankBranch;
+    globals.bankAccount = config.bankAccount;
+    globals.accountLimit = config.accountLimit;
   });
 
   group('[Unit -> HomePresenter] General', () {
@@ -428,12 +462,12 @@ void main() {
 
       expect(homePresenter.getFutureValue(), 1529.98);
       expect(homePresenter.getFutureCurrency(), r'R$' + '\u00a0' + '1.529,98');
-      expect(homePresenter.getFuturePercent(), 10.199866666666667);
+      expect(homePresenter.getFuturePercent(), 10.199526682443919);
       expect(homePresenter.getFutureFlex(), 10);
 
       expect(homePresenter.getOpenValue(), 5578.79);
       expect(homePresenter.getOpenCurrency(), r'R$' + '\u00a0' + '5.578,79');
-      expect(homePresenter.getOpenPercent(), 37.19193333333333);
+      expect(homePresenter.getOpenPercent(), 37.19069364354522);
       expect(homePresenter.getOpenFlex(), 37);
 
       expect(homePresenter.getAvailableValue(), 7891.23);
@@ -441,7 +475,7 @@ void main() {
         homePresenter.getAvailableCurrency(),
         r'R$' + '\u00a0' + '7.891,23',
       );
-      expect(homePresenter.getAvailablePercent(), 52.6082);
+      expect(homePresenter.getAvailablePercent(), 52.60644645178494);
       expect(homePresenter.getAvailableFlex(), 53);
 
       expect(homePresenter.getDueValue(), 0);
@@ -480,43 +514,6 @@ void main() {
   group(
       '[Unit -> HomePresenter] SharedPreferences and Mock with full user data',
       () {
-    MockClient client;
-    MockHttp mockHttp;
-
-    setUp(() {
-      client = MockClient();
-      mockHttp = MockHttp();
-
-      /// Mock Config class
-      config.userUuid = "a1b2c3";
-      config.accountUuid = "a1b2c3d4e5";
-
-      /// Mock SharedPreferences
-      SharedPreferences.setMockInitialValues({
-        "userUuid": config.userUuid,
-        "userName": config.userName,
-        "userNickname": config.userNickname,
-        "userEmail": config.userEmail,
-        "userPhone": config.userPhone,
-        "accountUuid": config.accountUuid,
-        "bankBranch": config.bankBranch,
-        "bankAccount": config.bankAccount,
-        "accountLimit": config.accountLimit,
-      });
-
-      /// Mock Global Variables
-      globals.isLoggedIn = true;
-      globals.userUuid = config.userUuid;
-      globals.userName = config.userName;
-      globals.userNickname = config.userNickname;
-      globals.userEmail = config.userEmail;
-      globals.userPhone = config.userPhone;
-      globals.accountUuid = config.accountUuid;
-      globals.bankBranch = config.bankBranch;
-      globals.bankAccount = config.bankAccount;
-      globals.accountLimit = config.accountLimit;
-    });
-
     test('check initial data of `sharedPrefs`', () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
 
@@ -584,14 +581,7 @@ void main() {
   group(
       '[Unit -> HomePresenter] SharedPreferences and Mock with empty user data',
       () {
-    MockClient client;
-    MockHttp mockHttp;
-    final Duration timeRequest = const Duration(milliseconds: 5);
-
     setUp(() {
-      client = MockClient();
-      mockHttp = MockHttp();
-
       /// Mock Config class
       config.userUuid = null;
       config.userName = null;
