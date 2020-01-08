@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:nudemo/main.dart';
 import 'package:nudemo/home/views/home_view.dart';
@@ -10,10 +11,28 @@ import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/utils/config.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() {
+    /// Mock SharedPreferences
+    SharedPreferences.setMockInitialValues({
+      'userUuid': 'a1b2c3',
+      'userName': Config().userName,
+      'userNickname': Config().userNickname,
+      'userEmail': Config().userEmail,
+      'userPhone': Config().userPhone,
+      'accountUuid': 'c3b2a1',
+      'bankBranch': Config().bankBranch,
+      'bankAccount': Config().bankAccount,
+      'accountLimit': Config().accountLimit,
+    });
+  });
+
   group('[Widget -> Home page] - All Sections', () {
-    final String _title = 'Chinnon';
+    final String _title = Config().userNickname;
 
     final Widget _pumpWidget = MultiProvider(
       providers: [
@@ -46,10 +65,11 @@ void main() {
 
     testWidgets('Smoke test - ${_title} [MyApp]', (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(MyApp());
+      await tester.pumpWidget(MyApp(loggedInUser: true));
 
       /// verify if have text `Chinnon` (route `/`).
-      expect(find.text(_title), findsOneWidget);
+      // expect(find.text(_title), findsOneWidget);
+      expect(find.text('{userNickname}'), findsOneWidget);
     });
 
     testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {

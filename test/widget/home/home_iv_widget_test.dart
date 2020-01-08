@@ -9,11 +9,30 @@ import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/utils/config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// `Section IV` - Slide box container widget test
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() {
+    /// Mock SharedPreferences
+    SharedPreferences.setMockInitialValues({
+      'userUuid': 'a1b2c3',
+      'userName': Config().userName,
+      'userNickname': Config().userNickname,
+      'userEmail': Config().userEmail,
+      'userPhone': Config().userPhone,
+      'accountUuid': 'c3b2a1',
+      'bankBranch': Config().bankBranch,
+      'bankAccount': Config().bankAccount,
+      'accountLimit': Config().accountLimit,
+    });
+  });
+
   group('[Widget -> Home page] - Section IV', () {
-    final String _title = 'Chinnon';
+    final String _title = Config().userNickname;
 
     final Finder _homePage = find.byKey(Key('home-page'));
     final Finder _cardPage = find.byKey(Key('card-page'));

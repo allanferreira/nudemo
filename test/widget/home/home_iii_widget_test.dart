@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
@@ -9,10 +10,29 @@ import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/utils/config.dart';
 
+/// `Section III` - Bottom menu container
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() {
+    /// Mock SharedPreferences
+    SharedPreferences.setMockInitialValues({
+      'userUuid': 'a1b2c3',
+      'userName': Config().userName,
+      'userNickname': Config().userNickname,
+      'userEmail': Config().userEmail,
+      'userPhone': Config().userPhone,
+      'accountUuid': 'c3b2a1',
+      'bankBranch': Config().bankBranch,
+      'bankAccount': Config().bankAccount,
+      'accountLimit': Config().accountLimit,
+    });
+  });
+
   group('[Widget -> Home page] - Section III', () {
-    final String _title = 'Chinnon';
+    final String _title = Config().userNickname;
 
     final Finder _buttonList = find.byKey(Key('button-list'));
     final Finder _transferButton = find.byKey(Key('/transfer/'));
@@ -59,8 +79,6 @@ void main() {
     testWidgets('`Transferir` button smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
-
-      /// `Section III` - Bottom menu container
 
       /// verify if have a `Icon` widget with `attach_money` icon.
       expect(find.byIcon(Icons.attach_money), findsOneWidget);

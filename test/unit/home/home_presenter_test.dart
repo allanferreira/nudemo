@@ -479,7 +479,7 @@ void main() {
   group('[Unit -> HomePresenter] SharedPreferences and Mock', () {
     MockClient client;
     MockHttp mockHttp;
-    final Duration timeRequest = const Duration(milliseconds: 50);
+    final Duration timeRequest = const Duration(milliseconds: 5);
 
     setUp(() {
       client = MockClient();

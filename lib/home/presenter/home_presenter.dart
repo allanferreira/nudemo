@@ -226,6 +226,8 @@ class HomePresenter with ChangeNotifier {
     newCustomerMock,
     newAccountMock,
   ]) async {
+    print('initialUserData: Check Customer and Account');
+
     http.Client httpClient = httpClientMock ?? http.Client();
     Http utilsHttp = utilsHttpMock ?? Http();
     Config config = Config();
@@ -254,6 +256,7 @@ class HomePresenter with ChangeNotifier {
 
         if (regCustomer != null && regCustomer.customerId != null) {
           print('Create customer ID: ${regCustomer.customerId}');
+          final List<String> userNickname = regCustomer.name.split(" ");
 
           Account newAccount = Account(
             customerId: regCustomer.customerId,
@@ -274,6 +277,7 @@ class HomePresenter with ChangeNotifier {
             return (await sharedPrefs.setString(
                     'userUuid', regCustomer.customerId) &&
                 await sharedPrefs.setString('userName', regCustomer.name) &&
+                await sharedPrefs.setString('userNickname', userNickname[0]) &&
                 await sharedPrefs.setString('userEmail', regCustomer.eMail) &&
                 await sharedPrefs.setString('userPhone', regCustomer.phone) &&
                 await sharedPrefs.setString(
@@ -297,9 +301,10 @@ class HomePresenter with ChangeNotifier {
     return (config.userUuid != null && config.accountUuid != null);
   }
 
+  /// Routing the user to [Signup] page or [Home] page
   Widget firstPage(loggedInUser) {
     if (loggedInUser) {
-      return HomePage(presenter: HomePresenter(), title: '{userName}');
+      return HomePage(presenter: HomePresenter(), title: '{userNickname}');
     }
     return SignupPage(presenter: SignupPresenter(), title: 'Signup');
   }

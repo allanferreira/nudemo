@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
@@ -10,10 +11,29 @@ import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/utils/config.dart';
 
+/// `Section II` - Main menu container
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() {
+    /// Mock SharedPreferences
+    SharedPreferences.setMockInitialValues({
+      'userUuid': 'a1b2c3',
+      'userName': Config().userName,
+      'userNickname': Config().userNickname,
+      'userEmail': Config().userEmail,
+      'userPhone': Config().userPhone,
+      'accountUuid': 'c3b2a1',
+      'bankBranch': Config().bankBranch,
+      'bankAccount': Config().bankAccount,
+      'accountLimit': Config().accountLimit,
+    });
+  });
+
   group('[Widget -> Home page] - Section II', () {
-    final String _title = 'Chinnon';
+    final String _title = Config().userNickname;
 
     final Finder _mainMenu = find.byKey(Key('section-ii'));
     final Finder _qrCode = find.byType(QrImage);
@@ -60,8 +80,6 @@ void main() {
     testWidgets('Checking widget smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
-
-      /// `Section II` - Main menu container
 
       /// verify if have a `ListView` widget.
       expect(

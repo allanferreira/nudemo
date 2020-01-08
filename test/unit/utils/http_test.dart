@@ -15,7 +15,7 @@ class MockClient extends Mock implements http.Client {}
 main() {
   MockClient client;
   Http utilsHttp;
-  final Duration timeRequest = const Duration(milliseconds: 50);
+  final Duration timeRequest = const Duration(milliseconds: 5);
   final String testEndPoint = "http://localhost:3000/";
   final Map<String, String> requestHeaders = {
     'Content-type': 'application/json',
