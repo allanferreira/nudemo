@@ -17,6 +17,7 @@ import 'package:nudemo/utils/model/account_model.dart';
 import 'package:nudemo/utils/utils.dart';
 import 'package:nudemo/utils/config.dart';
 import 'package:nudemo/utils/http.dart';
+import 'package:nudemo/utils/globals.dart' as globals;
 
 /// Simplest possible model, with just one field.
 ///
@@ -302,8 +303,8 @@ class HomePresenter with ChangeNotifier {
   }
 
   /// Routing the user to [Sign Up] page or [Home] page
-  Widget firstPage(loggedInUser) {
-    if (loggedInUser) {
+  Widget firstPage() {
+    if (globals.isLoggedIn) {
       return HomePage(presenter: HomePresenter(), title: '{userNickname}');
     }
     return SignupPage(presenter: SignupPresenter(), title: 'Sign Up');

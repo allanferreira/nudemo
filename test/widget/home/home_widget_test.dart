@@ -12,6 +12,7 @@ import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
 import 'package:nudemo/utils/config.dart';
+import 'package:nudemo/utils/globals.dart' as globals;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -64,8 +65,10 @@ void main() {
     );
 
     testWidgets('Smoke test - ${_title} [MyApp]', (WidgetTester tester) async {
+      globals.isLoggedIn = true;
+
       // Build our app and trigger a frame.
-      await tester.pumpWidget(MyApp(loggedInUser: true));
+      await tester.pumpWidget(MyApp());
 
       /// verify if have text `Chinnon` (route `/`).
       // expect(find.text(_title), findsOneWidget);
@@ -73,8 +76,10 @@ void main() {
     });
 
     testWidgets('Smoke test - ${_title} [MyApp]', (WidgetTester tester) async {
+      globals.isLoggedIn = false;
+
       // Build our app and trigger a frame.
-      await tester.pumpWidget(MyApp(loggedInUser: false));
+      await tester.pumpWidget(MyApp());
 
       /// verify if have text `SIGN UP` (route `/`).
       expect(find.text('Sign Up'.toUpperCase()), findsOneWidget);

@@ -7,20 +7,17 @@ import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/utils/globals.dart' as globals;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Get Customer and Account saved or register a new on API.
-  final bool loggedInUser = await HomePresenter().initialUserData();
-  runApp(MyApp(loggedInUser: loggedInUser));
+  globals.isLoggedIn = await HomePresenter().initialUserData();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final bool loggedInUser;
-
-  MyApp({this.loggedInUser = false});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -50,7 +47,7 @@ class MyApp extends StatelessWidget {
           key: Key('app-root'),
           title: 'NuDemo',
           theme: homePresenter.getNuTheme(),
-          home: homePresenter.firstPage(loggedInUser),
+          home: homePresenter.firstPage(),
         ),
       ),
     );
