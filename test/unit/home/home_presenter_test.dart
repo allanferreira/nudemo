@@ -53,6 +53,13 @@ void main() {
       "bankBranch": config.bankBranch,
       "bankAccount": config.bankAccount,
       "accountLimit": config.accountLimit,
+      "limitPercent": HomeViewModel.limitPercent,
+      "balancesOpenValue": HomeViewModel.balancesOpenValue,
+      "balancesOpenPercent": HomeViewModel.balancesOpenPercent,
+      "balancesOpenFlex": HomeViewModel.balancesOpenFlex,
+      "balancesAvailableValue": HomeViewModel.balancesAvailableValue,
+      "balancesAvailablePercent": HomeViewModel.balancesAvailablePercent,
+      "balancesAvailableFlex": HomeViewModel.balancesAvailableFlex,
     });
 
     /// Mock Global Variables
@@ -66,6 +73,13 @@ void main() {
     globals.bankBranch = config.bankBranch;
     globals.bankAccount = config.bankAccount;
     globals.accountLimit = config.accountLimit;
+    globals.limitPercent = HomeViewModel.limitPercent;
+    globals.balancesOpenValue = HomeViewModel.balancesOpenValue;
+    globals.balancesOpenPercent = HomeViewModel.balancesOpenPercent;
+    globals.balancesOpenFlex = HomeViewModel.balancesOpenFlex;
+    globals.balancesAvailableValue = HomeViewModel.balancesAvailableValue;
+    globals.balancesAvailablePercent = HomeViewModel.balancesAvailablePercent;
+    globals.balancesAvailableFlex = HomeViewModel.balancesAvailableFlex;
   });
 
   group('[Unit -> HomePresenter] General', () {
@@ -369,14 +383,14 @@ void main() {
         () {
       expect(
         homePresenter.getFutureValue(),
-        homeViewModel.balancesFutureValue,
+        HomeViewModel.balancesFutureValue,
       );
     });
 
     test('initial `getOpenValue()` value should be [balancesOpenValue]', () {
       expect(
         homePresenter.getOpenValue(),
-        homeViewModel.balancesOpenValue,
+        HomeViewModel.balancesOpenValue,
       );
     });
 
@@ -385,14 +399,14 @@ void main() {
         () {
       expect(
         homePresenter.getAvailableValue(),
-        homeViewModel.balancesAvailableValue,
+        HomeViewModel.balancesAvailableValue,
       );
     });
 
     test('initial `getDueValue()` value should be [balancesDueValue]', () {
       expect(
         homePresenter.getDueValue(),
-        homeViewModel.balancesDueValue,
+        HomeViewModel.balancesDueValue,
       );
     });
 
@@ -400,7 +414,7 @@ void main() {
         () {
       expect(
         homePresenter.getFuturePercent(),
-        homeViewModel.balancesFuturePercent,
+        HomeViewModel.balancesFuturePercent,
       );
     });
 
@@ -408,7 +422,7 @@ void main() {
         () {
       expect(
         homePresenter.getOpenPercent(),
-        homeViewModel.balancesOpenPercent,
+        HomeViewModel.balancesOpenPercent,
       );
     });
 
@@ -417,28 +431,28 @@ void main() {
         () {
       expect(
         homePresenter.getAvailablePercent(),
-        homeViewModel.balancesAvailablePercent,
+        HomeViewModel.balancesAvailablePercent,
       );
     });
 
     test('initial `getDuePercent()` value should be [balancesDuePercent]', () {
       expect(
         homePresenter.getDuePercent(),
-        homeViewModel.balancesDuePercent,
+        HomeViewModel.balancesDuePercent,
       );
     });
 
     test('initial `getFutureFlex()` value should be [balancesFutureFlex]', () {
       expect(
         homePresenter.getFutureFlex(),
-        homeViewModel.balancesFutureFlex,
+        HomeViewModel.balancesFutureFlex,
       );
     });
 
     test('initial `getOpenFlex()` value should be [balancesOpenFlex]', () {
       expect(
         homePresenter.getOpenFlex(),
-        homeViewModel.balancesOpenFlex,
+        HomeViewModel.balancesOpenFlex,
       );
     });
 
@@ -446,37 +460,35 @@ void main() {
         () {
       expect(
         homePresenter.getAvailableFlex(),
-        homeViewModel.balancesAvailableFlex,
+        HomeViewModel.balancesAvailableFlex,
       );
     });
 
     test('initial `getDueFlex()` value should be [balancesDueFlex]', () {
       expect(
         homePresenter.getDueFlex(),
-        homeViewModel.balancesDueFlex,
+        HomeViewModel.balancesDueFlex,
       );
     });
 
     test('`calculatePercentBalances()` value return', () {
       homePresenter.calculatePercentBalances();
 
-      expect(homePresenter.getFutureValue(), 1529.98);
-      expect(homePresenter.getFutureCurrency(), r'R$' + '\u00a0' + '1.529,98');
-      expect(homePresenter.getFuturePercent(), 10.199526682443919);
-      expect(homePresenter.getFutureFlex(), 10);
+      expect(homePresenter.getFutureValue(), 0.0);
+      expect(homePresenter.getFutureCurrency(), r'R$' + '\u00a0' + '0,00');
+      expect(homePresenter.getFuturePercent(), 0.0);
+      expect(homePresenter.getFutureFlex(), 0);
 
       expect(homePresenter.getOpenValue(), 5578.79);
       expect(homePresenter.getOpenCurrency(), r'R$' + '\u00a0' + '5.578,79');
       expect(homePresenter.getOpenPercent(), 37.19069364354522);
       expect(homePresenter.getOpenFlex(), 37);
 
-      expect(homePresenter.getAvailableValue(), 7891.23);
+      expect(homePresenter.getAvailableValue(), 9421.71);
       expect(
-        homePresenter.getAvailableCurrency(),
-        r'R$' + '\u00a0' + '7.891,23',
-      );
-      expect(homePresenter.getAvailablePercent(), 52.60644645178494);
-      expect(homePresenter.getAvailableFlex(), 53);
+          homePresenter.getAvailableCurrency(), r'R$' + '\u00a0' + '9.421,71');
+      expect(homePresenter.getAvailablePercent(), 62.809306356454776);
+      expect(homePresenter.getAvailableFlex(), 63);
 
       expect(homePresenter.getDueValue(), 0);
       expect(homePresenter.getDueCurrency(), 0.0);
@@ -574,7 +586,25 @@ void main() {
 
     test('check values after second run `initialUserData()` successfully',
         () async {
+      /// Mock customer status API [Ok]
+      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), true);
+
       expect(await homePresenter.initialUserData(client, mockHttp), true);
+    }, timeout: Timeout.factor(2));
+
+    test(
+        'check values after second run `initialUserData()` with error (Purchase API Off!)',
+        () async {
+      /// Mock customer status API [Ok]
+      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), false);
+
+      expect(await homePresenter.initialUserData(client, mockHttp), false);
     }, timeout: Timeout.factor(2));
   }, timeout: Timeout.factor(2));
 
@@ -607,6 +637,13 @@ void main() {
       globals.bankBranch = config.bankBranch;
       globals.bankAccount = config.bankAccount;
       globals.accountLimit = config.accountLimit;
+      globals.limitPercent = HomeViewModel.limitPercent;
+      globals.balancesOpenValue = HomeViewModel.balancesOpenValue;
+      globals.balancesOpenPercent = HomeViewModel.balancesOpenPercent;
+      globals.balancesOpenFlex = HomeViewModel.balancesOpenFlex;
+      globals.balancesAvailableValue = HomeViewModel.balancesAvailableValue;
+      globals.balancesAvailablePercent = HomeViewModel.balancesAvailablePercent;
+      globals.balancesAvailableFlex = HomeViewModel.balancesAvailableFlex;
     });
 
     test('initial `sharedPrefs` value should be null', () {
@@ -867,7 +904,18 @@ void main() {
 
     test('check values after second run `initialUserData()` with error',
         () async {
-      expect(await homePresenter.initialUserData(), false);
+      /// Mock customer status API [Ok]
+      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), false);
+
+      when(mockHttp.checkHealthAccountApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
+
+      expect(await homePresenter.initialUserData(client, mockHttp), false);
     }, timeout: Timeout.factor(2));
   }, timeout: Timeout.factor(2));
 }

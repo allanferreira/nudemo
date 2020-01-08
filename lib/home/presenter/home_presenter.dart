@@ -113,55 +113,55 @@ class HomePresenter with ChangeNotifier {
   //         .setCurrentPageCarousel(index);
 
   /// Get the value of Balances Future Value
-  double getFutureValue() => _homeViewModel.balancesFutureValue;
+  double getFutureValue() => HomeViewModel.balancesFutureValue;
 
   /// Get the value of Balances Open Value
-  double getOpenValue() => _homeViewModel.balancesOpenValue;
+  double getOpenValue() => HomeViewModel.balancesOpenValue;
 
   /// Get the value of Balances Available Value
-  double getAvailableValue() => _homeViewModel.balancesAvailableValue;
+  double getAvailableValue() => HomeViewModel.balancesAvailableValue;
 
   /// Get the value of Balances Due Value
-  double getDueValue() => _homeViewModel.balancesDueValue;
+  double getDueValue() => HomeViewModel.balancesDueValue;
 
   /// Get the value of Balances Future Currency (R$)
   String getFutureCurrency() =>
-      _utils.getCurrencyValue(_homeViewModel.balancesFutureValue);
+      _utils.getCurrencyValue(HomeViewModel.balancesFutureValue);
 
   /// Get the value of Balances Open Currency (R$)
   String getOpenCurrency() =>
-      _utils.getCurrencyValue(_homeViewModel.balancesOpenValue);
+      _utils.getCurrencyValue(HomeViewModel.balancesOpenValue);
 
   /// Get the value of Balances Available Currency (R$)
   String getAvailableCurrency() =>
-      _utils.getCurrencyValue(_homeViewModel.balancesAvailableValue);
+      _utils.getCurrencyValue(HomeViewModel.balancesAvailableValue);
 
   /// Get the value of Balances Due Currency
-  double getDueCurrency() => _homeViewModel.balancesDueValue;
+  double getDueCurrency() => HomeViewModel.balancesDueValue;
 
   /// Get the value of Balances Future Percent
-  double getFuturePercent() => _homeViewModel.balancesFuturePercent;
+  double getFuturePercent() => HomeViewModel.balancesFuturePercent;
 
   /// Get the value of Balances Open Percent
-  double getOpenPercent() => _homeViewModel.balancesOpenPercent;
+  double getOpenPercent() => HomeViewModel.balancesOpenPercent;
 
   /// Get the value of Balances Available Percent
-  double getAvailablePercent() => _homeViewModel.balancesAvailablePercent;
+  double getAvailablePercent() => HomeViewModel.balancesAvailablePercent;
 
   /// Get the value of Balances Due Percent
-  double getDuePercent() => _homeViewModel.balancesDuePercent;
+  double getDuePercent() => HomeViewModel.balancesDuePercent;
 
   /// Get the value of Balances Future Flex
-  int getFutureFlex() => _homeViewModel.balancesFutureFlex;
+  int getFutureFlex() => HomeViewModel.balancesFutureFlex;
 
   /// Get the value of Balances Open Flex
-  int getOpenFlex() => _homeViewModel.balancesOpenFlex;
+  int getOpenFlex() => HomeViewModel.balancesOpenFlex;
 
   /// Get the value of Balances Available Flex
-  int getAvailableFlex() => _homeViewModel.balancesAvailableFlex;
+  int getAvailableFlex() => HomeViewModel.balancesAvailableFlex;
 
   /// Get the value of Balances Due Flex
-  int getDueFlex() => _homeViewModel.balancesDueFlex;
+  int getDueFlex() => HomeViewModel.balancesDueFlex;
 
   /// Calculate `percentage` and `flex` values of balances
   void calculatePercentBalances({
@@ -171,30 +171,28 @@ class HomePresenter with ChangeNotifier {
     double balancesAvailableValue = 0.0,
     double balancesDueValue = 0.0,
   }) {
-    _homeViewModel.balancesFuturePercent =
-        (_homeViewModel.balancesFutureValue / _homeViewModel.limitValue) * 100;
-    _homeViewModel.balancesFutureFlex =
-        _homeViewModel.balancesFuturePercent.round();
+    HomeViewModel.balancesFuturePercent =
+        (HomeViewModel.balancesFutureValue / HomeViewModel.limitValue) * 100;
+    HomeViewModel.balancesFutureFlex =
+        HomeViewModel.balancesFuturePercent.round();
 
-    _homeViewModel.balancesOpenPercent =
-        (_homeViewModel.balancesOpenValue / _homeViewModel.limitValue) * 100;
-    _homeViewModel.balancesOpenFlex =
-        _homeViewModel.balancesOpenPercent.round();
+    HomeViewModel.balancesOpenPercent =
+        (HomeViewModel.balancesOpenValue / HomeViewModel.limitValue) * 100;
+    HomeViewModel.balancesOpenFlex = HomeViewModel.balancesOpenPercent.round();
 
-    _homeViewModel.balancesAvailablePercent =
-        (_homeViewModel.balancesAvailableValue / _homeViewModel.limitValue) *
-            100;
-    _homeViewModel.balancesAvailableFlex =
-        _homeViewModel.balancesAvailablePercent.round();
+    HomeViewModel.balancesAvailablePercent =
+        (HomeViewModel.balancesAvailableValue / HomeViewModel.limitValue) * 100;
+    HomeViewModel.balancesAvailableFlex =
+        HomeViewModel.balancesAvailablePercent.round();
 
-    _homeViewModel.balancesDuePercent =
-        (_homeViewModel.balancesDueValue / _homeViewModel.limitValue) * 100;
-    _homeViewModel.balancesDueFlex = _homeViewModel.balancesDuePercent.round();
+    HomeViewModel.balancesDuePercent =
+        (HomeViewModel.balancesDueValue / HomeViewModel.limitValue) * 100;
+    HomeViewModel.balancesDueFlex = HomeViewModel.balancesDuePercent.round();
 
-    _homeViewModel.limitPercent = _homeViewModel.balancesFuturePercent +
-        _homeViewModel.balancesOpenPercent +
-        _homeViewModel.balancesAvailablePercent +
-        _homeViewModel.balancesDuePercent;
+    HomeViewModel.limitPercent = HomeViewModel.balancesFuturePercent +
+        HomeViewModel.balancesOpenPercent +
+        HomeViewModel.balancesAvailablePercent +
+        HomeViewModel.balancesDuePercent;
   }
 
   /// Format currency for summary info box style
@@ -227,13 +225,14 @@ class HomePresenter with ChangeNotifier {
   /// `createCustomerApi()` (the endpoint responsible for register new
   /// customers), and then the App use this register like the customer!
   /// - The same happens with account setup (using `createAccountApi()`)!
+  /// - Balance is updated if customer already exists (using ``).
   Future<bool> initialUserData([
     httpClientMock,
     utilsHttpMock,
     newCustomerMock,
     newAccountMock,
   ]) async {
-    print('initialUserData: Check Customer and Account');
+    // print('initialUserData: Check Customer and Account');
 
     http.Client httpClient = httpClientMock ?? http.Client();
     Http utilsHttp = utilsHttpMock ?? Http();
@@ -253,7 +252,7 @@ class HomePresenter with ChangeNotifier {
     // Registering a new customer and a new account,
     // if they are not already registered...
     if (globals.userUuid == null || globals.accountUuid == null) {
-      print('initialUserData: Register new Customer and Account');
+      // print('initialUserData: Register new Customer and Account');
 
       if (await utilsHttp.checkHealthCustomerApi(httpClient: httpClient) &&
           await utilsHttp.checkHealthAccountApi(httpClient: httpClient)) {
@@ -269,7 +268,7 @@ class HomePresenter with ChangeNotifier {
         );
 
         if (regCustomer != null && regCustomer.customerId != null) {
-          print('Create customer ID: ${regCustomer.customerId}');
+          // print('Create customer ID: ${regCustomer.customerId}');
           final List<String> userNickname = regCustomer.name.split(" ");
 
           Account newAccount = Account(
@@ -285,7 +284,15 @@ class HomePresenter with ChangeNotifier {
           );
 
           if (regAccount != null && regAccount.accountId != null) {
-            print('Create account ID: ${regAccount.accountId}');
+            // print('Create account ID: ${regAccount.accountId}');
+
+            globals.limitPercent = 100.0;
+            globals.balancesOpenValue = 0.0;
+            globals.balancesOpenPercent = 0.0;
+            globals.balancesOpenFlex = 0;
+            globals.balancesAvailableValue = globals.accountLimit;
+            globals.balancesAvailablePercent = 100.0;
+            globals.balancesAvailableFlex = 100;
 
             // Persist on device memory the Customer and Account data
             return (await sharedPrefs.setString(
@@ -300,19 +307,40 @@ class HomePresenter with ChangeNotifier {
                     'bankBranch', regAccount.bankBranch) &&
                 await sharedPrefs.setString(
                     'bankAccount', regAccount.bankAccount) &&
-                await sharedPrefs.setDouble('accountLimit', regAccount.limit));
+                await sharedPrefs.setDouble('accountLimit', regAccount.limit) &&
+                await sharedPrefs.setDouble(
+                    'limitPercent', globals.limitPercent) &&
+                await sharedPrefs.setDouble(
+                    'balancesOpenValue', globals.balancesOpenValue) &&
+                await sharedPrefs.setDouble(
+                    'balancesOpenPercent', globals.balancesOpenPercent) &&
+                await sharedPrefs.setInt(
+                    'balancesOpenFlex', globals.balancesOpenFlex) &&
+                await sharedPrefs.setDouble(
+                    'balancesAvailableValue', globals.balancesAvailableValue) &&
+                await sharedPrefs.setDouble('balancesAvailablePercent',
+                    globals.balancesAvailablePercent) &&
+                await sharedPrefs.setInt(
+                    'balancesAvailableFlex', globals.balancesAvailableFlex));
           }
         }
       }
-      return false;
     }
 
     //... Or, recover from device memory the Customer and Account data
-    print('initialUserData: Recover existing Customer ID and Account ID');
-    print('Customer ID: ${globals.userUuid}');
-    print('Account ID: ${globals.accountUuid}');
+    if (globals.userUuid != null && globals.accountUuid != null) {
+      print('initialUserData: Recover existing Customer ID and Account ID');
+      print('Customer ID: ${globals.userUuid}');
+      print('Account ID: ${globals.accountUuid}');
 
-    return (globals.userUuid != null && globals.accountUuid != null);
+      if (await utilsHttp.checkHealthPurchaseApi(httpClient: httpClient)) {
+        // Get actualized balance
+        print('Puchase API: Ok!');
+
+        return true;
+      }
+    }
+    return false;
   }
 
   /// Routing the user to [Sign Up] page or [Home] page

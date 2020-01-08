@@ -9,6 +9,7 @@ import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
+import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
 import 'package:nudemo/utils/config.dart';
@@ -35,6 +36,13 @@ void main() {
       "bankBranch": config.bankBranch,
       "bankAccount": config.bankAccount,
       "accountLimit": config.accountLimit,
+      "limitPercent": HomeViewModel.limitPercent,
+      "balancesOpenValue": HomeViewModel.balancesOpenValue,
+      "balancesOpenPercent": HomeViewModel.balancesOpenPercent,
+      "balancesOpenFlex": HomeViewModel.balancesOpenFlex,
+      "balancesAvailableValue": HomeViewModel.balancesAvailableValue,
+      "balancesAvailablePercent": HomeViewModel.balancesAvailablePercent,
+      "balancesAvailableFlex": HomeViewModel.balancesAvailableFlex,
     });
 
     /// Mock Global Variables
@@ -48,6 +56,13 @@ void main() {
     globals.bankBranch = config.bankBranch;
     globals.bankAccount = config.bankAccount;
     globals.accountLimit = config.accountLimit;
+    globals.limitPercent = HomeViewModel.limitPercent;
+    globals.balancesOpenValue = HomeViewModel.balancesOpenValue;
+    globals.balancesOpenPercent = HomeViewModel.balancesOpenPercent;
+    globals.balancesOpenFlex = HomeViewModel.balancesOpenFlex;
+    globals.balancesAvailableValue = HomeViewModel.balancesAvailableValue;
+    globals.balancesAvailablePercent = HomeViewModel.balancesAvailablePercent;
+    globals.balancesAvailableFlex = HomeViewModel.balancesAvailableFlex;
   });
 
   group('[Widget -> Home page] - Section II', () {

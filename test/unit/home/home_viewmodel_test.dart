@@ -32,107 +32,109 @@ void main() {
     });
 
     test('the `limitValue` run time type should be [double]', () {
-      expect(homeViewModel.limitValue.runtimeType, double);
+      expect(HomeViewModel.limitValue.runtimeType, double);
     });
 
     test('the `limitValue` value should be [finite]', () {
-      expect(homeViewModel.limitValue.isFinite, true);
+      expect(HomeViewModel.limitValue.isFinite, true);
     });
 
     test('the `limitValue` value should not be [negative]', () {
-      expect(homeViewModel.limitValue.isNegative, false);
+      expect(HomeViewModel.limitValue.isNegative, false);
     });
 
     test('initial `limitValue` value should be 15000.5', () {
-      expect(homeViewModel.limitValue, 15000.5);
+      expect(HomeViewModel.limitValue, 15000.5);
     });
 
     test('the `limitPercent` run time type should be [double]', () {
-      expect(homeViewModel.limitPercent.runtimeType, double);
+      expect(HomeViewModel.limitPercent.runtimeType, double);
     });
 
     test('the `limitPercent` value should be [finite]', () {
-      expect(homeViewModel.limitPercent.isFinite, true);
+      expect(HomeViewModel.limitPercent.isFinite, true);
     });
 
     test('the `limitPercent` value should not be [negative]', () {
-      expect(homeViewModel.limitPercent.isNegative, false);
+      expect(HomeViewModel.limitPercent.isNegative, false);
     });
 
     test('initial `limitPercent` value should be 100.00', () {
-      expect(homeViewModel.limitPercent, 100.00);
+      expect(HomeViewModel.limitPercent, 100.00);
     });
 
     test('the `balancesFutureValue` run time type should be [double]', () {
-      expect(homeViewModel.balancesFutureValue.runtimeType, double);
+      expect(HomeViewModel.balancesFutureValue.runtimeType, double);
     });
 
-    test('initial `balancesFutureValue` value should be 1529.98', () {
-      expect(homeViewModel.balancesFutureValue, 1529.98);
+    test('initial `balancesFutureValue` value should be 0.0', () {
+      expect(HomeViewModel.balancesFutureValue, 0.0);
     });
 
-    test('initial `balancesFuturePercent` value should be null', () {
-      expect(homeViewModel.balancesFuturePercent, null);
+    test('initial `balancesFuturePercent` value should be 0.0', () {
+      expect(HomeViewModel.balancesFuturePercent, 0.0);
     });
 
-    test('initial `balancesFutureFlex` value should be null', () {
-      expect(homeViewModel.balancesFutureFlex, null);
+    test('initial `balancesFutureFlex` value should be 0', () {
+      expect(HomeViewModel.balancesFutureFlex, 0);
     });
 
     test('the `balancesOpenValue` run time type should be [double]', () {
-      expect(homeViewModel.balancesOpenValue.runtimeType, double);
+      expect(HomeViewModel.balancesOpenValue.runtimeType, double);
     });
 
     test('initial `balancesOpenValue` value should be 5578.79', () {
-      expect(homeViewModel.balancesOpenValue, 5578.79);
+      expect(HomeViewModel.balancesOpenValue, 5578.79);
     });
 
-    test('initial `balancesOpenPercent` value should be null', () {
-      expect(homeViewModel.balancesOpenPercent, null);
+    test('initial `balancesOpenPercent` value should be 37.19069364354522', () {
+      expect(HomeViewModel.balancesOpenPercent, 37.19069364354522);
     });
 
-    test('initial `balancesOpenFlex` value should be null', () {
-      expect(homeViewModel.balancesOpenFlex, null);
+    test('initial `balancesOpenFlex` value should be 37', () {
+      expect(HomeViewModel.balancesOpenFlex, 37);
     });
 
     test('the `balancesAvailableValue` run time type should be [double]', () {
-      expect(homeViewModel.balancesAvailableValue.runtimeType, double);
+      expect(HomeViewModel.balancesAvailableValue.runtimeType, double);
     });
 
-    test('initial `balancesAvailableValue` value should be 7891.23', () {
-      expect(homeViewModel.balancesAvailableValue, 7891.23);
+    test('initial `balancesAvailableValue` value should be 9421.71', () {
+      expect(HomeViewModel.balancesAvailableValue, 9421.71);
     });
 
-    test('initial `balancesAvailablePercent` value should be null', () {
-      expect(homeViewModel.balancesAvailablePercent, null);
+    test(
+        'initial `balancesAvailablePercent` value should be 62.809306356454776',
+        () {
+      expect(HomeViewModel.balancesAvailablePercent, 62.809306356454776);
     });
 
-    test('initial `balancesAvailableFlex` value should be null', () {
-      expect(homeViewModel.balancesAvailableFlex, null);
+    test('initial `balancesAvailableFlex` value should be 63', () {
+      expect(HomeViewModel.balancesAvailableFlex, 63);
     });
 
     test('the `balancesDueValue` run time type should be [double]', () {
-      expect(homeViewModel.balancesDueValue.runtimeType, double);
+      expect(HomeViewModel.balancesDueValue.runtimeType, double);
     });
 
     test('initial `balancesDueValue` value should be 0', () {
-      expect(homeViewModel.balancesDueValue, 0);
+      expect(HomeViewModel.balancesDueValue, 0);
     });
 
     test('the `balancesDuePercent` run time type should be [double]', () {
-      expect(homeViewModel.balancesDuePercent.runtimeType, double);
+      expect(HomeViewModel.balancesDuePercent.runtimeType, double);
     });
 
     test('initial `balancesDuePercent` value should be 0', () {
-      expect(homeViewModel.balancesDuePercent, 0);
+      expect(HomeViewModel.balancesDuePercent, 0);
     });
 
     test('the `balancesDueFlex` run time type should be [int]', () {
-      expect(homeViewModel.balancesDueFlex.runtimeType, int);
+      expect(HomeViewModel.balancesDueFlex.runtimeType, int);
     });
 
     test('initial `balancesDueFlex` value should be 0', () {
-      expect(homeViewModel.balancesDueFlex, 0);
+      expect(HomeViewModel.balancesDueFlex, 0);
     });
 
     test('the `lastCardRegister` tyle should be `Map<String, dynamic>`', () {

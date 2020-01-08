@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/card/views/card_view.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
 import 'package:nudemo/utils/config.dart';
@@ -28,6 +29,13 @@ void main() {
       "bankBranch": config.bankBranch,
       "bankAccount": config.bankAccount,
       "accountLimit": config.accountLimit,
+      "limitPercent": HomeViewModel.limitPercent,
+      "balancesOpenValue": HomeViewModel.balancesOpenValue,
+      "balancesOpenPercent": HomeViewModel.balancesOpenPercent,
+      "balancesOpenFlex": HomeViewModel.balancesOpenFlex,
+      "balancesAvailableValue": HomeViewModel.balancesAvailableValue,
+      "balancesAvailablePercent": HomeViewModel.balancesAvailablePercent,
+      "balancesAvailableFlex": HomeViewModel.balancesAvailableFlex,
     });
 
     /// Mock Global Variables
@@ -41,6 +49,13 @@ void main() {
     globals.bankBranch = config.bankBranch;
     globals.bankAccount = config.bankAccount;
     globals.accountLimit = config.accountLimit;
+    globals.limitPercent = HomeViewModel.limitPercent;
+    globals.balancesOpenValue = HomeViewModel.balancesOpenValue;
+    globals.balancesOpenPercent = HomeViewModel.balancesOpenPercent;
+    globals.balancesOpenFlex = HomeViewModel.balancesOpenFlex;
+    globals.balancesAvailableValue = HomeViewModel.balancesAvailableValue;
+    globals.balancesAvailablePercent = HomeViewModel.balancesAvailablePercent;
+    globals.balancesAvailableFlex = HomeViewModel.balancesAvailableFlex;
   });
 
   group('[Widget -> Card page]', () {
