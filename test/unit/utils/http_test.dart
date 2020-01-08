@@ -1,5 +1,5 @@
-import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
+import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
 import 'package:nudemo/utils/config.dart';
@@ -48,9 +48,9 @@ main() {
     headers: requestHeaders,
   );
   final Customer newCustomer = Customer(
-    name: Config().userName,
-    eMail: Config().userEmail,
-    phone: Config().userPhone,
+    name: "Chinnon Santos",
+    eMail: "chinnonsantos@gmail.com",
+    phone: "11987654321",
   );
 
   /// Mock of [Account API]

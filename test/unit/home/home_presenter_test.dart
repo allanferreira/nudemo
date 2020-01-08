@@ -1,28 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:test/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:mockito/mockito.dart';
 
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
 import 'package:nudemo/themes/nu_dark_theme.dart';
+import 'package:nudemo/utils/model/customer_model.dart';
+import 'package:nudemo/utils/model/account_model.dart';
 import 'package:nudemo/utils/config.dart';
+import 'package:nudemo/utils/http.dart';
+
+/// Create a `MockClient` using the `Mock` class provided by the Mockito package.
+/// Create new `instances` of this class in each test.
+class MockClient extends Mock implements http.Client {}
+
+/// Create a `MockHttp` using the `Mock` class provided by the Mockito package.
+/// Create new `instances` of this class in each test.
+class MockHttp extends Mock implements Http {}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  HomePresenter homePresenter;
+  HomeViewModel homeViewModel;
+  Config config;
 
-  group('[Unit -> HomePresenter]', () {
-    HomePresenter homePresenter;
-    HomeViewModel homeViewModel;
-    Config config;
+  setUp(() {
+    homePresenter = HomePresenter();
+    homeViewModel = HomeViewModel();
+    config = Config();
+  });
+
+  group('[Unit -> HomePresenter] General', () {
     final Color activeColor = Colors.black45;
     final Color unactiveColor = Colors.white;
-
-    setUp(() {
-      homePresenter = HomePresenter();
-      homeViewModel = HomeViewModel();
-      config = Config();
-    });
 
     test('`getNuTheme()` run time type should be [ThemeData]', () {
       expect(
@@ -461,34 +474,27 @@ void main() {
         homeViewModel.lastCardRegister,
       );
     });
+  });
 
-    test('initial `sharedPrefs` value should be null', () {
-      expect(
-        HomePresenter.sharedPrefs,
-        null,
-      );
+  group('[Unit -> HomePresenter] SharedPreferences and Mock', () {
+    MockClient client;
+    MockHttp mockHttp;
+    final Duration timeRequest = const Duration(milliseconds: 50);
+
+    setUp(() {
+      client = MockClient();
+      mockHttp = MockHttp();
     });
 
-    // test('`sharedPrefs` value should be null after run `initialUserData()`',
-    //     () {
-    //   expect(
-    //     HomePresenter.sharedPrefs,
-    //     null,
-    //   );
-
-    //   SharedPreferences.setMockInitialValues({});
-    //   HomePresenter.initialUserData();
-
-    //   expect(
-    //     HomePresenter.sharedPrefs,
-    //     null,
-    //   );
-    // });
+    test('initial `sharedPrefs` value should be null', () {
+      expect(HomePresenter.sharedPrefs, null);
+    });
 
     test('check initial data of `sharedPrefs`', () async {
       config.userUuid = "a1b2c3";
       config.accountUuid = "a1b2c3d4e5";
 
+      /// Mock SharedPreferences
       SharedPreferences.setMockInitialValues({
         "userUuid": config.userUuid,
         "userName": config.userName,
@@ -517,6 +523,7 @@ void main() {
       config.userUuid = "a1b2c3";
       config.accountUuid = "a1b2c3d4e5";
 
+      /// Mock SharedPreferences
       SharedPreferences.setMockInitialValues({
         "userUuid": config.userUuid,
         "userName": config.userName,
@@ -569,6 +576,293 @@ void main() {
       expect(pref.getString('bankBranch'), bankBranch);
       expect(pref.getString('bankAccount'), bankAccount);
       expect(pref.getDouble('accountLimit'), accountLimit);
+    });
+
+    test('check values after first run `initialUserData()` successfully',
+        () async {
+      /// Mock SharedPreferences
+      SharedPreferences.setMockInitialValues({});
+
+      /// Mock customer status API [Ok]
+      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), true);
+
+      /// Mock account status API [Ok]
+      when(mockHttp.checkHealthAccountApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthAccountApi(httpClient: client), true);
+
+      /// Mock customer register [Ok]
+      final Customer newCustomer = Customer(
+        name: Config().userName,
+        eMail: Config().userEmail,
+        phone: Config().userPhone,
+      );
+      final String customerId = 'a1b2c3';
+      final Customer customerRegistered = Customer(
+        customerId: customerId,
+        name: Config().userName,
+        eMail: Config().userEmail,
+        phone: Config().userPhone,
+      );
+
+      when(mockHttp.createCustomerApi(
+        httpClient: client,
+        customerData: newCustomer,
+      )).thenAnswer(
+        (_) async => Future.delayed(timeRequest, () => customerRegistered),
+      );
+
+      expect(
+        await mockHttp.createCustomerApi(
+          httpClient: client,
+          customerData: newCustomer,
+        ),
+        customerRegistered,
+      );
+
+      /// Mock account register [Ok]
+      Account newAccount = Account(
+        customerId: customerId,
+        bankBranch: Config().bankBranch,
+        bankAccount: Config().bankAccount,
+        limit: Config().accountLimit,
+      );
+      final String accountId = 'c3b2a1';
+      Account accountRegistered = Account(
+        accountId: accountId,
+        customerId: customerId,
+        bankBranch: Config().bankBranch,
+        bankAccount: Config().bankAccount,
+        limit: Config().accountLimit,
+      );
+
+      when(mockHttp.createAccountApi(
+        httpClient: client,
+        accountData: newAccount,
+      )).thenAnswer(
+        (_) async => Future.delayed(timeRequest, () => accountRegistered),
+      );
+
+      expect(
+        await mockHttp.createAccountApi(
+          httpClient: client,
+          accountData: newAccount,
+        ),
+        accountRegistered,
+      );
+
+      expect(
+        await homePresenter.initialUserData(
+          client,
+          mockHttp,
+          newCustomer,
+          newAccount,
+        ),
+        true,
+      );
+    });
+
+    test(
+        'check values after first run `initialUserData()` with error (Customer API Off!)',
+        () async {
+      /// Mock SharedPreferences
+      SharedPreferences.setMockInitialValues({});
+
+      /// Mock customer status API [Off]
+      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), false);
+
+      expect(await homePresenter.initialUserData(client, mockHttp), false);
+    });
+
+    test(
+        'check values after first run `initialUserData()` with error (Account API Off!)',
+        () async {
+      /// Mock SharedPreferences
+      SharedPreferences.setMockInitialValues({});
+
+      /// Mock account status API [Off]
+      when(mockHttp.checkHealthAccountApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
+
+      expect(await homePresenter.initialUserData(client, mockHttp), false);
+    });
+
+    test(
+        'check values after first run `initialUserData()` with error (Customer and Account API Off!)',
+        () async {
+      /// Mock SharedPreferences
+      SharedPreferences.setMockInitialValues({});
+
+      /// Mock customer status API [Off]
+      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), false);
+
+      /// Mock account status API [Off]
+      when(mockHttp.checkHealthAccountApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
+
+      expect(await homePresenter.initialUserData(client, mockHttp), false);
+    });
+
+    test(
+        'check values after first run `initialUserData()` with error (Customer create API Off!)',
+        () async {
+      /// Mock SharedPreferences
+      SharedPreferences.setMockInitialValues({});
+
+      /// Mock customer status API [Ok]
+      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), true);
+
+      /// Mock account status API [Ok]
+      when(mockHttp.checkHealthAccountApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthAccountApi(httpClient: client), true);
+
+      /// Mock customer register [Ok]
+      final Customer newCustomer = Customer(
+        name: Config().userName,
+        eMail: Config().userEmail,
+        phone: Config().userPhone,
+      );
+
+      when(mockHttp.createCustomerApi(
+        httpClient: client,
+        customerData: newCustomer,
+      )).thenAnswer(
+        (_) async => Future.delayed(timeRequest, () => null),
+      );
+
+      expect(
+        await mockHttp.createCustomerApi(
+          httpClient: client,
+          customerData: newCustomer,
+        ),
+        null,
+      );
+
+      expect(
+        await homePresenter.initialUserData(
+          client,
+          mockHttp,
+          newCustomer,
+        ),
+        false,
+      );
+    });
+
+    test(
+        'check values after first run `initialUserData()` with error (Account create API Off!)',
+        () async {
+      /// Mock SharedPreferences
+      SharedPreferences.setMockInitialValues({});
+
+      /// Mock customer status API [Ok]
+      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), true);
+
+      /// Mock account status API [Ok]
+      when(mockHttp.checkHealthAccountApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthAccountApi(httpClient: client), true);
+
+      /// Mock customer register [Ok]
+      final Customer newCustomer = Customer(
+        name: Config().userName,
+        eMail: Config().userEmail,
+        phone: Config().userPhone,
+      );
+      final String customerId = 'a1b2c3';
+      final Customer customerRegistered = Customer(
+        customerId: customerId,
+        name: Config().userName,
+        eMail: Config().userEmail,
+        phone: Config().userPhone,
+      );
+
+      when(mockHttp.createCustomerApi(
+        httpClient: client,
+        customerData: newCustomer,
+      )).thenAnswer(
+        (_) async => Future.delayed(timeRequest, () => customerRegistered),
+      );
+
+      expect(
+        await mockHttp.createCustomerApi(
+          httpClient: client,
+          customerData: newCustomer,
+        ),
+        customerRegistered,
+      );
+
+      /// Mock account register [Ok]
+      Account newAccount = Account(
+        customerId: customerId,
+        bankBranch: Config().bankBranch,
+        bankAccount: Config().bankAccount,
+        limit: Config().accountLimit,
+      );
+
+      when(mockHttp.createAccountApi(
+        httpClient: client,
+        accountData: newAccount,
+      )).thenAnswer(
+        (_) async => Future.delayed(timeRequest, () => null),
+      );
+
+      expect(
+        await mockHttp.createAccountApi(
+          httpClient: client,
+          accountData: newAccount,
+        ),
+        null,
+      );
+
+      expect(
+        await homePresenter.initialUserData(
+          client,
+          mockHttp,
+          newCustomer,
+          newAccount,
+        ),
+        false,
+      );
+    });
+
+    test('check values after second run `initialUserData()` successfully',
+        () async {
+      /// Mock SharedPreferences
+      SharedPreferences.setMockInitialValues(
+          {'userUuid': 'a1b2c3', 'accountUuid': 'c3b2a1'});
+
+      expect(await homePresenter.initialUserData(client, mockHttp), true);
+    });
+
+    test('check values after second run `initialUserData()` with error',
+        () async {
+      /// Mock SharedPreferences
+      SharedPreferences.setMockInitialValues({});
+
+      expect(await homePresenter.initialUserData(), false);
     });
   });
 }

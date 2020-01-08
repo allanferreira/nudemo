@@ -199,12 +199,12 @@ void main() {
       expect(config.bankAccount, '8765432-1');
     });
 
-    test('initial value of `accountLimit` should be 15000', () {
-      expect(config.accountLimit, 15000);
+    test('initial value of `accountLimit` should be 15000.5', () {
+      expect(config.accountLimit, 15000.5);
     });
 
     test('the changed value of `accountLimit` should be 18000', () {
-      expect(config.accountLimit, 15000);
+      expect(config.accountLimit, 15000.5);
 
       config.accountLimit = 18000;
 
@@ -212,7 +212,7 @@ void main() {
     });
 
     test('the changed value of `accountLimit` should be 18000 for twice', () {
-      expect(config.accountLimit, 15000);
+      expect(config.accountLimit, 15000.5);
 
       config.accountLimit = 18000;
 

@@ -10,6 +10,7 @@ import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/themes/nu_default_theme.dart';
 import 'package:nudemo/themes/nu_dark_theme.dart';
 import 'package:nudemo/utils/model/customer_model.dart';
+import 'package:nudemo/utils/model/account_model.dart';
 import 'package:nudemo/utils/utils.dart';
 import 'package:nudemo/utils/config.dart';
 import 'package:nudemo/utils/http.dart';
@@ -215,45 +216,85 @@ class HomePresenter with ChangeNotifier {
   /// `customerRegisterEndPoint` (the endpoint responsible for register new
   /// customers), and then the App use this register like the customer!
   /// - The same happens with account setup (using `accountRegisterEndPoint`)!
-  static Future initialUserData({@required http.Client httpClient}) async {
-    Http _http = Http();
-
-    // Registering a new customer and a new account,
-    // if they are not already registered.
-    if (await _http.checkHealthCustomerApi(httpClient: httpClient) &&
-        await _http.checkHealthAccountApi(httpClient: httpClient)) {
-      print('APIs Ok!');
-
-      Customer newCustomer = Customer(
-        name: Config().userName,
-        eMail: Config().userEmail,
-        phone: Config().userPhone,
-      );
-
-      Customer registeredCustomer = await _http.createCustomerApi(
-        httpClient: httpClient,
-        customerData: newCustomer,
-      );
-      print('Create customer API: ${registeredCustomer.customerId}');
-    }
-
+  Future<bool> initialUserData([
+    httpClientMock,
+    utilsHttpMock,
+    newCustomerMock,
+    newAccountMock,
+  ]) async {
+    print('initialUserData: start');
+    http.Client httpClient = httpClientMock ?? http.Client();
+    Http utilsHttp = utilsHttpMock ?? Http();
+    Config config = Config();
     sharedPrefs = await SharedPreferences.getInstance();
 
-    if (sharedPrefs.getString('userUuid') == null) {
-      print('userUuid: request data from API');
+    config.userUuid = sharedPrefs.getString('userUuid');
+    config.accountUuid = sharedPrefs.getString('accountUuid');
 
-      await sharedPrefs.setString('userUuid', 'a1b2c3');
-      await sharedPrefs.setString('accountUuid', 'a1b2c3d4e5');
-    } else {
-      Config _config = Config();
+    // Registering a new customer and a new account,
+    // if they are not already registered...
+    if (config.userUuid == null || config.accountUuid == null) {
+      print('initialUserData: Register new Customer and Account');
 
-      _config.userUuid =
-          (sharedPrefs.getString('userUuid') ?? _config.userUuid);
-      _config.accountUuid =
-          (sharedPrefs.getString('accountUuid') ?? _config.accountUuid);
+      if (await utilsHttp.checkHealthCustomerApi(httpClient: httpClient) &&
+          await utilsHttp.checkHealthAccountApi(httpClient: httpClient)) {
+        print('APIs Ok!');
 
-      print('userUuid: ${_config.userUuid}');
-      print('userUuid: ${_config.accountUuid}');
+        Customer newCustomer = Customer(
+          name: Config().userName,
+          eMail: Config().userEmail,
+          phone: Config().userPhone,
+        );
+
+        Customer regCustomer = await utilsHttp.createCustomerApi(
+          httpClient: httpClient,
+          customerData: newCustomerMock ?? newCustomer,
+        );
+
+        if (regCustomer != null && regCustomer.customerId != null) {
+          print('Create customer API: ${regCustomer.customerId}');
+
+          Account newAccount = Account(
+            customerId: regCustomer.customerId,
+            bankBranch: Config().bankBranch,
+            bankAccount: Config().bankAccount,
+            limit: Config().accountLimit,
+          );
+
+          Account regAccount = await utilsHttp.createAccountApi(
+            httpClient: httpClient,
+            accountData: newAccountMock ?? newAccount,
+          );
+
+          if (regAccount != null && regAccount.accountId != null) {
+            print('Create account API: ${regAccount.accountId}');
+
+            // Persist on device memory the Customer ID and Account ID
+            return (await sharedPrefs.setString(
+                  'userUuid',
+                  regCustomer.customerId,
+                ) &&
+                await sharedPrefs.setString(
+                  'accountUuid',
+                  regAccount.accountId,
+                ));
+          } else {
+            print('Account register Off!');
+          }
+        } else {
+          print('Customer register Off!');
+        }
+      } else {
+        print('APIs Off!');
+      }
+      return false;
     }
+
+    //... Or, recover from device memory the Customer ID and Account ID
+    print('initialUserData: Recover existing Customer ID and Account ID');
+    print('userUuid: ${config.userUuid}');
+    print('userUuid: ${config.accountUuid}');
+
+    return (config.userUuid != null && config.accountUuid != null);
   }
 }

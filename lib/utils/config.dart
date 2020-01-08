@@ -13,7 +13,7 @@ class Config {
   String accountUuid;
   String bankBranch = "0001";
   String bankAccount = "1234567-8";
-  double accountLimit = 15000;
+  double accountLimit = 15000.5;
 
   /// [Customer] EndPoints
   static int _customerPort = 9000;
