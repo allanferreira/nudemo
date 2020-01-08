@@ -30,6 +30,10 @@ void main() {
       'bankAccount': Config().bankAccount,
       'accountLimit': Config().accountLimit,
     });
+
+    // Mock Global Variables
+    globals.userUuid = 'a1b2c3';
+    globals.accountUuid = 'c3b2a1';
   });
 
   group('[Widget -> Home page] - All Sections', () {
@@ -65,6 +69,7 @@ void main() {
     );
 
     testWidgets('Smoke test - ${_title} [MyApp]', (WidgetTester tester) async {
+      // Mock Global Variables
       globals.isLoggedIn = true;
 
       // Build our app and trigger a frame.
@@ -76,6 +81,7 @@ void main() {
     });
 
     testWidgets('Smoke test - ${_title} [MyApp]', (WidgetTester tester) async {
+      // Mock Global Variables
       globals.isLoggedIn = false;
 
       // Build our app and trigger a frame.

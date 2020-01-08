@@ -12,6 +12,7 @@ import 'package:nudemo/utils/model/customer_model.dart';
 import 'package:nudemo/utils/model/account_model.dart';
 import 'package:nudemo/utils/config.dart';
 import 'package:nudemo/utils/http.dart';
+import 'package:nudemo/utils/globals.dart' as globals;
 
 /// Create a `MockClient` using the `Mock` class provided by the Mockito package.
 /// Create new `instances` of this class in each test.
@@ -476,21 +477,17 @@ void main() {
     });
   });
 
-  group('[Unit -> HomePresenter] SharedPreferences and Mock', () {
+  group(
+      '[Unit -> HomePresenter] SharedPreferences and Mock with full user data',
+      () {
     MockClient client;
     MockHttp mockHttp;
-    final Duration timeRequest = const Duration(milliseconds: 5);
 
     setUp(() {
       client = MockClient();
       mockHttp = MockHttp();
-    });
 
-    test('initial `sharedPrefs` value should be null', () {
-      expect(HomePresenter.sharedPrefs, null);
-    });
-
-    test('check initial data of `sharedPrefs`', () async {
+      /// Mock Config class
       config.userUuid = "a1b2c3";
       config.accountUuid = "a1b2c3d4e5";
 
@@ -506,6 +503,21 @@ void main() {
         "bankAccount": config.bankAccount,
         "accountLimit": config.accountLimit,
       });
+
+      /// Mock Global Variables
+      globals.isLoggedIn = true;
+      globals.userUuid = config.userUuid;
+      globals.userName = config.userName;
+      globals.userNickname = config.userNickname;
+      globals.userEmail = config.userEmail;
+      globals.userPhone = config.userPhone;
+      globals.accountUuid = config.accountUuid;
+      globals.bankBranch = config.bankBranch;
+      globals.bankAccount = config.bankAccount;
+      globals.accountLimit = config.accountLimit;
+    });
+
+    test('check initial data of `sharedPrefs`', () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
 
       expect(pref.getString('userUuid'), config.userUuid);
@@ -520,21 +532,6 @@ void main() {
     }, timeout: Timeout.factor(2));
 
     test('check data of `sharedPrefs` after changed', () async {
-      config.userUuid = "a1b2c3";
-      config.accountUuid = "a1b2c3d4e5";
-
-      /// Mock SharedPreferences
-      SharedPreferences.setMockInitialValues({
-        "userUuid": config.userUuid,
-        "userName": config.userName,
-        "userNickname": config.userNickname,
-        "userEmail": config.userEmail,
-        "userPhone": config.userPhone,
-        "accountUuid": config.accountUuid,
-        "bankBranch": config.bankBranch,
-        "bankAccount": config.bankAccount,
-        "accountLimit": config.accountLimit,
-      });
       SharedPreferences pref = await SharedPreferences.getInstance();
 
       expect(pref.getString('userUuid'), config.userUuid);
@@ -578,11 +575,56 @@ void main() {
       expect(pref.getDouble('accountLimit'), accountLimit);
     }, timeout: Timeout.factor(2));
 
-    test('check values after first run `initialUserData()` successfully',
+    test('check values after second run `initialUserData()` successfully',
         () async {
+      expect(await homePresenter.initialUserData(client, mockHttp), true);
+    }, timeout: Timeout.factor(2));
+  }, timeout: Timeout.factor(2));
+
+  group(
+      '[Unit -> HomePresenter] SharedPreferences and Mock with empty user data',
+      () {
+    MockClient client;
+    MockHttp mockHttp;
+    final Duration timeRequest = const Duration(milliseconds: 5);
+
+    setUp(() {
+      client = MockClient();
+      mockHttp = MockHttp();
+
+      /// Mock Config class
+      config.userUuid = null;
+      config.userName = null;
+      config.userNickname = null;
+      config.userEmail = null;
+      config.userPhone = null;
+      config.accountUuid = null;
+      config.bankBranch = null;
+      config.bankAccount = null;
+      config.accountLimit = null;
+
       /// Mock SharedPreferences
       SharedPreferences.setMockInitialValues({});
 
+      /// Mock Global Variables
+      globals.isLoggedIn = false;
+      globals.userUuid = config.userUuid;
+      globals.userName = config.userName;
+      globals.userNickname = config.userNickname;
+      globals.userEmail = config.userEmail;
+      globals.userPhone = config.userPhone;
+      globals.accountUuid = config.accountUuid;
+      globals.bankBranch = config.bankBranch;
+      globals.bankAccount = config.bankAccount;
+      globals.accountLimit = config.accountLimit;
+    });
+
+    test('initial `sharedPrefs` value should be null', () {
+      expect(HomePresenter.sharedPrefs.runtimeType, SharedPreferences);
+    });
+
+    test('check values after first run `initialUserData()` successfully',
+        () async {
       /// Mock customer status API [Ok]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
@@ -669,9 +711,6 @@ void main() {
     test(
         'check values after first run `initialUserData()` with error (Customer API Off!)',
         () async {
-      /// Mock SharedPreferences
-      SharedPreferences.setMockInitialValues({});
-
       /// Mock customer status API [Off]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
@@ -684,9 +723,6 @@ void main() {
     test(
         'check values after first run `initialUserData()` with error (Account API Off!)',
         () async {
-      /// Mock SharedPreferences
-      SharedPreferences.setMockInitialValues({});
-
       /// Mock account status API [Off]
       when(mockHttp.checkHealthAccountApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
@@ -699,9 +735,6 @@ void main() {
     test(
         'check values after first run `initialUserData()` with error (Customer and Account API Off!)',
         () async {
-      /// Mock SharedPreferences
-      SharedPreferences.setMockInitialValues({});
-
       /// Mock customer status API [Off]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
@@ -720,9 +753,6 @@ void main() {
     test(
         'check values after first run `initialUserData()` with error (Customer create API Off!)',
         () async {
-      /// Mock SharedPreferences
-      SharedPreferences.setMockInitialValues({});
-
       /// Mock customer status API [Ok]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
@@ -770,9 +800,6 @@ void main() {
     test(
         'check values after first run `initialUserData()` with error (Account create API Off!)',
         () async {
-      /// Mock SharedPreferences
-      SharedPreferences.setMockInitialValues({});
-
       /// Mock customer status API [Ok]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
@@ -848,20 +875,8 @@ void main() {
       );
     }, timeout: Timeout.factor(2));
 
-    test('check values after second run `initialUserData()` successfully',
-        () async {
-      /// Mock SharedPreferences
-      SharedPreferences.setMockInitialValues(
-          {'userUuid': 'a1b2c3', 'accountUuid': 'c3b2a1'});
-
-      expect(await homePresenter.initialUserData(client, mockHttp), true);
-    }, timeout: Timeout.factor(2));
-
     test('check values after second run `initialUserData()` with error',
         () async {
-      /// Mock SharedPreferences
-      SharedPreferences.setMockInitialValues({});
-
       expect(await homePresenter.initialUserData(), false);
     }, timeout: Timeout.factor(2));
   }, timeout: Timeout.factor(2));

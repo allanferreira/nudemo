@@ -2,9 +2,6 @@ class Config {
   static String version = "1.0.1";
 
   /// Default data of customer and account 👤 (used for test).
-  /// This data can be changed to test the application with
-  /// data from other users at run time.
-  /// - We do not cover multiple tests with different user data!!!
   String userUuid;
   String userName = "Chinnon Santos";
   String userNickname = "Chinnon";

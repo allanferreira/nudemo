@@ -217,7 +217,7 @@ void main() {
       /// tap the `⬅️` arrow_back icon and trigger a frame.
       await _driver.tap(_goBackButton);
       await _driver.waitFor(_homePage);
-    }, skip: 'Buttons removed');
+    }, skip: 'Slider item not implemented yet!');
 
     test('drag to`down` animated box', () async {
       /// [Gesture 👆↕️👆] Drag to `Down` the `Container` Widget

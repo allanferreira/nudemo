@@ -11,6 +11,7 @@ import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
 import 'package:nudemo/utils/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nudemo/utils/globals.dart' as globals;
 
 /// `Section IV` - Slide box container widget test
 void main() {
@@ -29,6 +30,10 @@ void main() {
       'bankAccount': Config().bankAccount,
       'accountLimit': Config().accountLimit,
     });
+
+    // Mock Global Variables
+    globals.userUuid = 'a1b2c3';
+    globals.accountUuid = 'c3b2a1';
   });
 
   group('[Widget -> Home page] - Section IV', () {

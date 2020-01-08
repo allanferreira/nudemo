@@ -231,15 +231,22 @@ class HomePresenter with ChangeNotifier {
 
     http.Client httpClient = httpClientMock ?? http.Client();
     Http utilsHttp = utilsHttpMock ?? Http();
-    Config config = Config();
     sharedPrefs = await SharedPreferences.getInstance();
 
-    config.userUuid = sharedPrefs.getString('userUuid');
-    config.accountUuid = sharedPrefs.getString('accountUuid');
+    globals.userUuid = sharedPrefs.getString('userUuid');
+    globals.userName = sharedPrefs.getString('userName');
+    globals.userNickname = sharedPrefs.getString('userNickname');
+    globals.userEmail = sharedPrefs.getString('userEmail');
+    globals.userPhone = sharedPrefs.getString('userPhone');
+
+    globals.accountUuid = sharedPrefs.getString('accountUuid');
+    globals.bankBranch = sharedPrefs.getString('bankBranch');
+    globals.bankAccount = sharedPrefs.getString('bankAccount');
+    globals.accountLimit = sharedPrefs.getDouble('accountLimit');
 
     // Registering a new customer and a new account,
     // if they are not already registered...
-    if (config.userUuid == null || config.accountUuid == null) {
+    if (globals.userUuid == null || globals.accountUuid == null) {
       print('initialUserData: Register new Customer and Account');
 
       if (await utilsHttp.checkHealthCustomerApi(httpClient: httpClient) &&
@@ -296,10 +303,10 @@ class HomePresenter with ChangeNotifier {
 
     //... Or, recover from device memory the Customer and Account data
     print('initialUserData: Recover existing Customer ID and Account ID');
-    print('Customer ID: ${config.userUuid}');
-    print('Account ID: ${config.accountUuid}');
+    print('Customer ID: ${globals.userUuid}');
+    print('Account ID: ${globals.accountUuid}');
 
-    return (config.userUuid != null && config.accountUuid != null);
+    return (globals.userUuid != null && globals.accountUuid != null);
   }
 
   /// Routing the user to [Sign Up] page or [Home] page
