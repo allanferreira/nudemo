@@ -139,10 +139,6 @@ void main() {
       await tester.pumpWidget(_pumpWidget);
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
-      await tester.pumpAndSettle();
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
@@ -163,10 +159,6 @@ void main() {
     testWidgets('`Depositar` button smoke test - ${_title}',
         (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
-      await tester.pumpAndSettle();
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
@@ -195,15 +187,11 @@ void main() {
       await tester.pumpWidget(_pumpWidget);
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
-      await tester.pumpAndSettle();
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
+      await tester.drag(_depositButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `account_balance_wallet` icon.
@@ -225,15 +213,11 @@ void main() {
       await tester.pumpWidget(_pumpWidget);
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
-      await tester.pumpAndSettle();
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
+      await tester.drag(_depositButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `phone_iphone` icon.
@@ -255,19 +239,11 @@ void main() {
       await tester.pumpWidget(_pumpWidget);
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
-      await tester.pumpAndSettle();
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
-      await tester.pumpAndSettle();
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_referFriendsButton, Offset(-240.0, 0.0));
+      await tester.drag(_depositButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// verify if have a `Icon` widget with `person_add` icon.
@@ -289,15 +265,11 @@ void main() {
       await tester.pumpWidget(_pumpWidget);
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
-      await tester.pumpAndSettle();
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
+      await tester.drag(_depositButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
@@ -323,15 +295,11 @@ void main() {
       await tester.pumpWidget(_pumpWidget);
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_virtualCardButton, Offset(-240.0, 0.0));
-      await tester.pumpAndSettle();
-
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_chargeButton, Offset(-240.0, 0.0));
+      await tester.drag(_depositButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget

@@ -44,7 +44,7 @@ class Routes {
     '/signup/': SlideTopRoute(
       page: SignupPage(
         presenter: SignupPresenter(),
-        title: 'Signup',
+        title: 'Sign Up',
       ),
     ),
     // - Carousel slider main blocks

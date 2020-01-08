@@ -301,11 +301,11 @@ class HomePresenter with ChangeNotifier {
     return (config.userUuid != null && config.accountUuid != null);
   }
 
-  /// Routing the user to [Signup] page or [Home] page
+  /// Routing the user to [Sign Up] page or [Home] page
   Widget firstPage(loggedInUser) {
     if (loggedInUser) {
       return HomePage(presenter: HomePresenter(), title: '{userNickname}');
     }
-    return SignupPage(presenter: SignupPresenter(), title: 'Signup');
+    return SignupPage(presenter: SignupPresenter(), title: 'Sign Up');
   }
 }

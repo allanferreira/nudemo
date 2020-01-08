@@ -72,6 +72,14 @@ void main() {
       expect(find.text('{userNickname}'), findsOneWidget);
     });
 
+    testWidgets('Smoke test - ${_title} [MyApp]', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(MyApp(loggedInUser: false));
+
+      /// verify if have text `SIGN UP` (route `/`).
+      expect(find.text('Sign Up'.toUpperCase()), findsOneWidget);
+    });
+
     testWidgets('Smoke test - ${_title}', (WidgetTester tester) async {
       await tester.pumpWidget(_pumpWidget);
 
