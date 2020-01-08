@@ -75,9 +75,9 @@ void main() {
         findsWidgets,
       );
 
-      /// verify if have 5 `ListTile` widget.
+      /// verify if have 5 `MaterialButton` widget.
       expect(
-        find.descendant(of: _mainMenu, matching: find.byType(ListTile)),
+        find.descendant(of: _mainMenu, matching: find.byType(MaterialButton)),
         findsNWidgets(5),
       );
 
@@ -128,11 +128,17 @@ void main() {
       );
 
       /// verify if have text `Me ajuda`.
-      expect(find.text('Me ajuda'), findsOneWidget);
+      expect(
+        find.descendant(of: _mainMenu, matching: find.text('Me ajuda')),
+        findsOneWidget,
+      );
 
       /// verify if have an item in the menu list with
-      /// `/helpme/` key/route (ListTile Widget).
-      expect(_helpMeButton, findsOneWidget);
+      /// `/helpme/` key/route (MaterialButton Widget).
+      expect(
+        find.descendant(of: _mainMenu, matching: _helpMeButton),
+        findsOneWidget,
+      );
 
       /// tap the `/helpme/` item menu and trigger a frame.
       await tester.tap(_helpMeButton);
@@ -150,11 +156,25 @@ void main() {
       );
 
       /// verify if have text `Perfil`.
-      expect(find.text('Perfil'), findsOneWidget);
+      expect(
+        find.descendant(of: _mainMenu, matching: find.text('Perfil')),
+        findsOneWidget,
+      );
+
+      /// verify if have text `Nome de preferência, telefone, e-mail`.
+      expect(
+        find.descendant(
+            of: _mainMenu,
+            matching: find.text('Nome de preferência, telefone, e-mail')),
+        findsOneWidget,
+      );
 
       /// verify if have an item in the menu list with
-      /// `/profile/` key/route (ListTile Widget).
-      expect(_profileButton, findsOneWidget);
+      /// `/profile/` key/route (MaterialButton Widget).
+      expect(
+        find.descendant(of: _mainMenu, matching: _profileButton),
+        findsOneWidget,
+      );
 
       /// tap the `/profile/` item menu and trigger a frame.
       await tester.tap(_profileButton);
@@ -179,11 +199,18 @@ void main() {
       );
 
       /// verify if have text `Configurar NuConta`.
-      expect(find.text('Configurar NuConta'), findsOneWidget);
+      expect(
+        find.descendant(
+            of: _mainMenu, matching: find.text('Configurar NuConta')),
+        findsOneWidget,
+      );
 
       /// verify if have an item in the menu list with
-      /// `/nuconta-configs/` key/route (ListTile Widget).
-      expect(_nuContaConfigsButton, findsOneWidget);
+      /// `/nuconta-configs/` key/route (MaterialButton Widget).
+      expect(
+        find.descendant(of: _mainMenu, matching: _nuContaConfigsButton),
+        findsOneWidget,
+      );
 
       /// tap the `/nuconta-configs/` item menu and trigger a frame.
       await tester.tap(_nuContaConfigsButton);
@@ -202,11 +229,18 @@ void main() {
       );
 
       /// verify if have text `Configurar cartão`.
-      expect(find.text('Configurar cartão'), findsOneWidget);
+      expect(
+        find.descendant(
+            of: _mainMenu, matching: find.text('Configurar cartão')),
+        findsOneWidget,
+      );
 
       /// verify if have an item in the menu list with
-      /// `/card-configs/` key/route (ListTile Widget).
-      expect(_cardConfigsButton, findsOneWidget);
+      /// `/card-configs/` key/route (MaterialButton Widget).
+      expect(
+        find.descendant(of: _mainMenu, matching: _cardConfigsButton),
+        findsOneWidget,
+      );
 
       /// tap the `/card-configs/` item menu and trigger a frame.
       await tester.tap(_cardConfigsButton);
@@ -225,11 +259,18 @@ void main() {
       );
 
       /// verify if have text `Configurações do app`.
-      expect(find.text('Configurações do app'), findsOneWidget);
+      expect(
+        find.descendant(
+            of: _mainMenu, matching: find.text('Configurações do app')),
+        findsOneWidget,
+      );
 
       /// verify if have an item in the menu list with
-      /// `/app-configs/` key/route (ListTile Widget).
-      expect(_appConfigsButton, findsOneWidget);
+      /// `/app-configs/` key/route (MaterialButton Widget).
+      expect(
+        find.descendant(of: _mainMenu, matching: _appConfigsButton),
+        findsOneWidget,
+      );
 
       /// tap the `/app-configs/` item menu and trigger a frame.
       await tester.tap(_appConfigsButton);
@@ -241,10 +282,16 @@ void main() {
       await tester.pumpWidget(_pumpWidget);
 
       /// verify if have text `SAIR DA CONTA`.
-      expect(find.text('SAIR DA CONTA'), findsOneWidget);
+      expect(
+        find.descendant(of: _mainMenu, matching: find.text('SAIR DA CONTA')),
+        findsOneWidget,
+      );
 
       /// verify if have a button with `/exit/` key/route.
-      expect(_exitButton, findsOneWidget);
+      expect(
+        find.descendant(of: _mainMenu, matching: _exitButton),
+        findsOneWidget,
+      );
 
       /// tap the `/exit/` item menu and trigger a frame.
       await tester.tap(_exitButton);

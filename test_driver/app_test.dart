@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:test/test.dart';
 import 'package:flutter_driver/flutter_driver.dart';
 
@@ -71,6 +73,8 @@ void main() {
     // Connect to the Flutter driver before running any tests.
     setUpAll(() async {
       _driver = await FlutterDriver.connect();
+
+      await sleep(Duration(seconds: 5));
 
       // Awaiting full application loading (including animations)
       await _driver.waitFor(_myApp);

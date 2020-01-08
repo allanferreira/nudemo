@@ -115,53 +115,77 @@ class SectionII extends StatelessWidget {
       ),
     );
 
-    // Build item list menu (Section II)
-    Widget _buildItemListMenu(
-        {Widget img, String title, String subtitle, String route}) {
-      if (subtitle != null) {
-        return ListTile(
-          key: Key(route),
-          leading: img,
-          title: Text(
-            title,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.subhead.color,
-              fontSize: Theme.of(context).textTheme.subhead.fontSize,
-              fontWeight: Theme.of(context).textTheme.subhead.fontWeight,
-              fontStyle: Theme.of(context).textTheme.subhead.fontStyle,
-            ),
-          ),
-          subtitle: Text(
-            subtitle,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.subhead.color,
-              fontSize: Theme.of(context).textTheme.subtitle.fontSize,
-              fontWeight: Theme.of(context).textTheme.subtitle.fontWeight,
-              fontStyle: Theme.of(context).textTheme.subtitle.fontStyle,
-            ),
-          ),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          dense: true,
-          contentPadding: EdgeInsets.all(0),
-          onTap: () => Routes(context).navigatorPush(context, route),
-        );
-      }
-      return ListTile(
-        key: Key(route),
-        leading: img,
-        title: Text(
+    // Build button list (Section II)
+    Widget _buildButtonList({
+      IconData iconLeft,
+      IconData iconRight = Icons.keyboard_arrow_right,
+      String title,
+      String subtitle = '',
+      String route,
+    }) {
+      List<Widget> columnList = [
+        Text(
           title,
           style: TextStyle(
-            color: Theme.of(context).textTheme.subhead.color,
+            color: Theme.of(context).iconTheme.color,
             fontSize: Theme.of(context).textTheme.subhead.fontSize,
             fontWeight: Theme.of(context).textTheme.subhead.fontWeight,
             fontStyle: Theme.of(context).textTheme.subhead.fontStyle,
           ),
         ),
-        trailing: Icon(Icons.keyboard_arrow_right),
-        dense: true,
-        contentPadding: EdgeInsets.all(0),
-        onTap: () => Routes(context).navigatorPush(context, route),
+      ];
+
+      if (subtitle.isNotEmpty) {
+        columnList.add(
+          Text(
+            subtitle,
+            style: TextStyle(
+              color: Theme.of(context).iconTheme.color,
+              fontSize: Theme.of(context).textTheme.subtitle.fontSize,
+              fontWeight: Theme.of(context).textTheme.subtitle.fontWeight,
+              fontStyle: Theme.of(context).textTheme.subtitle.fontStyle,
+            ),
+          ),
+        );
+      }
+
+      return MaterialButton(
+        // color: Colors.black12, // debug UI 🙃
+        key: Key(route),
+        onPressed: () => Routes(context).navigatorPush(context, route),
+        padding: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(
+          side: BorderSide.none,
+        ),
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Icon(
+                iconLeft,
+                color: Theme.of(context).iconTheme.color,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 36.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: columnList,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Icon(
+                iconRight,
+                color: Theme.of(context).iconTheme.color,
+              ),
+            ),
+          ],
+        ),
       );
     }
 
@@ -185,38 +209,34 @@ class SectionII extends StatelessWidget {
               children: <Widget>[
                 _topContainer,
                 dividerList,
-                _buildItemListMenu(
-                  img: Icon(Icons.help_outline),
+                _buildButtonList(
+                  iconLeft: Icons.help_outline,
                   title: 'Me ajuda',
-                  subtitle: null,
                   route: '/helpme/',
                 ),
                 dividerList,
-                _buildItemListMenu(
-                  img: Icon(Icons.account_circle),
+                _buildButtonList(
+                  iconLeft: Icons.account_circle,
                   title: 'Perfil',
                   subtitle: 'Nome de preferência, telefone, e-mail',
                   route: '/profile/',
                 ),
                 dividerList,
-                _buildItemListMenu(
-                  img: Icon(Icons.local_atm),
+                _buildButtonList(
+                  iconLeft: Icons.local_atm,
                   title: 'Configurar NuConta',
-                  subtitle: null,
                   route: '/nuconta-configs/',
                 ),
                 dividerList,
-                _buildItemListMenu(
-                  img: Icon(Icons.credit_card),
+                _buildButtonList(
+                  iconLeft: Icons.credit_card,
                   title: 'Configurar cartão',
-                  subtitle: null,
                   route: '/card-configs/',
                 ),
                 dividerList,
-                _buildItemListMenu(
-                  img: Icon(Icons.fingerprint),
+                _buildButtonList(
+                  iconLeft: Icons.fingerprint,
                   title: 'Configurações do app',
-                  subtitle: null,
                   route: '/app-configs/',
                 ),
                 dividerList,
