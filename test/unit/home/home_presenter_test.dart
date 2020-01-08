@@ -517,7 +517,7 @@ void main() {
       expect(pref.getString('bankBranch'), config.bankBranch);
       expect(pref.getString('bankAccount'), config.bankAccount);
       expect(pref.getDouble('accountLimit'), config.accountLimit);
-    });
+    }, timeout: Timeout.factor(2));
 
     test('check data of `sharedPrefs` after changed', () async {
       config.userUuid = "a1b2c3";
@@ -576,7 +576,7 @@ void main() {
       expect(pref.getString('bankBranch'), bankBranch);
       expect(pref.getString('bankAccount'), bankAccount);
       expect(pref.getDouble('accountLimit'), accountLimit);
-    });
+    }, timeout: Timeout.factor(2));
 
     test('check values after first run `initialUserData()` successfully',
         () async {
@@ -664,7 +664,7 @@ void main() {
         ),
         true,
       );
-    });
+    }, timeout: Timeout.factor(2));
 
     test(
         'check values after first run `initialUserData()` with error (Customer API Off!)',
@@ -679,7 +679,7 @@ void main() {
       expect(await mockHttp.checkHealthCustomerApi(httpClient: client), false);
 
       expect(await homePresenter.initialUserData(client, mockHttp), false);
-    });
+    }, timeout: Timeout.factor(2));
 
     test(
         'check values after first run `initialUserData()` with error (Account API Off!)',
@@ -694,7 +694,7 @@ void main() {
       expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
 
       expect(await homePresenter.initialUserData(client, mockHttp), false);
-    });
+    }, timeout: Timeout.factor(2));
 
     test(
         'check values after first run `initialUserData()` with error (Customer and Account API Off!)',
@@ -715,7 +715,7 @@ void main() {
       expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
 
       expect(await homePresenter.initialUserData(client, mockHttp), false);
-    });
+    }, timeout: Timeout.factor(2));
 
     test(
         'check values after first run `initialUserData()` with error (Customer create API Off!)',
@@ -765,7 +765,7 @@ void main() {
         ),
         false,
       );
-    });
+    }, timeout: Timeout.factor(2));
 
     test(
         'check values after first run `initialUserData()` with error (Account create API Off!)',
@@ -846,7 +846,7 @@ void main() {
         ),
         false,
       );
-    });
+    }, timeout: Timeout.factor(2));
 
     test('check values after second run `initialUserData()` successfully',
         () async {
@@ -855,7 +855,7 @@ void main() {
           {'userUuid': 'a1b2c3', 'accountUuid': 'c3b2a1'});
 
       expect(await homePresenter.initialUserData(client, mockHttp), true);
-    });
+    }, timeout: Timeout.factor(2));
 
     test('check values after second run `initialUserData()` with error',
         () async {
@@ -863,6 +863,6 @@ void main() {
       SharedPreferences.setMockInitialValues({});
 
       expect(await homePresenter.initialUserData(), false);
-    });
-  });
+    }, timeout: Timeout.factor(2));
+  }, timeout: Timeout.factor(2));
 }
