@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
+import 'package:nudemo/utils/globals.dart' as globals;
 
 /// `Section I` - Logo container
 class SectionI extends StatelessWidget {
@@ -10,14 +11,11 @@ class SectionI extends StatelessWidget {
   @required
   final double topLogoHeight;
   @required
-  final String title;
-  @required
   final bool isLowered;
 
   SectionI({
     this.screenSize,
     this.topLogoHeight,
-    this.title,
     this.isLowered,
   });
 
@@ -53,7 +51,7 @@ class SectionI extends StatelessWidget {
                     width: 6,
                   ),
                   Text(
-                    title,
+                    globals.userNickname,
                     key: Key('title-text'),
                     style: TextStyle(
                       color: Theme.of(context).textTheme.subhead.color,

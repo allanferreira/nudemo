@@ -16,24 +16,37 @@ import 'package:nudemo/utils/globals.dart' as globals;
 /// `Section III` - Bottom menu container
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  Config config = Config();
 
   setUp(() {
+    /// Mock Config class
+    config.userUuid = "a1b2c3";
+    config.accountUuid = "a1b2c3d4e5";
+
     /// Mock SharedPreferences
     SharedPreferences.setMockInitialValues({
-      'userUuid': 'a1b2c3',
-      'userName': Config().userName,
-      'userNickname': Config().userNickname,
-      'userEmail': Config().userEmail,
-      'userPhone': Config().userPhone,
-      'accountUuid': 'c3b2a1',
-      'bankBranch': Config().bankBranch,
-      'bankAccount': Config().bankAccount,
-      'accountLimit': Config().accountLimit,
+      "userUuid": config.userUuid,
+      "userName": config.userName,
+      "userNickname": config.userNickname,
+      "userEmail": config.userEmail,
+      "userPhone": config.userPhone,
+      "accountUuid": config.accountUuid,
+      "bankBranch": config.bankBranch,
+      "bankAccount": config.bankAccount,
+      "accountLimit": config.accountLimit,
     });
 
-    // Mock Global Variables
-    globals.userUuid = 'a1b2c3';
-    globals.accountUuid = 'c3b2a1';
+    /// Mock Global Variables
+    globals.isLoggedIn = true;
+    globals.userUuid = config.userUuid;
+    globals.userName = config.userName;
+    globals.userNickname = config.userNickname;
+    globals.userEmail = config.userEmail;
+    globals.userPhone = config.userPhone;
+    globals.accountUuid = config.accountUuid;
+    globals.bankBranch = config.bankBranch;
+    globals.bankAccount = config.bankAccount;
+    globals.accountLimit = config.accountLimit;
   });
 
   group('[Widget -> Home page] - Section III', () {

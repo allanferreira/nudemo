@@ -68,7 +68,6 @@ class HomePage extends StatelessWidget {
             SectionI(
               screenSize: _screenSize,
               topLogoHeight: _topLogoHeight,
-              title: title,
               isLowered: false,
             ),
             // Main menu container

@@ -36,7 +36,7 @@ class Routes {
     '/': ScaleRoute(
       page: HomePage(
         presenter: HomePresenter(),
-        title: '{userNickname}',
+        title: 'Home',
       ),
     ),
     // - First access (we don't cover that in this demo!)

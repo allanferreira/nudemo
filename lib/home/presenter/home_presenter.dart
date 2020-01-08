@@ -312,7 +312,7 @@ class HomePresenter with ChangeNotifier {
   /// Routing the user to [Sign Up] page or [Home] page
   Widget firstPage() {
     if (globals.isLoggedIn) {
-      return HomePage(presenter: HomePresenter(), title: '{userNickname}');
+      return HomePage(presenter: HomePresenter(), title: 'Home');
     }
     return SignupPage(presenter: SignupPresenter(), title: 'Sign Up');
   }
