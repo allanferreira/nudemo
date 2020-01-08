@@ -61,6 +61,7 @@ class SignupPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(20.0),
               child: RichText(
+                key: Key('text-1'),
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   text:
@@ -104,6 +105,7 @@ class SignupPage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(20.0),
               child: RichText(
+                key: Key('text-2'),
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   text: 'Learn more in the ',

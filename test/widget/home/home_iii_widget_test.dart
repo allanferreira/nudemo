@@ -272,10 +272,6 @@ void main() {
       await tester.drag(_depositButton, Offset(-240.0, 0.0));
       await tester.pumpAndSettle();
 
-      /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
-      await tester.drag(_referFriendsButton, Offset(-240.0, 0.0));
-      await tester.pumpAndSettle();
-
       /// verify if have a `Icon` widget with `settings_input_component` icon.
       expect(find.byIcon(Icons.settings_input_component), findsOneWidget);
 
