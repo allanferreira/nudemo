@@ -37,10 +37,6 @@ class HomePresenter with ChangeNotifier {
     Brightness brightness = MediaQuery.of(context).platformBrightness;
     bool darkIsEnable = (brightness == Brightness.dark);
     setNuTheme(darkIsEnable: darkIsEnable);
-
-    // print('Platform Brightness: $brightness');
-    // print('darkIsEnable: $darkIsEnable');
-
     return brightness;
   }
 
@@ -88,8 +84,6 @@ class HomePresenter with ChangeNotifier {
   /// Set page index and notify listeners
   void setCurrentPageCarousel(int index) {
     this._homeViewModel.currentPageCarousel = index;
-    // print('On the viewport: $index');
-
     notifyListeners();
   }
 
@@ -113,73 +107,74 @@ class HomePresenter with ChangeNotifier {
   //         .setCurrentPageCarousel(index);
 
   /// Get the value of Balances Future Value
-  double getFutureValue() => globals.balancesFutureValue;
+  double getFutureValue() => HomeViewModel.balancesFutureValue;
 
   /// Get the value of Balances Open Value
-  double getOpenValue() => globals.balancesOpenValue;
+  double getOpenValue() => HomeViewModel.balancesOpenValue;
 
   /// Get the value of Balances Available Value
-  double getAvailableValue() => globals.balancesAvailableValue;
+  double getAvailableValue() => HomeViewModel.balancesAvailableValue;
 
   /// Get the value of Balances Due Value
-  double getDueValue() => globals.balancesDueValue;
+  double getDueValue() => HomeViewModel.balancesDueValue;
 
   /// Get the value of Balances Future Currency (R$)
   String getFutureCurrency() =>
-      _utils.getCurrencyValue(globals.balancesFutureValue);
+      _utils.getCurrencyValue(HomeViewModel.balancesFutureValue);
 
   /// Get the value of Balances Open Currency (R$)
   String getOpenCurrency() =>
-      _utils.getCurrencyValue(globals.balancesOpenValue);
+      _utils.getCurrencyValue(HomeViewModel.balancesOpenValue);
 
   /// Get the value of Balances Available Currency (R$)
   String getAvailableCurrency() =>
-      _utils.getCurrencyValue(globals.balancesAvailableValue);
+      _utils.getCurrencyValue(HomeViewModel.balancesAvailableValue);
 
   /// Get the value of Balances Due Currency
-  double getDueCurrency() => globals.balancesDueValue;
+  double getDueCurrency() => HomeViewModel.balancesDueValue;
 
   /// Get the value of Balances Future Percent
-  double getFuturePercent() => globals.balancesFuturePercent;
+  double getFuturePercent() => HomeViewModel.balancesFuturePercent;
 
   /// Get the value of Balances Open Percent
-  double getOpenPercent() => globals.balancesOpenPercent;
+  double getOpenPercent() => HomeViewModel.balancesOpenPercent;
 
   /// Get the value of Balances Available Percent
-  double getAvailablePercent() => globals.balancesAvailablePercent;
+  double getAvailablePercent() => HomeViewModel.balancesAvailablePercent;
 
   /// Get the value of Balances Due Percent
-  double getDuePercent() => globals.balancesDuePercent;
+  double getDuePercent() => HomeViewModel.balancesDuePercent;
 
   /// Get the value of Balances Future Flex
-  int getFutureFlex() => globals.balancesFutureFlex;
+  int getFutureFlex() => HomeViewModel.balancesFutureFlex;
 
   /// Get the value of Balances Open Flex
-  int getOpenFlex() => globals.balancesOpenFlex;
+  int getOpenFlex() => HomeViewModel.balancesOpenFlex;
 
   /// Get the value of Balances Available Flex
-  int getAvailableFlex() => globals.balancesAvailableFlex;
+  int getAvailableFlex() => HomeViewModel.balancesAvailableFlex;
 
   /// Get the value of Balances Due Flex
-  int getDueFlex() => globals.balancesDueFlex;
+  int getDueFlex() => HomeViewModel.balancesDueFlex;
 
   /// Calculate `percentage` and `flex` values of balances
   void calculatePercentBalances() {
-    if (globals.accountLimit > 0.0) {
+    if (HomeViewModel.limitValue > 0.0) {
       // We don't cover balancesFuture and balancesDue in this demo!
 
-      if (globals.balancesOpenValue > 0.0) {
+      if (HomeViewModel.balancesOpenValue > 0.0) {
         globals.balancesOpenPercent =
-            (globals.balancesOpenValue / globals.accountLimit) * 100;
+            (HomeViewModel.balancesOpenValue / HomeViewModel.limitValue) * 100;
         globals.balancesOpenFlex = globals.balancesOpenPercent.round();
       } else {
         globals.balancesOpenPercent = 0.0;
         globals.balancesOpenFlex = 0;
       }
 
-      if (globals.balancesAvailableValue > 0.0) {
+      if (HomeViewModel.balancesAvailableValue > 0.0) {
         globals.balancesAvailablePercent =
-            (globals.balancesAvailableValue / globals.accountLimit) * 100;
+            (HomeViewModel.balancesAvailableValue / HomeViewModel.limitValue) *
+                100;
         globals.balancesAvailableFlex =
             globals.balancesAvailablePercent.round();
       } else {
@@ -225,16 +220,74 @@ class HomePresenter with ChangeNotifier {
   /// customers), and then the App use this register like the customer!
   /// - The same happens with account setup (using `createAccountApi()`)!
   /// - Balance is updated if customer already exists (using ``).
-  Future<bool> initialUserData([
-    httpClientMock,
-    utilsHttpMock,
-    newCustomerMock,
-    newAccountMock,
+  Future<bool> initialUserData(
+    http.Client httpClient,
+    Http utilsHttp, [
+    Customer newCustomerMock,
+    Account newAccountMock,
   ]) async {
-    // print('initialUserData: Check Customer and Account');
+    // Recover from device memory the Customer and Account data...
+    sharedPrefs = await _getDataFromSharedPreferences();
 
-    http.Client httpClient = httpClientMock ?? http.Client();
-    Http utilsHttp = utilsHttpMock ?? Http();
+    // Recovered existing Customer ID and Account ID,
+    // if they are registered...
+    if (globals.userUuid != null && globals.accountUuid != null) {
+      return true;
+    }
+    // ... or, registering a new Customer and a new Account,
+    // if they are not already registered...
+    else {
+      if (await utilsHttp.checkHealthCustomerApi(httpClient: httpClient) &&
+          await utilsHttp.checkHealthAccountApi(httpClient: httpClient) &&
+          await utilsHttp.checkHealthPurchaseApi(httpClient: httpClient)) {
+        Customer newCustomer = Customer(
+          name: Config().userName,
+          eMail: Config().userEmail,
+          phone: Config().userPhone,
+        );
+
+        Customer regCustomer = await utilsHttp.createCustomerApi(
+          httpClient: httpClient,
+          customerData: newCustomerMock ?? newCustomer,
+        );
+
+        if (regCustomer != null && regCustomer.customerId != null) {
+          Account newAccount = Account(
+            customerId: regCustomer.customerId,
+            bankBranch: Config().bankBranch,
+            bankAccount: Config().bankAccount,
+            limit: Config().accountLimit,
+          );
+
+          Account regAccount = await utilsHttp.createAccountApi(
+            httpClient: httpClient,
+            accountData: newAccountMock ?? newAccount,
+          );
+
+          if (regAccount != null && regAccount.accountId != null) {
+            // Saving the initial balance with 100% of limit
+            globals.balancesOpenValue = 0.0;
+            globals.balancesOpenPercent = 0.0;
+            globals.balancesOpenFlex = 0;
+            globals.balancesAvailableValue = globals.accountLimit;
+            globals.balancesAvailablePercent = 100.0;
+            globals.balancesAvailableFlex = 100;
+
+            // Persist on device memory the Customer and Account data
+            return _saveDataToSharedPreferences(
+              sharedPrefs,
+              regCustomer,
+              regAccount,
+            );
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  /// Get Customer and Account data from [SharedPreferences]
+  Future<SharedPreferences> _getDataFromSharedPreferences() async {
     sharedPrefs = await SharedPreferences.getInstance();
 
     globals.userUuid = sharedPrefs.getString('userUuid');
@@ -257,95 +310,35 @@ class HomePresenter with ChangeNotifier {
         sharedPrefs.getDouble('balancesAvailablePercent');
     globals.balancesAvailableFlex = sharedPrefs.getInt('balancesAvailableFlex');
 
-    // Registering a new customer and a new account,
-    // if they are not already registered...
-    if (globals.userUuid == null || globals.accountUuid == null) {
-      // print('initialUserData: Register new Customer and Account');
+    return sharedPrefs;
+  }
 
-      if (await utilsHttp.checkHealthCustomerApi(httpClient: httpClient) &&
-          await utilsHttp.checkHealthAccountApi(httpClient: httpClient)) {
-        Customer newCustomer = Customer(
-          name: Config().userName,
-          eMail: Config().userEmail,
-          phone: Config().userPhone,
-        );
+  /// Save Customer and Account data to [SharedPreferences]
+  Future<bool> _saveDataToSharedPreferences(
+      sharedPrefs, regCustomer, regAccount) async {
+    final List<String> userNickname = regCustomer.name.split(" ");
 
-        Customer regCustomer = await utilsHttp.createCustomerApi(
-          httpClient: httpClient,
-          customerData: newCustomerMock ?? newCustomer,
-        );
-
-        if (regCustomer != null && regCustomer.customerId != null) {
-          // print('Create customer ID: ${regCustomer.customerId}');
-          final List<String> userNickname = regCustomer.name.split(" ");
-
-          Account newAccount = Account(
-            customerId: regCustomer.customerId,
-            bankBranch: Config().bankBranch,
-            bankAccount: Config().bankAccount,
-            limit: Config().accountLimit,
-          );
-
-          Account regAccount = await utilsHttp.createAccountApi(
-            httpClient: httpClient,
-            accountData: newAccountMock ?? newAccount,
-          );
-
-          if (regAccount != null && regAccount.accountId != null) {
-            // print('Create account ID: ${regAccount.accountId}');
-
-            globals.balancesOpenValue = 0.0;
-            globals.balancesOpenPercent = 0.0;
-            globals.balancesOpenFlex = 0;
-            globals.balancesAvailableValue = globals.accountLimit;
-            globals.balancesAvailablePercent = 100.0;
-            globals.balancesAvailableFlex = 100;
-
-            // Persist on device memory the Customer and Account data
-            return (await sharedPrefs.setString(
-                    'userUuid', regCustomer.customerId) &&
-                await sharedPrefs.setString('userName', regCustomer.name) &&
-                await sharedPrefs.setString('userNickname', userNickname[0]) &&
-                await sharedPrefs.setString('userEmail', regCustomer.eMail) &&
-                await sharedPrefs.setString('userPhone', regCustomer.phone) &&
-                await sharedPrefs.setString(
-                    'accountUuid', regAccount.accountId) &&
-                await sharedPrefs.setString(
-                    'bankBranch', regAccount.bankBranch) &&
-                await sharedPrefs.setString(
-                    'bankAccount', regAccount.bankAccount) &&
-                await sharedPrefs.setDouble('accountLimit', regAccount.limit) &&
-                await sharedPrefs.setDouble(
-                    'balancesOpenValue', globals.balancesOpenValue) &&
-                await sharedPrefs.setDouble(
-                    'balancesOpenPercent', globals.balancesOpenPercent) &&
-                await sharedPrefs.setInt(
-                    'balancesOpenFlex', globals.balancesOpenFlex) &&
-                await sharedPrefs.setDouble(
-                    'balancesAvailableValue', globals.balancesAvailableValue) &&
-                await sharedPrefs.setDouble('balancesAvailablePercent',
-                    globals.balancesAvailablePercent) &&
-                await sharedPrefs.setInt(
-                    'balancesAvailableFlex', globals.balancesAvailableFlex));
-          }
-        }
-      }
-    }
-
-    //... Or, recover from device memory the Customer and Account data
-    if (globals.userUuid != null && globals.accountUuid != null) {
-      print('initialUserData: Recover existing Customer ID and Account ID');
-      print('Customer ID: ${globals.userUuid}');
-      print('Account ID: ${globals.accountUuid}');
-
-      if (await utilsHttp.checkHealthPurchaseApi(httpClient: httpClient)) {
-        // Get actualized balance
-        print('Puchase API: Ok!');
-
-        return true;
-      }
-    }
-    return false;
+    return (await sharedPrefs.setString('userUuid', regCustomer.customerId) &&
+        await sharedPrefs.setString('userName', regCustomer.name) &&
+        await sharedPrefs.setString('userNickname', userNickname[0]) &&
+        await sharedPrefs.setString('userEmail', regCustomer.eMail) &&
+        await sharedPrefs.setString('userPhone', regCustomer.phone) &&
+        await sharedPrefs.setString('accountUuid', regAccount.accountId) &&
+        await sharedPrefs.setString('bankBranch', regAccount.bankBranch) &&
+        await sharedPrefs.setString('bankAccount', regAccount.bankAccount) &&
+        await sharedPrefs.setDouble('accountLimit', regAccount.limit) &&
+        await sharedPrefs.setDouble(
+            'balancesOpenValue', globals.balancesOpenValue) &&
+        await sharedPrefs.setDouble(
+            'balancesOpenPercent', globals.balancesOpenPercent) &&
+        await sharedPrefs.setInt(
+            'balancesOpenFlex', globals.balancesOpenFlex) &&
+        await sharedPrefs.setDouble(
+            'balancesAvailableValue', globals.balancesAvailableValue) &&
+        await sharedPrefs.setDouble(
+            'balancesAvailablePercent', globals.balancesAvailablePercent) &&
+        await sharedPrefs.setInt(
+            'balancesAvailableFlex', globals.balancesAvailableFlex));
   }
 
   /// Routing the user to [Sign Up] page or [Home] page

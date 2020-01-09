@@ -536,6 +536,30 @@ void main() {
       expect(pref.getString('bankBranch'), config.bankBranch);
       expect(pref.getString('bankAccount'), config.bankAccount);
       expect(pref.getDouble('accountLimit'), config.accountLimit);
+      expect(
+        pref.getDouble('balancesOpenValue'),
+        HomeViewModel.balancesOpenValue,
+      );
+      expect(
+        pref.getDouble('balancesOpenPercent'),
+        HomeViewModel.balancesOpenPercent,
+      );
+      expect(
+        pref.getInt('balancesOpenFlex'),
+        HomeViewModel.balancesOpenFlex,
+      );
+      expect(
+        pref.getDouble('balancesAvailableValue'),
+        HomeViewModel.balancesAvailableValue,
+      );
+      expect(
+        pref.getDouble('balancesAvailablePercent'),
+        HomeViewModel.balancesAvailablePercent,
+      );
+      expect(
+        pref.getInt('balancesAvailableFlex'),
+        HomeViewModel.balancesAvailableFlex,
+      );
     }, timeout: Timeout.factor(2));
 
     test('check data of `sharedPrefs` after changed', () async {
@@ -550,6 +574,30 @@ void main() {
       expect(pref.getString('bankBranch'), config.bankBranch);
       expect(pref.getString('bankAccount'), config.bankAccount);
       expect(pref.getDouble('accountLimit'), config.accountLimit);
+      expect(
+        pref.getDouble('balancesOpenValue'),
+        HomeViewModel.balancesOpenValue,
+      );
+      expect(
+        pref.getDouble('balancesOpenPercent'),
+        HomeViewModel.balancesOpenPercent,
+      );
+      expect(
+        pref.getInt('balancesOpenFlex'),
+        HomeViewModel.balancesOpenFlex,
+      );
+      expect(
+        pref.getDouble('balancesAvailableValue'),
+        HomeViewModel.balancesAvailableValue,
+      );
+      expect(
+        pref.getDouble('balancesAvailablePercent'),
+        HomeViewModel.balancesAvailablePercent,
+      );
+      expect(
+        pref.getInt('balancesAvailableFlex'),
+        HomeViewModel.balancesAvailableFlex,
+      );
 
       String userUuid = "a1b2c3d4e5";
       String userName = "Chinnon S.";
@@ -559,7 +607,13 @@ void main() {
       String accountUuid = "e5d4c3b2a1";
       String bankBranch = "0002";
       String bankAccount = "8765432-1";
-      double accountLimit = 18000;
+      double accountLimit = 18000.0;
+      double balancesOpenValue = 4500.5;
+      double balancesOpenPercent = 33.338271788;
+      int balancesOpenFlex = 33;
+      double balancesAvailableValue = 13499.5;
+      double balancesAvailablePercent = 66.661728212;
+      int balancesAvailableFlex = 67;
 
       await pref.setString('userUuid', userUuid);
       await pref.setString('userName', userName);
@@ -570,6 +624,30 @@ void main() {
       await pref.setString('bankBranch', bankBranch);
       await pref.setString('bankAccount', bankAccount);
       await pref.setDouble('accountLimit', accountLimit);
+      await pref.setDouble(
+        'balancesOpenValue',
+        balancesOpenValue,
+      );
+      await pref.setDouble(
+        'balancesOpenPercent',
+        balancesOpenPercent,
+      );
+      await pref.setInt(
+        'balancesOpenFlex',
+        balancesOpenFlex,
+      );
+      await pref.setDouble(
+        'balancesAvailableValue',
+        balancesAvailableValue,
+      );
+      await pref.setDouble(
+        'balancesAvailablePercent',
+        balancesAvailablePercent,
+      );
+      await pref.setInt(
+        'balancesAvailableFlex',
+        balancesAvailableFlex,
+      );
 
       expect(pref.getString('userUuid'), userUuid);
       expect(pref.getString('userName'), userName);
@@ -580,29 +658,35 @@ void main() {
       expect(pref.getString('bankBranch'), bankBranch);
       expect(pref.getString('bankAccount'), bankAccount);
       expect(pref.getDouble('accountLimit'), accountLimit);
+      expect(
+        pref.getDouble('balancesOpenValue'),
+        balancesOpenValue,
+      );
+      expect(
+        pref.getDouble('balancesOpenPercent'),
+        balancesOpenPercent,
+      );
+      expect(
+        pref.getInt('balancesOpenFlex'),
+        balancesOpenFlex,
+      );
+      expect(
+        pref.getDouble('balancesAvailableValue'),
+        balancesAvailableValue,
+      );
+      expect(
+        pref.getDouble('balancesAvailablePercent'),
+        balancesAvailablePercent,
+      );
+      expect(
+        pref.getInt('balancesAvailableFlex'),
+        balancesAvailableFlex,
+      );
     }, timeout: Timeout.factor(2));
 
     test('check values after second run `initialUserData()` successfully',
         () async {
-      /// Mock customer status API [Ok]
-      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
-          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
-
-      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), true);
-
       expect(await homePresenter.initialUserData(client, mockHttp), true);
-    }, timeout: Timeout.factor(2));
-
-    test(
-        'check values after second run `initialUserData()` with error (Purchase API Off!)',
-        () async {
-      /// Mock customer status API [Ok]
-      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
-          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
-
-      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), false);
-
-      expect(await homePresenter.initialUserData(client, mockHttp), false);
     }, timeout: Timeout.factor(2));
   }, timeout: Timeout.factor(2));
 
@@ -660,6 +744,12 @@ void main() {
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
       expect(await mockHttp.checkHealthAccountApi(httpClient: client), true);
+
+      /// Mock purchase status API [Ok]
+      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), true);
 
       /// Mock customer register [Ok]
       final Customer newCustomer = Customer(
@@ -757,7 +847,19 @@ void main() {
     }, timeout: Timeout.factor(2));
 
     test(
-        'check values after first run `initialUserData()` with error (Customer and Account API Off!)',
+        'check values after first run `initialUserData()` with error (Purchase API Off!)',
+        () async {
+      /// Mock purchase status API [Off]
+      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), false);
+
+      expect(await homePresenter.initialUserData(client, mockHttp), false);
+    }, timeout: Timeout.factor(2));
+
+    test(
+        'check values after first run `initialUserData()` with error (Customer, Account and Purchase API Off!)',
         () async {
       /// Mock customer status API [Off]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
@@ -770,6 +872,12 @@ void main() {
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
 
       expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
+
+      /// Mock purchase status API [Off]
+      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), false);
 
       expect(await homePresenter.initialUserData(client, mockHttp), false);
     }, timeout: Timeout.factor(2));
@@ -788,6 +896,12 @@ void main() {
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
       expect(await mockHttp.checkHealthAccountApi(httpClient: client), true);
+
+      /// Mock purchase status API [Ok]
+      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), true);
 
       /// Mock customer register [Ok]
       final Customer newCustomer = Customer(
@@ -835,6 +949,12 @@ void main() {
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
       expect(await mockHttp.checkHealthAccountApi(httpClient: client), true);
+
+      /// Mock purchase status API [Ok]
+      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), true);
 
       /// Mock customer register [Ok]
       final Customer newCustomer = Customer(
@@ -897,22 +1017,6 @@ void main() {
         ),
         false,
       );
-    }, timeout: Timeout.factor(2));
-
-    test('check values after second run `initialUserData()` with error',
-        () async {
-      /// Mock customer status API [Ok]
-      when(mockHttp.checkHealthCustomerApi(httpClient: client))
-          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
-
-      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), false);
-
-      when(mockHttp.checkHealthAccountApi(httpClient: client))
-          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
-
-      expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
-
-      expect(await homePresenter.initialUserData(client, mockHttp), false);
     }, timeout: Timeout.factor(2));
   }, timeout: Timeout.factor(2));
 }

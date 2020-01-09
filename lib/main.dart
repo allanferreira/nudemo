@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
@@ -7,13 +8,15 @@ import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/utils/http.dart';
 import 'package:nudemo/utils/globals.dart' as globals;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Get Customer and Account saved or register a new on API.
-  globals.isLoggedIn = await HomePresenter().initialUserData();
+  globals.isLoggedIn =
+      await HomePresenter().initialUserData(http.Client(), Http());
   runApp(MyApp());
 }
 
