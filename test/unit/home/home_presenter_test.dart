@@ -12,7 +12,6 @@ import 'package:nudemo/utils/model/customer_model.dart';
 import 'package:nudemo/utils/model/account_model.dart';
 import 'package:nudemo/utils/config.dart';
 import 'package:nudemo/utils/http.dart';
-import 'package:nudemo/utils/globals.dart' as globals;
 
 /// Create a `MockClient` using the `Mock` class provided by the Mockito package.
 /// Create new `instances` of this class in each test.
@@ -43,41 +42,10 @@ void main() {
     config.accountUuid = "a1b2c3d4e5";
 
     /// Mock SharedPreferences
-    SharedPreferences.setMockInitialValues({
-      "userUuid": config.userUuid,
-      "userName": config.userName,
-      "userNickname": config.userNickname,
-      "userEmail": config.userEmail,
-      "userPhone": config.userPhone,
-      "accountUuid": config.accountUuid,
-      "bankBranch": config.bankBranch,
-      "bankAccount": config.bankAccount,
-      "accountLimit": config.accountLimit,
-      "balancesOpenValue": HomeViewModel.balancesOpenValue,
-      "balancesOpenPercent": HomeViewModel.balancesOpenPercent,
-      "balancesOpenFlex": HomeViewModel.balancesOpenFlex,
-      "balancesAvailableValue": HomeViewModel.balancesAvailableValue,
-      "balancesAvailablePercent": HomeViewModel.balancesAvailablePercent,
-      "balancesAvailableFlex": HomeViewModel.balancesAvailableFlex,
-    });
+    SharedPreferences.setMockInitialValues(config.fullDataMock(config));
 
     /// Mock Global Variables
-    globals.isLoggedIn = true;
-    globals.userUuid = config.userUuid;
-    globals.userName = config.userName;
-    globals.userNickname = config.userNickname;
-    globals.userEmail = config.userEmail;
-    globals.userPhone = config.userPhone;
-    globals.accountUuid = config.accountUuid;
-    globals.bankBranch = config.bankBranch;
-    globals.bankAccount = config.bankAccount;
-    globals.accountLimit = config.accountLimit;
-    globals.balancesOpenValue = HomeViewModel.balancesOpenValue;
-    globals.balancesOpenPercent = HomeViewModel.balancesOpenPercent;
-    globals.balancesOpenFlex = HomeViewModel.balancesOpenFlex;
-    globals.balancesAvailableValue = HomeViewModel.balancesAvailableValue;
-    globals.balancesAvailablePercent = HomeViewModel.balancesAvailablePercent;
-    globals.balancesAvailableFlex = HomeViewModel.balancesAvailableFlex;
+    config.globalVariablesMock(isLoggedIn: true, config: config);
   });
 
   group('[Unit -> HomePresenter] General', () {
@@ -377,96 +345,52 @@ void main() {
       );
     });
 
-    test('initial `getFutureValue()` value should be [balancesFutureValue]',
-        () {
-      expect(
-        homePresenter.getFutureValue(),
-        HomeViewModel.balancesFutureValue,
-      );
+    test('initial `getFutureValue()` value should be 0.0', () {
+      expect(homePresenter.getFutureValue(), 0.0);
     });
 
-    test('initial `getOpenValue()` value should be [balancesOpenValue]', () {
-      expect(
-        homePresenter.getOpenValue(),
-        HomeViewModel.balancesOpenValue,
-      );
+    test('initial `getOpenValue()` value should be 0.0', () {
+      expect(homePresenter.getOpenValue(), 0.0);
     });
 
-    test(
-        'initial `getAvailableValue()` value should be [balancesAvailableValue]',
-        () {
-      expect(
-        homePresenter.getAvailableValue(),
-        HomeViewModel.balancesAvailableValue,
-      );
+    test('initial `getAvailableValue()` value should be 0.0', () {
+      expect(homePresenter.getAvailableValue(), 0.0);
     });
 
-    test('initial `getDueValue()` value should be [balancesDueValue]', () {
-      expect(
-        homePresenter.getDueValue(),
-        HomeViewModel.balancesDueValue,
-      );
+    test('initial `getDueValue()` value should be 0.0', () {
+      expect(homePresenter.getDueValue(), 0.0);
     });
 
-    test('initial `getFuturePercent()` value should be [balancesFuturePercent]',
-        () {
-      expect(
-        homePresenter.getFuturePercent(),
-        HomeViewModel.balancesFuturePercent,
-      );
+    test('initial `getFuturePercent()` value should be 0.0', () {
+      expect(homePresenter.getFuturePercent(), 0.0);
     });
 
-    test('initial `getOpenPercent()` value should be [balancesOpenPercent]',
-        () {
-      expect(
-        homePresenter.getOpenPercent(),
-        HomeViewModel.balancesOpenPercent,
-      );
+    test('initial `getOpenPercent()` value should be 0.0', () {
+      expect(homePresenter.getOpenPercent(), 0.0);
     });
 
-    test(
-        'initial `getAvailablePercent()` value should be [balancesAvailablePercent]',
-        () {
-      expect(
-        homePresenter.getAvailablePercent(),
-        HomeViewModel.balancesAvailablePercent,
-      );
+    test('initial `getAvailablePercent()` value should be 0.0', () {
+      expect(homePresenter.getAvailablePercent(), 0.0);
     });
 
-    test('initial `getDuePercent()` value should be [balancesDuePercent]', () {
-      expect(
-        homePresenter.getDuePercent(),
-        HomeViewModel.balancesDuePercent,
-      );
+    test('initial `getDuePercent()` value should be 0.0', () {
+      expect(homePresenter.getDuePercent(), 0.0);
     });
 
-    test('initial `getFutureFlex()` value should be [balancesFutureFlex]', () {
-      expect(
-        homePresenter.getFutureFlex(),
-        HomeViewModel.balancesFutureFlex,
-      );
+    test('initial `getFutureFlex()` value should be 0', () {
+      expect(homePresenter.getFutureFlex(), 0);
     });
 
-    test('initial `getOpenFlex()` value should be [balancesOpenFlex]', () {
-      expect(
-        homePresenter.getOpenFlex(),
-        HomeViewModel.balancesOpenFlex,
-      );
+    test('initial `getOpenFlex()` value should be 0', () {
+      expect(homePresenter.getOpenFlex(), 0);
     });
 
-    test('initial `getAvailableFlex()` value should be [balancesAvailableFlex]',
-        () {
-      expect(
-        homePresenter.getAvailableFlex(),
-        HomeViewModel.balancesAvailableFlex,
-      );
+    test('initial `getAvailableFlex()` value should be 0', () {
+      expect(homePresenter.getAvailableFlex(), 0);
     });
 
-    test('initial `getDueFlex()` value should be [balancesDueFlex]', () {
-      expect(
-        homePresenter.getDueFlex(),
-        HomeViewModel.balancesDueFlex,
-      );
+    test('initial `getDueFlex()` value should be 0', () {
+      expect(homePresenter.getDueFlex(), 0);
     });
 
     test('`calculatePercentBalances()` value return', () {
@@ -477,16 +401,15 @@ void main() {
       expect(homePresenter.getFuturePercent(), 0.0);
       expect(homePresenter.getFutureFlex(), 0);
 
-      expect(homePresenter.getOpenValue(), 5578.79);
-      expect(homePresenter.getOpenCurrency(), r'R$' + '\u00a0' + '5.578,79');
-      expect(homePresenter.getOpenPercent(), 37.19069364354522);
-      expect(homePresenter.getOpenFlex(), 37);
+      expect(homePresenter.getOpenValue(), 0.0);
+      expect(homePresenter.getOpenCurrency(), r'R$' + '\u00a0' + '0,00');
+      expect(homePresenter.getOpenPercent(), 0.0);
+      expect(homePresenter.getOpenFlex(), 0);
 
-      expect(homePresenter.getAvailableValue(), 9421.71);
-      expect(
-          homePresenter.getAvailableCurrency(), r'R$' + '\u00a0' + '9.421,71');
-      expect(homePresenter.getAvailablePercent(), 62.809306356454776);
-      expect(homePresenter.getAvailableFlex(), 63);
+      expect(homePresenter.getAvailableValue(), 0.0);
+      expect(homePresenter.getAvailableCurrency(), r'R$' + '\u00a0' + '0,00');
+      expect(homePresenter.getAvailablePercent(), 0.0);
+      expect(homePresenter.getAvailableFlex(), 0);
 
       expect(homePresenter.getDueValue(), 0);
       expect(homePresenter.getDueCurrency(), 0.0);
@@ -538,27 +461,27 @@ void main() {
       expect(pref.getDouble('accountLimit'), config.accountLimit);
       expect(
         pref.getDouble('balancesOpenValue'),
-        HomeViewModel.balancesOpenValue,
+        config.balancesOpenValue,
       );
       expect(
         pref.getDouble('balancesOpenPercent'),
-        HomeViewModel.balancesOpenPercent,
+        config.balancesOpenPercent,
       );
       expect(
         pref.getInt('balancesOpenFlex'),
-        HomeViewModel.balancesOpenFlex,
+        config.balancesOpenFlex,
       );
       expect(
         pref.getDouble('balancesAvailableValue'),
-        HomeViewModel.balancesAvailableValue,
+        config.balancesAvailableValue,
       );
       expect(
         pref.getDouble('balancesAvailablePercent'),
-        HomeViewModel.balancesAvailablePercent,
+        config.balancesAvailablePercent,
       );
       expect(
         pref.getInt('balancesAvailableFlex'),
-        HomeViewModel.balancesAvailableFlex,
+        config.balancesAvailableFlex,
       );
     }, timeout: Timeout.factor(2));
 
@@ -576,27 +499,27 @@ void main() {
       expect(pref.getDouble('accountLimit'), config.accountLimit);
       expect(
         pref.getDouble('balancesOpenValue'),
-        HomeViewModel.balancesOpenValue,
+        config.balancesOpenValue,
       );
       expect(
         pref.getDouble('balancesOpenPercent'),
-        HomeViewModel.balancesOpenPercent,
+        config.balancesOpenPercent,
       );
       expect(
         pref.getInt('balancesOpenFlex'),
-        HomeViewModel.balancesOpenFlex,
+        config.balancesOpenFlex,
       );
       expect(
         pref.getDouble('balancesAvailableValue'),
-        HomeViewModel.balancesAvailableValue,
+        config.balancesAvailableValue,
       );
       expect(
         pref.getDouble('balancesAvailablePercent'),
-        HomeViewModel.balancesAvailablePercent,
+        config.balancesAvailablePercent,
       );
       expect(
         pref.getInt('balancesAvailableFlex'),
-        HomeViewModel.balancesAvailableFlex,
+        config.balancesAvailableFlex,
       );
 
       String userUuid = "a1b2c3d4e5";
@@ -704,27 +627,18 @@ void main() {
       config.bankBranch = null;
       config.bankAccount = null;
       config.accountLimit = null;
+      config.balancesOpenValue = null;
+      config.balancesOpenPercent = null;
+      config.balancesOpenFlex = null;
+      config.balancesAvailableValue = null;
+      config.balancesAvailablePercent = null;
+      config.balancesAvailableFlex = null;
 
       /// Mock SharedPreferences
       SharedPreferences.setMockInitialValues({});
 
       /// Mock Global Variables
-      globals.isLoggedIn = false;
-      globals.userUuid = config.userUuid;
-      globals.userName = config.userName;
-      globals.userNickname = config.userNickname;
-      globals.userEmail = config.userEmail;
-      globals.userPhone = config.userPhone;
-      globals.accountUuid = config.accountUuid;
-      globals.bankBranch = config.bankBranch;
-      globals.bankAccount = config.bankAccount;
-      globals.accountLimit = config.accountLimit;
-      globals.balancesOpenValue = HomeViewModel.balancesOpenValue;
-      globals.balancesOpenPercent = HomeViewModel.balancesOpenPercent;
-      globals.balancesOpenFlex = HomeViewModel.balancesOpenFlex;
-      globals.balancesAvailableValue = HomeViewModel.balancesAvailableValue;
-      globals.balancesAvailablePercent = HomeViewModel.balancesAvailablePercent;
-      globals.balancesAvailableFlex = HomeViewModel.balancesAvailableFlex;
+      config.globalVariablesMock(isLoggedIn: false, config: config);
     });
 
     test('initial `sharedPrefs` value should be null', () {

@@ -222,6 +222,40 @@ void main() {
 
       expect(config.accountLimit, 18000);
     });
+
+    test('the `balancesOpenValue` run time type should be [double]', () {
+      expect(config.balancesOpenValue.runtimeType, double);
+    });
+
+    test('initial `balancesOpenValue` value should be 5578.79', () {
+      expect(config.balancesOpenValue, 5578.79);
+    });
+
+    test('initial `balancesOpenPercent` value should be 37.19069364354522', () {
+      expect(config.balancesOpenPercent, 37.19069364354522);
+    });
+
+    test('initial `balancesOpenFlex` value should be 37', () {
+      expect(config.balancesOpenFlex, 37);
+    });
+
+    test('the `balancesAvailableValue` run time type should be [double]', () {
+      expect(config.balancesAvailableValue.runtimeType, double);
+    });
+
+    test('initial `balancesAvailableValue` value should be 9421.71', () {
+      expect(config.balancesAvailableValue, 9421.71);
+    });
+
+    test(
+        'initial `balancesAvailablePercent` value should be 62.809306356454776',
+        () {
+      expect(config.balancesAvailablePercent, 62.809306356454776);
+    });
+
+    test('initial `balancesAvailableFlex` value should be 63', () {
+      expect(config.balancesAvailableFlex, 63);
+    });
   });
 
   group('[Unit -> Config] Customer EndPoint', () {

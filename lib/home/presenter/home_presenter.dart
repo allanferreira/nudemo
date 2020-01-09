@@ -107,73 +107,75 @@ class HomePresenter with ChangeNotifier {
   //         .setCurrentPageCarousel(index);
 
   /// Get the value of Balances Future Value
-  double getFutureValue() => HomeViewModel.balancesFutureValue;
+  double getFutureValue() => this._homeViewModel.balancesFutureValue;
 
   /// Get the value of Balances Open Value
-  double getOpenValue() => HomeViewModel.balancesOpenValue;
+  double getOpenValue() => this._homeViewModel.balancesOpenValue;
 
   /// Get the value of Balances Available Value
-  double getAvailableValue() => HomeViewModel.balancesAvailableValue;
+  double getAvailableValue() => this._homeViewModel.balancesAvailableValue;
 
   /// Get the value of Balances Due Value
-  double getDueValue() => HomeViewModel.balancesDueValue;
+  double getDueValue() => this._homeViewModel.balancesDueValue;
 
   /// Get the value of Balances Future Currency (R$)
   String getFutureCurrency() =>
-      _utils.getCurrencyValue(HomeViewModel.balancesFutureValue);
+      _utils.getCurrencyValue(this._homeViewModel.balancesFutureValue);
 
   /// Get the value of Balances Open Currency (R$)
   String getOpenCurrency() =>
-      _utils.getCurrencyValue(HomeViewModel.balancesOpenValue);
+      _utils.getCurrencyValue(this._homeViewModel.balancesOpenValue);
 
   /// Get the value of Balances Available Currency (R$)
   String getAvailableCurrency() =>
-      _utils.getCurrencyValue(HomeViewModel.balancesAvailableValue);
+      _utils.getCurrencyValue(this._homeViewModel.balancesAvailableValue);
 
   /// Get the value of Balances Due Currency
-  double getDueCurrency() => HomeViewModel.balancesDueValue;
+  double getDueCurrency() => this._homeViewModel.balancesDueValue;
 
   /// Get the value of Balances Future Percent
-  double getFuturePercent() => HomeViewModel.balancesFuturePercent;
+  double getFuturePercent() => this._homeViewModel.balancesFuturePercent;
 
   /// Get the value of Balances Open Percent
-  double getOpenPercent() => HomeViewModel.balancesOpenPercent;
+  double getOpenPercent() => this._homeViewModel.balancesOpenPercent;
 
   /// Get the value of Balances Available Percent
-  double getAvailablePercent() => HomeViewModel.balancesAvailablePercent;
+  double getAvailablePercent() => this._homeViewModel.balancesAvailablePercent;
 
   /// Get the value of Balances Due Percent
-  double getDuePercent() => HomeViewModel.balancesDuePercent;
+  double getDuePercent() => this._homeViewModel.balancesDuePercent;
 
   /// Get the value of Balances Future Flex
-  int getFutureFlex() => HomeViewModel.balancesFutureFlex;
+  int getFutureFlex() => this._homeViewModel.balancesFutureFlex;
 
   /// Get the value of Balances Open Flex
-  int getOpenFlex() => HomeViewModel.balancesOpenFlex;
+  int getOpenFlex() => this._homeViewModel.balancesOpenFlex;
 
   /// Get the value of Balances Available Flex
-  int getAvailableFlex() => HomeViewModel.balancesAvailableFlex;
+  int getAvailableFlex() => this._homeViewModel.balancesAvailableFlex;
 
   /// Get the value of Balances Due Flex
-  int getDueFlex() => HomeViewModel.balancesDueFlex;
+  int getDueFlex() => this._homeViewModel.balancesDueFlex;
 
   /// Calculate `percentage` and `flex` values of balances
   void calculatePercentBalances() {
-    if (HomeViewModel.limitValue > 0.0) {
+    if (this._homeViewModel.limitValue > 0.0) {
       // We don't cover balancesFuture and balancesDue in this demo!
 
-      if (HomeViewModel.balancesOpenValue > 0.0) {
-        globals.balancesOpenPercent =
-            (HomeViewModel.balancesOpenValue / HomeViewModel.limitValue) * 100;
+      if (this._homeViewModel.balancesOpenValue > 0.0) {
+        globals.balancesOpenPercent = (this._homeViewModel.balancesOpenValue /
+                this._homeViewModel.limitValue) *
+            100;
         globals.balancesOpenFlex = globals.balancesOpenPercent.round();
       } else {
         globals.balancesOpenPercent = 0.0;
         globals.balancesOpenFlex = 0;
       }
 
-      if (HomeViewModel.balancesAvailableValue > 0.0) {
+      if (this._homeViewModel.balancesAvailableValue > 0.0) {
         globals.balancesAvailablePercent =
-            (HomeViewModel.balancesAvailableValue / HomeViewModel.limitValue) *
+            (this._homeViewModel.balancesAvailableValue /
+                    this._homeViewModel.limitValue) *
                 100;
         globals.balancesAvailableFlex =
             globals.balancesAvailablePercent.round();

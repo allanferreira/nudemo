@@ -18,21 +18,21 @@ class HomeViewModel {
   int currentPageCarousel = 0;
 
   // Balances control
-  static double balancesOpenValue = 5578.79;
-  static double balancesOpenPercent = 37.19069364354522;
-  static int balancesOpenFlex = 37;
-  static double balancesAvailableValue = 9421.71;
-  static double balancesAvailablePercent = 62.809306356454776;
-  static int balancesAvailableFlex = 63;
+  double balancesOpenValue = 0.0;
+  double balancesOpenPercent = 0.0;
+  int balancesOpenFlex = 0;
+  double balancesAvailableValue = 0.0;
+  double balancesAvailablePercent = 0.0;
+  int balancesAvailableFlex = 0;
   // We don't cover balancesFuture and balancesDue in this demo!
-  static double limitValue = 15000.5;
-  static double limitPercent = 100.0;
-  static double balancesFutureValue = 0.0;
-  static double balancesFuturePercent = 0.0;
-  static int balancesFutureFlex = 0;
-  static double balancesDueValue = 0.0;
-  static double balancesDuePercent = 0.0;
-  static int balancesDueFlex = 0;
+  double limitValue = 0.0;
+  double limitPercent = 100.0;
+  double balancesFutureValue = 0.0;
+  double balancesFuturePercent = 0.0;
+  int balancesFutureFlex = 0;
+  double balancesDueValue = 0.0;
+  double balancesDuePercent = 0.0;
+  int balancesDueFlex = 0;
 
   // Last card register
   Map<String, dynamic> lastCardRegister = {
