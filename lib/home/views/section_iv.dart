@@ -29,7 +29,7 @@ class SectionIV extends StatelessWidget {
   /// Build the information summary widget
   Widget _summaryInfoBox(BuildContext context) {
     List<String> _formattedCurrency = presenter.getFormattedCurrency(
-      currencyBRL: presenter.getOpenCurrency(),
+      currencyBRL: Provider.of<HomePresenter>(context).getOpenCurrency(),
     );
 
     return Expanded(
@@ -107,7 +107,8 @@ class SectionIV extends StatelessWidget {
                             ),
                             children: <TextSpan>[
                               TextSpan(
-                                text: presenter.getAvailableCurrency(),
+                                text: Provider.of<HomePresenter>(context)
+                                    .getAvailableCurrency(),
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme
@@ -156,10 +157,13 @@ class SectionIV extends StatelessWidget {
                     utils.verticalChartBar(
                       context: context,
                       width: 8.0,
-                      flexFuture: presenter.getFutureFlex(),
-                      flexOpen: presenter.getOpenFlex(),
-                      flexDue: presenter.getDueFlex(),
-                      flexAvailable: presenter.getAvailableFlex(),
+                      flexFuture:
+                          Provider.of<HomePresenter>(context).getFutureFlex(),
+                      flexOpen:
+                          Provider.of<HomePresenter>(context).getOpenFlex(),
+                      flexDue: Provider.of<HomePresenter>(context).getDueFlex(),
+                      flexAvailable: Provider.of<HomePresenter>(context)
+                          .getAvailableFlex(),
                     ),
                   ],
                 ),
@@ -167,7 +171,8 @@ class SectionIV extends StatelessWidget {
               // Last record display
               utils.showLastRegister(
                 context: context,
-                lastRegister: presenter.getLastCardRegister(),
+                lastRegister:
+                    Provider.of<HomePresenter>(context).getLastCardRegister(),
               ),
             ],
           ),

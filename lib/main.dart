@@ -16,7 +16,7 @@ void main() async {
 
   /// Get Customer and Account saved or register a new on API.
   globals.isLoggedIn =
-      await HomePresenter().initialUserData(http.Client(), Http());
+      await HomePresenter().userDataInitialSetup(http.Client(), Http());
   runApp(MyApp());
 }
 

@@ -18,7 +18,11 @@ void main() {
         ),
       );
 
-      /// verify if have text `Sign Up` (route `/card/`).
+      /// verify if have a widget with key `signup-page`
+      /// (route `/`) with unlogged user.
+      expect(find.byKey(Key('signup-page')), findsOneWidget);
+
+      /// verify if have text `Sign Up`.
       expect(find.text(title.toUpperCase()), findsOneWidget);
 
       /// verify if have any `IconButton` widget to go back.

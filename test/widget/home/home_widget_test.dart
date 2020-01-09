@@ -65,8 +65,9 @@ void main() {
       // Build our app and trigger a frame.
       await tester.pumpWidget(MyApp());
 
-      /// verify if have text `Chinnon` (route `/`).
-      expect(find.text(Config().userNickname), findsOneWidget);
+      /// verify if have a widget with key `home-page`
+      /// (route `/`) with logged user.
+      expect(find.byKey(Key('home-page')), findsOneWidget);
     });
 
     testWidgets('Smoke test - ${_title} [MyApp]', (WidgetTester tester) async {
@@ -76,7 +77,11 @@ void main() {
       // Build our app and trigger a frame.
       await tester.pumpWidget(MyApp());
 
-      /// verify if have text `SIGN UP` (route `/`).
+      /// verify if have a widget with key `signup-page`
+      /// (route `/`) with unlogged user.
+      expect(find.byKey(Key('signup-page')), findsOneWidget);
+
+      /// verify if have text `SIGN UP`.
       expect(find.text('Sign Up'.toUpperCase()), findsOneWidget);
     });
 

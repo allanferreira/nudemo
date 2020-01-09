@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:nudemo/card/views/card_view.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/utils/config.dart';
 
 void main() {
@@ -38,6 +39,9 @@ void main() {
       providers: [
         ChangeNotifierProvider<CardPresenter>.value(
           value: CardPresenter(),
+        ),
+        ChangeNotifierProvider<HomePresenter>(
+          create: (BuildContext context) => HomePresenter(),
         ),
       ],
       child: MaterialApp(

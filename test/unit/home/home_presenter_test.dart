@@ -349,12 +349,12 @@ void main() {
       expect(homePresenter.getFutureValue(), 0.0);
     });
 
-    test('initial `getOpenValue()` value should be 0.0', () {
-      expect(homePresenter.getOpenValue(), 0.0);
+    test('initial `getOpenValue()` value should be 5578.79', () {
+      expect(homePresenter.getOpenValue(), 5578.79);
     });
 
-    test('initial `getAvailableValue()` value should be 0.0', () {
-      expect(homePresenter.getAvailableValue(), 0.0);
+    test('initial `getAvailableValue()` value should be 9421.71', () {
+      expect(homePresenter.getAvailableValue(), 9421.71);
     });
 
     test('initial `getDueValue()` value should be 0.0', () {
@@ -365,12 +365,13 @@ void main() {
       expect(homePresenter.getFuturePercent(), 0.0);
     });
 
-    test('initial `getOpenPercent()` value should be 0.0', () {
-      expect(homePresenter.getOpenPercent(), 0.0);
+    test('initial `getOpenPercent()` value should be 37.19069364354522', () {
+      expect(homePresenter.getOpenPercent(), 37.19069364354522);
     });
 
-    test('initial `getAvailablePercent()` value should be 0.0', () {
-      expect(homePresenter.getAvailablePercent(), 0.0);
+    test('initial `getAvailablePercent()` value should be 62.809306356454776',
+        () {
+      expect(homePresenter.getAvailablePercent(), 62.809306356454776);
     });
 
     test('initial `getDuePercent()` value should be 0.0', () {
@@ -381,12 +382,12 @@ void main() {
       expect(homePresenter.getFutureFlex(), 0);
     });
 
-    test('initial `getOpenFlex()` value should be 0', () {
-      expect(homePresenter.getOpenFlex(), 0);
+    test('initial `getOpenFlex()` value should be 37', () {
+      expect(homePresenter.getOpenFlex(), 37);
     });
 
-    test('initial `getAvailableFlex()` value should be 100', () {
-      expect(homePresenter.getAvailableFlex(), 100);
+    test('initial `getAvailableFlex()` value should be 63', () {
+      expect(homePresenter.getAvailableFlex(), 63);
     });
 
     test('initial `getDueFlex()` value should be 0', () {
@@ -401,15 +402,16 @@ void main() {
       expect(homePresenter.getFuturePercent(), 0.0);
       expect(homePresenter.getFutureFlex(), 0);
 
-      expect(homePresenter.getOpenValue(), 0.0);
-      expect(homePresenter.getOpenCurrency(), r'R$' + '\u00a0' + '0,00');
-      expect(homePresenter.getOpenPercent(), 0.0);
-      expect(homePresenter.getOpenFlex(), 0);
+      expect(homePresenter.getOpenValue(), 5578.79);
+      expect(homePresenter.getOpenCurrency(), r'R$' + '\u00a0' + '5.578,79');
+      expect(homePresenter.getOpenPercent(), 37.19069364354522);
+      expect(homePresenter.getOpenFlex(), 37);
 
-      expect(homePresenter.getAvailableValue(), 0.0);
-      expect(homePresenter.getAvailableCurrency(), r'R$' + '\u00a0' + '0,00');
-      expect(homePresenter.getAvailablePercent(), 0.0);
-      expect(homePresenter.getAvailableFlex(), 100);
+      expect(homePresenter.getAvailableValue(), 9421.71);
+      expect(
+          homePresenter.getAvailableCurrency(), r'R$' + '\u00a0' + '9.421,71');
+      expect(homePresenter.getAvailablePercent(), 62.809306356454776);
+      expect(homePresenter.getAvailableFlex(), 63);
 
       expect(homePresenter.getDueValue(), 0);
       expect(homePresenter.getDueCurrency(), 0.0);
@@ -607,9 +609,9 @@ void main() {
       );
     }, timeout: Timeout.factor(2));
 
-    test('check values after second run `initialUserData()` successfully',
+    test('check values after second run `userDataInitialSetup()` successfully',
         () async {
-      expect(await homePresenter.initialUserData(client, mockHttp), true);
+      expect(await homePresenter.userDataInitialSetup(client, mockHttp), true);
     }, timeout: Timeout.factor(2));
   }, timeout: Timeout.factor(2));
 
@@ -645,7 +647,7 @@ void main() {
       expect(HomePresenter.sharedPrefs.runtimeType, SharedPreferences);
     });
 
-    test('check values after first run `initialUserData()` successfully',
+    test('check values after first run `userDataInitialSetup()` successfully',
         () async {
       /// Mock customer status API [Ok]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
@@ -726,7 +728,7 @@ void main() {
       );
 
       expect(
-        await homePresenter.initialUserData(
+        await homePresenter.userDataInitialSetup(
           client,
           mockHttp,
           newCustomer,
@@ -737,7 +739,7 @@ void main() {
     }, timeout: Timeout.factor(2));
 
     test(
-        'check values after first run `initialUserData()` with error (Customer API Off!)',
+        'check values after first run `userDataInitialSetup()` with error (Customer API Off!)',
         () async {
       /// Mock customer status API [Off]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
@@ -745,11 +747,11 @@ void main() {
 
       expect(await mockHttp.checkHealthCustomerApi(httpClient: client), false);
 
-      expect(await homePresenter.initialUserData(client, mockHttp), false);
+      expect(await homePresenter.userDataInitialSetup(client, mockHttp), false);
     }, timeout: Timeout.factor(2));
 
     test(
-        'check values after first run `initialUserData()` with error (Account API Off!)',
+        'check values after first run `userDataInitialSetup()` with error (Account API Off!)',
         () async {
       /// Mock account status API [Off]
       when(mockHttp.checkHealthAccountApi(httpClient: client))
@@ -757,11 +759,11 @@ void main() {
 
       expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
 
-      expect(await homePresenter.initialUserData(client, mockHttp), false);
+      expect(await homePresenter.userDataInitialSetup(client, mockHttp), false);
     }, timeout: Timeout.factor(2));
 
     test(
-        'check values after first run `initialUserData()` with error (Purchase API Off!)',
+        'check values after first run `userDataInitialSetup()` with error (Purchase API Off!)',
         () async {
       /// Mock purchase status API [Off]
       when(mockHttp.checkHealthPurchaseApi(httpClient: client))
@@ -769,11 +771,11 @@ void main() {
 
       expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), false);
 
-      expect(await homePresenter.initialUserData(client, mockHttp), false);
+      expect(await homePresenter.userDataInitialSetup(client, mockHttp), false);
     }, timeout: Timeout.factor(2));
 
     test(
-        'check values after first run `initialUserData()` with error (Customer, Account and Purchase API Off!)',
+        'check values after first run `userDataInitialSetup()` with error (Customer, Account and Purchase API Off!)',
         () async {
       /// Mock customer status API [Off]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
@@ -793,11 +795,11 @@ void main() {
 
       expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), false);
 
-      expect(await homePresenter.initialUserData(client, mockHttp), false);
+      expect(await homePresenter.userDataInitialSetup(client, mockHttp), false);
     }, timeout: Timeout.factor(2));
 
     test(
-        'check values after first run `initialUserData()` with error (Customer create API Off!)',
+        'check values after first run `userDataInitialSetup()` with error (Customer create API Off!)',
         () async {
       /// Mock customer status API [Ok]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
@@ -840,7 +842,7 @@ void main() {
       );
 
       expect(
-        await homePresenter.initialUserData(
+        await homePresenter.userDataInitialSetup(
           client,
           mockHttp,
           newCustomer,
@@ -850,7 +852,7 @@ void main() {
     }, timeout: Timeout.factor(2));
 
     test(
-        'check values after first run `initialUserData()` with error (Account create API Off!)',
+        'check values after first run `userDataInitialSetup()` with error (Account create API Off!)',
         () async {
       /// Mock customer status API [Ok]
       when(mockHttp.checkHealthCustomerApi(httpClient: client))
@@ -923,7 +925,7 @@ void main() {
       );
 
       expect(
-        await homePresenter.initialUserData(
+        await homePresenter.userDataInitialSetup(
           client,
           mockHttp,
           newCustomer,

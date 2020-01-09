@@ -106,77 +106,85 @@ class HomePresenter with ChangeNotifier {
   //     Provider.of<HomePresenter>(context, listen: false)
   //         .setCurrentPageCarousel(index);
 
+  /// Get User Nickname
+  String getUserNickname() => globals.userNickname;
+
+  /// Update User Nickname
+  // void setUserNickname(String userNickname) async {
+  //   globals.userNickname = userNickname;
+  //   await sharedPrefs.setString('userNickname', userNickname);
+  //   notifyListeners();
+  // }
+
   /// Get the value of Balances Future Value
-  double getFutureValue() => this._homeViewModel.balancesFutureValue;
+  double getFutureValue() => globals.balancesFutureValue;
 
   /// Get the value of Balances Open Value
-  double getOpenValue() => this._homeViewModel.balancesOpenValue;
+  double getOpenValue() => globals.balancesOpenValue;
 
   /// Get the value of Balances Available Value
-  double getAvailableValue() => this._homeViewModel.balancesAvailableValue;
+  double getAvailableValue() => globals.balancesAvailableValue;
 
   /// Get the value of Balances Due Value
-  double getDueValue() => this._homeViewModel.balancesDueValue;
+  double getDueValue() => globals.balancesDueValue;
 
   /// Get the value of Balances Future Currency (R$)
   String getFutureCurrency() =>
-      _utils.getCurrencyValue(this._homeViewModel.balancesFutureValue);
+      _utils.getCurrencyValue(globals.balancesFutureValue);
 
   /// Get the value of Balances Open Currency (R$)
   String getOpenCurrency() =>
-      _utils.getCurrencyValue(this._homeViewModel.balancesOpenValue);
+      _utils.getCurrencyValue(globals.balancesOpenValue);
 
   /// Get the value of Balances Available Currency (R$)
   String getAvailableCurrency() =>
-      _utils.getCurrencyValue(this._homeViewModel.balancesAvailableValue);
+      _utils.getCurrencyValue(globals.balancesAvailableValue);
 
   /// Get the value of Balances Due Currency
-  double getDueCurrency() => this._homeViewModel.balancesDueValue;
+  double getDueCurrency() => globals.balancesDueValue;
 
   /// Get the value of Balances Future Percent
-  double getFuturePercent() => this._homeViewModel.balancesFuturePercent;
+  double getFuturePercent() => globals.balancesFuturePercent;
 
   /// Get the value of Balances Open Percent
-  double getOpenPercent() => this._homeViewModel.balancesOpenPercent;
+  double getOpenPercent() => globals.balancesOpenPercent;
 
   /// Get the value of Balances Available Percent
-  double getAvailablePercent() => this._homeViewModel.balancesAvailablePercent;
+  double getAvailablePercent() => globals.balancesAvailablePercent;
 
   /// Get the value of Balances Due Percent
-  double getDuePercent() => this._homeViewModel.balancesDuePercent;
+  double getDuePercent() => globals.balancesDuePercent;
 
   /// Get the value of Balances Future Flex
-  int getFutureFlex() => this._homeViewModel.balancesFutureFlex;
+  int getFutureFlex() => globals.balancesFutureFlex;
 
   /// Get the value of Balances Open Flex
-  int getOpenFlex() => this._homeViewModel.balancesOpenFlex;
+  int getOpenFlex() => globals.balancesOpenFlex;
 
   /// Get the value of Balances Available Flex
-  int getAvailableFlex() => this._homeViewModel.balancesAvailableFlex;
+  int getAvailableFlex() => globals.balancesAvailableFlex;
 
   /// Get the value of Balances Due Flex
-  int getDueFlex() => this._homeViewModel.balancesDueFlex;
+  int getDueFlex() => globals.balancesDueFlex;
 
   /// Calculate `percentage` and `flex` values of balances
+  /// - Balance is updated if customer already exists (using ``).
   void calculatePercentBalances() {
-    if (this._homeViewModel.limitValue > 0.0) {
+    if (globals.accountLimit > 0.0) {
       // We don't cover balancesFuture and balancesDue in this demo!
 
-      if (this._homeViewModel.balancesOpenValue > 0.0) {
-        globals.balancesOpenPercent = (this._homeViewModel.balancesOpenValue /
-                this._homeViewModel.limitValue) *
-            100;
+      if (globals.balancesOpenValue > 0.0) {
+        globals.balancesOpenPercent =
+            (globals.balancesOpenValue / globals.accountLimit) * 100;
         globals.balancesOpenFlex = globals.balancesOpenPercent.round();
       } else {
         globals.balancesOpenPercent = 0.0;
         globals.balancesOpenFlex = 0;
       }
 
-      if (this._homeViewModel.balancesAvailableValue > 0.0) {
+      if (globals.balancesAvailableValue > 0.0) {
         globals.balancesAvailablePercent =
-            (this._homeViewModel.balancesAvailableValue /
-                    this._homeViewModel.limitValue) *
-                100;
+            (globals.balancesAvailableValue / globals.accountLimit) * 100;
         globals.balancesAvailableFlex =
             globals.balancesAvailablePercent.round();
       } else {
@@ -189,6 +197,7 @@ class HomePresenter with ChangeNotifier {
       globals.balancesAvailablePercent = 0.0;
       globals.balancesAvailablePercent = 0;
     }
+    notifyListeners();
   }
 
   /// Format currency for summary info box style
@@ -221,8 +230,7 @@ class HomePresenter with ChangeNotifier {
   /// `createCustomerApi()` (the endpoint responsible for register new
   /// customers), and then the App use this register like the customer!
   /// - The same happens with account setup (using `createAccountApi()`)!
-  /// - Balance is updated if customer already exists (using ``).
-  Future<bool> initialUserData(
+  Future<bool> userDataInitialSetup(
     http.Client httpClient,
     Http utilsHttp, [
     Customer newCustomerMock,
@@ -234,6 +242,9 @@ class HomePresenter with ChangeNotifier {
     // Recovered existing Customer ID and Account ID,
     // if they are registered...
     if (globals.userUuid != null && globals.accountUuid != null) {
+      /// Calculate percentage balances
+      calculatePercentBalances();
+
       return true;
     }
     // ... or, registering a new Customer and a new Account,
@@ -267,14 +278,6 @@ class HomePresenter with ChangeNotifier {
           );
 
           if (regAccount != null && regAccount.accountId != null) {
-            // Saving the initial balance with 100% of limit
-            globals.balancesOpenValue = 0.0;
-            globals.balancesOpenPercent = 0.0;
-            globals.balancesOpenFlex = 0;
-            globals.balancesAvailableValue = globals.accountLimit;
-            globals.balancesAvailablePercent = 100.0;
-            globals.balancesAvailableFlex = 100;
-
             // Persist on device memory the Customer and Account data
             return _saveDataToSharedPreferences(
               sharedPrefs,
@@ -316,31 +319,52 @@ class HomePresenter with ChangeNotifier {
   }
 
   /// Save Customer and Account data to [SharedPreferences]
+  /// after first run App
   Future<bool> _saveDataToSharedPreferences(
       sharedPrefs, regCustomer, regAccount) async {
-    final List<String> userNickname = regCustomer.name.split(" ");
+    final String userNickname = regCustomer.name.split(" ")[0];
 
-    return (await sharedPrefs.setString('userUuid', regCustomer.customerId) &&
+    if (await sharedPrefs.setString('userUuid', regCustomer.customerId) &&
         await sharedPrefs.setString('userName', regCustomer.name) &&
-        await sharedPrefs.setString('userNickname', userNickname[0]) &&
+        await sharedPrefs.setString('userNickname', userNickname) &&
         await sharedPrefs.setString('userEmail', regCustomer.eMail) &&
         await sharedPrefs.setString('userPhone', regCustomer.phone) &&
         await sharedPrefs.setString('accountUuid', regAccount.accountId) &&
         await sharedPrefs.setString('bankBranch', regAccount.bankBranch) &&
         await sharedPrefs.setString('bankAccount', regAccount.bankAccount) &&
         await sharedPrefs.setDouble('accountLimit', regAccount.limit) &&
+        await sharedPrefs.setDouble('balancesOpenValue', 0.0) &&
+        await sharedPrefs.setDouble('balancesOpenPercent', 0.0) &&
+        await sharedPrefs.setInt('balancesOpenFlex', 0) &&
         await sharedPrefs.setDouble(
-            'balancesOpenValue', globals.balancesOpenValue) &&
-        await sharedPrefs.setDouble(
-            'balancesOpenPercent', globals.balancesOpenPercent) &&
-        await sharedPrefs.setInt(
-            'balancesOpenFlex', globals.balancesOpenFlex) &&
-        await sharedPrefs.setDouble(
-            'balancesAvailableValue', globals.balancesAvailableValue) &&
-        await sharedPrefs.setDouble(
-            'balancesAvailablePercent', globals.balancesAvailablePercent) &&
-        await sharedPrefs.setInt(
-            'balancesAvailableFlex', globals.balancesAvailableFlex));
+          'balancesAvailableValue',
+          regAccount.limit,
+        ) &&
+        await sharedPrefs.setDouble('balancesAvailablePercent', 100.0) &&
+        await sharedPrefs.setInt('balancesAvailableFlex', 100)) {
+      // Customer data
+      globals.userUuid = regCustomer.customerId;
+      globals.userName = regCustomer.name;
+      globals.userNickname = userNickname;
+      globals.userEmail = regCustomer.eMail;
+      globals.userPhone = regCustomer.phone;
+
+      // Account data
+      globals.accountUuid = regAccount.accountId;
+      globals.bankBranch = regAccount.bankBranch;
+      globals.bankAccount = regAccount.bankAccount;
+      globals.accountLimit = regAccount.limit;
+
+      // Saving the initial balance with 100% of limit
+      globals.balancesOpenValue = 0.0;
+      globals.balancesOpenPercent = 0.0;
+      globals.balancesOpenFlex = 0;
+      globals.balancesAvailableValue = globals.accountLimit;
+      globals.balancesAvailablePercent = 100.0;
+      globals.balancesAvailableFlex = 100;
+      return true;
+    }
+    return false;
   }
 
   /// Routing the user to [Sign Up] page or [Home] page

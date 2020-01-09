@@ -18,10 +18,7 @@ class HomePage extends StatelessWidget {
   @required
   final String title;
 
-  HomePage({Key key, this.presenter, this.title}) : super(key: key) {
-    /// Calculate percentage balances
-    presenter.calculatePercentBalances();
-  }
+  HomePage({Key key, this.presenter, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

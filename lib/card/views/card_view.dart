@@ -20,10 +20,7 @@ class CardPage extends StatelessWidget {
   final HomePresenter homePresenter = HomePresenter();
   final Utils utils = Utils();
 
-  CardPage({Key key, this.presenter, this.title}) : super(key: key) {
-    /// Calculate percentage balances
-    homePresenter.calculatePercentBalances();
-  }
+  CardPage({Key key, this.presenter, this.title}) : super(key: key);
 
   /// SliderBox dotted indicator container
   Widget _dottedContainerSliderBox({
@@ -524,10 +521,11 @@ class CardPage extends StatelessWidget {
             context: context,
             width: 8.0,
             borderRadius: 0,
-            flexFuture: homePresenter.getFutureFlex(),
-            flexOpen: homePresenter.getOpenFlex(),
-            flexDue: homePresenter.getDueFlex(),
-            flexAvailable: homePresenter.getAvailableFlex(),
+            flexFuture: Provider.of<HomePresenter>(context).getFutureFlex(),
+            flexOpen: Provider.of<HomePresenter>(context).getOpenFlex(),
+            flexDue: Provider.of<HomePresenter>(context).getDueFlex(),
+            flexAvailable:
+                Provider.of<HomePresenter>(context).getAvailableFlex(),
           ),
         ),
       ],

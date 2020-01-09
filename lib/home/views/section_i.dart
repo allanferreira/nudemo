@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
-import 'package:nudemo/utils/globals.dart' as globals;
+import 'package:nudemo/home/presenter/home_presenter.dart';
 
 /// `Section I` - Logo container
 class SectionI extends StatelessWidget {
@@ -51,7 +51,7 @@ class SectionI extends StatelessWidget {
                     width: 6,
                   ),
                   Text(
-                    globals.userNickname ?? '{userNickname}',
+                    Provider.of<HomePresenter>(context).getUserNickname(),
                     key: Key('title-text'),
                     style: TextStyle(
                       color: Theme.of(context).textTheme.subhead.color,
