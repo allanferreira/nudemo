@@ -107,8 +107,8 @@ void main() {
       expect(homeViewModel.balancesAvailablePercent, 0.0);
     });
 
-    test('initial `balancesAvailableFlex` value should be 0', () {
-      expect(homeViewModel.balancesAvailableFlex, 0);
+    test('initial `balancesAvailableFlex` value should be 100', () {
+      expect(homeViewModel.balancesAvailableFlex, 100);
     });
 
     test('the `balancesDueValue` run time type should be [double]', () {

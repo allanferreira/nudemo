@@ -51,7 +51,7 @@ class SectionI extends StatelessWidget {
                     width: 6,
                   ),
                   Text(
-                    globals.userNickname,
+                    globals.userNickname ?? '{userNickname}',
                     key: Key('title-text'),
                     style: TextStyle(
                       color: Theme.of(context).textTheme.subhead.color,

@@ -23,7 +23,7 @@ class HomeViewModel {
   int balancesOpenFlex = 0;
   double balancesAvailableValue = 0.0;
   double balancesAvailablePercent = 0.0;
-  int balancesAvailableFlex = 0;
+  int balancesAvailableFlex = 100; // Initially the green bar will be full
   // We don't cover balancesFuture and balancesDue in this demo!
   double limitValue = 0.0;
   double limitPercent = 100.0;

@@ -385,8 +385,8 @@ void main() {
       expect(homePresenter.getOpenFlex(), 0);
     });
 
-    test('initial `getAvailableFlex()` value should be 0', () {
-      expect(homePresenter.getAvailableFlex(), 0);
+    test('initial `getAvailableFlex()` value should be 100', () {
+      expect(homePresenter.getAvailableFlex(), 100);
     });
 
     test('initial `getDueFlex()` value should be 0', () {
@@ -409,7 +409,7 @@ void main() {
       expect(homePresenter.getAvailableValue(), 0.0);
       expect(homePresenter.getAvailableCurrency(), r'R$' + '\u00a0' + '0,00');
       expect(homePresenter.getAvailablePercent(), 0.0);
-      expect(homePresenter.getAvailableFlex(), 0);
+      expect(homePresenter.getAvailableFlex(), 100);
 
       expect(homePresenter.getDueValue(), 0);
       expect(homePresenter.getDueCurrency(), 0.0);
