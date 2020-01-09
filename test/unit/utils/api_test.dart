@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
 import 'package:nudemo/utils/config.dart';
-import 'package:nudemo/utils/http.dart';
+import 'package:nudemo/utils/api.dart';
 import 'package:nudemo/utils/model/customer_model.dart';
 import 'package:nudemo/utils/model/account_model.dart';
 import 'package:nudemo/utils/model/purchase_model.dart';
@@ -14,7 +14,7 @@ class MockClient extends Mock implements http.Client {}
 
 main() {
   MockClient client;
-  Http utilsHttp;
+  Api utilsApi;
   final Duration timeRequest = const Duration(milliseconds: 5);
   final String testEndPoint = "http://localhost:3000/";
   final Map<String, String> requestHeaders = {
@@ -94,10 +94,10 @@ main() {
 
   setUp(() {
     client = MockClient();
-    utilsHttp = Http();
+    utilsApi = Api();
   });
 
-  group('[Unit -> Http] General', () {
+  group('[Unit -> Api] General', () {
     test(
         'check returns type of `loadDataFromAPI()` if the http call completes successfully',
         () async {
@@ -127,7 +127,7 @@ main() {
       //     });
 
       expect(
-        await utilsHttp.loadDataFromAPI(
+        await utilsApi.loadDataFromAPI(
           httpClient: client,
           endPoint: testEndPoint,
         ),
@@ -142,7 +142,7 @@ main() {
           (_) async => Future.delayed(timeRequest, () => checkResOk));
 
       expect(
-        await utilsHttp.loadDataFromAPI(
+        await utilsApi.loadDataFromAPI(
           httpClient: client,
           endPoint: testEndPoint,
         ),
@@ -161,7 +161,7 @@ main() {
               (_) async => Future.delayed(timeRequest, () => checkResBad));
 
       expect(
-        await utilsHttp.loadDataFromAPI(
+        await utilsApi.loadDataFromAPI(
           httpClient: client,
           endPoint: '$testEndPoint' 'invalid/',
         ),
@@ -179,7 +179,7 @@ main() {
           .thenAnswer((_) async => Future.delayed(timeRequest, () => null));
 
       expect(
-        await utilsHttp.loadDataFromAPI(
+        await utilsApi.loadDataFromAPI(
           httpClient: client,
           endPoint: 'http://invalidendpoint/',
         ),
@@ -198,7 +198,7 @@ main() {
               Future.delayed(timeRequest, () => customerRegResponseOk));
 
       expect(
-        await utilsHttp.sendDataToAPI(
+        await utilsApi.sendDataToAPI(
           httpClient: client,
           endPoint: testEndPoint,
           data: customerDataSend,
@@ -216,7 +216,7 @@ main() {
               Future.delayed(timeRequest, () => customerRegResponseOk));
 
       expect(
-        await utilsHttp.sendDataToAPI(
+        await utilsApi.sendDataToAPI(
           httpClient: client,
           endPoint: testEndPoint,
           data: customerDataSend,
@@ -240,7 +240,7 @@ main() {
               Future.delayed(timeRequest, () => customerRegResponseBad));
 
       expect(
-        await utilsHttp.sendDataToAPI(
+        await utilsApi.sendDataToAPI(
           httpClient: client,
           endPoint: testEndPoint,
           data: '',
@@ -261,7 +261,7 @@ main() {
               (_) async => Future.delayed(timeRequest, () => checkResBad));
 
       expect(
-        await utilsHttp.sendDataToAPI(
+        await utilsApi.sendDataToAPI(
           httpClient: client,
           endPoint: '$testEndPoint' 'invalid/',
           data: customerDataSend,
@@ -280,7 +280,7 @@ main() {
           .thenAnswer((_) async => Future.delayed(timeRequest, () => null));
 
       expect(
-        await utilsHttp.sendDataToAPI(
+        await utilsApi.sendDataToAPI(
           httpClient: client,
           endPoint: 'http://invalidendpoint/',
           data: customerDataSend,
@@ -290,7 +290,7 @@ main() {
     });
   });
 
-  group('[Unit -> Http] Customer API', () {
+  group('[Unit -> Api] Customer API', () {
     test(
         'check returns value of `checkHealthCustomerApi()` if the http call completes successfully',
         () async {
@@ -298,7 +298,7 @@ main() {
           .thenAnswer(
               (_) async => Future.delayed(timeRequest, () => checkResOk));
 
-      expect(await utilsHttp.checkHealthCustomerApi(httpClient: client), true);
+      expect(await utilsApi.checkHealthCustomerApi(httpClient: client), true);
     });
 
     test(
@@ -308,7 +308,7 @@ main() {
           .thenAnswer(
               (_) async => Future.delayed(timeRequest, () => checkResBad));
 
-      expect(await utilsHttp.checkHealthCustomerApi(httpClient: client), false);
+      expect(await utilsApi.checkHealthCustomerApi(httpClient: client), false);
     });
 
     test(
@@ -320,7 +320,7 @@ main() {
               Future.delayed(timeRequest, () => customerRegResponseOk));
 
       expect(
-        await utilsHttp.createCustomerApi(
+        await utilsApi.createCustomerApi(
           httpClient: client,
           customerData: newCustomer,
         ),
@@ -336,7 +336,7 @@ main() {
           .thenAnswer((_) async =>
               Future.delayed(timeRequest, () => customerRegResponseOk));
 
-      Customer customer = await utilsHttp.createCustomerApi(
+      Customer customer = await utilsApi.createCustomerApi(
         httpClient: client,
         customerData: newCustomer,
       );
@@ -356,7 +356,7 @@ main() {
               Future.delayed(timeRequest, () => customerRegResponseBad));
 
       expect(
-        await utilsHttp.createCustomerApi(
+        await utilsApi.createCustomerApi(
           httpClient: client,
           customerData: Customer(),
         ),
@@ -365,7 +365,7 @@ main() {
     });
   });
 
-  group('[Unit -> Http] Account API', () {
+  group('[Unit -> Api] Account API', () {
     test(
         'check returns value of `checkHealthAccountApi()` if the http call completes successfully',
         () async {
@@ -373,7 +373,7 @@ main() {
           .thenAnswer(
               (_) async => Future.delayed(timeRequest, () => checkResOk));
 
-      expect(await utilsHttp.checkHealthAccountApi(httpClient: client), true);
+      expect(await utilsApi.checkHealthAccountApi(httpClient: client), true);
     });
 
     test(
@@ -383,7 +383,7 @@ main() {
           .thenAnswer(
               (_) async => Future.delayed(timeRequest, () => checkResBad));
 
-      expect(await utilsHttp.checkHealthAccountApi(httpClient: client), false);
+      expect(await utilsApi.checkHealthAccountApi(httpClient: client), false);
     });
 
     test(
@@ -395,7 +395,7 @@ main() {
               Future.delayed(timeRequest, () => customerRegResponseOk));
 
       expect(
-        await utilsHttp.createAccountApi(
+        await utilsApi.createAccountApi(
           httpClient: client,
           accountData: newAccount,
         ),
@@ -411,7 +411,7 @@ main() {
           .thenAnswer((_) async =>
               Future.delayed(timeRequest, () => accountRegResponseOk));
 
-      Account account = await utilsHttp.createAccountApi(
+      Account account = await utilsApi.createAccountApi(
         httpClient: client,
         accountData: newAccount,
       );
@@ -433,7 +433,7 @@ main() {
               Future.delayed(timeRequest, () => accountRegResponseBad));
 
       expect(
-        await utilsHttp.createAccountApi(
+        await utilsApi.createAccountApi(
           httpClient: client,
           accountData: Account(),
         ),
@@ -442,7 +442,7 @@ main() {
     });
   });
 
-  group('[Unit -> Http] Purchase API', () {
+  group('[Unit -> Api] Purchase API', () {
     test(
         'check returns value of `checkHealthPurchaseApi()` if the http call completes successfully',
         () async {
@@ -450,7 +450,7 @@ main() {
           .thenAnswer(
               (_) async => Future.delayed(timeRequest, () => checkResOk));
 
-      expect(await utilsHttp.checkHealthPurchaseApi(httpClient: client), true);
+      expect(await utilsApi.checkHealthPurchaseApi(httpClient: client), true);
     });
 
     test(
@@ -460,7 +460,7 @@ main() {
           .thenAnswer(
               (_) async => Future.delayed(timeRequest, () => checkResBad));
 
-      expect(await utilsHttp.checkHealthPurchaseApi(httpClient: client), false);
+      expect(await utilsApi.checkHealthPurchaseApi(httpClient: client), false);
     });
 
     test(
@@ -472,7 +472,7 @@ main() {
               Future.delayed(timeRequest, () => customerRegResponseOk));
 
       expect(
-        await utilsHttp.createPurchaseApi(
+        await utilsApi.createPurchaseApi(
           httpClient: client,
           purchaseData: newPurchase,
         ),
@@ -488,7 +488,7 @@ main() {
           .thenAnswer((_) async =>
               Future.delayed(timeRequest, () => purchaseRegResponseOk));
 
-      Purchase purchase = await utilsHttp.createPurchaseApi(
+      Purchase purchase = await utilsApi.createPurchaseApi(
         httpClient: client,
         purchaseData: newPurchase,
       );
@@ -512,7 +512,7 @@ main() {
               Future.delayed(timeRequest, () => purchaseRegResponseBad));
 
       expect(
-        await utilsHttp.createPurchaseApi(
+        await utilsApi.createPurchaseApi(
           httpClient: client,
           purchaseData: Purchase(),
         ),

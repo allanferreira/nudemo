@@ -16,7 +16,7 @@ import 'package:nudemo/utils/model/customer_model.dart';
 import 'package:nudemo/utils/model/account_model.dart';
 import 'package:nudemo/utils/utils.dart';
 import 'package:nudemo/utils/config.dart';
-import 'package:nudemo/utils/http.dart';
+import 'package:nudemo/utils/api.dart';
 import 'package:nudemo/utils/globals.dart' as globals;
 
 /// Simplest possible model, with just one field.
@@ -232,7 +232,7 @@ class HomePresenter with ChangeNotifier {
   /// - The same happens with account setup (using `createAccountApi()`)!
   Future<bool> userDataInitialSetup(
     http.Client httpClient,
-    Http utilsHttp, [
+    Api utilsApi, [
     Customer newCustomerMock,
     Account newAccountMock,
   ]) async {
@@ -250,16 +250,16 @@ class HomePresenter with ChangeNotifier {
     // ... or, registering a new Customer and a new Account,
     // if they are not already registered...
     else {
-      if (await utilsHttp.checkHealthCustomerApi(httpClient: httpClient) &&
-          await utilsHttp.checkHealthAccountApi(httpClient: httpClient) &&
-          await utilsHttp.checkHealthPurchaseApi(httpClient: httpClient)) {
+      if (await utilsApi.checkHealthCustomerApi(httpClient: httpClient) &&
+          await utilsApi.checkHealthAccountApi(httpClient: httpClient) &&
+          await utilsApi.checkHealthPurchaseApi(httpClient: httpClient)) {
         Customer newCustomer = Customer(
           name: Config().userName,
           eMail: Config().userEmail,
           phone: Config().userPhone,
         );
 
-        Customer regCustomer = await utilsHttp.createCustomerApi(
+        Customer regCustomer = await utilsApi.createCustomerApi(
           httpClient: httpClient,
           customerData: newCustomerMock ?? newCustomer,
         );
@@ -272,7 +272,7 @@ class HomePresenter with ChangeNotifier {
             limit: Config().accountLimit,
           );
 
-          Account regAccount = await utilsHttp.createAccountApi(
+          Account regAccount = await utilsApi.createAccountApi(
             httpClient: httpClient,
             accountData: newAccountMock ?? newAccount,
           );

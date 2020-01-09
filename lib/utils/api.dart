@@ -7,7 +7,7 @@ import 'package:nudemo/utils/model/customer_model.dart';
 import 'package:nudemo/utils/model/account_model.dart';
 import 'package:nudemo/utils/model/purchase_model.dart';
 
-class Http {
+class Api {
   static Map<String, String> requestHeaders = {
     'Content-type': 'application/json',
     'Accept': 'application/json',

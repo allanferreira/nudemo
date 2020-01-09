@@ -11,15 +11,15 @@ import 'package:nudemo/themes/nu_dark_theme.dart';
 import 'package:nudemo/utils/model/customer_model.dart';
 import 'package:nudemo/utils/model/account_model.dart';
 import 'package:nudemo/utils/config.dart';
-import 'package:nudemo/utils/http.dart';
+import 'package:nudemo/utils/api.dart';
 
 /// Create a `MockClient` using the `Mock` class provided by the Mockito package.
 /// Create new `instances` of this class in each test.
 class MockClient extends Mock implements http.Client {}
 
-/// Create a `MockHttp` using the `Mock` class provided by the Mockito package.
+/// Create a `MockApi` using the `Mock` class provided by the Mockito package.
 /// Create new `instances` of this class in each test.
-class MockHttp extends Mock implements Http {}
+class MockApi extends Mock implements Api {}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,14 +27,14 @@ void main() {
   HomePresenter homePresenter;
   HomeViewModel homeViewModel;
   MockClient client;
-  MockHttp mockHttp;
+  MockApi mockApi;
   Config config;
 
   setUp(() {
     homePresenter = HomePresenter();
     homeViewModel = HomeViewModel();
     client = MockClient();
-    mockHttp = MockHttp();
+    mockApi = MockApi();
     config = Config();
 
     /// Mock Config class
@@ -611,7 +611,7 @@ void main() {
 
     test('check values after second run `userDataInitialSetup()` successfully',
         () async {
-      expect(await homePresenter.userDataInitialSetup(client, mockHttp), true);
+      expect(await homePresenter.userDataInitialSetup(client, mockApi), true);
     }, timeout: Timeout.factor(2));
   }, timeout: Timeout.factor(2));
 
@@ -650,22 +650,22 @@ void main() {
     test('check values after first run `userDataInitialSetup()` successfully',
         () async {
       /// Mock customer status API [Ok]
-      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+      when(mockApi.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
-      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), true);
+      expect(await mockApi.checkHealthCustomerApi(httpClient: client), true);
 
       /// Mock account status API [Ok]
-      when(mockHttp.checkHealthAccountApi(httpClient: client))
+      when(mockApi.checkHealthAccountApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
-      expect(await mockHttp.checkHealthAccountApi(httpClient: client), true);
+      expect(await mockApi.checkHealthAccountApi(httpClient: client), true);
 
       /// Mock purchase status API [Ok]
-      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+      when(mockApi.checkHealthPurchaseApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
-      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), true);
+      expect(await mockApi.checkHealthPurchaseApi(httpClient: client), true);
 
       /// Mock customer register [Ok]
       final Customer newCustomer = Customer(
@@ -681,7 +681,7 @@ void main() {
         phone: Config().userPhone,
       );
 
-      when(mockHttp.createCustomerApi(
+      when(mockApi.createCustomerApi(
         httpClient: client,
         customerData: newCustomer,
       )).thenAnswer(
@@ -689,7 +689,7 @@ void main() {
       );
 
       expect(
-        await mockHttp.createCustomerApi(
+        await mockApi.createCustomerApi(
           httpClient: client,
           customerData: newCustomer,
         ),
@@ -712,7 +712,7 @@ void main() {
         limit: Config().accountLimit,
       );
 
-      when(mockHttp.createAccountApi(
+      when(mockApi.createAccountApi(
         httpClient: client,
         accountData: newAccount,
       )).thenAnswer(
@@ -720,7 +720,7 @@ void main() {
       );
 
       expect(
-        await mockHttp.createAccountApi(
+        await mockApi.createAccountApi(
           httpClient: client,
           accountData: newAccount,
         ),
@@ -730,7 +730,7 @@ void main() {
       expect(
         await homePresenter.userDataInitialSetup(
           client,
-          mockHttp,
+          mockApi,
           newCustomer,
           newAccount,
         ),
@@ -742,82 +742,82 @@ void main() {
         'check values after first run `userDataInitialSetup()` with error (Customer API Off!)',
         () async {
       /// Mock customer status API [Off]
-      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+      when(mockApi.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
 
-      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), false);
+      expect(await mockApi.checkHealthCustomerApi(httpClient: client), false);
 
-      expect(await homePresenter.userDataInitialSetup(client, mockHttp), false);
+      expect(await homePresenter.userDataInitialSetup(client, mockApi), false);
     }, timeout: Timeout.factor(2));
 
     test(
         'check values after first run `userDataInitialSetup()` with error (Account API Off!)',
         () async {
       /// Mock account status API [Off]
-      when(mockHttp.checkHealthAccountApi(httpClient: client))
+      when(mockApi.checkHealthAccountApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
 
-      expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
+      expect(await mockApi.checkHealthAccountApi(httpClient: client), false);
 
-      expect(await homePresenter.userDataInitialSetup(client, mockHttp), false);
+      expect(await homePresenter.userDataInitialSetup(client, mockApi), false);
     }, timeout: Timeout.factor(2));
 
     test(
         'check values after first run `userDataInitialSetup()` with error (Purchase API Off!)',
         () async {
       /// Mock purchase status API [Off]
-      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+      when(mockApi.checkHealthPurchaseApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
 
-      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), false);
+      expect(await mockApi.checkHealthPurchaseApi(httpClient: client), false);
 
-      expect(await homePresenter.userDataInitialSetup(client, mockHttp), false);
+      expect(await homePresenter.userDataInitialSetup(client, mockApi), false);
     }, timeout: Timeout.factor(2));
 
     test(
         'check values after first run `userDataInitialSetup()` with error (Customer, Account and Purchase API Off!)',
         () async {
       /// Mock customer status API [Off]
-      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+      when(mockApi.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
 
-      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), false);
+      expect(await mockApi.checkHealthCustomerApi(httpClient: client), false);
 
       /// Mock account status API [Off]
-      when(mockHttp.checkHealthAccountApi(httpClient: client))
+      when(mockApi.checkHealthAccountApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
 
-      expect(await mockHttp.checkHealthAccountApi(httpClient: client), false);
+      expect(await mockApi.checkHealthAccountApi(httpClient: client), false);
 
       /// Mock purchase status API [Off]
-      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+      when(mockApi.checkHealthPurchaseApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
 
-      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), false);
+      expect(await mockApi.checkHealthPurchaseApi(httpClient: client), false);
 
-      expect(await homePresenter.userDataInitialSetup(client, mockHttp), false);
+      expect(await homePresenter.userDataInitialSetup(client, mockApi), false);
     }, timeout: Timeout.factor(2));
 
     test(
         'check values after first run `userDataInitialSetup()` with error (Customer create API Off!)',
         () async {
       /// Mock customer status API [Ok]
-      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+      when(mockApi.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
-      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), true);
+      expect(await mockApi.checkHealthCustomerApi(httpClient: client), true);
 
       /// Mock account status API [Ok]
-      when(mockHttp.checkHealthAccountApi(httpClient: client))
+      when(mockApi.checkHealthAccountApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
-      expect(await mockHttp.checkHealthAccountApi(httpClient: client), true);
+      expect(await mockApi.checkHealthAccountApi(httpClient: client), true);
 
       /// Mock purchase status API [Ok]
-      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+      when(mockApi.checkHealthPurchaseApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
-      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), true);
+      expect(await mockApi.checkHealthPurchaseApi(httpClient: client), true);
 
       /// Mock customer register [Ok]
       final Customer newCustomer = Customer(
@@ -826,7 +826,7 @@ void main() {
         phone: Config().userPhone,
       );
 
-      when(mockHttp.createCustomerApi(
+      when(mockApi.createCustomerApi(
         httpClient: client,
         customerData: newCustomer,
       )).thenAnswer(
@@ -834,7 +834,7 @@ void main() {
       );
 
       expect(
-        await mockHttp.createCustomerApi(
+        await mockApi.createCustomerApi(
           httpClient: client,
           customerData: newCustomer,
         ),
@@ -844,7 +844,7 @@ void main() {
       expect(
         await homePresenter.userDataInitialSetup(
           client,
-          mockHttp,
+          mockApi,
           newCustomer,
         ),
         false,
@@ -855,22 +855,22 @@ void main() {
         'check values after first run `userDataInitialSetup()` with error (Account create API Off!)',
         () async {
       /// Mock customer status API [Ok]
-      when(mockHttp.checkHealthCustomerApi(httpClient: client))
+      when(mockApi.checkHealthCustomerApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
-      expect(await mockHttp.checkHealthCustomerApi(httpClient: client), true);
+      expect(await mockApi.checkHealthCustomerApi(httpClient: client), true);
 
       /// Mock account status API [Ok]
-      when(mockHttp.checkHealthAccountApi(httpClient: client))
+      when(mockApi.checkHealthAccountApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
-      expect(await mockHttp.checkHealthAccountApi(httpClient: client), true);
+      expect(await mockApi.checkHealthAccountApi(httpClient: client), true);
 
       /// Mock purchase status API [Ok]
-      when(mockHttp.checkHealthPurchaseApi(httpClient: client))
+      when(mockApi.checkHealthPurchaseApi(httpClient: client))
           .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
 
-      expect(await mockHttp.checkHealthPurchaseApi(httpClient: client), true);
+      expect(await mockApi.checkHealthPurchaseApi(httpClient: client), true);
 
       /// Mock customer register [Ok]
       final Customer newCustomer = Customer(
@@ -886,7 +886,7 @@ void main() {
         phone: Config().userPhone,
       );
 
-      when(mockHttp.createCustomerApi(
+      when(mockApi.createCustomerApi(
         httpClient: client,
         customerData: newCustomer,
       )).thenAnswer(
@@ -894,7 +894,7 @@ void main() {
       );
 
       expect(
-        await mockHttp.createCustomerApi(
+        await mockApi.createCustomerApi(
           httpClient: client,
           customerData: newCustomer,
         ),
@@ -909,7 +909,7 @@ void main() {
         limit: Config().accountLimit,
       );
 
-      when(mockHttp.createAccountApi(
+      when(mockApi.createAccountApi(
         httpClient: client,
         accountData: newAccount,
       )).thenAnswer(
@@ -917,7 +917,7 @@ void main() {
       );
 
       expect(
-        await mockHttp.createAccountApi(
+        await mockApi.createAccountApi(
           httpClient: client,
           accountData: newAccount,
         ),
@@ -927,7 +927,7 @@ void main() {
       expect(
         await homePresenter.userDataInitialSetup(
           client,
-          mockHttp,
+          mockApi,
           newCustomer,
           newAccount,
         ),

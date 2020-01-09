@@ -8,7 +8,7 @@ import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
-import 'package:nudemo/utils/http.dart';
+import 'package:nudemo/utils/api.dart';
 import 'package:nudemo/utils/globals.dart' as globals;
 
 void main() async {
@@ -16,7 +16,7 @@ void main() async {
 
   /// Get Customer and Account saved or register a new on API.
   globals.isLoggedIn =
-      await HomePresenter().userDataInitialSetup(http.Client(), Http());
+      await HomePresenter().userDataInitialSetup(http.Client(), Api());
   runApp(MyApp());
 }
 
