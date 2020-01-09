@@ -36,7 +36,6 @@ void main() {
       "bankBranch": config.bankBranch,
       "bankAccount": config.bankAccount,
       "accountLimit": config.accountLimit,
-      "limitPercent": HomeViewModel.limitPercent,
       "balancesOpenValue": HomeViewModel.balancesOpenValue,
       "balancesOpenPercent": HomeViewModel.balancesOpenPercent,
       "balancesOpenFlex": HomeViewModel.balancesOpenFlex,
@@ -56,7 +55,6 @@ void main() {
     globals.bankBranch = config.bankBranch;
     globals.bankAccount = config.bankAccount;
     globals.accountLimit = config.accountLimit;
-    globals.limitPercent = HomeViewModel.limitPercent;
     globals.balancesOpenValue = HomeViewModel.balancesOpenValue;
     globals.balancesOpenPercent = HomeViewModel.balancesOpenPercent;
     globals.balancesOpenFlex = HomeViewModel.balancesOpenFlex;

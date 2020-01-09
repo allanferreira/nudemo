@@ -15,17 +15,18 @@ String userPhone;
 String accountUuid;
 String bankBranch;
 String bankAccount;
-double accountLimit;
+double accountLimit = 0.0;
 
 // Balances control
-double limitPercent = 100.0;
 double balancesOpenValue = 0.0;
 double balancesOpenPercent = 0.0;
 int balancesOpenFlex = 0;
 double balancesAvailableValue = 0.0;
 double balancesAvailablePercent = 0.0;
 int balancesAvailableFlex = 0;
-// We don't cover dues in this demo!
+// We don't cover balancesFuture and balancesDue in this demo!
+double limitValue = accountLimit;
+double limitPercent = 100.0;
 double balancesFutureValue = 0.0;
 double balancesFuturePercent = 0.0;
 int balancesFutureFlex = 0;

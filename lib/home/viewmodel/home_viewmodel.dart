@@ -18,15 +18,15 @@ class HomeViewModel {
   int currentPageCarousel = 0;
 
   // Balances control
-  static double limitValue = 15000.5;
-  static double limitPercent = 100.0;
   static double balancesOpenValue = 5578.79;
   static double balancesOpenPercent = 37.19069364354522;
   static int balancesOpenFlex = 37;
   static double balancesAvailableValue = 9421.71;
   static double balancesAvailablePercent = 62.809306356454776;
   static int balancesAvailableFlex = 63;
-  // We don't cover dues in this demo!
+  // We don't cover balancesFuture and balancesDue in this demo!
+  static double limitValue = 15000.5;
+  static double limitPercent = 100.0;
   static double balancesFutureValue = 0.0;
   static double balancesFuturePercent = 0.0;
   static int balancesFutureFlex = 0;

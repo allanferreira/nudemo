@@ -113,86 +113,85 @@ class HomePresenter with ChangeNotifier {
   //         .setCurrentPageCarousel(index);
 
   /// Get the value of Balances Future Value
-  double getFutureValue() => HomeViewModel.balancesFutureValue;
+  double getFutureValue() => globals.balancesFutureValue;
 
   /// Get the value of Balances Open Value
-  double getOpenValue() => HomeViewModel.balancesOpenValue;
+  double getOpenValue() => globals.balancesOpenValue;
 
   /// Get the value of Balances Available Value
-  double getAvailableValue() => HomeViewModel.balancesAvailableValue;
+  double getAvailableValue() => globals.balancesAvailableValue;
 
   /// Get the value of Balances Due Value
-  double getDueValue() => HomeViewModel.balancesDueValue;
+  double getDueValue() => globals.balancesDueValue;
 
   /// Get the value of Balances Future Currency (R$)
   String getFutureCurrency() =>
-      _utils.getCurrencyValue(HomeViewModel.balancesFutureValue);
+      _utils.getCurrencyValue(globals.balancesFutureValue);
 
   /// Get the value of Balances Open Currency (R$)
   String getOpenCurrency() =>
-      _utils.getCurrencyValue(HomeViewModel.balancesOpenValue);
+      _utils.getCurrencyValue(globals.balancesOpenValue);
 
   /// Get the value of Balances Available Currency (R$)
   String getAvailableCurrency() =>
-      _utils.getCurrencyValue(HomeViewModel.balancesAvailableValue);
+      _utils.getCurrencyValue(globals.balancesAvailableValue);
 
   /// Get the value of Balances Due Currency
-  double getDueCurrency() => HomeViewModel.balancesDueValue;
+  double getDueCurrency() => globals.balancesDueValue;
 
   /// Get the value of Balances Future Percent
-  double getFuturePercent() => HomeViewModel.balancesFuturePercent;
+  double getFuturePercent() => globals.balancesFuturePercent;
 
   /// Get the value of Balances Open Percent
-  double getOpenPercent() => HomeViewModel.balancesOpenPercent;
+  double getOpenPercent() => globals.balancesOpenPercent;
 
   /// Get the value of Balances Available Percent
-  double getAvailablePercent() => HomeViewModel.balancesAvailablePercent;
+  double getAvailablePercent() => globals.balancesAvailablePercent;
 
   /// Get the value of Balances Due Percent
-  double getDuePercent() => HomeViewModel.balancesDuePercent;
+  double getDuePercent() => globals.balancesDuePercent;
 
   /// Get the value of Balances Future Flex
-  int getFutureFlex() => HomeViewModel.balancesFutureFlex;
+  int getFutureFlex() => globals.balancesFutureFlex;
 
   /// Get the value of Balances Open Flex
-  int getOpenFlex() => HomeViewModel.balancesOpenFlex;
+  int getOpenFlex() => globals.balancesOpenFlex;
 
   /// Get the value of Balances Available Flex
-  int getAvailableFlex() => HomeViewModel.balancesAvailableFlex;
+  int getAvailableFlex() => globals.balancesAvailableFlex;
 
   /// Get the value of Balances Due Flex
-  int getDueFlex() => HomeViewModel.balancesDueFlex;
+  int getDueFlex() => globals.balancesDueFlex;
 
   /// Calculate `percentage` and `flex` values of balances
-  void calculatePercentBalances({
-    double limitValue = 0.0,
-    double balancesFutureValue = 0.0,
-    double balancesOpenValue = 0.0,
-    double balancesAvailableValue = 0.0,
-    double balancesDueValue = 0.0,
-  }) {
-    HomeViewModel.balancesFuturePercent =
-        (HomeViewModel.balancesFutureValue / HomeViewModel.limitValue) * 100;
-    HomeViewModel.balancesFutureFlex =
-        HomeViewModel.balancesFuturePercent.round();
+  void calculatePercentBalances() {
+    if (globals.accountLimit > 0.0) {
+      // We don't cover balancesFuture and balancesDue in this demo!
 
-    HomeViewModel.balancesOpenPercent =
-        (HomeViewModel.balancesOpenValue / HomeViewModel.limitValue) * 100;
-    HomeViewModel.balancesOpenFlex = HomeViewModel.balancesOpenPercent.round();
+      if (globals.balancesOpenValue > 0.0) {
+        globals.balancesOpenPercent =
+            (globals.balancesOpenValue / globals.accountLimit) * 100;
+        globals.balancesOpenFlex = globals.balancesOpenPercent.round();
+      } else {
+        globals.balancesOpenPercent = 0.0;
+        globals.balancesOpenFlex = 0;
+      }
 
-    HomeViewModel.balancesAvailablePercent =
-        (HomeViewModel.balancesAvailableValue / HomeViewModel.limitValue) * 100;
-    HomeViewModel.balancesAvailableFlex =
-        HomeViewModel.balancesAvailablePercent.round();
-
-    HomeViewModel.balancesDuePercent =
-        (HomeViewModel.balancesDueValue / HomeViewModel.limitValue) * 100;
-    HomeViewModel.balancesDueFlex = HomeViewModel.balancesDuePercent.round();
-
-    HomeViewModel.limitPercent = HomeViewModel.balancesFuturePercent +
-        HomeViewModel.balancesOpenPercent +
-        HomeViewModel.balancesAvailablePercent +
-        HomeViewModel.balancesDuePercent;
+      if (globals.balancesAvailableValue > 0.0) {
+        globals.balancesAvailablePercent =
+            (globals.balancesAvailableValue / globals.accountLimit) * 100;
+        globals.balancesAvailableFlex =
+            globals.balancesAvailablePercent.round();
+      } else {
+        globals.balancesAvailablePercent = 0.0;
+        globals.balancesAvailablePercent = 0;
+      }
+    } else {
+      globals.balancesOpenPercent = 0.0;
+      globals.balancesOpenFlex = 0;
+      globals.balancesAvailablePercent = 0.0;
+      globals.balancesAvailablePercent = 0;
+    }
   }
 
   /// Format currency for summary info box style
@@ -249,6 +248,15 @@ class HomePresenter with ChangeNotifier {
     globals.bankAccount = sharedPrefs.getString('bankAccount');
     globals.accountLimit = sharedPrefs.getDouble('accountLimit');
 
+    globals.balancesOpenValue = sharedPrefs.getDouble('balancesOpenValue');
+    globals.balancesOpenPercent = sharedPrefs.getDouble('balancesOpenPercent');
+    globals.balancesOpenFlex = sharedPrefs.getInt('balancesOpenFlex');
+    globals.balancesAvailableValue =
+        sharedPrefs.getDouble('balancesAvailableValue');
+    globals.balancesAvailablePercent =
+        sharedPrefs.getDouble('balancesAvailablePercent');
+    globals.balancesAvailableFlex = sharedPrefs.getInt('balancesAvailableFlex');
+
     // Registering a new customer and a new account,
     // if they are not already registered...
     if (globals.userUuid == null || globals.accountUuid == null) {
@@ -286,7 +294,6 @@ class HomePresenter with ChangeNotifier {
           if (regAccount != null && regAccount.accountId != null) {
             // print('Create account ID: ${regAccount.accountId}');
 
-            globals.limitPercent = 100.0;
             globals.balancesOpenValue = 0.0;
             globals.balancesOpenPercent = 0.0;
             globals.balancesOpenFlex = 0;
@@ -308,8 +315,6 @@ class HomePresenter with ChangeNotifier {
                 await sharedPrefs.setString(
                     'bankAccount', regAccount.bankAccount) &&
                 await sharedPrefs.setDouble('accountLimit', regAccount.limit) &&
-                await sharedPrefs.setDouble(
-                    'limitPercent', globals.limitPercent) &&
                 await sharedPrefs.setDouble(
                     'balancesOpenValue', globals.balancesOpenValue) &&
                 await sharedPrefs.setDouble(
