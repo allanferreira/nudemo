@@ -310,6 +310,7 @@ void main() {
       );
 
       /// tap the `/exit/` item menu and trigger a frame.
+      /// This route exit the app!!! ❎
       await tester.tap(_exitButton);
       await tester.pumpAndSettle();
     });

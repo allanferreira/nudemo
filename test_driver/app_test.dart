@@ -430,12 +430,10 @@ void main() {
       await _driver.waitFor(_homePage);
     });
 
-    test('go to `/exit/`', () async {
+    test('go to `/exit/` (This route exit the app!!! ❎)', () async {
       /// Go to route `/exit/`.
       await _driver.tap(_exitButton);
-
-      // This route does nothing !!! 🤷
-    });
+    }, skip: 'This route exit the app!!! ❎');
 
     test('drag to `down` the `/exit/` item of list', () async {
       /// [Gesture 👆↕️👆] Drag to `DOWN` the `ListView` Widget
