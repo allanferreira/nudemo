@@ -111,11 +111,11 @@ class CardPage extends StatelessWidget {
     Widget _timeline;
 
     Widget _tags = Container();
-    if (_itemData['tags'] != null) {
+    if (_itemData['tag'] != null) {
       _tags = Padding(
         padding: EdgeInsets.only(top: 5.0),
         child: Text(
-          _itemData['tags'],
+          _itemData['tag'],
           softWrap: true,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
