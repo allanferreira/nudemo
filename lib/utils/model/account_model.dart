@@ -22,6 +22,10 @@ String accountToJson(Account data) => json.encode(data.toJson());
 List<Account> allAccountsFromJson(String str) =>
     List<Account>.from(json.decode(str).map((x) => Account.fromJson(x)));
 
+/// Mapping a list of Map data -> Account
+List<Account> allAccountsFromMapList(List<dynamic> mapList) =>
+    List<Account>.from(mapList.map((x) => Account.fromJson(x)));
+
 /// Mapping a list of Account data -> Json
 String allAccountsToJson(List<Account> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

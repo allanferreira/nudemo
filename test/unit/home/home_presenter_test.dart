@@ -10,6 +10,7 @@ import 'package:nudemo/themes/nu_default_theme.dart';
 import 'package:nudemo/themes/nu_dark_theme.dart';
 import 'package:nudemo/utils/model/customer_model.dart';
 import 'package:nudemo/utils/model/account_model.dart';
+import 'package:nudemo/utils/model/purchase_model.dart';
 import 'package:nudemo/utils/config.dart';
 import 'package:nudemo/utils/api.dart';
 
@@ -23,12 +24,39 @@ class MockApi extends Mock implements Api {}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final Duration timeRequest = const Duration(milliseconds: 5);
   HomePresenter homePresenter;
   HomeViewModel homeViewModel;
   MockClient client;
   MockApi mockApi;
   Config config;
+
+  final Duration timeRequest = const Duration(milliseconds: 5);
+  final String userUuidMock = "a1b2c3";
+  final String accountUuidMock = "a1b2c3d4e5";
+  final Customer newCustomerMock = Customer(
+    name: Config().userName,
+    eMail: Config().userEmail,
+    phone: Config().userPhone,
+  );
+  final Customer customerRegisteredMock = Customer(
+    customerId: userUuidMock,
+    name: Config().userName,
+    eMail: Config().userEmail,
+    phone: Config().userPhone,
+  );
+  Account newAccountMock = Account(
+    customerId: userUuidMock,
+    bankBranch: Config().bankBranch,
+    bankAccount: Config().bankAccount,
+    limit: Config().accountLimit,
+  );
+  Account accountRegisteredMock = Account(
+    accountId: accountUuidMock,
+    customerId: userUuidMock,
+    bankBranch: Config().bankBranch,
+    bankAccount: Config().bankAccount,
+    limit: Config().accountLimit,
+  );
 
   setUp(() {
     homePresenter = HomePresenter();
@@ -38,8 +66,8 @@ void main() {
     config = Config();
 
     /// Mock Config class
-    config.userUuid = "a1b2c3";
-    config.accountUuid = "a1b2c3d4e5";
+    config.userUuid = userUuidMock;
+    config.accountUuid = accountUuidMock;
 
     /// Mock SharedPreferences
     SharedPreferences.setMockInitialValues(config.fullDataMock(config));
@@ -394,8 +422,33 @@ void main() {
       expect(homePresenter.getDueFlex(), 0);
     });
 
-    test('`calculatePercentBalances()` value return', () {
-      homePresenter.calculatePercentBalances();
+    test('`calculatePercentBalances()` with `accountBalance: 0.0`', () {
+      homePresenter.calculatePercentBalances(accountBalance: 0.0);
+
+      expect(homePresenter.getFutureValue(), 0.0);
+      expect(homePresenter.getFutureCurrency(), r'R$' + '\u00a0' + '0,00');
+      expect(homePresenter.getFuturePercent(), 0.0);
+      expect(homePresenter.getFutureFlex(), 0);
+
+      expect(homePresenter.getOpenValue(), 0.0);
+      expect(homePresenter.getOpenCurrency(), r'R$' + '\u00a0' + '0,00');
+      expect(homePresenter.getOpenPercent(), 0.0);
+      expect(homePresenter.getOpenFlex(), 0);
+
+      expect(homePresenter.getAvailableValue(), 15000.5);
+      expect(
+          homePresenter.getAvailableCurrency(), r'R$' + '\u00a0' + '15.000,50');
+      expect(homePresenter.getAvailablePercent(), 100.0);
+      expect(homePresenter.getAvailableFlex(), 100);
+
+      expect(homePresenter.getDueValue(), 0);
+      expect(homePresenter.getDueCurrency(), 0.0);
+      expect(homePresenter.getDuePercent(), 0);
+      expect(homePresenter.getDueFlex(), 0);
+    });
+
+    test('`calculatePercentBalances()` with `accountBalance: -5578.79`', () {
+      homePresenter.calculatePercentBalances(accountBalance: -5578.79);
 
       expect(homePresenter.getFutureValue(), 0.0);
       expect(homePresenter.getFutureCurrency(), r'R$' + '\u00a0' + '0,00');
@@ -412,6 +465,64 @@ void main() {
           homePresenter.getAvailableCurrency(), r'R$' + '\u00a0' + '9.421,71');
       expect(homePresenter.getAvailablePercent(), 62.809306356454776);
       expect(homePresenter.getAvailableFlex(), 63);
+
+      expect(homePresenter.getDueValue(), 0);
+      expect(homePresenter.getDueCurrency(), 0.0);
+      expect(homePresenter.getDuePercent(), 0);
+      expect(homePresenter.getDueFlex(), 0);
+    });
+
+    test('`calculatePercentBalances()` with `accountBalance: -220.0`', () {
+      homePresenter.calculatePercentBalances(accountBalance: -220.0);
+
+      expect(homePresenter.getFutureValue(), 0.0);
+      expect(
+        homePresenter.getFutureCurrency(),
+        r'R$' + '\u00a0' + '0,00',
+      );
+      expect(homePresenter.getFuturePercent(), 0.0);
+      expect(homePresenter.getFutureFlex(), 0);
+
+      expect(homePresenter.getOpenValue(), 220.0);
+      expect(
+        homePresenter.getOpenCurrency(),
+        r'R$' + '\u00a0' + '220,00',
+      );
+      expect(homePresenter.getOpenPercent(), 1.4666177794073532);
+      expect(homePresenter.getOpenFlex(), 1);
+
+      expect(homePresenter.getAvailableValue(), 14780.5);
+      expect(
+        homePresenter.getAvailableCurrency(),
+        r'R$' + '\u00a0' + '14.780,50',
+      );
+      expect(homePresenter.getAvailablePercent(), 98.53338222059264);
+      expect(homePresenter.getAvailableFlex(), 99);
+
+      expect(homePresenter.getDueValue(), 0);
+      expect(homePresenter.getDueCurrency(), 0.0);
+      expect(homePresenter.getDuePercent(), 0);
+      expect(homePresenter.getDueFlex(), 0);
+    });
+
+    test('`calculatePercentBalances()` with `accountBalance: 340.0`', () {
+      homePresenter.calculatePercentBalances(accountBalance: 340.0);
+
+      expect(homePresenter.getFutureValue(), 0.0);
+      expect(homePresenter.getFutureCurrency(), r'R$' + '\u00a0' + '0,00');
+      expect(homePresenter.getFuturePercent(), 0.0);
+      expect(homePresenter.getFutureFlex(), 0);
+
+      expect(homePresenter.getOpenValue(), 0.0);
+      expect(homePresenter.getOpenCurrency(), r'R$' + '\u00a0' + '0,00');
+      expect(homePresenter.getOpenPercent(), 0.0);
+      expect(homePresenter.getOpenFlex(), 0);
+
+      expect(homePresenter.getAvailableValue(), 15340.50);
+      expect(
+          homePresenter.getAvailableCurrency(), r'R$' + '\u00a0' + '15.340,50');
+      expect(homePresenter.getAvailablePercent(), 100.0);
+      expect(homePresenter.getAvailableFlex(), 100);
 
       expect(homePresenter.getDueValue(), 0);
       expect(homePresenter.getDueCurrency(), 0.0);
@@ -611,7 +722,66 @@ void main() {
 
     test('check values after second run `userDataInitialSetup()` successfully',
         () async {
+      /// Mock purchase status API [Ok]
+      when(mockApi.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockApi.checkHealthPurchaseApi(httpClient: client), true);
+
+      /// Mock balance purchase API [Ok]
+      Balance balanceRes = Balance(balance: 0.0);
+      when(mockApi.balancePurchaseApi(
+        httpClient: client,
+        accountId: config.accountUuid,
+      )).thenAnswer((_) async => Future.delayed(timeRequest, () => balanceRes));
+
+      expect(
+        await mockApi.balancePurchaseApi(
+          httpClient: client,
+          accountId: config.accountUuid,
+        ),
+        balanceRes,
+      );
+
       expect(await homePresenter.userDataInitialSetup(client, mockApi), true);
+    }, timeout: Timeout.factor(2));
+
+    test(
+        'check values after second run `userDataInitialSetup()` with error (Purchase API Off!)',
+        () async {
+      /// Mock purchase status API [Off]
+      when(mockApi.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => false));
+
+      expect(await mockApi.checkHealthPurchaseApi(httpClient: client), false);
+
+      expect(await homePresenter.userDataInitialSetup(client, mockApi), false);
+    }, timeout: Timeout.factor(2));
+
+    test(
+        'check values after second run `userDataInitialSetup()` with error (Balance API Off!)',
+        () async {
+      /// Mock purchase status API [Ok]
+      when(mockApi.checkHealthPurchaseApi(httpClient: client))
+          .thenAnswer((_) async => Future.delayed(timeRequest, () => true));
+
+      expect(await mockApi.checkHealthPurchaseApi(httpClient: client), true);
+
+      /// Mock balance purchase API [Off]
+      when(mockApi.balancePurchaseApi(
+        httpClient: client,
+        accountId: config.accountUuid,
+      )).thenAnswer((_) async => Future.delayed(timeRequest, () => null));
+
+      expect(
+        await mockApi.balancePurchaseApi(
+          httpClient: client,
+          accountId: config.accountUuid,
+        ),
+        null,
+      );
+
+      expect(await homePresenter.userDataInitialSetup(client, mockApi), false);
     }, timeout: Timeout.factor(2));
   }, timeout: Timeout.factor(2));
 
@@ -668,71 +838,43 @@ void main() {
       expect(await mockApi.checkHealthPurchaseApi(httpClient: client), true);
 
       /// Mock customer register [Ok]
-      final Customer newCustomer = Customer(
-        name: Config().userName,
-        eMail: Config().userEmail,
-        phone: Config().userPhone,
-      );
-      final String customerId = 'a1b2c3';
-      final Customer customerRegistered = Customer(
-        customerId: customerId,
-        name: Config().userName,
-        eMail: Config().userEmail,
-        phone: Config().userPhone,
-      );
-
       when(mockApi.createCustomerApi(
         httpClient: client,
-        customerData: newCustomer,
+        customerData: newCustomerMock,
       )).thenAnswer(
-        (_) async => Future.delayed(timeRequest, () => customerRegistered),
+        (_) async => Future.delayed(timeRequest, () => customerRegisteredMock),
       );
 
       expect(
         await mockApi.createCustomerApi(
           httpClient: client,
-          customerData: newCustomer,
+          customerData: newCustomerMock,
         ),
-        customerRegistered,
+        customerRegisteredMock,
       );
 
       /// Mock account register [Ok]
-      Account newAccount = Account(
-        customerId: customerId,
-        bankBranch: Config().bankBranch,
-        bankAccount: Config().bankAccount,
-        limit: Config().accountLimit,
-      );
-      final String accountId = 'c3b2a1';
-      Account accountRegistered = Account(
-        accountId: accountId,
-        customerId: customerId,
-        bankBranch: Config().bankBranch,
-        bankAccount: Config().bankAccount,
-        limit: Config().accountLimit,
-      );
-
       when(mockApi.createAccountApi(
         httpClient: client,
-        accountData: newAccount,
+        accountData: newAccountMock,
       )).thenAnswer(
-        (_) async => Future.delayed(timeRequest, () => accountRegistered),
+        (_) async => Future.delayed(timeRequest, () => accountRegisteredMock),
       );
 
       expect(
         await mockApi.createAccountApi(
           httpClient: client,
-          accountData: newAccount,
+          accountData: newAccountMock,
         ),
-        accountRegistered,
+        accountRegisteredMock,
       );
 
       expect(
         await homePresenter.userDataInitialSetup(
           client,
           mockApi,
-          newCustomer,
-          newAccount,
+          newCustomerMock,
+          newAccountMock,
         ),
         true,
       );
@@ -819,16 +961,10 @@ void main() {
 
       expect(await mockApi.checkHealthPurchaseApi(httpClient: client), true);
 
-      /// Mock customer register [Ok]
-      final Customer newCustomer = Customer(
-        name: Config().userName,
-        eMail: Config().userEmail,
-        phone: Config().userPhone,
-      );
-
+      /// Mock customer register [Off]
       when(mockApi.createCustomerApi(
         httpClient: client,
-        customerData: newCustomer,
+        customerData: newCustomerMock,
       )).thenAnswer(
         (_) async => Future.delayed(timeRequest, () => null),
       );
@@ -836,7 +972,7 @@ void main() {
       expect(
         await mockApi.createCustomerApi(
           httpClient: client,
-          customerData: newCustomer,
+          customerData: newCustomerMock,
         ),
         null,
       );
@@ -845,7 +981,7 @@ void main() {
         await homePresenter.userDataInitialSetup(
           client,
           mockApi,
-          newCustomer,
+          newCustomerMock,
         ),
         false,
       );
@@ -873,45 +1009,25 @@ void main() {
       expect(await mockApi.checkHealthPurchaseApi(httpClient: client), true);
 
       /// Mock customer register [Ok]
-      final Customer newCustomer = Customer(
-        name: Config().userName,
-        eMail: Config().userEmail,
-        phone: Config().userPhone,
-      );
-      final String customerId = 'a1b2c3';
-      final Customer customerRegistered = Customer(
-        customerId: customerId,
-        name: Config().userName,
-        eMail: Config().userEmail,
-        phone: Config().userPhone,
-      );
-
       when(mockApi.createCustomerApi(
         httpClient: client,
-        customerData: newCustomer,
+        customerData: newCustomerMock,
       )).thenAnswer(
-        (_) async => Future.delayed(timeRequest, () => customerRegistered),
+        (_) async => Future.delayed(timeRequest, () => customerRegisteredMock),
       );
 
       expect(
         await mockApi.createCustomerApi(
           httpClient: client,
-          customerData: newCustomer,
+          customerData: newCustomerMock,
         ),
-        customerRegistered,
+        customerRegisteredMock,
       );
 
-      /// Mock account register [Ok]
-      Account newAccount = Account(
-        customerId: customerId,
-        bankBranch: Config().bankBranch,
-        bankAccount: Config().bankAccount,
-        limit: Config().accountLimit,
-      );
-
+      /// Mock account register [Off]
       when(mockApi.createAccountApi(
         httpClient: client,
-        accountData: newAccount,
+        accountData: newAccountMock,
       )).thenAnswer(
         (_) async => Future.delayed(timeRequest, () => null),
       );
@@ -919,7 +1035,7 @@ void main() {
       expect(
         await mockApi.createAccountApi(
           httpClient: client,
-          accountData: newAccount,
+          accountData: newAccountMock,
         ),
         null,
       );
@@ -928,8 +1044,8 @@ void main() {
         await homePresenter.userDataInitialSetup(
           client,
           mockApi,
-          newCustomer,
-          newAccount,
+          newCustomerMock,
+          newAccountMock,
         ),
         false,
       );

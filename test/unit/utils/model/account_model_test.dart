@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:test/test.dart';
 
 import 'package:nudemo/utils/model/account_model.dart';
@@ -114,6 +116,24 @@ void main() {
 
     test('check value of `allAccountsFromJson()`', () {
       List<Account> newAccount = allAccountsFromJson(accountsJsonString);
+
+      expect(newAccount[0].accountId, 'c3b2a1');
+      expect(newAccount[0].customerId, 'a1b2c3');
+      expect(newAccount[0].bankBranch, '0001');
+      expect(newAccount[0].bankAccount, '1234567-8');
+      expect(newAccount[0].limit, 15000.5);
+
+      expect(newAccount[1].accountId, 'c3b2a1d4e5');
+      expect(newAccount[1].customerId, 'a1b2c3d5e5');
+      expect(newAccount[1].bankBranch, '0001');
+      expect(newAccount[1].bankAccount, '7654321-0');
+      expect(newAccount[1].limit, 3400.5);
+    });
+
+    test('check value of `allAccountsFromMapList()`', () {
+      List<Account> newAccount = allAccountsFromMapList(
+        json.decode(accountsJsonString),
+      );
 
       expect(newAccount[0].accountId, 'c3b2a1');
       expect(newAccount[0].customerId, 'a1b2c3');

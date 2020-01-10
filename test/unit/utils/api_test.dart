@@ -33,10 +33,11 @@ main() {
   );
 
   /// Mock of [Customer API]
+  final String customerIdMock = 'a1b2c3';
   final String customerDataSend =
       '{"name":"Chinnon Santos","e-mail":"chinnonsantos@gmail.com","phone":"11987654321"}';
   final String customerDataReturn =
-      '{"customer-id":"a1b2c3","name":"Chinnon Santos","e-mail":"chinnonsantos@gmail.com","phone":"11987654321"}';
+      '{"customer-id":"$customerIdMock","name":"Chinnon Santos","e-mail":"chinnonsantos@gmail.com","phone":"11987654321"}';
   final http.Response customerRegResponseOk = http.Response(
     customerDataReturn,
     201,
@@ -54,8 +55,9 @@ main() {
   );
 
   /// Mock of [Account API]
+  final String accountIdMock = 'a1b2c3d4e5';
   final String accountDataReturn =
-      '{"account-id":"c3b2a1","customer-id":"a1b2c3","bank-branch":"0001","bank-account":"1234567-8","limit":15000.5}';
+      '{"account-id":"$accountIdMock","customer-id":"$customerIdMock","bank-branch":"0001","bank-account":"1234567-8","limit":15000.5}';
   final http.Response accountRegResponseOk = http.Response(
     accountDataReturn,
     201,
@@ -63,18 +65,27 @@ main() {
   );
   final http.Response accountRegResponseBad = customerRegResponseBad;
   final Account newAccount = Account(
-    customerId: 'a1b2c3',
+    customerId: customerIdMock,
     bankBranch: '0001',
     bankAccount: '1234567-8',
     limit: 15000.5,
   );
 
   /// Mock of [Purchase API]
+  final String purchaseIdMock = 'c3b2a1';
+  final List<String> tagsMock = ['footwear'];
   final String purchaseDataReturn =
-      '{"purchase-id":"c3b2a1","account-id":"a1b2c3","type":"expense","value":124.9,"date":"2019-11-03T21:36:27.000Z","origin":{"code":2,"name":"shopping online"},"tag":["footwear"]}';
+      '{"purchase-id":"$purchaseIdMock","account-id":"$accountIdMock","type":"expense","value":124.9,"date":"2019-11-03T21:36:27.000Z","origin":{"code":2,"name":"shopping online"},"tag":["footwear"]}';
   final http.Response purchaseRegResponseOk = http.Response(
     purchaseDataReturn,
     201,
+    headers: requestHeaders,
+  );
+  final String purchaseListDataReturn =
+      '[{"purchase-id":"$purchaseIdMock","account-id":"$accountIdMock","type":"expense","value":124.9,"date":"2019-11-03T21:36:27.000Z","origin":{"code":2,"name":"shopping online"},"tag":["footwear"]}]';
+  final http.Response purchaseListResponseOk = http.Response(
+    purchaseListDataReturn,
+    200,
     headers: requestHeaders,
   );
   final http.Response purchaseRegResponseBad = customerRegResponseBad;
@@ -83,13 +94,18 @@ main() {
     name: 'shopping online',
   );
   final Purchase newPurchase = Purchase(
-    purchaseId: 'c3b2a1',
-    accountId: 'a1b2c3',
+    accountId: accountIdMock,
     type: 'expense',
     value: 124.9,
     date: DateTime.parse('2019-11-03T21:36:27.000Z'),
     origin: originData,
     tag: ['footwear'],
+  );
+  final String balanceDataReturn = '{"balance":0}';
+  final http.Response balanceRegResponseOk = http.Response(
+    balanceDataReturn,
+    200,
+    headers: requestHeaders,
   );
 
   setUp(() {
@@ -224,7 +240,7 @@ main() {
         {
           'statusCode': 201,
           'body': {
-            'customer-id': 'a1b2c3',
+            'customer-id': customerIdMock,
             'name': 'Chinnon Santos',
             'e-mail': 'chinnonsantos@gmail.com',
             'phone': '11987654321'
@@ -469,7 +485,7 @@ main() {
       when(client.post(Config.purchaseRegisterEndPoint,
               body: purchaseToJson(newPurchase), headers: requestHeaders))
           .thenAnswer((_) async =>
-              Future.delayed(timeRequest, () => customerRegResponseOk));
+              Future.delayed(timeRequest, () => purchaseRegResponseOk));
 
       expect(
         await utilsApi.createPurchaseApi(
@@ -518,6 +534,89 @@ main() {
         ),
         null,
       );
+    });
+
+    test(
+        'check returns type of `balancePurchaseApi()` if the http call completes successfully',
+        () async {
+      when(client.get(Config.purchaseBalanceEndPoint(accountId: accountIdMock),
+              headers: requestHeaders))
+          .thenAnswer((_) async =>
+              Future.delayed(timeRequest, () => balanceRegResponseOk));
+
+      expect(
+        await utilsApi.balancePurchaseApi(
+          httpClient: client,
+          accountId: accountIdMock,
+        ),
+        const TypeMatcher<Balance>(),
+      );
+    });
+
+    test(
+        'check returns value of `balancePurchaseApi()` if the http call completes successfully',
+        () async {
+      when(client.get(Config.purchaseBalanceEndPoint(accountId: accountIdMock),
+              headers: requestHeaders))
+          .thenAnswer((_) async =>
+              Future.delayed(timeRequest, () => balanceRegResponseOk));
+
+      Balance balance = await utilsApi.balancePurchaseApi(
+        httpClient: client,
+        accountId: accountIdMock,
+      );
+      Balance balanceRet = balanceFromJson(balanceDataReturn);
+
+      expect(balance.balance, balanceRet.balance);
+    });
+
+    test(
+        'check returns type of `listPurchaseApi()` if the http call completes successfully',
+        () async {
+      when(client.get(
+        Config.purchaseListEndPoint(accountId: accountIdMock, tags: tagsMock),
+        headers: requestHeaders,
+      )).thenAnswer(
+        (_) async => Future.delayed(timeRequest, () => purchaseListResponseOk),
+      );
+
+      expect(
+        await utilsApi.listPurchaseApi(
+          httpClient: client,
+          accountId: accountIdMock,
+          tags: tagsMock,
+        ),
+        const TypeMatcher<List<Purchase>>(),
+      );
+    });
+
+    test(
+        'check returns value of `listPurchaseApi()` if the http call completes successfully',
+        () async {
+      when(client.get(
+        Config.purchaseListEndPoint(accountId: accountIdMock, tags: tagsMock),
+        headers: requestHeaders,
+      )).thenAnswer(
+        (_) async => Future.delayed(timeRequest, () => purchaseListResponseOk),
+      );
+
+      List<Purchase> purchaseList = await utilsApi.listPurchaseApi(
+        httpClient: client,
+        accountId: accountIdMock,
+        tags: tagsMock,
+      );
+      List<Purchase> purchaseListRet = allPurchasesFromJson(
+        purchaseListDataReturn,
+      );
+
+      expect(purchaseList[0].purchaseId, purchaseListRet[0].purchaseId);
+      expect(purchaseList[0].accountId, purchaseListRet[0].accountId);
+      expect(purchaseList[0].type, purchaseListRet[0].type);
+      expect(purchaseList[0].value, purchaseListRet[0].value);
+      expect(purchaseList[0].date, purchaseListRet[0].date);
+      expect(purchaseList[0].origin.code, purchaseListRet[0].origin.code);
+      expect(purchaseList[0].origin.name, purchaseListRet[0].origin.name);
+      expect(purchaseList[0].tag, purchaseListRet[0].tag);
     });
   });
 }

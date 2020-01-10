@@ -22,6 +22,10 @@ String purchaseToJson(Purchase data) => json.encode(data.toJson());
 List<Purchase> allPurchasesFromJson(String str) =>
     List<Purchase>.from(json.decode(str).map((x) => Purchase.fromJson(x)));
 
+/// Mapping a list of Map data -> Purchase
+List<Purchase> allPurchasesFromMapList(List<dynamic> mapList) =>
+    List<Purchase>.from(mapList.map((x) => Purchase.fromJson(x)));
+
 /// Mapping a list of Purchase data -> Json
 String allPurchasesToJson(List<Purchase> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -85,5 +89,30 @@ class Origin {
   Map<String, dynamic> toJson() => {
         "code": code == null ? null : code,
         "name": name == null ? null : name,
+      };
+}
+
+/// Created using https://app.quicktype.io?share=KhHFbyxkiLrCXDKXGhCG
+/// with schema https://git.io/Jvv2R
+///
+/// To parse this JSON data, do
+///   `final balance = balanceFromJson(jsonString);`
+Balance balanceFromJson(String str) => Balance.fromJson(json.decode(str));
+
+String balanceToJson(Balance data) => json.encode(data.toJson());
+
+class Balance {
+  final double balance;
+
+  Balance({
+    this.balance,
+  });
+
+  factory Balance.fromJson(Map<String, dynamic> json) => Balance(
+        balance: json["balance"] == null ? null : json["balance"].toDouble(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "balance": balance == null ? null : balance,
       };
 }

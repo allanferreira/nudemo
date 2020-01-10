@@ -22,6 +22,10 @@ String customerToJson(Customer data) => json.encode(data.toJson());
 List<Customer> allCustomersFromJson(String str) =>
     List<Customer>.from(json.decode(str).map((x) => Customer.fromJson(x)));
 
+/// Mapping a list of Map data -> Customer
+List<Customer> allCustomersFromMapList(List<dynamic> mapList) =>
+    List<Customer>.from(mapList.map((x) => Customer.fromJson(x)));
+
 /// Mapping a list of Customer data -> Json
 String allCustomersToJson(List<Customer> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

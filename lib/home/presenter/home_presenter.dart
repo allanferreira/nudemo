@@ -14,6 +14,7 @@ import 'package:nudemo/themes/nu_default_theme.dart';
 import 'package:nudemo/themes/nu_dark_theme.dart';
 import 'package:nudemo/utils/model/customer_model.dart';
 import 'package:nudemo/utils/model/account_model.dart';
+import 'package:nudemo/utils/model/purchase_model.dart';
 import 'package:nudemo/utils/utils.dart';
 import 'package:nudemo/utils/config.dart';
 import 'package:nudemo/utils/api.dart';
@@ -169,13 +170,23 @@ class HomePresenter with ChangeNotifier {
 
   /// Calculate `percentage` and `flex` values of balances
   /// - Balance is updated if customer already exists (using ``).
-  void calculatePercentBalances() {
+  void calculatePercentBalances({
+    @required double accountBalance,
+  }) {
+    // We don't cover balancesFuture and balancesDue in this demo!
+
     if (globals.accountLimit > 0.0) {
-      // We don't cover balancesFuture and balancesDue in this demo!
+      // Positive balance (more income than expenses) -> higher limit
+      // Negative balance (more expenses than income) -> lower limit
+      globals.balancesOpenValue =
+          accountBalance.isNegative ? accountBalance.abs() : 0.0;
+      globals.balancesAvailableValue = globals.accountLimit + accountBalance;
 
       if (globals.balancesOpenValue > 0.0) {
-        globals.balancesOpenPercent =
+        double openPercent =
             (globals.balancesOpenValue / globals.accountLimit) * 100;
+        globals.balancesOpenPercent = openPercent > 100.0 ? 100.0 : openPercent;
+
         globals.balancesOpenFlex = globals.balancesOpenPercent.round();
       } else {
         globals.balancesOpenPercent = 0.0;
@@ -183,21 +194,19 @@ class HomePresenter with ChangeNotifier {
       }
 
       if (globals.balancesAvailableValue > 0.0) {
-        globals.balancesAvailablePercent =
+        double availablePercent =
             (globals.balancesAvailableValue / globals.accountLimit) * 100;
+        globals.balancesAvailablePercent =
+            availablePercent > 100.0 ? 100.0 : availablePercent;
+
         globals.balancesAvailableFlex =
             globals.balancesAvailablePercent.round();
       } else {
         globals.balancesAvailablePercent = 0.0;
         globals.balancesAvailablePercent = 0;
       }
-    } else {
-      globals.balancesOpenPercent = 0.0;
-      globals.balancesOpenFlex = 0;
-      globals.balancesAvailablePercent = 0.0;
-      globals.balancesAvailablePercent = 0;
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   /// Format currency for summary info box style
@@ -242,10 +251,21 @@ class HomePresenter with ChangeNotifier {
     // Recovered existing Customer ID and Account ID,
     // if they are registered...
     if (globals.userUuid != null && globals.accountUuid != null) {
-      /// Calculate percentage balances
-      calculatePercentBalances();
+      if (await utilsApi.checkHealthPurchaseApi(httpClient: httpClient)) {
+        // Get account balance
+        Balance accountBalance = await utilsApi.balancePurchaseApi(
+          httpClient: httpClient,
+          accountId: globals.accountUuid,
+        );
 
-      return true;
+        if (accountBalance != null) {
+          /// Calculate percentage balances
+          // calculatePercentBalances(accountBalance: accountBalance);
+
+          return true;
+        }
+      }
+      return false;
     }
     // ... or, registering a new Customer and a new Account,
     // if they are not already registered...

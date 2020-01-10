@@ -158,4 +158,37 @@ class Api {
         ? Purchase.fromJson(response['body'])
         : null;
   }
+
+  /// Get balance [Purchase API]
+  Future<Balance> balancePurchaseApi({
+    @required http.Client httpClient,
+    @required String accountId,
+  }) async {
+    Map<String, dynamic> response = await this.loadDataFromAPI(
+      httpClient: httpClient,
+      endPoint: Config.purchaseBalanceEndPoint(accountId: accountId),
+    );
+    // print('Balance Purchase API: $response');
+
+    return (response != null && response['statusCode'] == 200)
+        ? Balance.fromJson(response['body'])
+        : null;
+  }
+
+  /// Get purchase list [Purchase API]
+  Future<List<Purchase>> listPurchaseApi({
+    @required http.Client httpClient,
+    @required String accountId,
+    List<String> tags = const [],
+  }) async {
+    Map<String, dynamic> response = await this.loadDataFromAPI(
+      httpClient: httpClient,
+      endPoint: Config.purchaseListEndPoint(accountId: accountId, tags: tags),
+    );
+    // print('Purchase List API: $response');
+
+    return (response != null && response['statusCode'] == 200)
+        ? allPurchasesFromMapList(response['body'])
+        : null;
+  }
 }

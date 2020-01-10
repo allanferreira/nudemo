@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:test/test.dart';
 
 import 'package:nudemo/utils/model/customer_model.dart';
@@ -102,6 +104,22 @@ void main() {
 
     test('check value of `allCustomersFromJson()`', () {
       List<Customer> newCustomer = allCustomersFromJson(customersJsonString);
+
+      expect(newCustomer[0].customerId, 'a1b2c3');
+      expect(newCustomer[0].name, 'Chinnon Santos');
+      expect(newCustomer[0].eMail, 'chinnonsantos@gmail.com');
+      expect(newCustomer[0].phone, '11987654321');
+
+      expect(newCustomer[1].customerId, 'a1b2c3d4e5');
+      expect(newCustomer[1].name, 'Chinnon S.');
+      expect(newCustomer[1].eMail, 'contato@chinnonsantos.com.br');
+      expect(newCustomer[1].phone, '11999999999');
+    });
+
+    test('check value of `allCustomersFromMapList()`', () {
+      List<Customer> newCustomer = allCustomersFromMapList(
+        json.decode(customersJsonString),
+      );
 
       expect(newCustomer[0].customerId, 'a1b2c3');
       expect(newCustomer[0].name, 'Chinnon Santos');

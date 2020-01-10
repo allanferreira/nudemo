@@ -1,10 +1,18 @@
+import 'dart:convert';
+
 import 'package:test/test.dart';
 
 import 'package:nudemo/utils/model/purchase_model.dart';
 
 void main() {
-  group('[Unit -> Model -> Purchase Model] General', () {
+  group('[Unit -> Model -> Purchase, Origin and Balance Model] General', () {
     Purchase purchase;
+    Origin origin;
+    Balance balance;
+
+    final Balance balanceData = Balance(
+      balance: 15000.5,
+    );
     final Origin originData = Origin(
       code: 2,
       name: 'shopping online',
@@ -40,9 +48,19 @@ void main() {
         '{"purchase-id":"c3b2a1","account-id":"a1b2c3","type":"expense","value":124.9,"date":"2019-11-03T21:36:27.000Z","origin":{"code":2,"name":"shopping online"},"tag":["footwear"]},'
         '{"purchase-id":"c3b2a1d4e5","account-id":"a1b2c3d5e5","type":"income","value":459.99,"date":"2019-11-05T14:45:01.000Z","origin":{"code":1,"name":"shopping"},"tag":["furniture","kitchen"]}'
         ']';
+    final Map<String, dynamic> originJson = {
+      'code': 2,
+      'name': 'shopping online',
+    };
+    final Map<String, dynamic> balanceJson = {
+      'balance': 15000.5,
+    };
+    final String balanceJsonString = '{"balance":15000.5}';
 
     setUp(() {
       purchase = Purchase();
+      origin = Origin();
+      balance = Balance();
     });
 
     test('initial value of `purchaseId` should be null', () {
@@ -73,7 +91,19 @@ void main() {
       expect(purchase.tag, null);
     });
 
-    test('initiate class with data', () {
+    test('initial value of `code` should be null', () {
+      expect(origin.code, null);
+    });
+
+    test('initial value of `name` should be null', () {
+      expect(origin.name, null);
+    });
+
+    test('initial value of `balance` should be null', () {
+      expect(balance.balance, null);
+    });
+
+    test('initiate Purchase class with data', () {
       expect(purchaseData.purchaseId, 'c3b2a1');
       expect(purchaseData.accountId, 'a1b2c3');
       expect(purchaseData.type, 'expense');
@@ -84,7 +114,16 @@ void main() {
       expect(purchaseData.tag, ['footwear']);
     });
 
-    test('initiate class null and then change the data', () {
+    test('initiate Origin class with data', () {
+      expect(originData.code, 2);
+      expect(originData.name, 'shopping online');
+    });
+
+    test('initiate Balance class with data', () {
+      expect(balanceData.balance, 15000.5);
+    });
+
+    test('initiate Purchase class null and then change the data', () {
       expect(purchase.purchaseId, null);
       expect(purchase.accountId, null);
       expect(purchase.type, null);
@@ -126,10 +165,35 @@ void main() {
       expect(newPurchase.tag, ['footwear']);
     });
 
-    test('check value of `toJson()`', () {
+    test('check value of `Purchase.toJson()`', () {
       Map<String, dynamic> jsonData = purchaseData.toJson();
 
       expect(jsonData, purchaseJson);
+    });
+
+    test('check value of `Balance.fromJson()`', () {
+      Balance newBalance = Balance.fromJson(balanceJson);
+
+      expect(newBalance.balance, 15000.5);
+    });
+
+    test('check value of `Balance.toJson()`', () {
+      Map<String, dynamic> jsonData = balanceData.toJson();
+
+      expect(jsonData, balanceJson);
+    });
+
+    test('check value of `Origin.fromJson()`', () {
+      Origin newOrigin = Origin.fromJson(originJson);
+
+      expect(newOrigin.code, 2);
+      expect(newOrigin.name, 'shopping online');
+    });
+
+    test('check value of `Origin.toJson()`', () {
+      Map<String, dynamic> jsonData = originData.toJson();
+
+      expect(jsonData, originJson);
     });
 
     test('check value of `purchaseFromJson()`', () {
@@ -151,8 +215,44 @@ void main() {
       expect(jsonData, purchaseJsonString);
     });
 
+    test('check value of `balanceFromJson()`', () {
+      Balance newBalance = balanceFromJson(balanceJsonString);
+
+      expect(newBalance.balance, 15000.5);
+    });
+
+    test('check value of `balanceToJson()`', () {
+      String jsonData = balanceToJson(balanceData);
+
+      expect(jsonData, balanceJsonString);
+    });
+
     test('check value of `allPurchasesFromJson()`', () {
       List<Purchase> newPurchase = allPurchasesFromJson(purchasesJsonString);
+
+      expect(newPurchase[0].purchaseId, 'c3b2a1');
+      expect(newPurchase[0].accountId, 'a1b2c3');
+      expect(newPurchase[0].type, 'expense');
+      expect(newPurchase[0].value, 124.9);
+      expect(newPurchase[0].date, DateTime.parse('2019-11-03T21:36:27.000Z'));
+      expect(newPurchase[0].origin.code, originData.code);
+      expect(newPurchase[0].origin.name, originData.name);
+      expect(newPurchase[0].tag, ['footwear']);
+
+      expect(newPurchase[1].purchaseId, 'c3b2a1d4e5');
+      expect(newPurchase[1].accountId, 'a1b2c3d5e5');
+      expect(newPurchase[1].type, 'income');
+      expect(newPurchase[1].value, 459.99);
+      expect(newPurchase[1].date, DateTime.parse('2019-11-05T14:45:01.000Z'));
+      expect(newPurchase[1].origin.code, originData2.code);
+      expect(newPurchase[1].origin.name, originData2.name);
+      expect(newPurchase[1].tag, ['furniture', 'kitchen']);
+    });
+
+    test('check value of `allPurchasesFromMapList()`', () {
+      List<Purchase> newPurchase = allPurchasesFromMapList(
+        json.decode(purchasesJsonString),
+      );
 
       expect(newPurchase[0].purchaseId, 'c3b2a1');
       expect(newPurchase[0].accountId, 'a1b2c3');
