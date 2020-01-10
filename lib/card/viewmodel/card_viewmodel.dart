@@ -3,7 +3,7 @@
 /// otherwise acted upon in the user interface.
 
 class CardViewModel {
-  // Carousel control
+  // Notifications carousel control
   int initialPageCarousel = 0;
   int currentPageCarousel = 0;
 

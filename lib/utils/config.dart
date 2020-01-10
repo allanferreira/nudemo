@@ -47,7 +47,7 @@ class Config {
       'date': DateTime(
               _now.year, _now.month, _now.day, _now.hour - 8, _now.minute - 29)
           .toString(),
-      'tags': '#Roupas👚,#Tag1🎅',
+      'tags': '#Roupas👚 #Tag1🎅',
     },
     {
       'type': 'system',
@@ -67,7 +67,7 @@ class Config {
       'money': 48.00,
       'division': null,
       'date': DateTime(_now.year, _now.month, _now.day - 3).toString(),
-      'tags': '#Manutenção Carro🔧,#Tag1🎅,#Tag2🎄',
+      'tags': '#Manutenção Carro🔧 #Tag1🎅 #Tag2🎄',
     },
     {
       'type': 'expense',
@@ -77,7 +77,7 @@ class Config {
       'money': 13.50,
       'division': null,
       'date': DateTime(_now.year, _now.month, _now.day - 5).toString(),
-      'tags': '#Bebidas🍹,#Tag2🎄',
+      'tags': '#Bebidas🍹 #Tag2🎄',
     },
     {
       'type': 'expense',
@@ -97,7 +97,7 @@ class Config {
       'money': 5.00,
       'division': null,
       'date': DateTime(_now.year, _now.month, _now.day - 13).toString(),
-      'tags': '#Parking🚏,#Tag2🎄',
+      'tags': '#Parking🚏 #Tag2🎄',
     },
     {
       'type': 'income',

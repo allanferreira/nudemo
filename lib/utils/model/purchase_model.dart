@@ -22,13 +22,17 @@ String purchaseToJson(Purchase data) => json.encode(data.toJson());
 List<Purchase> allPurchasesFromJson(String str) =>
     List<Purchase>.from(json.decode(str).map((x) => Purchase.fromJson(x)));
 
-/// Mapping a list of Map data -> Purchase
-List<Purchase> allPurchasesFromMapList(List<dynamic> mapList) =>
-    List<Purchase>.from(mapList.map((x) => Purchase.fromJson(x)));
-
 /// Mapping a list of Purchase data -> Json
 String allPurchasesToJson(List<Purchase> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+/// Mapping a list of Map data from Api -> Purchase
+List<Purchase> allPurchasesFromMapApi(List<dynamic> mapList) =>
+    List<Purchase>.from(mapList.map((x) => Purchase.fromJson(x)));
+
+/// Mapping a list of Purchase data -> Map list to App
+List<Map<String, dynamic>> allPurchasesToMapApp(List<Purchase> data) =>
+    List<Map<String, dynamic>>.from(data.map((x) => x.toMapApp()));
 
 class Purchase {
   final String purchaseId;
@@ -70,6 +74,103 @@ class Purchase {
         "origin": origin == null ? null : origin.toJson(),
         "tag": tag == null ? null : List<dynamic>.from(tag.map((x) => x)),
       };
+
+  Map<String, dynamic> toMapApp() {
+    // String _purchaseId = purchaseId == null ? null : purchaseId,
+    // String _accountId = accountId == null ? null : accountId;
+    String _type = type == null ? null : type;
+    int _icon;
+    String _title;
+    String _text = origin == null ? null : origin.name;
+    double _money = value == null ? null : value;
+    String _division;
+    DateTime _date = date == null ? null : date;
+    String _tag = tag == null ? null : tag.map((name) => "#$name").join(" ");
+
+    if (origin != null) {
+      if (_type == 'income') {
+        switch (origin.code) {
+          case 0:
+            _title = 'Pagamento recebido';
+            break;
+
+          default:
+            _title = 'Receita não classificada';
+            break;
+        }
+      } else if (_type == 'expense') {
+        switch (origin.code) {
+          case 0:
+            _title = 'Serviços';
+            _icon = 59497;
+            break;
+
+          case 1:
+            _title = 'Transporte';
+            _icon = 58672;
+            break;
+
+          case 2:
+            _title = 'Supermercado';
+            _icon = 59596;
+            break;
+
+          case 3:
+            _title = 'Restaurante';
+            _icon = 58732;
+            break;
+
+          case 4:
+            _title = 'Eletrônicos';
+            _icon = 57824;
+            break;
+
+          case 5:
+            _title = 'Saúde';
+            _icon = 58355;
+            break;
+
+          case 6:
+            _title = 'Outros';
+            _icon = 59495;
+            break;
+
+          default:
+            _title = 'Despesa não classificada';
+            break;
+        }
+      }
+      // We don't cover system messages in this demo!
+      // else if (_type == 'system') {
+      //   switch (origin.code) {
+      //     case 0:
+      //       _title = 'Novo dispositivo autorizado';
+      //       break;
+
+      //     case 1:
+      //       _title = 'Fatura fechada';
+      //       break;
+
+      //     default:
+      //       _title = 'Mensagem não classificada';
+      //       break;
+      //   }
+      // }
+    }
+
+    return {
+      // "purchaseId": _purchaseId,
+      // "accountId": _accountId,
+      "type": _type,
+      "icon": _icon,
+      "title": _title,
+      "text": _text,
+      "money": _money,
+      "division": _division,
+      "date": _date,
+      "tag": _tag,
+    };
+  }
 }
 
 class Origin {

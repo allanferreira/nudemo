@@ -249,8 +249,8 @@ void main() {
       expect(newPurchase[1].tag, ['furniture', 'kitchen']);
     });
 
-    test('check value of `allPurchasesFromMapList()`', () {
-      List<Purchase> newPurchase = allPurchasesFromMapList(
+    test('check value of `allPurchasesFromMapApi()`', () {
+      List<Purchase> newPurchase = allPurchasesFromMapApi(
         json.decode(purchasesJsonString),
       );
 
@@ -288,6 +288,140 @@ void main() {
       ]);
 
       expect(jsonData, purchasesJsonString);
+    });
+
+    test('check value of `Purchase.toMapApp()`', () {
+      expect(
+        Purchase(
+          purchaseId: 'c3b2a1d4e5',
+          accountId: 'a1b2c3d5e5',
+          type: 'expense',
+          value: 459.99,
+          date: DateTime.parse('2019-11-05T14:45:01.000Z'),
+          origin: Origin(
+            code: 3,
+            name: 'Nice food',
+          ),
+          tag: ['furniture', 'kitchen'],
+        ).toMapApp(),
+        {
+          'type': 'expense',
+          'icon': 58732,
+          'title': 'Restaurante',
+          'text': 'Nice food',
+          'money': 459.99,
+          'division': null,
+          'date': DateTime.parse('2019-11-05 14:45:01.000Z'),
+          'tag': '#furniture #kitchen'
+        },
+      );
+    });
+
+    test('check value of `allPurchasesToMapApp()`', () {
+      List<Map<String, dynamic>> purchaseMapData = allPurchasesToMapApp([
+        purchaseData,
+        Purchase(
+          purchaseId: 'c3b2a1d4e5',
+          accountId: 'a1b2c3d5e5',
+          type: 'income',
+          value: 459.99,
+          date: DateTime.parse('2019-11-05T14:45:01.000Z'),
+          origin: originData2,
+          tag: ['furniture', 'kitchen'],
+        ),
+        Purchase(
+          purchaseId: 'c3b2a1d4e5',
+          accountId: 'a1b2c3d5e5',
+          type: 'expense',
+          value: 234.0,
+          date: DateTime.parse('2019-11-05T16:45:01.000Z'),
+          origin: Origin(
+            code: 4,
+            name: 'Cell Store',
+          ),
+          tag: ['furniture', 'kitchen'],
+        ),
+        Purchase(
+          purchaseId: 'c3b2a1d4e5',
+          accountId: 'a1b2c3d5e5',
+          type: 'expense',
+          value: 23.1,
+          date: DateTime.parse('2019-11-05T16:59:01.000Z'),
+          origin: Origin(
+            code: 5,
+            name: 'Beautiful Spa',
+          ),
+          tag: ['furniture', 'kitchen'],
+        ),
+        Purchase(
+          purchaseId: 'c3b2a1d4e5',
+          accountId: 'a1b2c3d5e5',
+          type: 'expense',
+          value: 3.45,
+          date: DateTime.parse('2019-11-05T22:59:01.000Z'),
+          origin: Origin(
+            code: 6,
+            name: 'Snacks',
+          ),
+          tag: ['furniture', 'kitchen'],
+        ),
+      ]);
+
+      expect(
+        purchaseMapData,
+        [
+          {
+            'type': 'expense',
+            'icon': 59596,
+            'title': 'Supermercado',
+            'text': 'shopping online',
+            'money': 124.9,
+            'division': null,
+            'date': DateTime.parse('2019-11-03 21:36:27.000Z'),
+            'tag': '#footwear'
+          },
+          {
+            'type': 'income',
+            'icon': null,
+            'title': 'Receita não classificada',
+            'text': 'shopping',
+            'money': 459.99,
+            'division': null,
+            'date': DateTime.parse('2019-11-05 14:45:01.000Z'),
+            'tag': '#furniture #kitchen'
+          },
+          {
+            'type': 'expense',
+            'icon': 57824,
+            'title': 'Eletrônicos',
+            'text': 'Cell Store',
+            'money': 234.0,
+            'division': null,
+            'date': DateTime.parse('2019-11-05 16:45:01.000Z'),
+            'tag': '#furniture #kitchen'
+          },
+          {
+            'type': 'expense',
+            'icon': 58355,
+            'title': 'Saúde',
+            'text': 'Beautiful Spa',
+            'money': 23.1,
+            'division': null,
+            'date': DateTime.parse('2019-11-05 16:59:01.000Z'),
+            'tag': '#furniture #kitchen'
+          },
+          {
+            'type': 'expense',
+            'icon': 59495,
+            'title': 'Outros',
+            'text': 'Snacks',
+            'money': 3.45,
+            'division': null,
+            'date': DateTime.parse('2019-11-05 22:59:01.000Z'),
+            'tag': '#furniture #kitchen'
+          }
+        ],
+      );
     });
   });
 }

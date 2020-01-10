@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 
 import 'package:nudemo/card/viewmodel/card_viewmodel.dart';
+import 'package:nudemo/utils/config.dart';
 
 /// Simplest possible model, with just one field.
 ///
@@ -20,28 +21,30 @@ class CardPresenter with ChangeNotifier {
   }
 
   List<Map<String, dynamic>> getCardHistoryItems() =>
-      _cardViewModel.cardHistoryItems;
+      this._cardViewModel.cardHistoryItems;
 
-  int getItemsLength() => _cardViewModel.cardHistoryItems.length;
+  int getItemsLength() => this._cardViewModel.cardHistoryItems.length;
 
   int semanticIndexCallback(widget, index) {
     // print('built index: $index');
     return index;
   }
 
-  Future<String> _lazyProcessFromNetwork() async {
-    final response = await Future.delayed(
+  Future<List<Map<String, dynamic>>> _lazyProcessFromNetwork() async {
+    return await Future.delayed(
       const Duration(milliseconds: 5000),
-      () => 'Ok!',
+      () => Config().cardHistoryItems,
     );
-    return response;
   }
 
-  Future<Null> refreshCustomScrollView() {
+  Future<void> refreshCustomScrollView() async {
     // print('Refresh indicator triggered!');
 
-    return _lazyProcessFromNetwork().then((response) {
+    return await _lazyProcessFromNetwork().then((response) {
       // print('Refresh indicator done! - response: $response');
+
+      this._cardViewModel.cardHistoryItems = [];
+      notifyListeners();
     });
   }
 

@@ -188,7 +188,7 @@ class Api {
     // print('Purchase List API: $response');
 
     return (response != null && response['statusCode'] == 200)
-        ? allPurchasesFromMapList(response['body'])
+        ? allPurchasesFromMapApi(response['body'])
         : null;
   }
 }

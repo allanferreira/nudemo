@@ -75,16 +75,18 @@ class CardPage extends StatelessWidget {
       );
 
   /// Builder Delegate of [SliverList]
-  Widget listViewItemBuilder(context, index) {
-    Map<String, dynamic> _itemData = presenter.getCardHistoryItems()[index];
+  Widget listViewItemBuilder(
+    CardPresenter cardPresenter,
+    BuildContext context,
+    int index,
+  ) {
+    Map<String, dynamic> _itemData = cardPresenter.getCardHistoryItems()[index];
 
     String _type = _itemData['type'];
     String _title = _itemData['title'];
     String _itemText = _itemData['text'];
     double _money = _itemData['money'];
     String _divisionText = _itemData['division'];
-    List<String> _allTags =
-        _itemData['tags'] != null ? _itemData['tags'].split(',') : [];
     String _dateRegister = _itemData['date'];
 
     TextTheme _theme = Theme.of(context).textTheme;
@@ -109,11 +111,11 @@ class CardPage extends StatelessWidget {
     Widget _timeline;
 
     Widget _tags = Container();
-    if (_allTags.isNotEmpty) {
+    if (_itemData['tags'] != null) {
       _tags = Padding(
         padding: EdgeInsets.only(top: 5.0),
         child: Text(
-          _allTags.join(' '),
+          _itemData['tags'],
           softWrap: true,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
@@ -145,12 +147,13 @@ class CardPage extends StatelessWidget {
       _topTimeline = index == 0 ? 33.0 : _topTimeline;
 
       // Last item timeline
-      _heightTimeline =
-          index == (presenter.getItemsLength() - 1) ? 33.0 : _heightTimeline;
+      _heightTimeline = index == (cardPresenter.getItemsLength() - 1)
+          ? 33.0
+          : _heightTimeline;
     }
 
     // Last item timeline widget
-    if (index == (presenter.getItemsLength() - 1)) {
+    if (index == (cardPresenter.getItemsLength() - 1)) {
       _timeline = Positioned(
         top: _topTimeline,
         height: _heightTimeline,
@@ -309,7 +312,8 @@ class CardPage extends StatelessWidget {
   }) =>
       RefreshIndicator(
         key: _refreshIndicatorKey,
-        onRefresh: presenter.refreshCustomScrollView,
+        onRefresh: () => Provider.of<CardPresenter>(context, listen: false)
+            .refreshCustomScrollView(),
         color: Theme.of(context).accentColor,
         backgroundColor: Theme.of(context).backgroundColor,
         child: CustomScrollView(
@@ -452,12 +456,15 @@ class CardPage extends StatelessWidget {
                 ],
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => listViewItemBuilder(context, index),
-                childCount: presenter.getItemsLength(),
-                addAutomaticKeepAlives: false,
-                semanticIndexCallback: presenter.semanticIndexCallback,
+            Consumer<CardPresenter>(
+              builder: (context, cardPresenter, child) => SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) =>
+                      listViewItemBuilder(cardPresenter, context, index),
+                  childCount: cardPresenter.getItemsLength(),
+                  addAutomaticKeepAlives: false,
+                  // semanticIndexCallback: presenter.semanticIndexCallback,
+                ),
               ),
             ),
           ],
