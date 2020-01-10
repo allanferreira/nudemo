@@ -151,12 +151,12 @@ void main() {
       // Build our app and trigger a frame.
       await tester.pumpWidget(_pumpApp(cardViewModelMock));
 
-      // /// [Gesture 👆↕️👆] Drag `Down` the `CustomScrollView` Widget
-      // await tester.drag(
-      //   find.byKey(Key('item-0')),
-      //   Offset(0.0, 300),
-      // );
-      // await tester.pumpAndSettle();
+      /// [Gesture 👆↕️👆] Drag `Down` the `CustomScrollView` Widget
+      await tester.drag(
+        find.byKey(Key('item-0')),
+        Offset(0.0, 300),
+      );
+      await tester.pumpAndSettle();
 
       /// [Gesture 👆↕️👆] Drag `Down` the `FlexibleSpaceBar` Widget
       await tester.drag(
@@ -164,7 +164,7 @@ void main() {
         Offset(0.0, 300),
       );
       await tester.pumpAndSettle();
-    });
+    }, skip: true);
 
     testWidgets('SliverAppBar smoke test', (WidgetTester tester) async {
       // Build our app and trigger a frame.

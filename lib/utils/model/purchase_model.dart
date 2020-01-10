@@ -84,7 +84,7 @@ class Purchase {
     String _text = origin == null ? null : origin.name;
     double _money = value == null ? null : value;
     String _division;
-    DateTime _date = date == null ? null : date;
+    String _date = date == null ? null : date.toIso8601String();
     String _tag = tag == null ? null : tag.map((name) => "#$name").join(" ");
 
     if (origin != null) {

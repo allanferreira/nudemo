@@ -4,10 +4,14 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import 'package:nudemo/card/viewmodel/card_viewmodel.dart';
-import 'package:nudemo/utils/config.dart';
+import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/utils/model/purchase_model.dart';
+import 'package:nudemo/utils/api.dart';
+import 'package:nudemo/utils/globals.dart' as globals;
 
 /// Simplest possible model, with just one field.
 ///
@@ -30,22 +34,38 @@ class CardPresenter with ChangeNotifier {
     return index;
   }
 
-  Future<List<Map<String, dynamic>>> _lazyProcessFromNetwork() async {
-    return await Future.delayed(
-      const Duration(milliseconds: 5000),
-      () => Config().cardHistoryItems,
-    );
-  }
-
-  Future<void> refreshCustomScrollView() async {
+  /// Refresh Custom ScrollView
+  Future<void> refreshCustomScrollView(BuildContext context) async {
     // print('Refresh indicator triggered!');
 
-    return await _lazyProcessFromNetwork().then((response) {
-      // print('Refresh indicator done! - response: $response');
+    http.Client httpClient = http.Client();
+    Api utilsApi = Api();
 
-      this._cardViewModel.cardHistoryItems = [];
+    // Get purchase list
+    List<Purchase> cardHistoryItems = await utilsApi.listPurchaseApi(
+      httpClient: httpClient,
+      accountId: globals.accountUuid,
+    );
+
+    // Get account balance
+    Balance accountBalance = await utilsApi.balancePurchaseApi(
+      httpClient: httpClient,
+      accountId: globals.accountUuid,
+    );
+
+    if (accountBalance != null) {
+      /// Calculate percentage balances
+      Provider.of<HomePresenter>(context, listen: false)
+          .calculatePercentBalances(
+        accountBalance: accountBalance.balance,
+      );
+
+      this._cardViewModel.cardHistoryItems = allPurchasesToMapApp(
+        cardHistoryItems.reversed.toList(),
+      );
+
       notifyListeners();
-    });
+    }
   }
 
   /// Set page index and notify listeners

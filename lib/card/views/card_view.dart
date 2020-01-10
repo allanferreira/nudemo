@@ -313,7 +313,7 @@ class CardPage extends StatelessWidget {
       RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: () => Provider.of<CardPresenter>(context, listen: false)
-            .refreshCustomScrollView(),
+            .refreshCustomScrollView(context),
         color: Theme.of(context).accentColor,
         backgroundColor: Theme.of(context).backgroundColor,
         child: CustomScrollView(

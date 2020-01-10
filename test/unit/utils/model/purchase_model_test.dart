@@ -311,7 +311,7 @@ void main() {
           'text': 'Nice food',
           'money': 459.99,
           'division': null,
-          'date': DateTime.parse('2019-11-05 14:45:01.000Z'),
+          'date': '2019-11-05T14:45:01.000Z',
           'tag': '#furniture #kitchen'
         },
       );
@@ -377,7 +377,7 @@ void main() {
             'text': 'shopping online',
             'money': 124.9,
             'division': null,
-            'date': DateTime.parse('2019-11-03 21:36:27.000Z'),
+            'date': '2019-11-03T21:36:27.000Z',
             'tag': '#footwear'
           },
           {
@@ -387,7 +387,7 @@ void main() {
             'text': 'shopping',
             'money': 459.99,
             'division': null,
-            'date': DateTime.parse('2019-11-05 14:45:01.000Z'),
+            'date': '2019-11-05T14:45:01.000Z',
             'tag': '#furniture #kitchen'
           },
           {
@@ -397,7 +397,7 @@ void main() {
             'text': 'Cell Store',
             'money': 234.0,
             'division': null,
-            'date': DateTime.parse('2019-11-05 16:45:01.000Z'),
+            'date': '2019-11-05T16:45:01.000Z',
             'tag': '#furniture #kitchen'
           },
           {
@@ -407,7 +407,7 @@ void main() {
             'text': 'Beautiful Spa',
             'money': 23.1,
             'division': null,
-            'date': DateTime.parse('2019-11-05 16:59:01.000Z'),
+            'date': '2019-11-05T16:59:01.000Z',
             'tag': '#furniture #kitchen'
           },
           {
@@ -417,7 +417,7 @@ void main() {
             'text': 'Snacks',
             'money': 3.45,
             'division': null,
-            'date': DateTime.parse('2019-11-05 22:59:01.000Z'),
+            'date': '2019-11-05T22:59:01.000Z',
             'tag': '#furniture #kitchen'
           }
         ],
