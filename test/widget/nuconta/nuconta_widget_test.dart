@@ -3,20 +3,40 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:nudemo/nuconta/views/nuconta_view.dart';
 import 'package:nudemo/nuconta/presenter/nuconta_presenter.dart';
+import 'package:nudemo/nuconta/viewmodel/nuconta_viewmodel.dart';
 
 void main() {
+  // Mocking ViewModel
+  NucontaViewModel nucontaViewModelMock = NucontaViewModel();
+
   group('[Widget -> Nuconta page]', () {
     final String title = 'NuConta';
-    testWidgets('Smoke test - ${title}', (WidgetTester tester) async {
-      // Build our app and trigger a frame.
-      await tester.pumpWidget(
-        MaterialApp(
+
+    final Finder _nucontaPage = find.byKey(Key('nuconta-page'));
+
+    Widget _pumpApp(NucontaViewModel nucontaViewModelMock) => MaterialApp(
           home: NucontaPage(
+            // presenter: NucontaPresenter(nucontaViewModelMock),
             presenter: NucontaPresenter(),
             title: title,
           ),
-        ),
-      );
+        );
+
+    testWidgets('General smoke test - Without mock - ${title}',
+        (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(_pumpApp(NucontaViewModel()));
+
+      /// verify if have a `Stack` widget with `nuconta-page` key.
+      expect(_nucontaPage, findsOneWidget);
+    });
+
+    testWidgets('General smoke test - ${title}', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(_pumpApp(nucontaViewModelMock));
+
+      /// verify if have a `Stack` widget with `nuconta-page` key.
+      expect(_nucontaPage, findsOneWidget);
 
       /// verify if have text `NuConta` (route `/card/`).
       expect(find.text(title.toUpperCase()), findsOneWidget);

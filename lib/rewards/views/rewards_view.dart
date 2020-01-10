@@ -102,12 +102,12 @@ class RewardsPage extends StatelessWidget {
     final double _positionedHeight = _screenHeight - _topSpace;
 
     return Stack(
+      key: Key('rewards-page'),
       children: <Widget>[
         Positioned(
           top: _topSpace,
           width: _screenWidth,
           height: _positionedHeight,
-          key: Key('rewards-page'),
           child: Scaffold(
             key: _scaffoldKey,
             body: _body(context),

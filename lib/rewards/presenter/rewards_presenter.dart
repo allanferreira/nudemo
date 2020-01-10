@@ -7,7 +7,7 @@
 class RewardsPresenter {
   // RewardsViewModel _rewardsViewModel;
 
-  // RewardsPresenter() {
-  //   this._rewardsViewModel = RewardsViewModel();
+  // RewardsPresenter([RewardsViewModel rewardsViewModelMock]) {
+  //   this._rewardsViewModel = rewardsViewModelMock ?? RewardsViewModel();
   // }
 }

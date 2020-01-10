@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
@@ -17,6 +18,7 @@ import 'package:nudemo/utils/config.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   Config config = Config();
+  HomeViewModel homeViewModelMock = HomeViewModel();
 
   setUp(() {
     /// Mock Config class
@@ -28,12 +30,15 @@ void main() {
 
     /// Mock Global Variables
     config.globalVariablesMock(isLoggedIn: true, config: config);
+
+    // Mocking ViewModel
+    homeViewModelMock = config.homeViewModelMock(homeViewModelMock);
   });
 
   group('[Widget -> Home page] - Section II', () {
     final String _title = Config().userNickname;
 
-    final Finder _mainMenu = find.byKey(Key('section-ii'));
+    final Finder _sectionII = find.byKey(Key('section-ii'));
     final Finder _qrCode = find.byType(QrImage);
     final Finder _helpMeButton = find.byKey(Key('/helpme/'));
     final Finder _profileButton = find.byKey(Key('/profile/'));
@@ -46,67 +51,70 @@ void main() {
     final Finder _buttonUp = find.byIcon(Icons.keyboard_arrow_up);
     final Finder _buttonDown = find.byIcon(Icons.keyboard_arrow_down);
 
-    final Widget _pumpWidget = MultiProvider(
-      providers: [
-        ChangeNotifierProvider<HomePresenter>(
-          create: (BuildContext context) => HomePresenter(),
-        ),
-        ChangeNotifierProvider<ConstructionPresenter>(
-          create: (BuildContext context) => ConstructionPresenter(),
-        ),
-        ChangeNotifierProvider<CardPresenter>(
-          create: (BuildContext context) => CardPresenter(),
-        ),
-        ListenableProvider<AnimatedBoxPresenter>(
-          create: (BuildContext context) => AnimatedBoxPresenter(),
-        ),
-        ListenableProvider<FadeBoxPresenter>(
-          create: (BuildContext context) => FadeBoxPresenter(),
-        ),
-        ListenableProvider<FadeButtonsPresenter>(
-          create: (BuildContext context) => FadeButtonsPresenter(),
-        ),
-      ],
-      child: MaterialApp(
-        home: HomePage(
-          presenter: HomePresenter(),
-          title: _title,
-        ),
-      ),
-    );
+    Widget _pumpApp(HomeViewModel homeViewModelMock) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider<HomePresenter>(
+              create: (BuildContext context) => HomePresenter(),
+            ),
+            ChangeNotifierProvider<ConstructionPresenter>(
+              create: (BuildContext context) => ConstructionPresenter(),
+            ),
+            ChangeNotifierProvider<CardPresenter>(
+              create: (BuildContext context) => CardPresenter(),
+            ),
+            ListenableProvider<AnimatedBoxPresenter>(
+              create: (BuildContext context) => AnimatedBoxPresenter(),
+            ),
+            ListenableProvider<FadeBoxPresenter>(
+              create: (BuildContext context) => FadeBoxPresenter(),
+            ),
+            ListenableProvider<FadeButtonsPresenter>(
+              create: (BuildContext context) => FadeButtonsPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(homeViewModelMock),
+              title: _title,
+            ),
+          ),
+        );
 
     testWidgets('Checking widget smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
+
+      /// verify if have a `Positioned` widget with `section-ii` key.
+      expect(_sectionII, findsOneWidget);
 
       /// verify if have a `ListView` widget.
       expect(
-        find.descendant(of: _mainMenu, matching: find.byType(ListView)),
+        find.descendant(of: _sectionII, matching: find.byType(ListView)),
         findsOneWidget,
       );
 
       /// verify if have any `RichText` widget.
       expect(
-        find.descendant(of: _mainMenu, matching: find.byType(RichText)),
+        find.descendant(of: _sectionII, matching: find.byType(RichText)),
         findsWidgets,
       );
 
       /// verify if have 5 `MaterialButton` widget.
       expect(
-        find.descendant(of: _mainMenu, matching: find.byType(MaterialButton)),
+        find.descendant(of: _sectionII, matching: find.byType(MaterialButton)),
         findsNWidgets(5),
       );
 
       /// verify if have any `Divider` widget.
       expect(
-        find.descendant(of: _mainMenu, matching: find.byType(Divider)),
+        find.descendant(of: _sectionII, matching: find.byType(Divider)),
         findsWidgets,
       );
     });
 
     testWidgets('Drag down animated box smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// Verify that there is a `Align` Widget with key `section-iv`.
       expect(_animatedBox, findsOneWidget);
@@ -123,36 +131,36 @@ void main() {
     }, timeout: Timeout.factor(2));
 
     testWidgets('QrImage smoke test - ${_title}', (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a `QrImage` widget.
       expect(
-        find.descendant(of: _mainMenu, matching: _qrCode),
+        find.descendant(of: _sectionII, matching: _qrCode),
         findsOneWidget,
       );
     });
 
     testWidgets('`Me ajuda` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a `Icon` widget with `help_outline` icon.
       expect(
         find.descendant(
-            of: _mainMenu, matching: find.byIcon(Icons.help_outline)),
+            of: _sectionII, matching: find.byIcon(Icons.help_outline)),
         findsOneWidget,
       );
 
       /// verify if have text `Me ajuda`.
       expect(
-        find.descendant(of: _mainMenu, matching: find.text('Me ajuda')),
+        find.descendant(of: _sectionII, matching: find.text('Me ajuda')),
         findsOneWidget,
       );
 
       /// verify if have an item in the menu list with
       /// `/helpme/` key/route (MaterialButton Widget).
       expect(
-        find.descendant(of: _mainMenu, matching: _helpMeButton),
+        find.descendant(of: _sectionII, matching: _helpMeButton),
         findsOneWidget,
       );
 
@@ -163,7 +171,7 @@ void main() {
 
     testWidgets('`Perfil` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a `Icon` widget with `account_circle` icon.
       expect(
@@ -173,14 +181,14 @@ void main() {
 
       /// verify if have text `Perfil`.
       expect(
-        find.descendant(of: _mainMenu, matching: find.text('Perfil')),
+        find.descendant(of: _sectionII, matching: find.text('Perfil')),
         findsOneWidget,
       );
 
       /// verify if have text `Nome de preferência, telefone, e-mail`.
       expect(
         find.descendant(
-            of: _mainMenu,
+            of: _sectionII,
             matching: find.text('Nome de preferência, telefone, e-mail')),
         findsOneWidget,
       );
@@ -188,7 +196,7 @@ void main() {
       /// verify if have an item in the menu list with
       /// `/profile/` key/route (MaterialButton Widget).
       expect(
-        find.descendant(of: _mainMenu, matching: _profileButton),
+        find.descendant(of: _sectionII, matching: _profileButton),
         findsOneWidget,
       );
 
@@ -199,7 +207,7 @@ void main() {
 
     testWidgets('`Configurar NuConta` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// [Gesture 👇↕️👇] Drag `Up` the `ListView` Widget
       await tester.drag(
@@ -210,21 +218,21 @@ void main() {
 
       /// verify if have a `Icon` widget with `local_atm` icon.
       expect(
-        find.descendant(of: _mainMenu, matching: find.byIcon(Icons.local_atm)),
+        find.descendant(of: _sectionII, matching: find.byIcon(Icons.local_atm)),
         findsOneWidget,
       );
 
       /// verify if have text `Configurar NuConta`.
       expect(
         find.descendant(
-            of: _mainMenu, matching: find.text('Configurar NuConta')),
+            of: _sectionII, matching: find.text('Configurar NuConta')),
         findsOneWidget,
       );
 
       /// verify if have an item in the menu list with
       /// `/nuconta-configs/` key/route (MaterialButton Widget).
       expect(
-        find.descendant(of: _mainMenu, matching: _nuContaConfigsButton),
+        find.descendant(of: _sectionII, matching: _nuContaConfigsButton),
         findsOneWidget,
       );
 
@@ -235,26 +243,26 @@ void main() {
 
     testWidgets('`Configurar cartão` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a `Icon` widget with `credit_card` icon.
       expect(
         find.descendant(
-            of: _mainMenu, matching: find.byIcon(Icons.credit_card)),
+            of: _sectionII, matching: find.byIcon(Icons.credit_card)),
         findsOneWidget,
       );
 
       /// verify if have text `Configurar cartão`.
       expect(
         find.descendant(
-            of: _mainMenu, matching: find.text('Configurar cartão')),
+            of: _sectionII, matching: find.text('Configurar cartão')),
         findsOneWidget,
       );
 
       /// verify if have an item in the menu list with
       /// `/card-configs/` key/route (MaterialButton Widget).
       expect(
-        find.descendant(of: _mainMenu, matching: _cardConfigsButton),
+        find.descendant(of: _sectionII, matching: _cardConfigsButton),
         findsOneWidget,
       );
 
@@ -265,26 +273,26 @@ void main() {
 
     testWidgets('`Configurações do app` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a `Icon` widget with `fingerprint` icon.
       expect(
         find.descendant(
-            of: _mainMenu, matching: find.byIcon(Icons.fingerprint)),
+            of: _sectionII, matching: find.byIcon(Icons.fingerprint)),
         findsOneWidget,
       );
 
       /// verify if have text `Configurações do app`.
       expect(
         find.descendant(
-            of: _mainMenu, matching: find.text('Configurações do app')),
+            of: _sectionII, matching: find.text('Configurações do app')),
         findsOneWidget,
       );
 
       /// verify if have an item in the menu list with
       /// `/app-configs/` key/route (MaterialButton Widget).
       expect(
-        find.descendant(of: _mainMenu, matching: _appConfigsButton),
+        find.descendant(of: _sectionII, matching: _appConfigsButton),
         findsOneWidget,
       );
 
@@ -295,17 +303,17 @@ void main() {
 
     testWidgets('`SAIR DA CONTA` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have text `SAIR DA CONTA`.
       expect(
-        find.descendant(of: _mainMenu, matching: find.text('SAIR DA CONTA')),
+        find.descendant(of: _sectionII, matching: find.text('SAIR DA CONTA')),
         findsOneWidget,
       );
 
       /// verify if have a button with `/exit/` key/route.
       expect(
-        find.descendant(of: _mainMenu, matching: _exitButton),
+        find.descendant(of: _sectionII, matching: _exitButton),
         findsOneWidget,
       );
 

@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
@@ -16,6 +17,7 @@ import 'package:nudemo/utils/config.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   Config config = Config();
+  HomeViewModel homeViewModelMock = HomeViewModel();
 
   setUp(() {
     /// Mock Config class
@@ -27,11 +29,15 @@ void main() {
 
     /// Mock Global Variables
     config.globalVariablesMock(isLoggedIn: true, config: config);
+
+    // Mocking ViewModel
+    homeViewModelMock = config.homeViewModelMock(homeViewModelMock);
   });
 
   group('[Widget -> Home page] - Section III', () {
     final String _title = Config().userNickname;
 
+    final Finder _sectionIII = find.byKey(Key('section-iii'));
     final Finder _buttonList = find.byKey(Key('button-list'));
     final Finder _transferButton = find.byKey(Key('/transfer/'));
     final Finder _virtualCardButton = find.byKey(Key('/virtual-card/'));
@@ -45,38 +51,45 @@ void main() {
     final Finder _organizeShortcutsButton =
         find.byKey(Key('/organize-shortcuts/'));
 
-    final Widget _pumpWidget = MultiProvider(
-      providers: [
-        ChangeNotifierProvider<HomePresenter>(
-          create: (BuildContext context) => HomePresenter(),
-        ),
-        ChangeNotifierProvider<ConstructionPresenter>(
-          create: (BuildContext context) => ConstructionPresenter(),
-        ),
-        ChangeNotifierProvider<CardPresenter>(
-          create: (BuildContext context) => CardPresenter(),
-        ),
-        ListenableProvider<AnimatedBoxPresenter>(
-          create: (BuildContext context) => AnimatedBoxPresenter(),
-        ),
-        ListenableProvider<FadeBoxPresenter>(
-          create: (BuildContext context) => FadeBoxPresenter(),
-        ),
-        ListenableProvider<FadeButtonsPresenter>(
-          create: (BuildContext context) => FadeButtonsPresenter(),
-        ),
-      ],
-      child: MaterialApp(
-        home: HomePage(
-          presenter: HomePresenter(),
-          title: _title,
-        ),
-      ),
-    );
+    Widget _pumpApp(HomeViewModel homeViewModelMock) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider<HomePresenter>(
+              create: (BuildContext context) => HomePresenter(),
+            ),
+            ChangeNotifierProvider<ConstructionPresenter>(
+              create: (BuildContext context) => ConstructionPresenter(),
+            ),
+            ChangeNotifierProvider<CardPresenter>(
+              create: (BuildContext context) => CardPresenter(),
+            ),
+            ListenableProvider<AnimatedBoxPresenter>(
+              create: (BuildContext context) => AnimatedBoxPresenter(),
+            ),
+            ListenableProvider<FadeBoxPresenter>(
+              create: (BuildContext context) => FadeBoxPresenter(),
+            ),
+            ListenableProvider<FadeButtonsPresenter>(
+              create: (BuildContext context) => FadeButtonsPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(homeViewModelMock),
+              title: _title,
+            ),
+          ),
+        );
+
+    testWidgets('General smoke test - ${_title}', (WidgetTester tester) async {
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
+
+      /// verify if have a `Align` widget with `section-iii` key.
+      expect(_sectionIII, findsOneWidget);
+    });
 
     testWidgets('`Transferir` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a `Icon` widget with `attach_money` icon.
       expect(find.byIcon(Icons.attach_money), findsOneWidget);
@@ -94,7 +107,7 @@ void main() {
 
     testWidgets('`Cartão virtual` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a `Icon` widget with `credit_card` icon.
       expect(
@@ -116,7 +129,7 @@ void main() {
 
     testWidgets('`Pagar` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a `Icon` widget with `flip` icon.
       expect(find.byIcon(Icons.flip), findsOneWidget);
@@ -134,7 +147,7 @@ void main() {
 
     testWidgets('`Bloquear cartão` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
@@ -156,7 +169,7 @@ void main() {
 
     testWidgets('`Depositar` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
@@ -182,7 +195,7 @@ void main() {
 
     testWidgets('`Cobrar` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
@@ -208,7 +221,7 @@ void main() {
 
     testWidgets('`Recarga de celular` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
@@ -234,7 +247,7 @@ void main() {
 
     testWidgets('`Indicar amigos` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
@@ -260,7 +273,7 @@ void main() {
 
     testWidgets('`Ajustar limite` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));
@@ -286,7 +299,7 @@ void main() {
 
     testWidgets('`Organizar atalhos` button smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// [Gesture 👉↔️👉] Drag `LEFT` the `Container` Widget
       await tester.drag(_blockingCardButton, Offset(-240.0, 0.0));

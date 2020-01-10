@@ -1,7 +1,9 @@
+import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/utils/globals.dart' as globals;
 
 class Config {
   static String version = "1.0.1";
+  static DateTime _now = DateTime.now();
 
   /// Default data used to register new Customer 👤
   String userUuid;
@@ -23,6 +25,121 @@ class Config {
   double balancesAvailableValue = 9421.71;
   double balancesAvailablePercent = 62.809306356454776;
   int balancesAvailableFlex = 63;
+  List<Map<String, dynamic>> cardHistoryItems = [
+    {
+      'type': 'income',
+      'icon': null,
+      'title': 'Pagamento recebido',
+      'text': null,
+      'money': 3195.96,
+      'division': null,
+      'date': DateTime(_now.year, _now.month, _now.day, _now.hour, _now.minute)
+          .toString(),
+      'tags': null,
+    },
+    {
+      'type': 'expense',
+      'icon': 59497, // Icons.build
+      'title': 'Serviços',
+      'text': 'Pag*Marcus',
+      'money': 20.00,
+      'division': null,
+      'date': DateTime(
+              _now.year, _now.month, _now.day, _now.hour - 8, _now.minute - 29)
+          .toString(),
+      'tags': '#Roupas👚,#Tag1🎅',
+    },
+    {
+      'type': 'system',
+      'icon': null,
+      'title': 'Fatura fechada',
+      'text': 'Vence em 22/12, e hoje é o melhor dia para compras.',
+      'money': 3195.96,
+      'division': null,
+      'date': DateTime(_now.year, _now.month, _now.day - 1).toString(),
+      'tags': null,
+    },
+    {
+      'type': 'expense',
+      'icon': 58672, // Icons.directions_bus
+      'title': 'Transporte',
+      'text': 'Belcar Veiculos',
+      'money': 48.00,
+      'division': null,
+      'date': DateTime(_now.year, _now.month, _now.day - 3).toString(),
+      'tags': '#Manutenção Carro🔧,#Tag1🎅,#Tag2🎄',
+    },
+    {
+      'type': 'expense',
+      'icon': 59596, // Icons.shopping_cart
+      'title': 'Supermercado',
+      'text': 'Distribuidora Souza',
+      'money': 13.50,
+      'division': null,
+      'date': DateTime(_now.year, _now.month, _now.day - 5).toString(),
+      'tags': '#Bebidas🍹,#Tag2🎄',
+    },
+    {
+      'type': 'expense',
+      'icon': 58732, // Icons.restaurant
+      'title': 'Restaurante',
+      'text': 'D Salgados e Doces',
+      'money': 5.50,
+      'division': null,
+      'date': DateTime(_now.year, _now.month, _now.day - 7).toString(),
+      'tags': '#Bebidas🍹',
+    },
+    {
+      'type': 'expense',
+      'icon': 58672, // Icons.directions_bus
+      'title': 'Transporte',
+      'text': 'Scp Estacionamento Goi',
+      'money': 5.00,
+      'division': null,
+      'date': DateTime(_now.year, _now.month, _now.day - 13).toString(),
+      'tags': '#Parking🚏,#Tag2🎄',
+    },
+    {
+      'type': 'income',
+      'icon': null,
+      'title': 'Pagamento recebido',
+      'text': null,
+      'money': null,
+      'division': null,
+      'date': DateTime(_now.year, _now.month - 1, _now.day - 2).toString(),
+      'tags': null,
+    },
+    {
+      'type': 'expense',
+      'icon': 59495, // Icons.bookmark_border
+      'title': 'Outros',
+      'text': 'Parcelamento de Fatura (22/Novembro)',
+      'money': 516.39,
+      'division': 'Em 3x',
+      'date': DateTime(_now.year, _now.month - 1, _now.day - 3).toString(),
+      'tags': '#Parcelamento Cartão💸',
+    },
+    {
+      'type': 'expense',
+      'icon': 57824, // Icons.usb
+      'title': 'Eletrônicos',
+      'text': 'Pag*Visa',
+      'money': 10.00,
+      'division': null,
+      'date': DateTime(_now.year - 1, _now.month - 3, _now.day - 17).toString(),
+      'tags': '#Brinquedos🎁',
+    },
+    {
+      'type': 'expense',
+      'icon': 58355, // Icons.healing
+      'title': 'Saúde',
+      'text': '2519drogasil',
+      'money': 52.43,
+      'division': null,
+      'date': DateTime(_now.year - 2, _now.month - 1, _now.day - 23).toString(),
+      'tags': '#Remédios💊',
+    },
+  ];
 
   /// SharedPreferences Mock Initial Values
   Map<String, dynamic> fullDataMock(Config config) => {
@@ -64,6 +181,24 @@ class Config {
     globals.balancesAvailableValue = config.balancesAvailableValue;
     globals.balancesAvailablePercent = config.balancesAvailablePercent;
     globals.balancesAvailableFlex = config.balancesAvailableFlex;
+  }
+
+  /// homeViewModel Mock Initial Values
+  HomeViewModel homeViewModelMock(
+    HomeViewModel homeViewModelMock, [
+    bool darkIsEnable = false,
+  ]) {
+    homeViewModelMock.darkIsEnable = darkIsEnable;
+    homeViewModelMock.initialPageCarousel = 0;
+    homeViewModelMock.currentPageCarousel = 0;
+    homeViewModelMock.balancesOpenValue = Config().balancesOpenValue;
+    homeViewModelMock.balancesOpenPercent = Config().balancesOpenPercent;
+    homeViewModelMock.balancesOpenFlex = Config().balancesOpenFlex;
+    homeViewModelMock.balancesAvailableValue = Config().balancesAvailableValue;
+    homeViewModelMock.balancesAvailablePercent =
+        Config().balancesAvailablePercent;
+    homeViewModelMock.balancesAvailableFlex = Config().balancesAvailableFlex;
+    return homeViewModelMock;
   }
 
   /// [Customer] EndPoints

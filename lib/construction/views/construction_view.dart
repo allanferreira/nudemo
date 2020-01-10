@@ -169,12 +169,12 @@ class ConstructionPage extends StatelessWidget {
     final double _positionedHeight = _screenHeight - _topSpace;
 
     return Stack(
+      key: Key('construction-page'),
       children: <Widget>[
         Positioned(
           top: _topSpace,
           width: _screenWidth,
           height: _positionedHeight,
-          key: Key('construction-page'),
           child: Scaffold(
             key: _scaffoldKey,
             body: _body(context),

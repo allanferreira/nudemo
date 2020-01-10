@@ -29,8 +29,8 @@ class HomePresenter with ChangeNotifier {
   Utils _utils = Utils();
   static SharedPreferences sharedPrefs;
 
-  HomePresenter() {
-    this._homeViewModel = HomeViewModel();
+  HomePresenter([HomeViewModel homeViewModelMock]) {
+    this._homeViewModel = homeViewModelMock ?? HomeViewModel();
   }
 
   /// Check system brightness [platformBrightness]
@@ -260,7 +260,7 @@ class HomePresenter with ChangeNotifier {
 
         if (accountBalance != null) {
           /// Calculate percentage balances
-          // calculatePercentBalances(accountBalance: accountBalance);
+          calculatePercentBalances(accountBalance: accountBalance.balance);
 
           return true;
         }

@@ -15,8 +15,8 @@ import 'package:nudemo/card/viewmodel/card_viewmodel.dart';
 class CardPresenter with ChangeNotifier {
   CardViewModel _cardViewModel;
 
-  CardPresenter() {
-    this._cardViewModel = CardViewModel();
+  CardPresenter([CardViewModel cardViewModelMock]) {
+    this._cardViewModel = cardViewModelMock ?? CardViewModel();
   }
 
   List<Map<String, dynamic>> getCardHistoryItems() =>

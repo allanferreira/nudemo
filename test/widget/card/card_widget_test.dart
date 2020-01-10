@@ -5,12 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:nudemo/card/views/card_view.dart';
 import 'package:nudemo/card/presenter/card_presenter.dart';
+import 'package:nudemo/card/viewmodel/card_viewmodel.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/utils/config.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   Config config = Config();
+  CardViewModel cardViewModelMock = CardViewModel();
 
   setUp(() {
     /// Mock Config class
@@ -22,6 +24,9 @@ void main() {
 
     /// Mock Global Variables
     config.globalVariablesMock(isLoggedIn: true, config: config);
+
+    // Mocking ViewModel
+    cardViewModelMock.cardHistoryItems = Config().cardHistoryItems;
   });
 
   group('[Widget -> Card page]', () {
@@ -35,26 +40,35 @@ void main() {
     final Finder _verticalChartBar = find.byKey(Key('vertical-chart-bar'));
     final Finder _listItem1 = find.byKey(Key('item-0'));
 
-    final Widget _pumpWidget = MultiProvider(
-      providers: [
-        ChangeNotifierProvider<CardPresenter>.value(
-          value: CardPresenter(),
-        ),
-        ChangeNotifierProvider<HomePresenter>(
-          create: (BuildContext context) => HomePresenter(),
-        ),
-      ],
-      child: MaterialApp(
-        home: CardPage(
-          presenter: CardPresenter(),
-          title: title,
-        ),
-      ),
-    );
+    Widget _pumpApp(CardViewModel cardViewModelMock) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider<CardPresenter>.value(
+              value: CardPresenter(),
+            ),
+            ChangeNotifierProvider<HomePresenter>(
+              create: (BuildContext context) => HomePresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: CardPage(
+              presenter: CardPresenter(cardViewModelMock),
+              title: title,
+            ),
+          ),
+        );
 
-    testWidgets('Smoke test - ${title}', (WidgetTester tester) async {
+    testWidgets('General smoke test - Without mock - ${title}',
+        (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(CardViewModel()));
+
+      /// verify if have a `Stack` widget with `card-page` key.
+      expect(_cardPage, findsOneWidget);
+    });
+
+    testWidgets('General Smoke test - ${title}', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(_pumpApp(cardViewModelMock));
 
       /// verify if have any `Stack` widget.
       expect(find.byType(Stack), findsWidgets);
@@ -86,7 +100,7 @@ void main() {
 
     testWidgets('Vertical chart bar smoke test', (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(cardViewModelMock));
 
       /// verify if have a vertical chart bar widget.
       expect(
@@ -136,7 +150,7 @@ void main() {
 
     testWidgets('RefreshIndicator smoke test', (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(cardViewModelMock));
 
       /// [Gesture 👆↕️👆] Drag `Down` the `CustomScrollView` Widget
       await tester.drag(
@@ -155,7 +169,7 @@ void main() {
 
     testWidgets('SliverAppBar smoke test', (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(cardViewModelMock));
 
       /// verify if have a `Icon` widget with `lock` icon.
       expect(
@@ -254,7 +268,7 @@ void main() {
 
     testWidgets('SliverList smoke test', (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(cardViewModelMock));
 
       final BuildContext childContext = tester.element(_cardPage);
       final size = MediaQuery.of(childContext).size;

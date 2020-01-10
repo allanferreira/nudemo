@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:nudemo/home/views/home_view.dart';
 import 'package:nudemo/home/presenter/home_presenter.dart';
+import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/home/presenter/animated_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_box_presenter.dart';
 import 'package:nudemo/home/presenter/fade_buttons_presenter.dart';
@@ -16,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   Config config = Config();
+  HomeViewModel homeViewModelMock = HomeViewModel();
 
   setUp(() {
     /// Mock Config class
@@ -27,6 +29,9 @@ void main() {
 
     /// Mock Global Variables
     config.globalVariablesMock(isLoggedIn: true, config: config);
+
+    // Mocking ViewModel
+    homeViewModelMock = config.homeViewModelMock(homeViewModelMock);
   });
 
   group('[Widget -> Home page] - Section IV', () {
@@ -48,39 +53,39 @@ void main() {
 
     final Finder _goBackButton = find.byKey(Key('go-back-button'));
 
-    final Widget _pumpWidget = MultiProvider(
-      providers: [
-        ChangeNotifierProvider<HomePresenter>(
-          create: (BuildContext context) => HomePresenter(),
-        ),
-        ChangeNotifierProvider<ConstructionPresenter>(
-          create: (BuildContext context) => ConstructionPresenter(),
-        ),
-        ChangeNotifierProvider<CardPresenter>(
-          create: (BuildContext context) => CardPresenter(),
-        ),
-        ListenableProvider<AnimatedBoxPresenter>(
-          create: (BuildContext context) => AnimatedBoxPresenter(),
-        ),
-        ListenableProvider<FadeBoxPresenter>(
-          create: (BuildContext context) => FadeBoxPresenter(),
-        ),
-        ListenableProvider<FadeButtonsPresenter>(
-          create: (BuildContext context) => FadeButtonsPresenter(),
-        ),
-      ],
-      child: MaterialApp(
-        home: HomePage(
-          presenter: HomePresenter(),
-          title: _title,
-        ),
-      ),
-    );
+    Widget _pumpApp(HomeViewModel homeViewModelMock) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider<HomePresenter>(
+              create: (BuildContext context) => HomePresenter(),
+            ),
+            ChangeNotifierProvider<ConstructionPresenter>(
+              create: (BuildContext context) => ConstructionPresenter(),
+            ),
+            ChangeNotifierProvider<CardPresenter>(
+              create: (BuildContext context) => CardPresenter(),
+            ),
+            ListenableProvider<AnimatedBoxPresenter>(
+              create: (BuildContext context) => AnimatedBoxPresenter(),
+            ),
+            ListenableProvider<FadeBoxPresenter>(
+              create: (BuildContext context) => FadeBoxPresenter(),
+            ),
+            ListenableProvider<FadeButtonsPresenter>(
+              create: (BuildContext context) => FadeButtonsPresenter(),
+            ),
+          ],
+          child: MaterialApp(
+            home: HomePage(
+              presenter: HomePresenter(homeViewModelMock),
+              title: _title,
+            ),
+          ),
+        );
 
     testWidgets('Tap gesture animation smoke test',
         (WidgetTester tester) async {
       // Build our app and trigger a frame.
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// Verify that there is a `Align` Widget with key `section-iv`.
       expect(_sectionIV, findsOneWidget);
@@ -123,7 +128,7 @@ void main() {
 
     testWidgets('Drag gesture animation smoke test',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       final BuildContext childContext = tester.element(_homePage);
       final size = MediaQuery.of(childContext).size;
@@ -174,7 +179,7 @@ void main() {
 
     testWidgets('Tap `/card/` route of carousel smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have 3 `Icon` widgets.
       expect(
@@ -301,7 +306,7 @@ void main() {
 
     testWidgets('Tap `/nuconta/` route of carousel smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a [Button] widget with `/nuconta/` key.
       expect(_nuContaButton, findsOneWidget);
@@ -313,7 +318,7 @@ void main() {
 
     testWidgets('Tap `/rewards/` route of carousel smoke test - ${_title}',
         (WidgetTester tester) async {
-      await tester.pumpWidget(_pumpWidget);
+      await tester.pumpWidget(_pumpApp(homeViewModelMock));
 
       /// verify if have a [Button] widget with `/rewards/` key.
       expect(_rewardsButton, findsOneWidget);

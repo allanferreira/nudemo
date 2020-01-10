@@ -143,12 +143,12 @@ class SignupPage extends StatelessWidget {
     final double _positionedHeight = _screenHeight - _topSpace;
 
     return Stack(
+      key: Key('signup-page'),
       children: <Widget>[
         Positioned(
           top: _topSpace,
           width: _screenWidth,
           height: _positionedHeight,
-          key: Key('signup-page'),
           child: Scaffold(
             body: _body(context),
           ),

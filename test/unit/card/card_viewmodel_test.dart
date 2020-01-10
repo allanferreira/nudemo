@@ -28,12 +28,12 @@ void main() {
       );
     });
 
-    test('the `cardHistoryItems` value should not be empty', () {
-      expect(cardViewModel.cardHistoryItems.isNotEmpty, true);
+    test('the `cardHistoryItems` value should be empty', () {
+      expect(cardViewModel.cardHistoryItems.isEmpty, true);
     });
 
-    test('the `cardHistoryItems` value should be a list with 11 items', () {
-      expect(cardViewModel.cardHistoryItems.length, 11);
+    test('the `cardHistoryItems` value should be a list with 0 item', () {
+      expect(cardViewModel.cardHistoryItems.length, 0);
     });
   });
 }

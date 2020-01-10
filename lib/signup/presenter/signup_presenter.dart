@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 class SignupPresenter with ChangeNotifier {
   // SignupViewModel _signupViewModel;
 
-  // SignupPresenter() {
-  //   this._signupViewModel = SignupViewModel();
+  // SignupPresenter([SignupViewModel signupViewModelMock]) {
+  //   this._signupViewModel = signupViewModelMock ?? SignupViewModel();
   // }
 }

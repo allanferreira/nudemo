@@ -3,20 +3,40 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:nudemo/rewards/views/rewards_view.dart';
 import 'package:nudemo/rewards/presenter/rewards_presenter.dart';
+import 'package:nudemo/rewards/viewmodel/rewards_viewmodel.dart';
 
 void main() {
+  // Mocking ViewModel
+  RewardsViewModel rewardsViewModelMock = RewardsViewModel();
+
   group('[Widget -> Rewards page]', () {
     final String title = 'Rewards';
-    testWidgets('Smoke test - ${title}', (WidgetTester tester) async {
-      // Build our app and trigger a frame.
-      await tester.pumpWidget(
-        MaterialApp(
+
+    final Finder _rewardsPage = find.byKey(Key('rewards-page'));
+
+    Widget _pumpApp(RewardsViewModel rewardsViewModelMock) => MaterialApp(
           home: RewardsPage(
+            // presenter: RewardsPresenter(rewardsViewModelMock),
             presenter: RewardsPresenter(),
             title: title,
           ),
-        ),
-      );
+        );
+
+    testWidgets('General smoke test - Without mock - ${title}',
+        (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(_pumpApp(RewardsViewModel()));
+
+      /// verify if have a `Stack` widget with `rewards-page` key.
+      expect(_rewardsPage, findsOneWidget);
+    });
+
+    testWidgets('General smoke test - ${title}', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(_pumpApp(rewardsViewModelMock));
+
+      /// verify if have a `Stack` widget with `rewards-page` key.
+      expect(_rewardsPage, findsOneWidget);
 
       /// verify if have text `Rewards` (route `/card/`).
       expect(find.text(title.toUpperCase()), findsOneWidget);

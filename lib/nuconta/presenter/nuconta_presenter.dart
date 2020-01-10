@@ -7,7 +7,7 @@
 class NucontaPresenter {
   // NucontaViewModel _nucontaViewModel;
 
-  // NucontaPresenter() {
-  //   this._nucontaViewModel = NucontaViewModel();
+  // NucontaPresenter([NucontaViewModel nucontaViewModelMock]) {
+  //   this._nucontaViewModel = nucontaViewModelMock ?? NucontaViewModel();
   // }
 }

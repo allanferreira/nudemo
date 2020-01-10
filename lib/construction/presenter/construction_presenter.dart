@@ -13,8 +13,9 @@ import 'package:nudemo/construction/viewmodel/construction_viewmodel.dart';
 class ConstructionPresenter with ChangeNotifier {
   ConstructionViewModel _constructionViewModel;
 
-  ConstructionPresenter() {
-    this._constructionViewModel = ConstructionViewModel();
+  ConstructionPresenter([ConstructionViewModel constructionViewModelMock]) {
+    this._constructionViewModel =
+        constructionViewModelMock ?? ConstructionViewModel();
   }
 
   int getValue() => this._constructionViewModel.counter;

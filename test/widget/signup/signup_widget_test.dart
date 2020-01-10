@@ -3,24 +3,40 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:nudemo/signup/views/signup_view.dart';
 import 'package:nudemo/signup/presenter/signup_presenter.dart';
+import 'package:nudemo/signup/viewmodel/signup_viewmodel.dart';
 
 void main() {
+  // Mocking ViewModel
+  SignupViewModel signupViewModelMock = SignupViewModel();
+
   group('[Widget -> Sign Up page]', () {
     final String title = 'Sign Up';
-    testWidgets('Smoke test - ${title}', (WidgetTester tester) async {
-      // Build our app and trigger a frame.
-      await tester.pumpWidget(
-        MaterialApp(
+
+    final Finder _signupPage = find.byKey(Key('signup-page'));
+
+    Widget _pumpApp(SignupViewModel signupViewModelMock) => MaterialApp(
           home: SignupPage(
+            // presenter: SignupPresenter(signupViewModelMock),
             presenter: SignupPresenter(),
             title: title,
           ),
-        ),
-      );
+        );
 
-      /// verify if have a widget with key `signup-page`
-      /// (route `/`) with unlogged user.
-      expect(find.byKey(Key('signup-page')), findsOneWidget);
+    testWidgets('General smoke test - Without mock - ${title}',
+        (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(_pumpApp(SignupViewModel()));
+
+      /// verify if have a `Stack` widget with `signup-page` key.
+      expect(_signupPage, findsOneWidget);
+    });
+
+    testWidgets('General smoke test - ${title}', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(_pumpApp(signupViewModelMock));
+
+      /// verify if have a `Stack` widget with `signup-page` key.
+      expect(_signupPage, findsOneWidget);
 
       /// verify if have text `Sign Up`.
       expect(find.text(title.toUpperCase()), findsOneWidget);

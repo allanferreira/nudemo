@@ -4,13 +4,18 @@ import 'package:provider/provider.dart';
 
 import 'package:nudemo/construction/views/construction_view.dart';
 import 'package:nudemo/construction/presenter/construction_presenter.dart';
+import 'package:nudemo/construction/viewmodel/construction_viewmodel.dart';
 
 void main() {
+  // Mocking ViewModel
+  ConstructionViewModel constructionViewModelMock = ConstructionViewModel();
+
   group('[Widget -> Construction page]', () {
     final String title = 'Construction page';
-    testWidgets('Smoke test - ${title}', (WidgetTester tester) async {
-      // Build our app and trigger a frame.
-      await tester.pumpWidget(
+
+    final Finder _constructionPage = find.byKey(Key('construction-page'));
+
+    Widget _pumpApp(ConstructionViewModel constructionViewModelMock) =>
         MultiProvider(
           providers: [
             ChangeNotifierProvider<ConstructionPresenter>.value(
@@ -19,12 +24,27 @@ void main() {
           ],
           child: MaterialApp(
             home: ConstructionPage(
-              presenter: ConstructionPresenter(),
+              presenter: ConstructionPresenter(constructionViewModelMock),
               title: title,
             ),
           ),
-        ),
-      );
+        );
+
+    testWidgets('General smoke test - Without mock - ${title}',
+        (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(_pumpApp(ConstructionViewModel()));
+
+      /// verify if have a `Stack` widget with `card-page` key.
+      expect(_constructionPage, findsOneWidget);
+    });
+
+    testWidgets('General smoke test - ${title}', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(_pumpApp(constructionViewModelMock));
+
+      /// verify if have a `Stack` widget with `construction-page` key.
+      expect(_constructionPage, findsOneWidget);
 
       /// verify if have text `Construction page`
       expect(find.text(title.toUpperCase()), findsOneWidget);
