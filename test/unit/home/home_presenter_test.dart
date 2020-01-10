@@ -3,6 +3,7 @@ import 'package:test/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import 'package:matcher/src/type_matcher.dart' as matcher;
 
 import 'package:nudemo/home/presenter/home_presenter.dart';
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
@@ -80,10 +81,10 @@ void main() {
     final Color activeColor = Colors.black45;
     final Color unactiveColor = Colors.white;
 
-    test('`getNuTheme()` run time type should be [ThemeData]', () {
+    test('`getNuTheme()` TypeMatcher should be [ThemeData]', () {
       expect(
-        homePresenter.getNuTheme().runtimeType,
-        ThemeData,
+        homePresenter.getNuTheme(),
+        const matcher.TypeMatcher<ThemeData>(),
       );
     });
 
@@ -133,10 +134,10 @@ void main() {
       );
     });
 
-    test('`getNuThemeFromKey()` run time type should be [ThemeData]', () {
+    test('`getNuThemeFromKey()` TypeMatcher should be [ThemeData]', () {
       expect(
-        homePresenter.getNuThemeFromKey(NuThemeKeys.DEFAULT).runtimeType,
-        ThemeData,
+        homePresenter.getNuThemeFromKey(NuThemeKeys.DEFAULT),
+        const matcher.TypeMatcher<ThemeData>(),
       );
     });
 
@@ -366,10 +367,10 @@ void main() {
       );
     });
 
-    test('`getNuThemeFromKey()` run time type should be [ThemeData]', () {
+    test('`getNuThemeFromKey()` TypeMatcher should be [ThemeData]', () {
       expect(
-        homePresenter.getNuThemeFromKey(NuThemeKeys.DEFAULT).runtimeType,
-        ThemeData,
+        homePresenter.getNuThemeFromKey(NuThemeKeys.DEFAULT),
+        const matcher.TypeMatcher<ThemeData>(),
       );
     });
 
@@ -813,8 +814,11 @@ void main() {
       config.globalVariablesMock(isLoggedIn: false, config: config);
     });
 
-    test('initial `sharedPrefs` value should be null', () {
-      expect(HomePresenter.sharedPrefs.runtimeType, SharedPreferences);
+    test('initial `sharedPrefs` TypeMatcher should be [SharedPreferences]', () {
+      expect(
+        HomePresenter.sharedPrefs,
+        const matcher.TypeMatcher<SharedPreferences>(),
+      );
     });
 
     test('check values after first run `userDataInitialSetup()` successfully',

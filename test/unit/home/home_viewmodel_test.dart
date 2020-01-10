@@ -1,4 +1,5 @@
 import 'package:test/test.dart';
+import 'package:matcher/src/type_matcher.dart' as matcher;
 
 import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 
@@ -31,8 +32,11 @@ void main() {
       expect(NuThemeKeys.values.length, 4);
     });
 
-    test('the `limitValue` run time type should be [double]', () {
-      expect(homeViewModel.limitValue.runtimeType, double);
+    test('the `limitValue` TypeMatcher should be [double]', () {
+      expect(
+        homeViewModel.limitValue,
+        const matcher.TypeMatcher<double>(),
+      );
     });
 
     test('the `limitValue` value should be [finite]', () {
@@ -47,8 +51,11 @@ void main() {
       expect(homeViewModel.limitValue, 0.0);
     });
 
-    test('the `limitPercent` run time type should be [double]', () {
-      expect(homeViewModel.limitPercent.runtimeType, double);
+    test('the `limitPercent` TypeMatcher should be [double]', () {
+      expect(
+        homeViewModel.limitPercent,
+        const matcher.TypeMatcher<double>(),
+      );
     });
 
     test('the `limitPercent` value should be [finite]', () {
@@ -63,8 +70,11 @@ void main() {
       expect(homeViewModel.limitPercent, 100.00);
     });
 
-    test('the `balancesFutureValue` run time type should be [double]', () {
-      expect(homeViewModel.balancesFutureValue.runtimeType, double);
+    test('the `balancesFutureValue` TypeMatcher should be [double]', () {
+      expect(
+        homeViewModel.balancesFutureValue,
+        const matcher.TypeMatcher<double>(),
+      );
     });
 
     test('initial `balancesFutureValue` value should be 0.0', () {
@@ -79,8 +89,11 @@ void main() {
       expect(homeViewModel.balancesFutureFlex, 0);
     });
 
-    test('the `balancesOpenValue` run time type should be [double]', () {
-      expect(homeViewModel.balancesOpenValue.runtimeType, double);
+    test('the `balancesOpenValue` TypeMatcher should be [double]', () {
+      expect(
+        homeViewModel.balancesOpenValue,
+        const matcher.TypeMatcher<double>(),
+      );
     });
 
     test('initial `balancesOpenValue` value should be 0.0', () {
@@ -95,8 +108,11 @@ void main() {
       expect(homeViewModel.balancesOpenFlex, 0);
     });
 
-    test('the `balancesAvailableValue` run time type should be [double]', () {
-      expect(homeViewModel.balancesAvailableValue.runtimeType, double);
+    test('the `balancesAvailableValue` TypeMatcher should be [double]', () {
+      expect(
+        homeViewModel.balancesAvailableValue,
+        const matcher.TypeMatcher<double>(),
+      );
     });
 
     test('initial `balancesAvailableValue` value should be 0.0', () {
@@ -111,34 +127,44 @@ void main() {
       expect(homeViewModel.balancesAvailableFlex, 100);
     });
 
-    test('the `balancesDueValue` run time type should be [double]', () {
-      expect(homeViewModel.balancesDueValue.runtimeType, double);
+    test('the `balancesDueValue` TypeMatcher should be [double]', () {
+      expect(
+        homeViewModel.balancesDueValue,
+        const matcher.TypeMatcher<double>(),
+      );
     });
 
     test('initial `balancesDueValue` value should be 0', () {
       expect(homeViewModel.balancesDueValue, 0);
     });
 
-    test('the `balancesDuePercent` run time type should be [double]', () {
-      expect(homeViewModel.balancesDuePercent.runtimeType, double);
+    test('the `balancesDuePercent` TypeMatcher should be [double]', () {
+      expect(
+        homeViewModel.balancesDuePercent,
+        const matcher.TypeMatcher<double>(),
+      );
     });
 
     test('initial `balancesDuePercent` value should be 0', () {
       expect(homeViewModel.balancesDuePercent, 0);
     });
 
-    test('the `balancesDueFlex` run time type should be [int]', () {
-      expect(homeViewModel.balancesDueFlex.runtimeType, int);
+    test('the `balancesDueFlex` TypeMatcher should be [int]', () {
+      expect(
+        homeViewModel.balancesDueFlex,
+        const matcher.TypeMatcher<int>(),
+      );
     });
 
     test('initial `balancesDueFlex` value should be 0', () {
       expect(homeViewModel.balancesDueFlex, 0);
     });
 
-    test('the `lastCardRegister` tyle should be `Map<String, dynamic>`', () {
+    test('the `lastCardRegister` TypeMatcher should be [Map<String, dynamic>]',
+        () {
       expect(
-        homeViewModel.lastCardRegister.runtimeType,
-        lastCardRegister.runtimeType,
+        homeViewModel.lastCardRegister,
+        const matcher.TypeMatcher<Map<String, dynamic>>(),
       );
     });
 
@@ -147,12 +173,18 @@ void main() {
       expect(homeViewModel.lastCardRegister, lastCardRegister);
     });
 
-    test('the `lastCardRegister["icon"]` run time type should be [int]', () {
-      expect(homeViewModel.lastCardRegister['icon'].runtimeType, int);
+    test('the `lastCardRegister["icon"]` TypeMatcher should be [int]', () {
+      expect(
+        homeViewModel.lastCardRegister['icon'],
+        const matcher.TypeMatcher<int>(),
+      );
     });
 
-    test('the `lastCardRegister["text"]` run time type should be [String]', () {
-      expect(homeViewModel.lastCardRegister['text'].runtimeType, String);
+    test('the `lastCardRegister["text"]` TypeMatcher should be [String]', () {
+      expect(
+        homeViewModel.lastCardRegister['text'],
+        const matcher.TypeMatcher<String>(),
+      );
     });
   });
 }

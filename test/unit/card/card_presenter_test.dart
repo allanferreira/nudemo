@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:test/test.dart';
+import 'package:matcher/src/type_matcher.dart' as matcher;
 
 import 'package:nudemo/card/presenter/card_presenter.dart';
 import 'package:nudemo/card/viewmodel/card_viewmodel.dart';
@@ -10,7 +11,6 @@ void main() {
     CardPresenter cardPresenter;
     CardViewModel cardViewModel;
     List<Map<String, dynamic>> cardHistoryItems;
-    Future<Null> futureNull;
     final double widthHeight = 5.0;
     final Color activeColor = Colors.black45;
     final Color unactiveColor = Colors.white;
@@ -51,13 +51,13 @@ void main() {
       expect(cardPresenter.semanticIndexCallback(Container(), 1), 1);
     });
 
-    test('the `refreshCustomScrollView()` type should be `Future<Null>`',
+    test('the `refreshCustomScrollView()` TypeMatcher should be [Future<Null>]',
         () async {
       Future<Null> _futureNull = await cardPresenter.refreshCustomScrollView();
 
       expect(
-        _futureNull.runtimeType,
-        futureNull.runtimeType,
+        _futureNull,
+        const matcher.TypeMatcher<Null>(),
       );
     });
 

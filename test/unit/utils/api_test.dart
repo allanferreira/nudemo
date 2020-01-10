@@ -1,6 +1,7 @@
 import 'package:test/test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import 'package:matcher/src/type_matcher.dart' as matcher;
 
 import 'package:nudemo/utils/config.dart';
 import 'package:nudemo/utils/api.dart';
@@ -115,7 +116,7 @@ main() {
 
   group('[Unit -> Api] General', () {
     test(
-        'check returns type of `loadDataFromAPI()` if the http call completes successfully',
+        'check TypeMatcher of `loadDataFromAPI()` if the http call completes successfully',
         () async {
       /// Use [Mockito] to return a successful response when it calls the
       /// provided [http.Client].
@@ -147,7 +148,7 @@ main() {
           httpClient: client,
           endPoint: testEndPoint,
         ),
-        const TypeMatcher<Map<String, dynamic>>(),
+        const matcher.TypeMatcher<Map<String, dynamic>>(),
       );
     });
 
@@ -204,7 +205,7 @@ main() {
     });
 
     test(
-        'check returns type of `sendDataToAPI()` if the http call completes successfully',
+        'check TypeMatcher of `sendDataToAPI()` if the http call completes successfully',
         () async {
       /// Use [Mockito] to return a successful response when it calls the
       /// provided [http.Client].
@@ -219,7 +220,7 @@ main() {
           endPoint: testEndPoint,
           data: customerDataSend,
         ),
-        const TypeMatcher<Map<String, dynamic>>(),
+        const matcher.TypeMatcher<Map<String, dynamic>>(),
       );
     });
 
@@ -328,7 +329,7 @@ main() {
     });
 
     test(
-        'check returns type of `createCustomerApi()` if the http call completes successfully',
+        'check TypeMatcher of `createCustomerApi()` if the http call completes successfully',
         () async {
       when(client.post(Config.customerRegisterEndPoint,
               body: customerToJson(newCustomer), headers: requestHeaders))
@@ -340,7 +341,7 @@ main() {
           httpClient: client,
           customerData: newCustomer,
         ),
-        const TypeMatcher<Customer>(),
+        const matcher.TypeMatcher<Customer>(),
       );
     });
 
@@ -403,7 +404,7 @@ main() {
     });
 
     test(
-        'check returns type of `createAccountApi()` if the http call completes successfully',
+        'check TypeMatcher of `createAccountApi()` if the http call completes successfully',
         () async {
       when(client.post(Config.accountRegisterEndPoint,
               body: accountToJson(newAccount), headers: requestHeaders))
@@ -415,7 +416,7 @@ main() {
           httpClient: client,
           accountData: newAccount,
         ),
-        const TypeMatcher<Account>(),
+        const matcher.TypeMatcher<Account>(),
       );
     });
 
@@ -480,7 +481,7 @@ main() {
     });
 
     test(
-        'check returns type of `createPurchaseApi()` if the http call completes successfully',
+        'check TypeMatcher of `createPurchaseApi()` if the http call completes successfully',
         () async {
       when(client.post(Config.purchaseRegisterEndPoint,
               body: purchaseToJson(newPurchase), headers: requestHeaders))
@@ -492,7 +493,7 @@ main() {
           httpClient: client,
           purchaseData: newPurchase,
         ),
-        const TypeMatcher<Purchase>(),
+        const matcher.TypeMatcher<Purchase>(),
       );
     });
 
@@ -537,7 +538,7 @@ main() {
     });
 
     test(
-        'check returns type of `balancePurchaseApi()` if the http call completes successfully',
+        'check TypeMatcher of `balancePurchaseApi()` if the http call completes successfully',
         () async {
       when(client.get(Config.purchaseBalanceEndPoint(accountId: accountIdMock),
               headers: requestHeaders))
@@ -549,7 +550,7 @@ main() {
           httpClient: client,
           accountId: accountIdMock,
         ),
-        const TypeMatcher<Balance>(),
+        const matcher.TypeMatcher<Balance>(),
       );
     });
 
@@ -571,7 +572,7 @@ main() {
     });
 
     test(
-        'check returns type of `listPurchaseApi()` if the http call completes successfully',
+        'check TypeMatcher of `listPurchaseApi()` if the http call completes successfully',
         () async {
       when(client.get(
         Config.purchaseListEndPoint(accountId: accountIdMock, tags: tagsMock),
@@ -586,7 +587,7 @@ main() {
           accountId: accountIdMock,
           tags: tagsMock,
         ),
-        const TypeMatcher<List<Purchase>>(),
+        const matcher.TypeMatcher<List<Purchase>>(),
       );
     });
 

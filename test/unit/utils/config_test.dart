@@ -1,4 +1,5 @@
 import 'package:test/test.dart';
+import 'package:matcher/src/type_matcher.dart' as matcher;
 
 import 'package:nudemo/utils/config.dart';
 
@@ -223,8 +224,11 @@ void main() {
       expect(config.accountLimit, 18000);
     });
 
-    test('the `balancesOpenValue` run time type should be [double]', () {
-      expect(config.balancesOpenValue.runtimeType, double);
+    test('the `balancesOpenValue` TypeMatcher should be [double]', () {
+      expect(
+        config.balancesOpenValue,
+        const matcher.TypeMatcher<double>(),
+      );
     });
 
     test('initial `balancesOpenValue` value should be 5578.79', () {
@@ -239,8 +243,11 @@ void main() {
       expect(config.balancesOpenFlex, 37);
     });
 
-    test('the `balancesAvailableValue` run time type should be [double]', () {
-      expect(config.balancesAvailableValue.runtimeType, double);
+    test('the `balancesAvailableValue` TypeMatcher should be [double]', () {
+      expect(
+        config.balancesAvailableValue,
+        const matcher.TypeMatcher<double>(),
+      );
     });
 
     test('initial `balancesAvailableValue` value should be 9421.71', () {

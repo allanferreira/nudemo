@@ -1,26 +1,14 @@
 import 'package:test/test.dart';
+import 'package:matcher/src/type_matcher.dart' as matcher;
 
 import 'package:nudemo/card/viewmodel/card_viewmodel.dart';
 
 void main() {
   group('[Unit -> CardViewModel]', () {
     CardViewModel cardViewModel;
-    List<Map<String, dynamic>> cardHistoryItems;
 
     setUp(() {
       cardViewModel = CardViewModel();
-      cardHistoryItems = [
-        {
-          'type': 'income',
-          'icon': null,
-          'title': 'Pagamento recebido',
-          'text': null,
-          'money': 3195.96,
-          'division': null,
-          'date': DateTime.now().toString(),
-          'tags': null,
-        },
-      ];
     });
 
     test('initial `initialPageCarousel` value should be 0', () {
@@ -31,11 +19,12 @@ void main() {
       expect(cardViewModel.currentPageCarousel, 0);
     });
 
-    test('the `cardHistoryItems` type should be `List<Map<String, dynamic>>`',
+    test(
+        'the `cardHistoryItems` TypeMatcher should be [List<Map<String, dynamic>>]',
         () {
       expect(
-        cardViewModel.cardHistoryItems.runtimeType,
-        cardHistoryItems.runtimeType,
+        cardViewModel.cardHistoryItems,
+        const matcher.TypeMatcher<List<Map<String, dynamic>>>(),
       );
     });
 
