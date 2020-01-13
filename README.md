@@ -4,9 +4,9 @@
 
 This project deals with an mobile app demo based in **Nubank's app**, created with **[Dart language][]** and **[Flutter framework][]**.
 
-Designed from beginning with largest possible test coverage (Greater than 95% ✔️ on _[Codecov][]_), units, widgets (smoke) and automated E2E (integration) in the bests CI/CD, like _[Codemagic][]_, _[Travis CI][]_ and [AWS DeviceFarm], with minimal possible use of third-party libraries and fully with Stateless widgets (without state management, **imultable**!), thanks to the _[Provider][]_ library which is mixture between dependency injection (DI) and state management.
+Designed from beginning with largest possible test coverage (Greater than 95% ✔️ on _[Codecov][]_), units, widgets (smoke) and automated E2E (integration) in the bests CI/CD, like _[Codemagic][]_, _[Travis CI][]_ and [AWS DeviceFarm], with minimal possible use of third-party libraries and fully with Stateless widgets (without state management, **immutable**!), thanks to the _[Provider][]_ library which is mixture between dependency injection (DI) and state management.
 
-The design, well... I tried building this with most close to possible of original design, using just the _[Material Design Icons][]_ and some _[custom font][]_ free on the web. Believe me, the desing of original app is very very complex, have many smal details that make this app is singular. **Isn't easy to replay...** feel free to contribute with new pages and more details.
+The design, well... I tried building this with most close to possible of original design, using just the _[Material Design Icons][]_ and some _[custom font][]_ free on the web. Believe me, the design of original app is very very complex, have many small details that make this app is singular. **Isn't easy to replay...** feel free to contribute with new pages and more details.
 
 > _Important: After the release of **[APK v1.0.0][]**, this mobile app will be integrated with 3 more Clojure microservices (**[Customer service][]**, **[Account service][]** and **[Purchase service][]**) for a complete test system, you will need to know the **[Clojure language][]** and **[Amazon ECS instances][]** for run the app of new releases after this point!_
 
@@ -181,4 +181,4 @@ To start the mobile App example, run:
 
 ## License
 
-Copyright © 2019 | Chinnon Santos | Apache License 2.0
+Copyright © 2019 ~ 2020 | Chinnon Santos | Apache License 2.0
