@@ -11,8 +11,8 @@ void main() {
       config = Config();
     });
 
-    test('`version` should be 1.0.1', () {
-      expect(Config.version, '1.0.1');
+    test('`version` should be 1.1.0', () {
+      expect(Config.version, '1.1.0');
     });
 
     test('initial value of `userUuid` should be null', () {

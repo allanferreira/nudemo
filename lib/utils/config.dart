@@ -2,7 +2,7 @@ import 'package:nudemo/home/viewmodel/home_viewmodel.dart';
 import 'package:nudemo/utils/globals.dart' as globals;
 
 class Config {
-  static String version = "1.0.1";
+  static String version = "1.1.0";
   static DateTime _now = DateTime.now();
 
   /// Default data used to register new Customer 👤
